@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jefferson County Library — Your Library, Your Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     Design tokens — Apple-inspired × JCL palette
+     ========================================================= */
+  :root {
+    --navy: #052460;
+    --navy-dark: #041a4a;
+    --red: #da2c38;
+    --orange: #ff6b35;
+    --lilac: #c8b8db;
+    --ink: #0a0a0a;
+    --ink-muted: #4d4d4d;
+    --ink-soft: #6e6e73;
+    --line: rgba(0,0,0,0.08);
+    --line-strong: rgba(0,0,0,0.14);
+    --surface: #ffffff;
+    --surface-alt: #f5f5f7;    /* Apple-classic gray */
+    --surface-warm: #fafafa;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 10px 30px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+    --shadow-lg: 0 30px 60px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 20px 50px rgba(5,36,96,0.18), 0 6px 16px rgba(0,0,0,0.08);
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);       /* Apple's out-expo */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --dur-fast: 220ms;
+    --dur: 420ms;
+    --dur-slow: 700ms;
+    --font-display: 'Arimo', system-ui, -apple-system, sans-serif;
+    --font-brand: 'Comfortaa', 'Arimo', system-ui, sans-serif;
+  }
+
+  /* =========================================================
+     Reset + base
+     ========================================================= */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  body {
+    font-family: var(--font-display);
+    color: var(--ink);
+    background: var(--surface);
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.01em;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+  ::selection { background: var(--navy); color: #fff; }
+
+  /* =========================================================
+     Reveal animations
+     ========================================================= */
+  @keyframes rise {
+    from { opacity: 0; transform: translate3d(0, 32px, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  .reveal { opacity: 0; animation: rise 900ms var(--ease) forwards; }
+  .reveal.d1 { animation-delay: 100ms; }
+  .reveal.d2 { animation-delay: 200ms; }
+  .reveal.d3 { animation-delay: 320ms; }
+  .reveal.d4 { animation-delay: 440ms; }
+
+  /* =========================================================
+     Notice bar
+     ========================================================= */
+  .notice-bar {
+    background: var(--surface-alt);
+    height: 44px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .notice-text {
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+  }
+  .notice-text b { font-weight: 700; }
+  .top-links { display: flex; gap: 28px; color: var(--ink-soft); align-items: center; }
+  .top-links span { transition: color var(--dur-fast) var(--ease-smooth); cursor: pointer; }
+  .top-links span:hover { color: var(--ink); }
+  .lang-toggle {
+    display: inline-flex; align-items: center;
+    background: #fff;
+    border: 1px solid var(--line-strong);
+    height: 30px;
+    padding: 0 6px 0 10px;
+    gap: 8px;
+    position: relative;
+  }
+  .lang-toggle::before {
+    content: '';
+    width: 14px; height: 14px;
+    background: currentColor;
+    color: var(--ink-soft);
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='10'/><line x1='2' y1='12' x2='22' y2='12'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg>") center/contain no-repeat;
+            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='10'/><line x1='2' y1='12' x2='22' y2='12'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg>") center/contain no-repeat;
+  }
+  .lang-switch {
+    position: relative;
+    display: inline-flex;
+    background: var(--surface-alt);
+    padding: 2px;
+    height: 22px;
+  }
+  .lang-switch .slider {
+    position: absolute;
+    top: 2px; left: 2px;
+    width: calc(50% - 2px);
+    height: calc(100% - 4px);
+    background: var(--navy);
+    transition: transform var(--dur) var(--ease);
+    z-index: 0;
+  }
+  .lang-switch.es .slider { transform: translateX(100%); }
+  .lang-btn {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 30px; padding: 0 10px; height: 100%;
+    font-family: 'Arimo', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: color var(--dur) var(--ease);
+    background: transparent;
+  }
+  .lang-btn.active { color: #fff; }
+
+  /* =========================================================
+     Header — sticky, glass
+     ========================================================= */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    height: 110px;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    align-items: stretch;
+    padding: 0;
+    gap: 0;
+    transition: box-shadow var(--dur) var(--ease-smooth);
+  }
+  .brand {
+    display: flex; align-items: center; justify-content: center;
+    width: 200px; height: 110px;
+    background: var(--navy);
+    flex-shrink: 0;
+  }
+  .brand img { height: 82px; filter: brightness(0) invert(1); }
+
+  .search-bar {
+    position: relative;
+    flex: 1;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 28px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    transition: background var(--dur-fast) var(--ease);
+  }
+  .search-bar:hover { background: var(--surface-alt); }
+  .search-bar.is-open { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .search-bar .search-ico { width: 40px; height: 40px; opacity: 0.7; }
+  .search-bar input {
+    flex: 1; border: none; background: transparent; outline: none;
+    font-family: 'Arimo', sans-serif; font-size: 20px; color: var(--ink);
+  }
+  .search-bar input::placeholder { color: var(--ink-soft); }
+
+  /* Search suggestions dropdown */
+  .search-suggest {
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    right: -1px;
+    background: #fff;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.06);
+    border-top: 1px solid var(--line);
+    z-index: 60;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+  }
+  .search-bar.is-open .search-suggest {
+    opacity: 1; transform: translateY(0); pointer-events: auto;
+  }
+  .search-suggest-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .suggest-col { padding: 24px 28px; }
+  .suggest-col + .suggest-col { border-left: 1px solid var(--line); }
+  .suggest-heading {
+    font-family: 'Arimo', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .suggest-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .suggest-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 14px;
+    font-size: 15px; font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth), padding var(--dur-fast) var(--ease-smooth);
+  }
+  .suggest-item:hover { background: var(--surface-alt); padding-left: 20px; }
+  .suggest-item .s-icon {
+    width: 34px; height: 34px;
+    background: var(--surface-alt);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+  }
+  .suggest-item:hover .s-icon { background: var(--navy); color: #fff; }
+  .suggest-item .s-icon img { width: 18px; height: 18px; transition: filter var(--dur-fast) var(--ease-smooth); }
+  .suggest-item:hover .s-icon img { filter: brightness(0) invert(1); }
+  .suggest-item .s-body { flex: 1; display: flex; flex-direction: column; }
+  .suggest-item .s-label { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+  .suggest-item .s-sub { font-size: 12px; color: var(--ink-soft); font-weight: 400; margin-top: 2px; }
+  .suggest-item .s-chev {
+    opacity: 0; transform: translateX(-4px);
+    transition: opacity var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+    color: var(--navy);
+  }
+  .suggest-item .s-chev img { width: 14px; height: 14px; }
+  .suggest-item:hover .s-chev { opacity: 1; transform: translateX(0); }
+
+  .suggest-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .suggest-tag {
+    padding: 6px 12px;
+    background: var(--surface-alt);
+    font-size: 12px; font-weight: 500;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+  }
+  .suggest-tag:hover { background: var(--navy); color: #fff; }
+
+  /* backdrop */
+  .search-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.24);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-smooth);
+  }
+  .search-backdrop.is-open { opacity: 1; pointer-events: auto; }
+
+  .header-cell {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px;
+    padding: 0 32px;
+    font-family: var(--font-brand);
+    font-weight: 400;
+    font-size: 22px;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+    border-right: 1px solid var(--line);
+  }
+  .header-cell.get-card {
+    background: linear-gradient(135deg, #ff6b35 0%, #e04e17 100%);
+    color: #fff;
+    min-width: 320px;
+    font-weight: 500;
+    overflow: hidden;
+  }
+  .header-cell.get-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 900ms var(--ease);
+  }
+  .header-cell.get-card:hover::before { transform: translateX(120%); }
+  .header-cell.get-card:hover {
+    background: linear-gradient(135deg, #ff7a45 0%, #d94816 100%);
+  }
+  .header-cell.get-card .card-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    font-size: 18px;
+    transition: transform var(--dur) var(--ease);
+  }
+  .header-cell.get-card:hover .card-badge { transform: translateX(4px); }
+  .header-cell.my-account {
+    background: var(--navy); color: #fff;
+    border-right: none;
+    min-width: 200px;
+    transition: background var(--dur-fast) var(--ease);
+  }
+  .header-cell.my-account:hover { background: var(--navy-dark); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 0 24px; height: 44px;
+    font-size: 14px; font-weight: 600;
+    border-radius: 0;
+    transition: transform var(--dur-fast) var(--ease-smooth),
+                background var(--dur-fast) var(--ease-smooth),
+                box-shadow var(--dur-fast) var(--ease-smooth),
+                color var(--dur-fast) var(--ease-smooth);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .btn-ghost { color: var(--ink); }
+  .btn-ghost:hover { background: var(--surface-alt); }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-primary:hover { background: var(--navy-dark); transform: translateY(-1px); box-shadow: var(--shadow-hover); }
+  .btn-outline { border: 1px solid var(--line-strong); color: var(--ink); background: #fff; }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+  .btn-lg { padding: 0 32px; height: 56px; font-size: 16px; }
+
+  /* =========================================================
+     Main nav — clean pill
+     ========================================================= */
+  .main-nav {
+    display: flex; justify-content: center; align-items: center; gap: 4px;
+    padding: 12px 40px;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 18px;
+    font-size: 14px; font-weight: 500;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth);
+  }
+  .nav-item:hover { color: var(--ink); background: var(--surface-alt); }
+  .nav-item .caret {
+    width: 8px; height: 8px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform var(--dur-fast) var(--ease-smooth);
+  }
+  .nav-item:hover .caret { transform: rotate(45deg) translateY(0); }
+
+  /* =========================================================
+     Hero — Apple-scale headline + preview cards
+     ========================================================= */
+  .hero {
+    padding: 56px 40px 40px;
+    background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100vh - 44px - 110px - 60px - 116px); /* viewport minus notice+header+nav+explore */
+    display: flex;
+    align-items: center;
+  }
+  .hero-inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: var(--font-brand);
+    font-weight: 400;
+    font-size: clamp(44px, 5vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .hero p.lede {
+    font-size: 18px;
+    color: var(--ink-muted);
+    max-width: 500px;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+  .hero-cta-row { display: flex; gap: 12px; align-items: center; }
+
+  .hero-preview {
+    background: #fff;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .hero-events-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
+  .hero-events-head .title {
+    font-family: var(--font-brand);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .view-all-row {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    padding: 22px 24px;
+    background: #fff;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-brand);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+  }
+  .view-all-row img {
+    width: 22px; height: 22px;
+    transition: transform var(--dur-fast) var(--ease-smooth);
+  }
+  .view-all-row:hover { background: var(--surface-alt); color: var(--navy); }
+  .view-all-row:hover img { transform: translateX(4px); }
+  .event-row {
+    display: grid;
+    grid-template-columns: 112px 1fr 112px;
+    align-items: stretch;
+    border-bottom: 1px solid var(--line);
+    transition: background var(--dur-fast) var(--ease-smooth);
+    cursor: pointer;
+    min-height: 112px;
+  }
+  .event-row:last-child { border-bottom: none; }
+  .event-row:hover { background: var(--surface-alt); }
+  .date-chip {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--surface-alt);
+    color: var(--ink);
+    padding: 20px 0;
+  }
+  .event-row:nth-child(1) .date-chip { background: var(--orange); color: #fff; }
+  .date-chip .m {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 500; letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .date-chip .d {
+    font-family: var(--font-brand);
+    font-size: 44px; font-weight: 700; line-height: 1;
+    margin-top: 2px; letter-spacing: -0.04em;
+  }
+  .event-info {
+    padding: 16px 20px;
+    display: flex; flex-direction: column; justify-content: center; gap: 6px;
+  }
+  .event-title {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 500; letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .event-loc { font-size: 13px; color: var(--ink-soft); }
+  .event-bottom-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 2px;
+  }
+  .event-time { font-size: 14px; color: var(--ink); font-weight: 500; }
+  .event-direction {
+    border-left: 1px solid var(--line);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px;
+    font-size: 12px; font-weight: 500; color: var(--ink-muted);
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+  .event-row:hover .event-direction { color: var(--navy); }
+  .event-direction .angle-icon {
+    width: 32px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform var(--dur-fast) var(--ease-smooth);
+  }
+  .event-direction .angle-icon img { width: 100%; height: 100%; }
+  .event-row:hover .event-direction .angle-icon {
+    transform: translateX(4px) translateY(-2px);
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    background: #fef2f2; color: #ef4444;
+    font-size: 12px; font-weight: 600;
+  }
+  .pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* =========================================================
+     Explore by — tri-panel
+     ========================================================= */
+  .explore-strip {
+    padding: 20px 40px;
+    background: #fff;
+  }
+  .explore-inner {
+    max-width: 1360px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  .explore-label {
+    display: flex; align-items: center;
+    font-size: 14px; font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .explore-tile {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 24px;
+    color: #fff;
+    font-family: var(--font-brand);
+    font-weight: 500;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    min-height: 76px;
+  }
+  .explore-tile::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 900ms var(--ease);
+  }
+  .explore-tile:hover { filter: brightness(1.06); }
+  .explore-tile:hover::after { transform: translateX(120%); }
+  .explore-tile.adults { background: linear-gradient(135deg, #da2c38 0%, #b91c26 100%); }
+  .explore-tile.kids   { background: linear-gradient(135deg, #c8b8db 0%, #8f77b0 100%); }
+  .explore-tile.teens  { background: linear-gradient(135deg, #ff6b35 0%, #d94816 100%); }
+  .explore-tile .arr {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+  }
+  .explore-tile .arr img { width: 22px; height: 22px; }
+  .explore-tile:hover .arr { transform: translateX(4px); background: rgba(255,255,255,0.32); }
+
+  /* =========================================================
+     Section shell
+     ========================================================= */
+  .section { padding: 120px 40px; }
+  .section-inner { max-width: 1360px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 72px; }
+  .section-eyebrow {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .section h2 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 20px; color: var(--ink-muted); max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* =========================================================
+     Books
+     ========================================================= */
+  .books-section { background: var(--surface-alt); }
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+  .book-card {
+    background: #fff;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    cursor: pointer;
+  }
+  .book-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+  .book-cover {
+    aspect-ratio: 2/3;
+    background-size: cover;
+    background-position: center;
+    background-color: #eee;
+    transition: transform var(--dur-slow) var(--ease);
+  }
+  .book-card:hover .book-cover { transform: scale(1.05); }
+  .book-info { padding: 20px; text-align: left; }
+  .book-info .title {
+    font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px;
+  }
+  .book-info .author { font-size: 14px; color: var(--ink-soft); }
+
+  .pagination {
+    display: flex; justify-content: center; align-items: center; gap: 4px;
+    margin-top: 56px;
+  }
+  .page-btn {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+  }
+  .page-btn:hover { background: #fff; color: var(--ink); }
+  .page-btn.active { background: var(--navy); color: #fff; }
+  .page-arrow {
+    width: 44px; height: 40px;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: transform var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth);
+    margin: 0 8px;
+  }
+  .page-arrow img { width: 18px; height: 18px; transition: filter var(--dur-fast) var(--ease-smooth); }
+  .page-arrow.prev img { transform: rotate(180deg); }
+  .page-arrow:hover { background: var(--navy); }
+  .page-arrow:hover img { filter: brightness(0) invert(1); }
+
+  /* =========================================================
+     Libraries — Branch cards
+     ========================================================= */
+  .edge-section { padding-left: 0; padding-right: 0; }
+  .section-inner-wide { max-width: none; margin: 0; width: 100%; }
+  .section-inner-wide .section-head { padding: 0 40px; }
+  .branch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    text-align: left;
+  }
+  .branch-card {
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    transition: transform var(--dur) var(--ease), z-index 0s var(--dur);
+    cursor: pointer;
+  }
+  .branch-card:hover { z-index: 2; }
+  .branch-photo {
+    position: relative;
+    height: 480px;
+    overflow: hidden;
+  }
+  .branch-photo-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform var(--dur-slow) var(--ease);
+    z-index: 0;
+  }
+  .branch-card:hover .branch-photo-bg { transform: scale(1.06); }
+  .branch-photo::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .branch-status {
+    position: absolute; top: 20px; left: 20px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-size: 12px; font-weight: 600; color: var(--ink);
+    z-index: 2;
+  }
+  .branch-status::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+  }
+  .branch-chips-overlay {
+    position: absolute;
+    right: 20px; bottom: 20px;
+    display: flex; gap: 6px;
+    z-index: 2;
+  }
+  .branch-chips-overlay .chip {
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.9);
+    color: var(--ink);
+    font-size: 12px; font-weight: 600;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .branch-body { padding: 24px 28px; background: #fff; }
+  .chip {
+    padding: 4px 10px;
+    background: var(--surface-alt);
+    font-size: 12px; font-weight: 500;
+    color: var(--ink-muted);
+  }
+  .branch-name {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .branch-addr { font-size: 14px; color: var(--ink-soft); line-height: 1.4; }
+  .branch-foot {
+    padding: 16px 24px;
+    border-top: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; font-weight: 600; color: var(--ink-muted);
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+  .branch-card:hover .branch-foot { color: var(--navy); }
+  .branch-foot .angle-icon {
+    width: 26px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform var(--dur-fast) var(--ease-smooth);
+  }
+  .branch-foot .angle-icon img { width: 100%; height: 100%; }
+  .branch-card:hover .branch-foot .angle-icon {
+    transform: translateX(4px) translateY(-2px);
+  }
+
+  /* =========================================================
+     CTA banner — Apple-style hero
+     ========================================================= */
+  .cta-banner {
+    position: relative;
+    padding: 140px 40px;
+    background: url('assets/library-cta-banner.png') center/cover no-repeat;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at center, rgba(5,36,96,0.55) 0%, rgba(5,36,96,0.9) 100%);
+  }
+  .cta-content { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .cta-eyebrow {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid rgba(255,255,255,0.4);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .cta-banner h2 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    margin-bottom: 24px;
+  }
+  .cta-sub {
+    font-size: 20px; line-height: 1.5;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+  }
+  .btn-white {
+    background: #fff; color: var(--navy);
+    transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth);
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+
+  /* =========================================================
+     Upcoming events
+     ========================================================= */
+  .events-section { background: var(--surface-alt); }
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    text-align: left;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .events-grid > * + * { border-left: 1px solid var(--line); }
+  .u-card {
+    background: #fff;
+    padding: 40px 32px 32px;
+    display: flex; flex-direction: column;
+    position: relative;
+    min-height: 360px;
+    transition: background var(--dur) var(--ease);
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .u-card:hover { background: var(--surface-alt); }
+  .u-card.featured:hover { background: var(--navy-dark); }
+  .u-card.featured {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: #fff;
+  }
+  .u-card .u-date {
+    margin-bottom: auto;
+  }
+  .u-card .u-date .d {
+    font-family: var(--font-brand);
+    font-size: 64px; font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1;
+  }
+  .u-card .u-date .m {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+  .u-card.featured .u-date .m { color: rgba(255,255,255,0.7); }
+  .u-card .u-title {
+    font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-top: 32px; margin-bottom: 8px;
+  }
+  .u-card .u-loc {
+    font-size: 13px; color: var(--ink-soft); margin-bottom: 12px;
+  }
+  .u-card.featured .u-loc { color: rgba(255,255,255,0.75); }
+  .u-card .u-time { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+  .u-card .u-pill {
+    position: absolute; top: 20px; right: 20px;
+  }
+  .u-card.view-all {
+    background: transparent;
+    box-shadow: none;
+    border: 1.5px dashed var(--line-strong);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .u-card.view-all:hover {
+    background: #fff; border-color: transparent;
+    box-shadow: var(--shadow-hover);
+  }
+  .u-card.view-all .txt {
+    font-family: var(--font-brand);
+    font-size: 28px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1;
+    color: var(--ink-muted);
+    transition: color var(--dur) var(--ease);
+  }
+  .u-card.view-all:hover .txt { color: var(--navy); }
+  .u-card.view-all .go {
+    width: 48px; height: 48px;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    margin: 24px auto 0;
+    transition: transform var(--dur) var(--ease);
+  }
+  .u-card.view-all .go img { width: 22px; height: 22px; filter: brightness(0) invert(1); }
+  .u-card.view-all:hover .go { transform: translateX(4px); }
+
+  /* =========================================================
+     Services grid — bento card style
+     ========================================================= */
+  .services-section { background: #fff; }
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .service-card {
+    position: relative;
+    background: #fff;
+    padding: 32px 28px;
+    height: 220px;
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    border-right: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    margin-top: -1px;
+    transition: background var(--dur) var(--ease);
+  }
+  .service-card:nth-child(4n) { border-right: none; }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
+    z-index: 0;
+  }
+  .service-card > * { position: relative; z-index: 1; }
+  .service-card:hover::before { opacity: 1; }
+  .service-card .service-name {
+    font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--ink);
+    max-width: 60%;
+    transition: color var(--dur) var(--ease);
+  }
+  .service-card:hover .service-name { color: #fff; }
+  .service-icon {
+    position: absolute;
+    left: 28px; bottom: 28px;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform var(--dur) var(--ease), filter var(--dur) var(--ease);
+  }
+  .service-icon img { width: 100%; height: 100%; }
+  .service-card:hover .service-icon {
+    transform: scale(1.08) rotate(-4deg);
+    filter: brightness(0) invert(1);
+  }
+  .service-arrow {
+    position: absolute;
+    right: 24px; bottom: 24px;
+    width: 40px; height: 40px;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+  }
+  .service-arrow img { width: 18px; height: 18px; }
+  .service-card:hover .service-arrow {
+    transform: translateX(4px);
+  }
+
+  /* =========================================================
+     Featured spotlights
+     ========================================================= */
+  .spotlights-section { background: #fff; }
+  .spot-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    min-height: 620px;
+  }
+  .spot-card {
+    padding: 40px;
+    display: flex; flex-direction: column;
+    color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: transform var(--dur) var(--ease);
+  }
+  .spot-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.14) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 900ms var(--ease);
+    z-index: 0;
+  }
+  .spot-card:hover::before { transform: translateX(120%); }
+  .spot-card > * { position: relative; z-index: 1; }
+  .spot-large {
+    grid-column: 1; grid-row: 1 / span 2;
+    background: linear-gradient(135deg, #041a4a 0%, #0a3391 60%, #ff6b35 130%);
+  }
+  .spot-orange { background: linear-gradient(135deg, #ff6b35 0%, #d94816 100%); grid-column: 2; grid-row: 1; }
+  .spot-lilac  { background: linear-gradient(135deg, #c8b8db 0%, #8f77b0 100%); grid-column: 3; grid-row: 1; }
+  .spot-navy   { background: linear-gradient(135deg, #052460 0%, #041a4a 100%); grid-column: 2 / span 2; grid-row: 2; }
+  .spot-tag {
+    display: inline-block; align-self: flex-start;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.16);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .spot-card h3 {
+    font-family: var(--font-brand);
+    font-weight: 500;
+    font-size: clamp(24px, 2.4vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .spot-large h3 { font-size: clamp(36px, 3.6vw, 52px); }
+  .spot-card p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.55;
+    margin-bottom: auto;
+    max-width: 420px;
+  }
+  .spot-link {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-top: 28px;
+    font-size: 14px; font-weight: 600;
+    color: #fff;
+    transition: gap var(--dur-fast) var(--ease-smooth);
+  }
+  .spot-link img { width: 16px; height: 16px; filter: brightness(0) invert(1); }
+  .spot-card:hover .spot-link { gap: 16px; }
+
+  /* =========================================================
+     Impact strip
+     ========================================================= */
+  .impact-strip {
+    background: var(--navy);
+    color: #fff;
+    padding: 0;
+  }
+  .impact-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .impact-item {
+    padding: 56px 40px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    transition: background var(--dur) var(--ease);
+    cursor: default;
+  }
+  .impact-item:last-child { border-right: none; }
+  .impact-item:hover { background: var(--navy-dark); }
+  .impact-num {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: clamp(40px, 4.4vw, 56px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .impact-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.01em;
+  }
+
+  /* =========================================================
+     Digital library section
+     ========================================================= */
+  .digital-section { background: #fff; }
+  .digital-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .digital-card {
+    padding: 40px 32px;
+    border-right: 1px solid var(--line);
+    cursor: pointer;
+    transition: background var(--dur) var(--ease);
+    display: flex; flex-direction: column;
+    min-height: 320px;
+  }
+  .digital-card:last-child { border-right: none; }
+  .digital-card:hover { background: var(--surface-alt); }
+  .digital-card .d-icon {
+    width: 56px; height: 56px;
+    background: var(--surface-alt);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    transition: background var(--dur) var(--ease);
+  }
+  .digital-card:hover .d-icon { background: var(--navy); }
+  .digital-card .d-icon img {
+    width: 32px; height: 32px;
+    transition: filter var(--dur) var(--ease);
+  }
+  .digital-card:hover .d-icon img { filter: brightness(0) invert(1); }
+  .digital-card h3 {
+    font-family: var(--font-brand);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .digital-card p {
+    font-size: 15px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    margin-bottom: auto;
+  }
+  .digital-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 24px;
+    font-size: 14px; font-weight: 600;
+    color: var(--navy);
+    transition: gap var(--dur-fast) var(--ease-smooth);
+  }
+  .digital-link img { width: 14px; height: 14px; }
+  .digital-card:hover .digital-link { gap: 14px; }
+
+  /* =========================================================
+     News & Stories
+     ========================================================= */
+  .news-section { background: var(--surface-alt); }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .news-card {
+    background: #fff;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+  }
+  .news-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .news-img {
+    height: 240px;
+    background-size: cover;
+    background-position: center;
+    transition: transform var(--dur-slow) var(--ease);
+  }
+  .news-card:hover .news-img { transform: scale(1.06); }
+  .news-card .img-wrap { overflow: hidden; }
+  .news-body { padding: 28px 28px 32px; display: flex; flex-direction: column; flex: 1; }
+  .news-meta {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 12px; color: var(--ink-soft);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .news-tag {
+    padding: 4px 10px;
+    background: var(--surface-alt);
+    color: var(--navy);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+  .news-card h3 {
+    font-family: var(--font-brand);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .news-card p {
+    font-size: 15px; color: var(--ink-muted); line-height: 1.55;
+    margin-bottom: auto;
+  }
+  .news-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 24px;
+    font-size: 14px; font-weight: 600;
+    color: var(--navy);
+    transition: gap var(--dur-fast) var(--ease-smooth);
+  }
+  .news-link img { width: 14px; height: 14px; }
+  .news-card:hover .news-link { gap: 14px; }
+
+  /* =========================================================
+     Newsletter signup
+     ========================================================= */
+  .newsletter {
+    background: #fff;
+    padding: 100px 40px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .newsletter-inner {
+    max-width: 1360px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .newsletter h2 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: clamp(36px, 4vw, 52px);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 16px 0;
+  }
+  .newsletter .lede {
+    font-size: 18px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    max-width: 480px;
+  }
+  .newsletter-form {
+    display: flex;
+    background: var(--surface-alt);
+    padding: 8px;
+  }
+  .newsletter-form input {
+    flex: 1;
+    background: transparent;
+    border: none; outline: none;
+    padding: 20px 24px;
+    font-family: 'Arimo', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .newsletter-form input::placeholder { color: var(--ink-soft); }
+  .newsletter-form button {
+    padding: 0 32px;
+    background: var(--navy);
+    color: #fff;
+    font-family: 'Arimo', sans-serif;
+    font-size: 15px; font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth);
+  }
+  .newsletter-form button:hover { background: var(--navy-dark); }
+  .newsletter-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  /* =========================================================
+     Footer
+     ========================================================= */
+  .footer-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    padding: 80px 40px 60px;
+    color: #fff;
+  }
+  .footer-hero-inner {
+    max-width: 1360px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 40px;
+  }
+  .footer-logo img {
+    height: 64px;
+    filter: brightness(0) invert(1);
+  }
+  .footer-socials { display: flex; align-items: center; gap: 10px; }
+  .badge-pill {
+    width: 48px; height: 48px;
+    background: url('assets/program-badge.png') center/cover;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: transform var(--dur-fast) var(--ease-smooth);
+  }
+  .badge-pill:hover { transform: translateY(-2px); }
+  .social-icon {
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+  }
+  .social-icon:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .social-icon img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
+
+  .footer-links {
+    padding: 72px 40px;
+    background: #fff;
+  }
+  .footer-links-inner {
+    max-width: 1360px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px;
+  }
+  .footer-col h4 {
+    font-size: 14px; font-weight: 700; letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col li {
+    font-size: 14px; color: var(--ink-soft);
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+  }
+  .footer-col li:hover { color: var(--ink); transform: translateX(2px); }
+
+  .footer-banner {
+    background: var(--surface-alt);
+    padding: 32px 40px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    letter-spacing: -0.01em;
+  }
+
+  /* =========================================================
+     Responsive
+     ========================================================= */
+  @media (max-width: 1100px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 60px; }
+    .hero-preview { transform: none; }
+    .book-grid { grid-template-columns: repeat(3, 1fr); }
+    .branch-grid { grid-template-columns: repeat(2, 1fr); }
+    .events-grid { grid-template-columns: repeat(2, 1fr); }
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+    .explore-inner { grid-template-columns: 1fr; }
+    .footer-links-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  }
+  @media (max-width: 720px) {
+    .notice-bar { padding: 0 20px; height: auto; padding: 10px 20px; flex-direction: column; gap: 6px; }
+    .header { padding: 0 20px; gap: 12px; }
+    .header-actions .btn { padding: 0 12px; font-size: 13px; }
+    .search-bar { display: none; }
+    .main-nav { flex-wrap: wrap; }
+    .section { padding: 80px 20px; }
+    .hero { padding: 80px 20px 60px; }
+    .book-grid { grid-template-columns: repeat(2, 1fr); }
+    .branch-grid, .events-grid, .service-grid { grid-template-columns: 1fr; }
+    .footer-hero-inner { flex-direction: column; align-items: flex-start; }
+    .footer-links-inner { grid-template-columns: 1fr; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= Notice bar ================= -->
+<div class="notice-bar">
+  <div class="notice-text"><span data-en="Notice:" data-es="Aviso:">Notice:</span> <b data-en="Updated hours at JCL-Cedar Hill · Effective October 1, 2026" data-es="Horario actualizado en JCL-Cedar Hill · Vigente 1 de octubre, 2026">Updated hours at JCL-Cedar Hill · Effective October 1, 2026</b></div>
+  <div class="top-links">
+    <span data-en="Explore Catalog" data-es="Explorar Catálogo">Explore Catalog</span>
+    <span data-en="Digital Library" data-es="Biblioteca Digital">Digital Library</span>
+    <span data-en="About Us" data-es="Nosotros">About Us</span>
+    <span data-en="Contact Us" data-es="Contáctenos">Contact Us</span>
+    <div class="lang-toggle" role="tablist" aria-label="Language">
+      <div class="lang-switch" id="langSwitch">
+        <div class="slider"></div>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Header ================= -->
+<header class="header">
+  <div class="brand">
+    <img src="assets/logo-mark.png" alt="Jefferson County Library">
+  </div>
+  <div class="search-bar" id="searchBar">
+    <img class="search-ico" src="assets/search.svg" alt="">
+    <input type="text" placeholder="Search" id="searchInput" autocomplete="off" data-placeholder-en="Search" data-placeholder-es="Buscar">
+    <div class="search-suggest">
+      <div class="search-suggest-inner">
+        <div class="suggest-col">
+          <div class="suggest-heading">What are you looking for?</div>
+          <ul class="suggest-list">
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-1.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Books</span>
+                <span class="s-sub">Fiction, non-fiction, audiobooks &amp; more</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-6.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Digital Library</span>
+                <span class="s-sub">eBooks, streaming, online resources</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-3.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">For Kids &amp; Teens</span>
+                <span class="s-sub">Programs, story time, teen space</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-9.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Top Books</span>
+                <span class="s-sub">Trending &amp; most-loved this month</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+          </ul>
+        </div>
+        <div class="suggest-col">
+          <div class="suggest-heading">Popular Searches</div>
+          <div class="suggest-tags">
+            <span class="suggest-tag">Bestsellers 2026</span>
+            <span class="suggest-tag">New releases</span>
+            <span class="suggest-tag">Storytime</span>
+            <span class="suggest-tag">Mystery novels</span>
+            <span class="suggest-tag">Homework help</span>
+            <span class="suggest-tag">Audiobooks</span>
+            <span class="suggest-tag">Book clubs</span>
+            <span class="suggest-tag">Learn Spanish</span>
+          </div>
+          <div class="suggest-heading" style="margin-top:24px">Quick Links</div>
+          <ul class="suggest-list">
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-4.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Get a Library Card</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-phone.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Hours &amp; Locations</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search-backdrop" id="searchBackdrop"></div>
+  <div class="header-cell get-card" data-en="Get Your Library Card" data-es="Obtén Tu Tarjeta">Get Your Library Card</div>
+  <div class="header-cell my-account" data-en="My Account" data-es="Mi Cuenta">My Account</div>
+</header>
+
+<!-- ================= Main nav ================= -->
+<nav class="main-nav">
+  <div class="nav-item"><span data-en="Services" data-es="Servicios">Services</span> <span class="caret"></span></div>
+  <div class="nav-item"><span data-en="Genealogy &amp; Local History" data-es="Genealogía e Historia Local">Genealogy &amp; Local History</span> <span class="caret"></span></div>
+  <div class="nav-item"><span data-en="Support Your Library" data-es="Apoya la Biblioteca">Support Your Library</span> <span class="caret"></span></div>
+  <div class="nav-item"><span data-en="Community Resources" data-es="Recursos Comunitarios">Community Resources</span></div>
+</nav>
+
+<!-- ================= Hero ================= -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow reveal">Jefferson County Library</div>
+      <h1 class="reveal d1"><span data-en="Your Library,<br>Your Community" data-es="Tu Biblioteca,<br>Tu Comunidad">Your Library,<br>Your Community</span></h1>
+      <p class="lede reveal d2" data-en="Connecting our community to trusted resources, inspiring ideas, and opportunities to learn, discover, and grow." data-es="Conectando a nuestra comunidad con recursos confiables, ideas inspiradoras y oportunidades para aprender, descubrir y crecer.">Connecting our community to trusted resources, inspiring ideas, and opportunities to learn, discover, and grow.</p>
+      <div class="hero-cta-row reveal d3">
+        <button class="btn btn-primary btn-lg" data-en="Start Using the Library" data-es="Comenzar a Usar la Biblioteca">Start Using the Library</button>
+        <button class="btn btn-outline btn-lg" data-en="Explore Catalog" data-es="Explorar Catálogo">Explore Catalog</button>
+      </div>
+    </div>
+    <div class="reveal d4">
+    <div class="hero-events-head">
+      <span class="title" data-en="Events" data-es="Eventos">Events</span>
+    </div>
+    <div class="hero-preview">
+      <div class="event-row">
+        <div class="date-chip"><div class="m">SEP</div><div class="d">06</div></div>
+        <div class="event-info">
+          <div class="event-title">Iguana Miss You: A 1000 Books...</div>
+          <div class="event-loc">Event Location: Arnold Branch, Meeting Room</div>
+          <div class="event-bottom-row">
+            <span class="event-time">Today</span>
+            <span class="pill">8 seats left</span>
+          </div>
+        </div>
+        <div class="event-direction">
+          <div class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></div>
+          <span>Get Direction</span>
+        </div>
+      </div>
+      <div class="event-row">
+        <div class="date-chip"><div class="m">SEP</div><div class="d">12</div></div>
+        <div class="event-info">
+          <div class="event-title">Mystery Night: Whodunit Workshop</div>
+          <div class="event-loc">Event Location: Arnold Branch, Meeting Room</div>
+          <div class="event-bottom-row">
+            <span class="event-time">2:00 PM – 7:30 PM</span>
+            <span class="pill">8 seats left</span>
+          </div>
+        </div>
+        <div class="event-direction">
+          <div class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></div>
+          <span>Get Direction</span>
+        </div>
+      </div>
+      <div class="event-row">
+        <div class="date-chip"><div class="m">SEP</div><div class="d">25</div></div>
+        <div class="event-info">
+          <div class="event-title">Nature Explorers: Backyard Birds</div>
+          <div class="event-loc">Event Location: Arnold Branch, Meeting Room</div>
+          <div class="event-bottom-row">
+            <span class="event-time">12:00 PM – 5:30 PM</span>
+            <span class="pill">8 seats left</span>
+          </div>
+        </div>
+        <div class="event-direction">
+          <div class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></div>
+          <span>Get Direction</span>
+        </div>
+      </div>
+      <a class="view-all-row"><span data-en="View all Events" data-es="Ver todos los eventos">View all Events</span> <img src="assets/arrow-blue.svg" alt=""></a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Explore by ================= -->
+<div class="explore-strip">
+  <div class="explore-inner">
+    <div class="explore-label" data-en="Explore by" data-es="Explorar por">Explore by</div>
+    <div class="explore-tile adults"><span data-en="Adults" data-es="Adultos">Adults</span> <span class="arr"><img src="assets/arrow-white.svg" alt=""></span></div>
+    <div class="explore-tile kids"><span data-en="Kids &amp; Families" data-es="Niños y Familias">Kids &amp; Families</span> <span class="arr"><img src="assets/arrow-white.svg" alt=""></span></div>
+    <div class="explore-tile teens"><span data-en="Teens" data-es="Jóvenes">Teens</span> <span class="arr"><img src="assets/arrow-white.svg" alt=""></span></div>
+  </div>
+</div>
+
+<!-- ================= Impact strip ================= -->
+<section class="impact-strip">
+  <div class="impact-inner">
+    <div class="impact-item">
+      <div class="impact-num">150K+</div>
+      <div class="impact-label" data-en="Books &amp; Materials" data-es="Libros y Materiales">Books &amp; Materials</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">25K+</div>
+      <div class="impact-label" data-en="Active Cardholders" data-es="Miembros Activos">Active Cardholders</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">300+</div>
+      <div class="impact-label" data-en="Events Every Year" data-es="Eventos Cada Año">Events Every Year</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">4</div>
+      <div class="impact-label" data-en="Branch Locations" data-es="Sucursales">Branch Locations</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Featured Spotlights ================= -->
+<section class="section spotlights-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-en="Featured" data-es="Destacado">Featured</div>
+      <h2 data-en="What's Happening at JCL" data-es="Qué Sucede en JCL">What's Happening at JCL</h2>
+      <p class="section-sub" data-en="Programs, initiatives, and stories from across our library system." data-es="Programas, iniciativas e historias de todo nuestro sistema de bibliotecas.">Programs, initiatives, and stories from across our library system.</p>
+    </div>
+    <div class="spot-grid">
+      <article class="spot-card spot-large">
+        <div class="spot-tag" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</div>
+        <h3 data-en="Borrow a Telescope This Fall" data-es="Toma Prestado un Telescopio Este Otoño">Borrow a Telescope This Fall</h3>
+        <p data-en="Explore the night sky with a telescope, ukulele, sewing machine, and more — all with your library card." data-es="Explora el cielo nocturno con un telescopio, ukelele, máquina de coser y más — todo con tu tarjeta de la biblioteca.">Explore the night sky with a telescope, ukulele, sewing machine, and more — all with your library card.</p>
+        <span class="spot-link"><span data-en="Explore Library of Things" data-es="Explorar Biblioteca de Cosas">Explore Library of Things</span> <img src="assets/arrow-white.svg" alt=""></span>
+      </article>
+      <article class="spot-card spot-orange">
+        <div class="spot-tag" data-en="Book Clubs" data-es="Clubes de Lectura">Book Clubs</div>
+        <h3 data-en="Join a Book Club" data-es="Únete a un Club de Lectura">Join a Book Club</h3>
+        <p data-en="Monthly gatherings for readers of every genre and every age." data-es="Reuniones mensuales para lectores de todos los géneros y edades.">Monthly gatherings for readers of every genre and every age.</p>
+        <span class="spot-link"><span data-en="See Clubs" data-es="Ver Clubes">See Clubs</span> <img src="assets/arrow-white.svg" alt=""></span>
+      </article>
+      <article class="spot-card spot-lilac">
+        <div class="spot-tag" data-en="Youth" data-es="Jóvenes">Youth</div>
+        <h3 data-en="StoryWalks in the Park" data-es="StoryWalks en el Parque">StoryWalks in the Park</h3>
+        <p data-en="Read a children's book while walking through outdoor trails." data-es="Lee un libro infantil mientras caminas por senderos al aire libre.">Read a children's book while walking through outdoor trails.</p>
+        <span class="spot-link"><span data-en="Find a Trail" data-es="Encuentra un Sendero">Find a Trail</span> <img src="assets/arrow-white.svg" alt=""></span>
+      </article>
+      <article class="spot-card spot-navy">
+        <div class="spot-tag" data-en="Print Anywhere" data-es="Imprime Desde Donde Sea">Print Anywhere</div>
+        <h3 data-en="Send Prints from Home" data-es="Envía Impresiones Desde Casa">Send Prints from Home</h3>
+        <p data-en="Upload from any device, pick up at any branch." data-es="Envía desde cualquier dispositivo, recoge en cualquier sucursal.">Upload from any device, pick up at any branch.</p>
+        <span class="spot-link"><span data-en="Learn More" data-es="Más Información">Learn More</span> <img src="assets/arrow-white.svg" alt=""></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Books ================= -->
+<section class="section books-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-en="Explore Our New Materials" data-es="Explora Nuestros Nuevos Materiales">Explore Our New Materials</div>
+      <h2 data-en="Enjoy Our Newest Reads" data-es="Disfruta Nuestras Nuevas Lecturas">Enjoy Our Newest Reads</h2>
+      <p class="section-sub" data-en="Fresh titles curated by our librarians — from fiction to non-fiction, discover your next favorite." data-es="Nuevos títulos seleccionados por nuestros bibliotecarios — desde ficción hasta no ficción, descubre tu próximo favorito.">Fresh titles curated by our librarians — from fiction to non-fiction, discover your next favorite.</p>
+    </div>
+    <div class="book-grid">
+      <div class="book-card">
+        <div class="book-cover" style="background-image:url('assets/book-2.png')"></div>
+        <div class="book-info"><div class="title">Steller Drift</div><div class="author">Samantha Allen</div></div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover" style="background-image:url('assets/book-3.png')"></div>
+        <div class="book-info"><div class="title">Whispers</div><div class="author">Samantha Allen</div></div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover" style="background-image:url('assets/book-4.png')"></div>
+        <div class="book-info"><div class="title">Habit of Mind</div><div class="author">Samantha Allen</div></div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover" style="background-image:url('assets/book-5.png')"></div>
+        <div class="book-info"><div class="title">Puck</div><div class="author">Samantha Allen</div></div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover" style="background-image:url('assets/book-6.png')"></div>
+        <div class="book-info"><div class="title">Echoes of Tomorrow</div><div class="author">Samantha Allen</div></div>
+      </div>
+    </div>
+    <div class="pagination">
+      <div class="page-arrow prev"><img src="assets/arrow-blue.svg" alt=""></div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn">2</div>
+      <div class="page-btn">3</div>
+      <div class="page-btn">4</div>
+      <div class="page-btn">5</div>
+      <div class="page-arrow"><img src="assets/arrow-blue.svg" alt=""></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Libraries ================= -->
+<section class="section libraries-section edge-section">
+  <div class="section-inner-wide">
+    <div class="section-head">
+      <div class="section-eyebrow" data-en="Locations" data-es="Ubicaciones">Locations</div>
+      <h2 data-en="Explore Our Libraries" data-es="Explora Nuestras Bibliotecas">Explore Our Libraries</h2>
+      <p class="section-sub" data-en="Explore branch hours, available services, and contact details — all in one place." data-es="Explora horarios, servicios disponibles y detalles de contacto de cada sucursal — todo en un solo lugar.">Explore branch hours, available services, and contact details — all in one place.</p>
+    </div>
+    <div class="branch-grid">
+      <div class="branch-card">
+        <div class="branch-photo">
+          <div class="branch-photo-bg" style="background-image:url('assets/branch-1.png')"></div>
+          <div class="branch-status">Open Now · Closes 8:00 PM</div>
+          <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
+        </div>
+        <div class="branch-body">
+          <div class="branch-name">Arnold Branch</div>
+          <div class="branch-addr">1702 Jeffco Blvd, Arnold, MO 63010</div>
+        </div>
+        <div class="branch-foot">
+          <span>Get Directions</span>
+          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+        </div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-photo">
+          <div class="branch-photo-bg" style="background-image:url('assets/branch-2.png')"></div>
+          <div class="branch-status">Open Now · Closes 8:00 PM</div>
+          <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
+        </div>
+        <div class="branch-body">
+          <div class="branch-name">Cedar Hill Satellite</div>
+          <div class="branch-addr">6780 Parker Dr, Cedar Hill, MO 63016</div>
+        </div>
+        <div class="branch-foot">
+          <span>Get Directions</span>
+          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+        </div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-photo">
+          <div class="branch-photo-bg" style="background-image:url('assets/branch-3.png')"></div>
+          <div class="branch-status">Open Now · Closes 8:00 PM</div>
+          <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
+        </div>
+        <div class="branch-body">
+          <div class="branch-name">Northwest Branch</div>
+          <div class="branch-addr">5680 S Lakeshore Dr, High Ridge, MO</div>
+        </div>
+        <div class="branch-foot">
+          <span>Get Directions</span>
+          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+        </div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-photo">
+          <div class="branch-photo-bg" style="background-image:url('assets/branch-4.png')"></div>
+          <div class="branch-status">Open Now · Closes 8:00 PM</div>
+          <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
+        </div>
+        <div class="branch-body">
+          <div class="branch-name">Windsor Branch</div>
+          <div class="branch-addr">7479 Metropolitan Blvd, Barnhart, MO</div>
+        </div>
+        <div class="branch-foot">
+          <span>Get Directions</span>
+          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA banner ================= -->
+<section class="cta-banner">
+  <div class="cta-content">
+    <div class="cta-eyebrow" data-en="Free for All County Residents" data-es="Gratis Para Residentes del Condado">Free for All County Residents</div>
+    <h2 data-en="Get Your Library Card" data-es="Obtén Tu Tarjeta de la Biblioteca">Get Your Library Card</h2>
+    <p class="cta-sub" data-en="Unlock our full catalog, exclusive events, and community programs. It only takes a few minutes." data-es="Accede a nuestro catálogo completo, eventos exclusivos y programas comunitarios. Solo toma unos minutos.">Unlock our full catalog, exclusive events, and community programs. It only takes a few minutes.</p>
+    <button class="btn btn-white btn-lg"><span data-en="Get Your Library Card" data-es="Obtén Tu Tarjeta">Get Your Library Card</span> <img src="assets/arrow-blue.svg" alt="" style="width:18px;height:18px;"></button>
+  </div>
+</section>
+
+<!-- ================= Upcoming events ================= -->
+<section class="section events-section edge-section">
+  <div class="section-inner-wide">
+    <div class="section-head">
+      <div class="section-eyebrow" data-en="This Month" data-es="Este Mes">This Month</div>
+      <h2 data-en="Upcoming Events" data-es="Próximos Eventos">Upcoming Events</h2>
+      <p class="section-sub" data-en="Discover upcoming events, programs, and activities for all ages across Jefferson County Library." data-es="Descubre próximos eventos, programas y actividades para todas las edades en la Biblioteca del Condado de Jefferson.">Discover upcoming events, programs, and activities for all ages across Jefferson County Library.</p>
+    </div>
+    <div class="events-grid">
+      <div class="u-card featured">
+        <div class="u-pill"><span class="pill" style="background:rgba(255,255,255,0.14);color:#fff">8 seats left</span></div>
+        <div class="u-date"><div class="d">06</div><div class="m">Sep · Today</div></div>
+        <div class="u-title">Iguana Miss You: 1000 Books Program</div>
+        <div class="u-loc">Arnold Branch, Meeting Room</div>
+        <div class="u-time">6:00 PM – 6:30 PM</div>
+      </div>
+      <div class="u-card">
+        <div class="u-pill"><span class="pill">2 seats left</span></div>
+        <div class="u-date"><div class="d">12</div><div class="m">Sep · Thursday</div></div>
+        <div class="u-title">Mystery Night: Whodunit Workshop</div>
+        <div class="u-loc">Arnold Branch, Meeting Room</div>
+        <div class="u-time">6:00 PM – 6:30 PM</div>
+      </div>
+      <div class="u-card">
+        <div class="u-pill"><span class="pill">7 seats left</span></div>
+        <div class="u-date"><div class="d">16</div><div class="m">Sep · Monday</div></div>
+        <div class="u-title">Nature Explorers: Backyard Birds</div>
+        <div class="u-loc">Arnold Branch, Meeting Room</div>
+        <div class="u-time">6:00 PM – 6:30 PM</div>
+      </div>
+      <div class="u-card view-all">
+        <div>
+          <div class="txt">View all<br>Events</div>
+          <div class="go"><img src="assets/arrow-white.svg" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Services ================= -->
+<section class="section services-section edge-section">
+  <div class="section-inner-wide">
+    <div class="section-head">
+      <div class="section-eyebrow" data-en="What We Offer" data-es="Lo Que Ofrecemos">What We Offer</div>
+      <h2 data-en="Library Services" data-es="Servicios de la Biblioteca">Library Services</h2>
+      <p class="section-sub" data-en="Helpful services designed to make your library experience easier." data-es="Servicios útiles diseñados para hacer tu experiencia en la biblioteca más fácil.">Helpful services designed to make your library experience easier.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-name">Mobile App</div>
+        <div class="service-icon"><img src="assets/service-1.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Accessibility</div>
+        <div class="service-icon"><img src="assets/service-2.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Book Bundles</div>
+        <div class="service-icon"><img src="assets/service-3.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Library of Things</div>
+        <div class="service-icon"><img src="assets/service-phone.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Smart Lockers</div>
+        <div class="service-icon"><img src="assets/service-4.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Homebound Delivery</div>
+        <div class="service-icon"><img src="assets/service-5.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">WiFi Hotspots</div>
+        <div class="service-icon"><img src="assets/service-6.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Computers &amp; Printing</div>
+        <div class="service-icon"><img src="assets/service-7.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Notary &amp; Passports</div>
+        <div class="service-icon"><img src="assets/service-8.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Request a Book</div>
+        <div class="service-icon"><img src="assets/service-9.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Print Anywhere</div>
+        <div class="service-icon"><img src="assets/service-10.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Meeting Rooms</div>
+        <div class="service-icon"><img src="assets/service-11.svg" alt=""></div>
+        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Newsletter ================= -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <div>
+      <div class="section-eyebrow" data-en="Stay Connected" data-es="Mantente Conectado">Stay Connected</div>
+      <h2 data-en="Never Miss a Story" data-es="Nunca Te Pierdas una Historia">Never Miss a Story</h2>
+      <p class="lede" data-en="Get updates on new arrivals, events, and community stories delivered to your inbox." data-es="Recibe actualizaciones sobre nuevas adquisiciones, eventos e historias de la comunidad en tu bandeja de entrada.">Get updates on new arrivals, events, and community stories delivered to your inbox.</p>
+    </div>
+    <div>
+      <form class="newsletter-form" onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
+        <input type="email" required data-placeholder-en="Enter your email" data-placeholder-es="Ingresa tu correo" placeholder="Enter your email">
+        <button type="submit" data-en="Subscribe" data-es="Suscribirse">Subscribe</button>
+      </form>
+      <p class="newsletter-note" data-en="No spam. Unsubscribe anytime." data-es="Sin spam. Cancela cuando quieras.">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Footer hero ================= -->
+<div class="footer-hero">
+  <div class="footer-hero-inner">
+    <div class="footer-logo">
+      <img src="assets/logo-image.png" alt="Jefferson County Library">
+    </div>
+    <div class="footer-socials">
+      <div class="badge-pill"></div>
+      <div class="social-icon"><img src="assets/link.svg" alt="Link"></div>
+      <div class="social-icon"><img src="assets/facebook.svg" alt="Facebook"></div>
+      <div class="social-icon"><img src="assets/instagram.svg" alt="Instagram"></div>
+      <div class="social-icon"><img src="assets/youtube.svg" alt="YouTube"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Footer link columns ================= -->
+<div class="footer-links">
+  <div class="footer-links-inner">
+    <div class="footer-col">
+      <h4>Work with JCL</h4>
+      <ul>
+        <li>Contact Us</li>
+        <li>Employment</li>
+        <li>Bid Opportunities</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Use JCL</h4>
+      <ul>
+        <li>Library Services</li>
+        <li>Get a Library Card</li>
+        <li>Hours &amp; Locations</li>
+        <li>Reserve a Meeting Room</li>
+        <li>Calendar of Events</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Partner with JCL</h4>
+      <ul>
+        <li>Become a Friend</li>
+        <li>Library Foundation</li>
+        <li>Donate</li>
+        <li>Volunteer</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Board of Trustees</h4>
+      <ul>
+        <li>JCL Board</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Footer banner ================= -->
+<div class="footer-banner">
+  Jefferson County Library — your place to learn, connect, grow, and achieve.
+</div>
+
+<script>
+  // Language toggle + translator
+  const langSwitch = document.getElementById('langSwitch');
+  function setLang(lang) {
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    langSwitch.classList.toggle('es', lang === 'es');
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const v = el.dataset[lang];
+      if (v != null) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+      const v = el.dataset['placeholder' + lang.charAt(0).toUpperCase() + lang.slice(1)];
+      if (v != null) el.placeholder = v;
+    });
+  }
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+
+  // Search suggestions
+  const searchBar = document.getElementById('searchBar');
+  const searchInput = document.getElementById('searchInput');
+  const searchBackdrop = document.getElementById('searchBackdrop');
+  function openSearch() {
+    searchBar.classList.add('is-open');
+    searchBackdrop.classList.add('is-open');
+  }
+  function closeSearch() {
+    searchBar.classList.remove('is-open');
+    searchBackdrop.classList.remove('is-open');
+  }
+  searchInput.addEventListener('focus', openSearch);
+  searchInput.addEventListener('click', openSearch);
+  searchBackdrop.addEventListener('click', () => { searchInput.blur(); closeSearch(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { searchInput.blur(); closeSearch(); } });
+</script>
+</body>
+</html>
