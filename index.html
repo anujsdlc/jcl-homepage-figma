@@ -352,20 +352,24 @@
      Main nav — clean pill
      ========================================================= */
   .main-nav {
-    display: flex; justify-content: center; align-items: center; gap: 4px;
-    padding: 12px 40px;
+    display: flex; justify-content: center; align-items: stretch;
+    gap: 4px;
     background: #fff;
     border-bottom: 1px solid var(--line);
+    position: relative;
+    z-index: 40;
   }
   .nav-item {
     display: flex; align-items: center; gap: 6px;
-    padding: 10px 18px;
+    padding: 18px 22px;
     font-size: 14px; font-weight: 500;
     color: var(--ink-muted);
     cursor: pointer;
+    position: relative;
     transition: color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth);
   }
-  .nav-item:hover { color: var(--ink); background: var(--surface-alt); }
+  .nav-item:hover,
+  .nav-item.is-open { color: var(--ink); background: var(--surface-alt); }
   .nav-item .caret {
     width: 8px; height: 8px;
     border-right: 1.5px solid currentColor;
@@ -373,7 +377,67 @@
     transform: rotate(45deg) translateY(-2px);
     transition: transform var(--dur-fast) var(--ease-smooth);
   }
-  .nav-item:hover .caret { transform: rotate(45deg) translateY(0); }
+  .nav-item:hover .caret,
+  .nav-item.is-open .caret { transform: rotate(225deg) translateY(0); }
+
+  /* Nav dropdowns */
+  .nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -8px);
+    min-width: 640px;
+    background: #fff;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.05);
+    border-top: 1px solid var(--line);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+    z-index: 40;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    text-align: left;
+  }
+  .nav-item.is-open .nav-dropdown {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+  .nav-dropdown-heading {
+    grid-column: 1 / -1;
+    font-family: 'Arimo', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 8px 12px 4px;
+  }
+  .nav-drop-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 14px;
+    font-size: 14px; font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth), padding-left var(--dur-fast) var(--ease-smooth);
+  }
+  .nav-drop-item:hover { background: var(--surface-alt); padding-left: 20px; }
+  .nav-drop-item .nd-icon {
+    width: 32px; height: 32px;
+    background: var(--surface-alt);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background var(--dur-fast) var(--ease-smooth);
+  }
+  .nav-drop-item:hover .nd-icon { background: var(--navy); }
+  .nav-drop-item .nd-icon img {
+    width: 18px; height: 18px;
+    transition: filter var(--dur-fast) var(--ease-smooth);
+  }
+  .nav-drop-item:hover .nd-icon img { filter: brightness(0) invert(1); }
+  .nav-drop-item .nd-body { display: flex; flex-direction: column; gap: 2px; }
+  .nav-drop-item .nd-title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .nav-drop-item .nd-sub { font-size: 12px; color: var(--ink-soft); font-weight: 400; }
 
   /* =========================================================
      Hero — Apple-scale headline + preview cards
@@ -1467,9 +1531,164 @@
 
 <!-- ================= Main nav ================= -->
 <nav class="main-nav">
-  <div class="nav-item"><span data-en="Services" data-es="Servicios">Services</span> <span class="caret"></span></div>
-  <div class="nav-item"><span data-en="Genealogy &amp; Local History" data-es="Genealogía e Historia Local">Genealogy &amp; Local History</span> <span class="caret"></span></div>
-  <div class="nav-item"><span data-en="Support Your Library" data-es="Apoya la Biblioteca">Support Your Library</span> <span class="caret"></span></div>
+  <div class="nav-item has-dropdown">
+    <span data-en="Services" data-es="Servicios">Services</span> <span class="caret"></span>
+    <div class="nav-dropdown">
+      <div class="nav-dropdown-heading" data-en="Library Services" data-es="Servicios de la Biblioteca">Library Services</div>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-1.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Get a Library Card" data-es="Obtener Tarjeta">Get a Library Card</span>
+          <span class="nd-sub" data-en="Free for county residents" data-es="Gratis para residentes">Free for county residents</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-phone.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Hours &amp; Locations" data-es="Horarios y Ubicaciones">Hours &amp; Locations</span>
+          <span class="nd-sub" data-en="Find your nearest branch" data-es="Encuentra tu sucursal">Find your nearest branch</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-11.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Reserve a Meeting Room" data-es="Reserva Sala de Reuniones">Reserve a Meeting Room</span>
+          <span class="nd-sub" data-en="Study, meet, collaborate" data-es="Estudia, reúnete, colabora">Study, meet, collaborate</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-8.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</span>
+          <span class="nd-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-7.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
+          <span class="nd-sub" data-en="Public computers, WiFi, print" data-es="Computadoras públicas, WiFi, imprimir">Public computers, WiFi, print</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-3.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
+          <span class="nd-sub" data-en="Curated picks by our staff" data-es="Selecciones de nuestro personal">Curated picks by our staff</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-5.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
+          <span class="nd-sub" data-en="Books delivered to your door" data-es="Libros entregados a tu puerta">Books delivered to your door</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-9.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
+          <span class="nd-sub" data-en="Can't find a title? Ask us" data-es="¿No encuentras un título?">Can't find a title? Ask us</span>
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="nav-item has-dropdown">
+    <span data-en="Genealogy &amp; Local History" data-es="Genealogía e Historia Local">Genealogy &amp; Local History</span> <span class="caret"></span>
+    <div class="nav-dropdown">
+      <div class="nav-dropdown-heading" data-en="Research Your Roots" data-es="Investiga Tus Raíces">Research Your Roots</div>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-1.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Genealogy Databases" data-es="Bases de Datos Genealógicas">Genealogy Databases</span>
+          <span class="nd-sub" data-en="Ancestry, FamilySearch, more" data-es="Ancestry, FamilySearch y más">Ancestry, FamilySearch, more</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-2.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Local History Collection" data-es="Colección de Historia Local">Local History Collection</span>
+          <span class="nd-sub" data-en="Photos, records, maps" data-es="Fotos, registros, mapas">Photos, records, maps</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-9.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Family Research Guides" data-es="Guías de Investigación Familiar">Family Research Guides</span>
+          <span class="nd-sub" data-en="Where to start &amp; how" data-es="Por dónde empezar y cómo">Where to start &amp; how</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-3.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Jefferson County Archives" data-es="Archivos del Condado">Jefferson County Archives</span>
+          <span class="nd-sub" data-en="Historical documents &amp; maps" data-es="Documentos y mapas históricos">Historical documents &amp; maps</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-11.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Book a Genealogy Session" data-es="Reserva una Sesión">Book a Genealogy Session</span>
+          <span class="nd-sub" data-en="1-on-1 with a librarian" data-es="1 a 1 con un bibliotecario">1-on-1 with a librarian</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-4.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Oral Histories" data-es="Historias Orales">Oral Histories</span>
+          <span class="nd-sub" data-en="Community voices archive" data-es="Archivo de voces comunitarias">Community voices archive</span>
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="nav-item has-dropdown">
+    <span data-en="Support Your Library" data-es="Apoya la Biblioteca">Support Your Library</span> <span class="caret"></span>
+    <div class="nav-dropdown">
+      <div class="nav-dropdown-heading" data-en="Get Involved" data-es="Involúcrate">Get Involved</div>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-1.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Donate" data-es="Donar">Donate</span>
+          <span class="nd-sub" data-en="Support programs &amp; collections" data-es="Apoya programas y colecciones">Support programs &amp; collections</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-3.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Become a Friend" data-es="Hazte Amigo">Become a Friend</span>
+          <span class="nd-sub" data-en="Friends of Jefferson Library" data-es="Amigos de la Biblioteca">Friends of Jefferson Library</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-2.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Volunteer" data-es="Voluntariado">Volunteer</span>
+          <span class="nd-sub" data-en="Share your time &amp; skills" data-es="Comparte tu tiempo y habilidades">Share your time &amp; skills</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-11.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Library Foundation" data-es="Fundación de la Biblioteca">Library Foundation</span>
+          <span class="nd-sub" data-en="Legacy giving &amp; endowments" data-es="Legados y dotaciones">Legacy giving &amp; endowments</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-5.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Sponsor an Event" data-es="Patrocina un Evento">Sponsor an Event</span>
+          <span class="nd-sub" data-en="Partner with our programs" data-es="Asociarse con nuestros programas">Partner with our programs</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-8.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Book Donation" data-es="Donación de Libros">Book Donation</span>
+          <span class="nd-sub" data-en="Give books a second home" data-es="Dales un segundo hogar a los libros">Give books a second home</span>
+        </span>
+      </a>
+    </div>
+  </div>
   <div class="nav-item"><span data-en="Community Resources" data-es="Recursos Comunitarios">Community Resources</span></div>
 </nav>
 
@@ -1944,6 +2163,19 @@
   }
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+
+  // Nav dropdowns — open on hover, close on leave
+  document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+    let timer;
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      document.querySelectorAll('.nav-item.is-open').forEach(o => { if (o !== item) o.classList.remove('is-open'); });
+      item.classList.add('is-open');
+    });
+    item.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => item.classList.remove('is-open'), 120);
+    });
   });
 
   // Search suggestions
