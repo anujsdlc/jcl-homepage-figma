@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jefferson County Library — The Stacks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     VARIATION 1 — "THE STACKS"
+     Editorial / Search-First / Literary
+     Inspired by Brooklyn Public Library, NYPL, Standard.
+     ========================================================= */
+  :root {
+    --paper: #f4efe6;        /* warm cream page */
+    --paper-2: #ebe4d5;      /* deeper cream */
+    --ink: #1a1410;          /* nearly-black */
+    --ink-soft: #4a3f36;
+    --ink-muted: #7a6f65;
+    --navy: #0b2545;         /* deep library navy */
+    --oxblood: #7a1e1e;      /* leather-book red */
+    --accent: #c9a24b;       /* aged gold */
+    --line: rgba(26,20,16,0.14);
+    --line-strong: rgba(26,20,16,0.32);
+    --shadow: 0 2px 24px rgba(26,20,16,0.08);
+    --shadow-lg: 0 24px 60px rgba(26,20,16,0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --serif: 'Fraunces', 'Georgia', serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+  ::selection { background: var(--navy); color: var(--paper); }
+
+  /* Grain overlay for tactile paper feel */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(circle at 25% 25%, rgba(26,20,16,0.025) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(26,20,16,0.02) 1px, transparent 1px);
+    background-size: 3px 3px, 5px 5px;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  /* ============ Notice strip ============ */
+  .strip {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 5;
+  }
+  .strip-marquee { display: flex; gap: 32px; overflow: hidden; }
+  .strip-marquee span::before { content: '§ '; color: var(--accent); }
+  .strip-right { display: flex; gap: 20px; }
+  .strip-right a { opacity: 0.7; transition: opacity 200ms; }
+  .strip-right a:hover { opacity: 1; }
+
+  /* ============ Header ============ */
+  .site-header {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 22px 32px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 32px;
+    position: sticky; top: 0; z-index: 20;
+    backdrop-filter: blur(12px);
+    background: rgba(244,239,230,0.92);
+  }
+  .brand {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .brand-mark {
+    width: 40px; height: 40px;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid; place-items: center;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 20px;
+    font-style: italic;
+  }
+  .brand-name { display: flex; flex-direction: column; line-height: 1; }
+  .brand-name small { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-top: 4px; }
+
+  .primary-nav {
+    display: flex; gap: 28px; justify-content: center;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .primary-nav a {
+    position: relative;
+    padding: 6px 0;
+    transition: color 200ms;
+  }
+  .primary-nav a::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 320ms var(--ease);
+  }
+  .primary-nav a:hover::after { transform: scaleX(1); }
+
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+  .btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 2px;
+    transition: all 240ms var(--ease);
+    letter-spacing: 0.01em;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-primary:hover { background: var(--oxblood); }
+  .btn-accent {
+    background: var(--oxblood);
+    color: var(--paper);
+  }
+  .btn-accent:hover { background: var(--ink); }
+
+  /* ============ HERO — Split editorial ============ */
+  .hero {
+    position: relative;
+    padding: 60px 32px 80px;
+    min-height: 78vh;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--oxblood);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(56px, 7vw, 108px);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--oxblood);
+    font-variation-settings: 'opsz' 144;
+  }
+  .hero-lede {
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.5;
+    max-width: 520px;
+    color: var(--ink-soft);
+    margin-bottom: 40px;
+    font-weight: 400;
+  }
+
+  /* Search — the star of the show */
+  .search-shell {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    padding: 4px;
+    box-shadow: 8px 8px 0 var(--ink);
+    max-width: 620px;
+    transition: box-shadow 240ms var(--ease), transform 240ms var(--ease);
+  }
+  .search-shell:focus-within {
+    box-shadow: 12px 12px 0 var(--oxblood);
+    transform: translate(-2px, -2px);
+  }
+  .search-scope {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0 4px;
+  }
+  .search-scope button {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    color: var(--ink-muted);
+    border-bottom: 2px solid transparent;
+    transition: all 200ms;
+    margin-bottom: -1px;
+  }
+  .search-scope button.active {
+    color: var(--ink);
+    border-bottom-color: var(--oxblood);
+    font-weight: 600;
+  }
+  .search-scope button:hover:not(.active) { color: var(--ink); }
+  .search-input-row {
+    display: flex; align-items: center;
+    padding: 8px 16px;
+  }
+  .search-input-row input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    padding: 16px 0;
+    letter-spacing: -0.01em;
+  }
+  .search-input-row input::placeholder { color: var(--ink-muted); font-style: italic; }
+  .search-submit {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 22px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background 200ms;
+  }
+  .search-submit:hover { background: var(--oxblood); }
+  .search-suggest {
+    padding: 10px 16px 14px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    display: flex; flex-wrap: wrap; gap: 14px;
+    border-top: 1px dashed var(--line);
+  }
+  .search-suggest strong { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; color: var(--ink); font-weight: 600; }
+  .search-suggest a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; transition: text-decoration-color 200ms; }
+  .search-suggest a:hover { text-decoration-color: var(--oxblood); color: var(--oxblood); }
+
+  .hero-cta-row { display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+
+  /* Hero right — literary card */
+  .hero-plate {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 40px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .hero-plate::before {
+    content: '';
+    position: absolute; inset: 12px;
+    border: 1px solid rgba(244,239,230,0.2);
+    pointer-events: none;
+  }
+  .plate-header { position: relative; z-index: 2; }
+  .plate-header .cat {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .plate-header h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .plate-header h2 em { font-style: italic; color: var(--accent); }
+  .plate-body { position: relative; z-index: 2; }
+  .plate-body p {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: rgba(244,239,230,0.85);
+    margin-bottom: 24px;
+    max-width: 380px;
+  }
+  .plate-meta {
+    display: flex; gap: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(244,239,230,0.2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.65);
+  }
+  .plate-meta div strong { display: block; color: var(--paper); font-size: 18px; font-family: var(--serif); font-style: italic; font-weight: 500; letter-spacing: 0; text-transform: none; margin-top: 4px; }
+  .plate-corner {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(244,239,230,0.4);
+    writing-mode: vertical-rl;
+  }
+
+  /* ============ THREE PILLARS bar ============ */
+  .pillars {
+    max-width: 1440px;
+    margin: 40px auto 0;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .pillar {
+    background: var(--paper);
+    padding: 32px;
+    display: flex; align-items: flex-start; gap: 20px;
+    transition: background 240ms;
+    cursor: pointer;
+    position: relative;
+  }
+  .pillar:hover { background: var(--paper-2); }
+  .pillar-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--oxblood);
+    line-height: 1;
+    min-width: 44px;
+  }
+  .pillar-body h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .pillar-body p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .pillar-body .lnk {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink);
+    display: inline-flex; align-items: center; gap: 8px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .pillar:hover .lnk { color: var(--oxblood); border-bottom-color: var(--oxblood); }
+
+  /* ============ SECTION headers ============ */
+  .sect { max-width: 1440px; margin: 0 auto; padding: 100px 32px; position: relative; z-index: 2; }
+  .sect-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 32px;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .sect-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+    margin-bottom: 20px;
+  }
+  .sect-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .sect-title em { font-style: italic; color: var(--oxblood); font-weight: 400; }
+  .sect-nav {
+    display: flex; gap: 12px;
+    align-items: center;
+  }
+  .sect-nav button {
+    width: 44px; height: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    transition: all 200ms;
+  }
+  .sect-nav button:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* ============ Events section — calendar-forward ============ */
+  .events-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .cal-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px;
+    position: sticky; top: 100px;
+  }
+  .cal-card .month {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .cal-card .month small { font-family: var(--mono); font-size: 12px; opacity: 0.6; letter-spacing: 0.14em; }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  .cal-grid .dow {
+    text-align: center;
+    padding: 6px 0;
+    color: rgba(244,239,230,0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 9px;
+  }
+  .cal-grid .day {
+    aspect-ratio: 1;
+    display: grid; place-items: center;
+    color: rgba(244,239,230,0.75);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 180ms;
+    position: relative;
+  }
+  .cal-grid .day.faded { opacity: 0.25; }
+  .cal-grid .day.has-event {
+    color: var(--paper);
+    font-weight: 600;
+  }
+  .cal-grid .day.has-event::after {
+    content: '';
+    position: absolute; bottom: 4px;
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .cal-grid .day.today {
+    background: var(--oxblood);
+    color: var(--paper);
+    font-weight: 700;
+  }
+  .cal-grid .day:hover:not(.faded) { background: rgba(244,239,230,0.1); }
+  .cal-footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(244,239,230,0.2);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .cal-footer a { color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+
+  .events-list { display: flex; flex-direction: column; gap: 0; }
+  .event-row {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+    transition: padding 240ms;
+    cursor: pointer;
+  }
+  .event-row:hover { padding-left: 20px; }
+  .event-row:first-child { padding-top: 0; }
+  .event-date {
+    font-family: var(--serif);
+    text-align: center;
+    line-height: 1;
+  }
+  .event-date .d {
+    font-size: 48px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    display: block;
+  }
+  .event-date .m {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+    margin-top: 6px;
+  }
+  .event-content .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .event-content h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+  }
+  .event-content p { font-size: 14px; color: var(--ink-soft); max-width: 520px; }
+  .event-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+  .event-meta .free { color: var(--oxblood); font-weight: 700; }
+
+  /* ============ CARD + ACCOUNT split ============ */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--paper-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .split-block {
+    padding: 100px 64px;
+    position: relative;
+  }
+  .split-block + .split-block { border-left: 1px solid var(--line); }
+  .split-block h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .split-block h2 em { font-style: italic; color: var(--oxblood); }
+  .split-block p {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+  .card-preview {
+    background: linear-gradient(135deg, var(--navy), #082049);
+    color: var(--paper);
+    padding: 28px;
+    border-radius: 12px;
+    aspect-ratio: 1.586;
+    max-width: 360px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 28px;
+    transform: rotate(-3deg);
+    transition: transform 400ms var(--ease);
+  }
+  .card-preview:hover { transform: rotate(0deg) scale(1.02); }
+  .card-preview::before {
+    content: '';
+    position: absolute; inset: 8px;
+    border: 1px solid rgba(244,239,230,0.14);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .card-preview::after {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+    opacity: 0.4;
+  }
+  .card-preview .cp-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; opacity: 0.75; z-index: 1; }
+  .card-preview .cp-center { font-family: var(--serif); font-style: italic; font-size: 32px; z-index: 1; }
+  .card-preview .cp-bottom { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; z-index: 1; }
+  .card-preview .cp-bottom small { opacity: 0.6; font-size: 9px; display: block; margin-bottom: 4px; }
+
+  .account-panel {
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    padding: 28px;
+    max-width: 440px;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .account-panel .ap-hd {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .account-panel .ap-hd .avatar {
+    width: 44px; height: 44px;
+    background: var(--oxblood);
+    color: var(--paper);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+  }
+  .account-panel .ap-hd .who { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+  .account-panel .ap-hd .who strong { display: block; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--ink); font-weight: 500; text-transform: none; letter-spacing: 0; margin-top: 2px; }
+  .ap-rows { display: flex; flex-direction: column; gap: 4px; }
+  .ap-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  .ap-row:last-child { border-bottom: none; }
+  .ap-row .lbl { color: var(--ink-soft); }
+  .ap-row .val { font-family: var(--serif); font-weight: 500; font-size: 20px; letter-spacing: -0.01em; }
+  .ap-row .val.warn { color: var(--oxblood); font-style: italic; }
+  .ap-btn {
+    margin-top: 16px;
+    width: 100%;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ============ Shelf: New arrivals ============ */
+  .shelf-scroll {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(180px, 1fr));
+    gap: 24px;
+  }
+  .book {
+    display: flex; flex-direction: column;
+    cursor: pointer;
+  }
+  .book-cover {
+    aspect-ratio: 2/3;
+    background: var(--ink);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow);
+    transition: transform 320ms var(--ease), box-shadow 320ms var(--ease);
+    margin-bottom: 16px;
+  }
+  .book:hover .book-cover { transform: translateY(-6px) rotate(-1deg); box-shadow: var(--shadow-lg); }
+  .book-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .book-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--oxblood);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    font-weight: 600;
+  }
+  .book .cat { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+  .book h4 { font-family: var(--serif); font-size: 16px; font-weight: 500; line-height: 1.2; margin-bottom: 4px; }
+  .book .author { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--ink-soft); }
+  .book .avail { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px; }
+  .book .avail.now { color: #2b7a3d; }
+  .book .avail.wait { color: var(--oxblood); }
+
+  /* ============ Branches ============ */
+  .branches-list {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .branch {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    align-items: start;
+    transition: all 240ms var(--ease);
+    cursor: pointer;
+  }
+  .branch:hover { border-color: var(--ink); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+  .branch-img {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .branch-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.3) contrast(1.05); }
+  .branch h3 { font-family: var(--serif); font-size: 24px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .branch .addr { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.5; }
+  .branch .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .branch .status::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #2b7a3d; }
+  .branch .status.closed::before { background: var(--oxblood); }
+  .branch .status.closed { color: var(--oxblood); }
+
+  /* ============ Story feature ============ */
+  .story {
+    max-width: 1440px; margin: 0 auto;
+    padding: 100px 32px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .story-img {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: var(--ink);
+    box-shadow: var(--shadow-lg);
+  }
+  .story-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.15) contrast(1.1); }
+  .story-content .quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    color: var(--ink);
+  }
+  .story-content .quote::before {
+    content: '"';
+    font-size: 96px;
+    line-height: 0.5;
+    color: var(--oxblood);
+    display: block;
+    margin-bottom: -20px;
+  }
+  .story-cite { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+  .story-cite strong { display: block; font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--ink); font-weight: 500; text-transform: none; letter-spacing: 0; margin-bottom: 4px; }
+
+  /* ============ Footer ============ */
+  footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 32px 32px;
+    position: relative; z-index: 2;
+  }
+  .foot-grid {
+    max-width: 1440px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(244,239,230,0.14);
+  }
+  .foot-brand h3 {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .foot-brand h3 em { font-style: italic; color: var(--accent); }
+  .foot-brand p { font-family: var(--serif); font-size: 15px; opacity: 0.7; max-width: 340px; line-height: 1.6; }
+  .foot-col h4 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .foot-col a { font-size: 14px; opacity: 0.8; transition: opacity 200ms; }
+  .foot-col a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+  .foot-btm {
+    max-width: 1440px; margin: 0 auto;
+    padding-top: 24px;
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.5;
+  }
+
+  /* ============ Responsive ============ */
+  @media (max-width: 1080px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 40px; padding-bottom: 60px; min-height: auto; }
+    .hero-plate { max-width: 500px; aspect-ratio: 4/3; }
+    .events-grid { grid-template-columns: 1fr; }
+    .cal-card { position: static; }
+    .story { grid-template-columns: 1fr; }
+    .split { grid-template-columns: 1fr; }
+    .split-block + .split-block { border-left: none; border-top: 1px solid var(--line); }
+    .split-block { padding: 60px 32px; }
+    .shelf-scroll { grid-template-columns: repeat(3, 1fr); }
+    .branches-list { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr; }
+    .primary-nav { display: none; }
+  }
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 48px; }
+    .search-input-row input { font-size: 18px; }
+    .search-scope { flex-wrap: wrap; }
+    .sect { padding: 60px 20px; }
+    .sect-title { font-size: 40px; }
+    .shelf-scroll { grid-template-columns: repeat(2, 1fr); }
+    .event-row { grid-template-columns: 64px 1fr; }
+    .event-meta { grid-column: 1 / -1; text-align: left; padding-left: 96px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .header-actions .btn-ghost { display: none; }
+    .site-header { padding: 16px 20px; gap: 16px; grid-template-columns: auto auto; }
+    .strip { padding: 8px 20px; font-size: 10px; }
+    .strip-marquee span:nth-child(n+2) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Notice strip -->
+<div class="strip">
+  <div class="strip-marquee">
+    <span>All branches open regular hours today</span>
+    <span>New: Book-a-Librarian appointments</span>
+  </div>
+  <div class="strip-right">
+    <a href="#">Español</a>
+    <a href="#">Accessibility</a>
+    <a href="#">Text size ⓐ</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <a class="brand" href="#">
+    <span class="brand-mark">J</span>
+    <span class="brand-name">
+      Jefferson County Library
+      <small>Est. 1953 · Colorado</small>
+    </span>
+  </a>
+  <nav class="primary-nav">
+    <a href="#">Catalog</a>
+    <a href="#">Events</a>
+    <a href="#">Research</a>
+    <a href="#">Services</a>
+    <a href="#">Locations</a>
+    <a href="#">About</a>
+  </nav>
+  <div class="header-actions">
+    <button class="btn btn-ghost">Sign In</button>
+    <button class="btn btn-accent">Get a Card →</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Vol. 72 · Autumn Reading 2026</div>
+    <h1>Every question<br>begins with a<br><em>book.</em></h1>
+    <p class="hero-lede">
+      Search 1.4 million titles, reserve a study room, or discover what's happening
+      tonight across our seven branches. Your library card unlocks all of it.
+    </p>
+
+    <!-- SEARCH — the star -->
+    <div class="search-shell">
+      <div class="search-scope">
+        <button class="active">Catalog</button>
+        <button>Events</button>
+        <button>Research</button>
+        <button>Website</button>
+        <button>Ask a Librarian</button>
+      </div>
+      <div class="search-input-row">
+        <input type="text" placeholder="Search books, authors, subjects…" />
+        <button class="search-submit">Search</button>
+      </div>
+      <div class="search-suggest">
+        <strong>Try:</strong>
+        <a href="#">James Baldwin</a>
+        <a href="#">Colorado history</a>
+        <a href="#">Toddler storytime</a>
+        <a href="#">Learn Spanish</a>
+        <a href="#">Genealogy</a>
+      </div>
+    </div>
+
+    <div class="hero-cta-row">
+      <button class="btn btn-primary">Reserve a study room</button>
+      <button class="btn btn-ghost">Browse eBooks & audio →</button>
+    </div>
+  </div>
+
+  <!-- Editorial plate -->
+  <div class="hero-plate">
+    <div class="plate-corner">Book of the Month · Sept 2026</div>
+    <div class="plate-header">
+      <div class="cat">Staff pick</div>
+      <h2>The <em>Heaven</em><br>& Earth<br>Grocery Store</h2>
+    </div>
+    <div class="plate-body">
+      <p>
+        James McBride's Pulitzer-winning novel of a Pennsylvania mill town where
+        Black, Jewish, and immigrant lives collide in the summer of 1972.
+      </p>
+      <div class="plate-meta">
+        <div>Copies available <strong>12 of 24</strong></div>
+        <div>Hold queue <strong>3 waiting</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Three pillars -->
+<div class="pillars">
+  <div class="pillar">
+    <div class="pillar-num">01</div>
+    <div class="pillar-body">
+      <h3>Get a library card</h3>
+      <p>Free for anyone who lives, works, or attends school in Jefferson County. Sign up online in 3 minutes.</p>
+      <a class="lnk" href="#">Start application →</a>
+    </div>
+  </div>
+  <div class="pillar">
+    <div class="pillar-num">02</div>
+    <div class="pillar-body">
+      <h3>Manage my account</h3>
+      <p>Renew items, place holds, pay fines, and see everything you've ever borrowed. Sign in with your card number.</p>
+      <a class="lnk" href="#">Access account →</a>
+    </div>
+  </div>
+  <div class="pillar">
+    <div class="pillar-num">03</div>
+    <div class="pillar-body">
+      <h3>What's on this week</h3>
+      <p>Storytimes, author talks, coding for kids, ESL circles, and more. 47 events in the next 7 days.</p>
+      <a class="lnk" href="#">See full calendar →</a>
+    </div>
+  </div>
+</div>
+
+<!-- EVENTS SECTION -->
+<section class="sect">
+  <div class="sect-header">
+    <div>
+      <div class="sect-eyebrow">§ 001 — Programs & Events</div>
+      <h1 class="sect-title">What's <em>happening</em>.</h1>
+    </div>
+    <div class="sect-nav">
+      <button aria-label="Previous">←</button>
+      <button aria-label="Next">→</button>
+      <a class="btn btn-ghost" href="#">Full calendar →</a>
+    </div>
+  </div>
+
+  <div class="events-grid">
+    <!-- Calendar -->
+    <div class="cal-card">
+      <div class="month">September <small>2026</small></div>
+      <div class="cal-grid">
+        <div class="dow">Su</div><div class="dow">Mo</div><div class="dow">Tu</div><div class="dow">We</div><div class="dow">Th</div><div class="dow">Fr</div><div class="dow">Sa</div>
+        <div class="day faded">30</div><div class="day faded">31</div>
+        <div class="day has-event">1</div><div class="day">2</div><div class="day has-event">3</div><div class="day">4</div><div class="day has-event">5</div>
+        <div class="day">6</div><div class="day has-event">7</div><div class="day">8</div><div class="day">9</div><div class="day has-event">10</div><div class="day has-event">11</div><div class="day">12</div>
+        <div class="day">13</div><div class="day">14</div><div class="day has-event">15</div><div class="day today">16</div><div class="day has-event">17</div><div class="day">18</div><div class="day has-event">19</div>
+        <div class="day">20</div><div class="day has-event">21</div><div class="day">22</div><div class="day has-event">23</div><div class="day">24</div><div class="day">25</div><div class="day has-event">26</div>
+        <div class="day">27</div><div class="day">28</div><div class="day has-event">29</div><div class="day">30</div><div class="day faded">1</div><div class="day faded">2</div><div class="day faded">3</div>
+      </div>
+      <div class="cal-footer">
+        <span>47 events this month</span>
+        <a href="#">Subscribe .ics →</a>
+      </div>
+    </div>
+
+    <!-- Events list -->
+    <div class="events-list">
+      <div class="event-row">
+        <div class="event-date"><span class="d">16</span><span class="m">Tue</span></div>
+        <div class="event-content">
+          <div class="tag">Author talk · Adults</div>
+          <h3>Anne Hillerman on the legacy of Leaphorn & Chee</h3>
+          <p>A conversation about honoring her father's iconic Navajo detective series and writing the Southwest today. Book signing to follow.</p>
+        </div>
+        <div class="event-meta">
+          7:00 PM<br>Lakewood Branch<br><span class="free">Free · RSVP</span>
+        </div>
+      </div>
+
+      <div class="event-row">
+        <div class="event-date"><span class="d">17</span><span class="m">Wed</span></div>
+        <div class="event-content">
+          <div class="tag">Kids · Ages 3–5</div>
+          <h3>Bilingual storytime — Cuentos en dos idiomas</h3>
+          <p>Songs, stories, and finger plays in English and Spanish for preschoolers and their grown-ups. Drop-in, no registration.</p>
+        </div>
+        <div class="event-meta">
+          10:30 AM<br>Arvada Branch<br><span class="free">Free</span>
+        </div>
+      </div>
+
+      <div class="event-row">
+        <div class="event-date"><span class="d">19</span><span class="m">Fri</span></div>
+        <div class="event-content">
+          <div class="tag">Teens · Grades 6–12</div>
+          <h3>After-hours: Teen coding lab with Raspberry Pi</h3>
+          <p>Build a game, blink an LED, or hack a weather station. Kits provided, all skill levels welcome. Pizza at 6.</p>
+        </div>
+        <div class="event-meta">
+          6:00 PM<br>Golden Branch<br><span class="free">Free · Register</span>
+        </div>
+      </div>
+
+      <div class="event-row">
+        <div class="event-date"><span class="d">21</span><span class="m">Sun</span></div>
+        <div class="event-content">
+          <div class="tag">Community · All ages</div>
+          <h3>Trace your roots: Genealogy open lab</h3>
+          <p>One-on-one help with Ancestry, FamilySearch, and our Colorado archives. Bring names, dates, and questions.</p>
+        </div>
+        <div class="event-meta">
+          1:00 PM<br>Columbine Branch<br><span class="free">Free</span>
+        </div>
+      </div>
+
+      <div class="event-row">
+        <div class="event-date"><span class="d">23</span><span class="m">Tue</span></div>
+        <div class="event-content">
+          <div class="tag">Career · Adults</div>
+          <h3>Résumé rescue: Drop-in career coaching</h3>
+          <p>Sit down with a Denver Public Library career coach. 30-minute slots, résumés reviewed on the spot.</p>
+        </div>
+        <div class="event-meta">
+          3:00 PM<br>Wheat Ridge Branch<br><span class="free">Free · Register</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Library card + account split -->
+<section class="split">
+  <div class="split-block">
+    <div class="sect-eyebrow">§ 002 — Membership</div>
+    <h2>Yours, <em>free</em>,<br>in three minutes.</h2>
+    <p>
+      A Jefferson County Library card is free for anyone who lives, works, attends
+      school, or owns property in the county. Apply online and start borrowing
+      digital titles the same day.
+    </p>
+    <div class="card-preview">
+      <div class="cp-top"><span>JEFFERSON COUNTY LIBRARY</span><span>MEMBER</span></div>
+      <div class="cp-center">Your name, here.</div>
+      <div class="cp-bottom">
+        <small>Card number</small>
+        2 1 8 6 3 · 0 0 4 5 5 · 9 8 2 1
+      </div>
+    </div>
+    <button class="btn btn-primary">Apply for a card →</button>
+    <button class="btn btn-ghost" style="margin-left: 12px;">What can I use my card for?</button>
+  </div>
+
+  <div class="split-block">
+    <div class="sect-eyebrow">§ 003 — My Account</div>
+    <h2>Everything<br>you're <em>reading</em>.</h2>
+    <p>
+      Sign in with your card number to renew items, place holds, pay fines,
+      and see every title you've ever borrowed. Your reading history is private
+      by default.
+    </p>
+    <div class="account-panel">
+      <div class="ap-hd">
+        <div class="avatar">M</div>
+        <div class="who">Signed in as<strong>Maya R.</strong></div>
+      </div>
+      <div class="ap-rows">
+        <div class="ap-row"><span class="lbl">Checked out</span><span class="val">7 items</span></div>
+        <div class="ap-row"><span class="lbl">Holds ready for pickup</span><span class="val">2 items</span></div>
+        <div class="ap-row"><span class="lbl">Due in the next 3 days</span><span class="val warn">3 items</span></div>
+        <div class="ap-row"><span class="lbl">Fines &amp; fees</span><span class="val">$0.00</span></div>
+      </div>
+      <button class="ap-btn">Go to my account →</button>
+    </div>
+  </div>
+</section>
+
+<!-- New arrivals shelf -->
+<section class="sect">
+  <div class="sect-header">
+    <div>
+      <div class="sect-eyebrow">§ 004 — Just arrived</div>
+      <h1 class="sect-title">On the <em>shelf</em>.</h1>
+    </div>
+    <div class="sect-nav">
+      <button>←</button>
+      <button>→</button>
+      <a class="btn btn-ghost" href="#">Browse all new →</a>
+    </div>
+  </div>
+
+  <div class="shelf-scroll">
+    <div class="book">
+      <div class="book-cover"><span class="book-badge">New</span><img src="assets/book-1.png" alt=""></div>
+      <div class="cat">Fiction</div>
+      <h4>The Silent Season</h4>
+      <div class="author">by Lena Ortiz</div>
+      <div class="avail now">● Available now</div>
+    </div>
+    <div class="book">
+      <div class="book-cover"><span class="book-badge">Bestseller</span><img src="assets/book-2.png" alt=""></div>
+      <div class="cat">Mystery</div>
+      <h4>Cold Fronts</h4>
+      <div class="author">by James Merrick</div>
+      <div class="avail wait">● 4 holds ahead</div>
+    </div>
+    <div class="book">
+      <div class="book-cover"><img src="assets/book-3.png" alt=""></div>
+      <div class="cat">History</div>
+      <h4>Rivers of the West</h4>
+      <div class="author">by Priya Ramesh</div>
+      <div class="avail now">● Available now</div>
+    </div>
+    <div class="book">
+      <div class="book-cover"><span class="book-badge">Staff pick</span><img src="assets/book-4.png" alt=""></div>
+      <div class="cat">Biography</div>
+      <h4>Notes from a Small Country</h4>
+      <div class="author">by Adaeze Chen</div>
+      <div class="avail now">● Available now</div>
+    </div>
+    <div class="book">
+      <div class="book-cover"><img src="assets/book-5.png" alt=""></div>
+      <div class="cat">Sci-fi</div>
+      <h4>Orbit Decay</h4>
+      <div class="author">by Marcus Voss</div>
+      <div class="avail wait">● 12 holds ahead</div>
+    </div>
+    <div class="book">
+      <div class="book-cover"><span class="book-badge">New</span><img src="assets/book-6.png" alt=""></div>
+      <div class="cat">Cookbook</div>
+      <h4>The Weeknight Baker</h4>
+      <div class="author">by Sam Ito</div>
+      <div class="avail now">● Available now</div>
+    </div>
+  </div>
+</section>
+
+<!-- Story quote -->
+<section class="story">
+  <div class="story-img"><img src="assets/rectangle10.png" alt="Library patron reading"></div>
+  <div class="story-content">
+    <div class="sect-eyebrow">§ 005 — Voices from the county</div>
+    <p class="quote">
+      When I moved here in '89, the library was the first place my kids and I felt like we belonged. Thirty-seven years later, I still get my week's stack every Saturday.
+    </p>
+    <p class="story-cite">
+      Told to us in July 2026<strong>— Diane K., Wheat Ridge</strong>
+      Share your library story at stories@jeffcolib.org
+    </p>
+  </div>
+</section>
+
+<!-- Branches -->
+<section class="sect">
+  <div class="sect-header">
+    <div>
+      <div class="sect-eyebrow">§ 006 — Seven branches, one county</div>
+      <h1 class="sect-title">Find your <em>closest</em>.</h1>
+    </div>
+    <div class="sect-nav">
+      <a class="btn btn-ghost" href="#">Map view →</a>
+    </div>
+  </div>
+
+  <div class="branches-list">
+    <div class="branch">
+      <div class="branch-img"><img src="assets/branch-1.png" alt=""></div>
+      <div>
+        <h3>Lakewood Central</h3>
+        <div class="addr">10200 W 20th Ave<br>Lakewood, CO 80215</div>
+        <div class="status">Open until 9:00 PM</div>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="branch-img"><img src="assets/branch-2.png" alt=""></div>
+      <div>
+        <h3>Arvada</h3>
+        <div class="addr">7525 W 57th Ave<br>Arvada, CO 80002</div>
+        <div class="status">Open until 8:00 PM</div>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="branch-img"><img src="assets/branch-3.png" alt=""></div>
+      <div>
+        <h3>Golden</h3>
+        <div class="addr">1019 10th Street<br>Golden, CO 80401</div>
+        <div class="status">Open until 6:00 PM</div>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="branch-img"><img src="assets/branch-4.png" alt=""></div>
+      <div>
+        <h3>Columbine</h3>
+        <div class="addr">7706 W Bowles Ave<br>Littleton, CO 80123</div>
+        <div class="status closed">Closed today · reopens 9 AM tomorrow</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <h3>Jefferson County <em>Library</em></h3>
+      <p>Seven branches, one card, 1.4 million reasons to visit. Free for anyone who lives, works, or attends school in Jefferson County, Colorado.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#">Catalog</a></li>
+        <li><a href="#">eBooks &amp; audio</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Kids &amp; teens</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Visit</h4>
+      <ul>
+        <li><a href="#">Locations &amp; hours</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Book a room</a></li>
+        <li><a href="#">Accessibility</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Account</h4>
+      <ul>
+        <li><a href="#">Sign in</a></li>
+        <li><a href="#">Get a card</a></li>
+        <li><a href="#">Ask a librarian</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Donate</a></li>
+        <li><a href="#">Friends of JCL</a></li>
+        <li><a href="#">Volunteer</a></li>
+        <li><a href="#">Foundation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-btm">
+    <div>© 2026 Jefferson County Public Library</div>
+    <div>Ver. Stacks · 1.0</div>
+  </div>
+</footer>
+
+<script>
+  // Search scope tabs
+  document.querySelectorAll('.search-scope button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.search-scope button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector('.search-input-row input').focus();
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JCL Redesign — Four Directions</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4efe6;
+    --ink: #1a1410;
+    --ink-soft: #4a3f36;
+    --ink-muted: #7a6f65;
+    --oxblood: #7a1e1e;
+    --line: rgba(26,20,16,0.14);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 60px 32px;
+    line-height: 1.55;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+  .top {
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 60px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(48px, 6vw, 84px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  h1 em { font-style: italic; color: var(--oxblood); font-weight: 500; }
+  .lede {
+    font-family: var(--serif);
+    font-size: 19px;
+    max-width: 720px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .lede a { text-decoration: underline; text-underline-offset: 3px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 32px;
+    transition: all 260ms cubic-bezier(0.22,1,0.36,1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 340px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover { border-color: var(--ink); transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--ink); }
+  .card-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+    font-weight: 600;
+  }
+  .card h2 {
+    font-family: var(--serif);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .card h2 em { font-style: italic; color: var(--oxblood); }
+  .card p { color: var(--ink-soft); font-size: 15px; max-width: 480px; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li {
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .card ul li::before { content: '◆'; color: var(--oxblood); font-size: 8px; }
+  .card-foot {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px dashed var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card-open {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 10px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    transition: background 200ms;
+  }
+  .card-open:hover { background: var(--oxblood); }
+  .card-swatch {
+    display: flex; gap: 4px;
+  }
+  .card-swatch span {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+
+  .original {
+    background: var(--bg);
+    border: 1px dashed var(--ink);
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .original .lft { font-family: var(--serif); font-size: 18px; color: var(--ink-soft); font-style: italic; }
+  .original a { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; padding: 10px 16px; border: 1px solid var(--ink); }
+  .original a:hover { background: var(--ink); color: var(--bg); }
+
+  .notes {
+    padding: 40px 0;
+    border-top: 1px solid var(--ink);
+    margin-top: 20px;
+  }
+  .notes h3 { font-family: var(--serif); font-size: 26px; font-weight: 400; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .note ul { list-style: none; padding: 0; }
+  .note ul li { padding: 8px 0; font-size: 14px; color: var(--ink-soft); border-bottom: 1px dashed var(--line); }
+  .note ul li strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; font-family: var(--serif); font-size: 16px; }
+  .note h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 14px; font-weight: 600; }
+
+  @media (max-width: 800px) {
+    .grid { grid-template-columns: 1fr; }
+    .notes-grid { grid-template-columns: 1fr; }
+    body { padding: 40px 20px; }
+    .card h2 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="eyebrow">§ Redesign · Four directions · Sept 2026</div>
+    <h1>Jefferson County<br>Library, <em>four ways</em>.</h1>
+    <p class="lede">
+      A design study responding to <a href="https://www.jeffcolib.org/" target="_blank">jeffcolib.org</a> — three totally different design languages, each addressing the same core problems: burying the search, hiding the library card, and no clear "my account" affordance. Open any variation to see it live.
+    </p>
+  </div>
+
+  <div class="original">
+    <div class="lft">— Starting point: the original apple-inspired redesign already in this repo</div>
+    <a href="index.html">Open original →</a>
+  </div>
+
+  <div class="grid">
+
+    <!-- Variation 1 -->
+    <a class="card" href="variation-1.html">
+      <div class="card-tag">Variation 01 · Editorial</div>
+      <div class="card-swatch">
+        <span style="background: #f4efe6"></span>
+        <span style="background: #1a1410"></span>
+        <span style="background: #7a1e1e"></span>
+        <span style="background: #c9a24b"></span>
+      </div>
+      <h2>The <em>Stacks</em></h2>
+      <p>Search-first, editorial, literary. Cream paper with oxblood accents, Fraunces serif display. A Google-scale search bar as the star, with scope tabs (Catalog, Events, Research, Site).</p>
+      <ul>
+        <li>Massive search with hard-shadow box &amp; scope tabs</li>
+        <li>Editorial "Book of the Month" plate</li>
+        <li>Numbered pillars for card, account, events</li>
+        <li>Sticky calendar + full agenda list</li>
+      </ul>
+      <div class="card-foot">
+        <span style="font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.14em;">Inspired by Brooklyn PL, NYPL</span>
+        <span class="card-open">Open →</span>
+      </div>
+    </a>
+
+    <!-- Variation 2 -->
+    <a class="card" href="variation-2.html">
+      <div class="card-tag">Variation 02 · Community</div>
+      <div class="card-swatch">
+        <span style="background: #fef6e7"></span>
+        <span style="background: #c95a3b"></span>
+        <span style="background: #4c7259"></span>
+        <span style="background: #d9a441"></span>
+      </div>
+      <h2>The <em>Commons</em></h2>
+      <p>Warm, human, community third-place. Terracotta, sage, and mustard on cream. Curved organic shapes, DM Serif Display with handwritten Caveat accents. Feels like your favorite neighborhood.</p>
+      <ul>
+        <li>Playful blob-shaped brand mark that morphs</li>
+        <li>Full month calendar as the centerpiece</li>
+        <li>Hand-drawn stickers &amp; script overlays</li>
+        <li>Warm dashboard for the account view</li>
+      </ul>
+      <div class="card-foot">
+        <span style="font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.14em;">Inspired by Anythink, Nashville PL</span>
+        <span class="card-open">Open →</span>
+      </div>
+    </a>
+
+    <!-- Variation 3 -->
+    <a class="card" href="variation-3.html">
+      <div class="card-tag">Variation 03 · Portal</div>
+      <div class="card-swatch">
+        <span style="background: #0a0e1a"></span>
+        <span style="background: #7c5cff"></span>
+        <span style="background: #52d9ff"></span>
+        <span style="background: #5eead4"></span>
+      </div>
+      <h2>The <em>Portal</em></h2>
+      <p>Dark-mode digital concierge / dashboard. Glassmorphic panels on midnight, electric violet + cyan gradients, Space Grotesk + Instrument Serif. Personalized greeting with real-time status.</p>
+      <ul>
+        <li>"Good afternoon, Maya" — greets you by name</li>
+        <li>Command-palette search with ⌘K shortcut</li>
+        <li>Real-time status pills: due, holds, WiFi</li>
+        <li>3D-tilt library card &amp; live event strip</li>
+      </ul>
+      <div class="card-foot">
+        <span style="font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.14em;">Inspired by DC PL, Linear, Arc</span>
+        <span class="card-open">Open →</span>
+      </div>
+    </a>
+
+    <!-- Original -->
+    <a class="card" href="index.html">
+      <div class="card-tag">Baseline · Apple-inspired</div>
+      <div class="card-swatch">
+        <span style="background: #ffffff"></span>
+        <span style="background: #f5f5f7"></span>
+        <span style="background: #052460"></span>
+        <span style="background: #da2c38"></span>
+      </div>
+      <h2>The <em>Original</em></h2>
+      <p>The starting-point apple-inspired redesign already in the repo. Clean sans-serif, navy + red accents, image-forward hero. Good foundation but the search &amp; account CTAs are still understated.</p>
+      <ul>
+        <li>Arimo + Comfortaa typography</li>
+        <li>Navy / red / lilac palette</li>
+        <li>Hero event feature</li>
+        <li>Hover dropdowns for main nav</li>
+      </ul>
+      <div class="card-foot">
+        <span style="font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.14em;">Committed on main</span>
+        <span class="card-open">Open →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="notes">
+    <h3>What every variation fixes about jeffcolib.org</h3>
+    <div class="notes-grid">
+      <div class="note">
+        <h4>Problems observed</h4>
+        <ul>
+          <li><strong>Search is small &amp; buried</strong>Catalog search sits in a corner; site search is separate — confusing for anyone who just wants "a book about X."</li>
+          <li><strong>"Get a library card" is hidden</strong>Buried in the services menu — the single highest-value CTA for a public library is invisible above the fold.</li>
+          <li><strong>No obvious "My Account"</strong>Sign-in is small text; there's no dashboard showing holds, due dates, or fines at a glance.</li>
+          <li><strong>Event calendar behind clicks</strong>Homepage teases a few events but the calendar itself lives on a separate page with dated filtering UI.</li>
+          <li><strong>Weak mobile</strong>Desktop layout collapses awkwardly; the search box shrinks and CTAs stack in the wrong order.</li>
+          <li><strong>No sense of "today"</strong>Static content — no acknowledgement of open branches, live event count, or personalization for signed-in users.</li>
+        </ul>
+      </div>
+      <div class="note">
+        <h4>How each variation solves them</h4>
+        <ul>
+          <li><strong>Search is the hero</strong>All three make search the single largest interactive element on the page, with scope tabs (Catalog / Events / Research / Website).</li>
+          <li><strong>Card CTA is a persistent action</strong>Card button lives in the header on every variation and gets a dedicated hero-level section further down.</li>
+          <li><strong>Account gets its own dashboard</strong>Signed-in users see their due dates, holds, and reading history right on the homepage — no clicks to check.</li>
+          <li><strong>Live event calendar on the homepage</strong>Full month view (v2), sticky mini-calendar (v1), and week-strip with counts (v3). Not a teaser — the real thing.</li>
+          <li><strong>Mobile-first responsive</strong>All variations tested at 640px and below; nothing critical hides on small screens.</li>
+          <li><strong>Real-time signals</strong>"Open until 9 PM," "7 events today," "3 items due Friday" — the site knows what day it is and what's on right now.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
