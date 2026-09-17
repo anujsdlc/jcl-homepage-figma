@@ -461,7 +461,11 @@
   .nav-svc-grid .svc-tile > img { width: 22px; height: 22px; }
   .nav-svc-grid .svc-tile-title { font-size: 13px; }
   .nav-svc-grid .svc-tile-sub { font-size: 11px; margin-top: 2px; }
-  .nav-svc-grid .svc-tile-wide > img { width: 26px; height: 26px; }
+  /* Bigger icons on the tall + wide flagship tiles inside the mega menu too */
+  .nav-svc-grid .svc-tile-tall { padding: 14px 16px; }
+  .nav-svc-grid .svc-tile-tall > img { width: 36px; height: 36px; }
+  .nav-svc-grid .svc-tile-wide { padding: 12px 16px; }
+  .nav-svc-grid .svc-tile-wide > img { width: 32px; height: 32px; }
   .nav-dropdown-heading {
     grid-column: 1 / -1;
     font-family: 'Arimo', sans-serif;
@@ -1435,18 +1439,18 @@
   }
   .svc-tile:hover .svc-tile-sub { color: rgba(255,255,255,0.75); }
 
-  /* Zone A: tall tiles (col 1–2), span 2 rows */
-  .svc-tile-tall { grid-row: span 2; }
-  /* Zone D: wide tiles (col 7–8), span 2 cols */
-  .svc-tile-wide { grid-column: span 2; }
-  .svc-tile-tall,
+  /* Zone A: tall tiles (col 1–2), span 2 rows — bigger icon */
+  .svc-tile-tall { grid-row: span 2; padding: 22px 22px; }
+  .svc-tile-tall > img { width: 52px; height: 52px; }
+  /* Zone D: wide tiles (col 7–8), span 2 cols — bigger icon */
   .svc-tile-wide {
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 140px;
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 22px;
   }
-  .svc-tile-wide { flex-direction: row; align-items: center; gap: 16px; }
-  .svc-tile-wide > img { width: 34px; height: 34px; align-self: center; }
+  .svc-tile-wide > img { width: 48px; height: 48px; align-self: center; }
 
   /* =========================================================
      Featured spotlights
@@ -1853,6 +1857,7 @@
     <div class="nav-dropdown nav-dropdown-services">
       <div class="nav-dropdown-heading" data-en="Library Services · All 12" data-es="Servicios de la Biblioteca · Todos">Library Services · All 12</div>
       <div class="svc-tile-grid nav-svc-grid">
+        <!-- Flagships -->
         <a class="svc-tile svc-tile-tall">
           <img src="assets/service-1.svg" alt="">
           <div>
@@ -1868,6 +1873,7 @@
           </div>
         </a>
 
+        <!-- Borrowables -->
         <a class="svc-tile">
           <img src="assets/service-3.svg" alt="">
           <span class="svc-tile-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
@@ -1877,36 +1883,38 @@
           <span class="svc-tile-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-4.svg" alt="">
-          <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
+          <img src="assets/service-9.svg" alt="">
+          <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
         </a>
-        <a class="svc-tile">
-          <img src="assets/service-6.svg" alt="">
-          <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
-        </a>
-
         <a class="svc-tile">
           <img src="assets/service-5.svg" alt="">
           <span class="svc-tile-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
+        </a>
+
+        <!-- Tech &amp; print -->
+        <a class="svc-tile">
+          <img src="assets/service-6.svg" alt="">
+          <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
         </a>
         <a class="svc-tile">
           <img src="assets/service-7.svg" alt="">
           <span class="svc-tile-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-8.svg" alt="">
-          <span class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</span>
+          <img src="assets/service-10.svg" alt="">
+          <span class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-9.svg" alt="">
-          <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
+          <img src="assets/service-4.svg" alt="">
+          <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
         </a>
 
+        <!-- Beyond books -->
         <a class="svc-tile svc-tile-wide">
-          <img src="assets/service-10.svg" alt="">
+          <img src="assets/service-8.svg" alt="">
           <div>
-            <div class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</div>
-            <div class="svc-tile-sub" data-en="Send from home, pick up here" data-es="Envía desde casa, recoge aquí">Send from home, pick up here</div>
+            <div class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</div>
+            <div class="svc-tile-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</div>
           </div>
         </a>
         <a class="svc-tile svc-tile-wide">
@@ -2540,15 +2548,15 @@
 </section>
 
 <!-- ================= Services ================= -->
-<section class="section services-section edge-section">
-  <div class="section-inner-wide">
+<section class="section services-section">
+  <div class="section-inner">
     <div class="section-head">
       <div class="section-eyebrow" data-en="What We Offer" data-es="Lo Que Ofrecemos">What We Offer</div>
       <h2 data-en="Library Services" data-es="Servicios de la Biblioteca">Library Services</h2>
       <p class="section-sub" data-en="Helpful services designed to make your library experience easier." data-es="Servicios útiles diseñados para hacer tu experiencia en la biblioteca más fácil.">Helpful services designed to make your library experience easier.</p>
     </div>
     <div class="svc-tile-grid">
-      <!-- Zone A · pair-h (tall tiles, spans 2 rows each) -->
+      <!-- Zone A · Flagships (2 tall tiles) — the two front doors of the library -->
       <a class="svc-tile svc-tile-tall">
         <img src="assets/service-1.svg" alt="">
         <div>
@@ -2564,7 +2572,7 @@
         </div>
       </a>
 
-      <!-- Zone B · 2×2 quad (col 3-4, rows 1-2) -->
+      <!-- Zone B · Things you can borrow (2×2 quad) -->
       <a class="svc-tile">
         <img src="assets/service-3.svg" alt="">
         <span class="svc-tile-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
@@ -2574,38 +2582,38 @@
         <span class="svc-tile-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-4.svg" alt="">
-        <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
+        <img src="assets/service-9.svg" alt="">
+        <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
       </a>
-      <a class="svc-tile">
-        <img src="assets/service-6.svg" alt="">
-        <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
-      </a>
-
-      <!-- Zone C · 2×2 quad (col 5-6, rows 1-2) -->
       <a class="svc-tile">
         <img src="assets/service-5.svg" alt="">
         <span class="svc-tile-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
+      </a>
+
+      <!-- Zone C · Tech &amp; print tools (2×2 quad) -->
+      <a class="svc-tile">
+        <img src="assets/service-6.svg" alt="">
+        <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
       </a>
       <a class="svc-tile">
         <img src="assets/service-7.svg" alt="">
         <span class="svc-tile-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-8.svg" alt="">
-        <span class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</span>
+        <img src="assets/service-10.svg" alt="">
+        <span class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-9.svg" alt="">
-        <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
+        <img src="assets/service-4.svg" alt="">
+        <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
       </a>
 
-      <!-- Zone D · pair-v (wide tiles, span 2 cols each) -->
+      <!-- Zone D · Beyond books (2 wide tiles) -->
       <a class="svc-tile svc-tile-wide">
-        <img src="assets/service-10.svg" alt="">
+        <img src="assets/service-8.svg" alt="">
         <div>
-          <div class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</div>
-          <div class="svc-tile-sub" data-en="Send jobs from home, pick up here" data-es="Envía desde casa, recoge aquí">Send jobs from home, pick up here</div>
+          <div class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</div>
+          <div class="svc-tile-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</div>
         </div>
       </a>
       <a class="svc-tile svc-tile-wide">
