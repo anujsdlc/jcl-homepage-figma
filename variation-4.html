@@ -688,28 +688,48 @@
     position: relative;
   }
 
-  /* Services teaser — 2 cols x 1 row */
+  /* Services teaser — 3 cols x 1 row · all 12 services as app tiles */
   .b-svc {
-    grid-column: span 2;
+    grid-column: span 3;
     padding: 22px 24px;
     display: flex; flex-direction: column;
-    justify-content: space-between;
-    gap: 12px;
+    gap: 14px;
   }
-  .b-svc .icon-row {
-    display: flex; gap: 6px;
+  .b-svc .kicker {
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft);
   }
-  .b-svc .icon-row img { width: 26px; height: 26px; }
   .b-svc h3 {
     font-family: var(--font-brand);
-    font-size: 17px; font-weight: 700;
+    font-size: 15px; font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--ink);
   }
-  .b-svc p {
-    font-size: 12px;
-    color: var(--ink-soft);
-    line-height: 1.4;
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px 6px;
+    margin-top: 4px;
+  }
+  .app {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 2px;
+    text-align: center;
+    border-radius: 10px;
+    transition: background 200ms var(--ease);
+  }
+  .app:hover { background: var(--surface-alt); }
+  .app img { width: 30px; height: 30px; }
+  .app span {
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 600;
+    color: var(--ink-muted);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
   }
 
   /* Books strip — 3 cols x 1 row */
@@ -811,10 +831,10 @@
     line-height: 1.5;
   }
 
-  /* Newsletter — 3 cols x 1 row */
+  /* Newsletter — full width, last row */
   .b-news-signup {
-    grid-column: span 3;
-    padding: 24px 28px;
+    grid-column: span 6;
+    padding: 24px 32px;
     background: linear-gradient(135deg, var(--red) 0%, #a51e28 100%);
     color: #fff;
     display: flex; flex-direction: column;
@@ -1174,18 +1194,23 @@
           <div class="meta"><span>Lakewood Branch</span><span>Free · RSVP</span></div>
         </a>
 
-        <!-- Services teaser — 2 col -->
+        <!-- Services — all 12 as app icons + names -->
         <a class="b-card b-svc">
-          <div class="icon-row">
-            <img src="assets/service-8.svg" alt="">
-            <img src="assets/service-11.svg" alt="">
-            <img src="assets/service-3.svg" alt="">
-            <img src="assets/service-7.svg" alt="">
-            <img src="assets/service-1.svg" alt="">
-          </div>
-          <div>
-            <h3>12 free services</h3>
-            <p>Mobile app, meeting rooms, WiFi hotspots, notary — everything with one card.</p>
+          <div class="kicker">All 12 free services</div>
+          <h3>Everything with one card</h3>
+          <div class="app-grid">
+            <div class="app"><img src="assets/service-8.svg" alt=""><span>Mobile App</span></div>
+            <div class="app"><img src="assets/service-11.svg" alt=""><span>Meeting Rooms</span></div>
+            <div class="app"><img src="assets/service-3.svg" alt=""><span>Book Bundles</span></div>
+            <div class="app"><img src="assets/service-12.svg" alt=""><span>Library of Things</span></div>
+            <div class="app"><img src="assets/service-9.svg" alt=""><span>Request a Book</span></div>
+            <div class="app"><img src="assets/service-4.svg" alt=""><span>Homebound Delivery</span></div>
+            <div class="app"><img src="assets/service-7.svg" alt=""><span>WiFi Hotspots</span></div>
+            <div class="app"><img src="assets/service-10.svg" alt=""><span>Computers &amp; Printing</span></div>
+            <div class="app"><img src="assets/service-5.svg" alt=""><span>Print Anywhere</span></div>
+            <div class="app"><img src="assets/service-2.svg" alt=""><span>Smart Lockers</span></div>
+            <div class="app"><img src="assets/service-1.svg" alt=""><span>Notary &amp; Passports</span></div>
+            <div class="app"><img src="assets/service-6.svg" alt=""><span>Accessibility</span></div>
           </div>
         </a>
 
