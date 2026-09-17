@@ -892,16 +892,14 @@
   }
   .b-shelf-hd .more {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 0.02em;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.01em;
     color: var(--navy);
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: var(--surface-alt);
-    transition: background 200ms var(--ease);
+    transition: color 200ms var(--ease);
     white-space: nowrap;
+    cursor: pointer;
   }
-  .b-shelf-hd .more:hover { background: var(--navy); color: #fff; }
+  .b-shelf-hd .more:hover { color: var(--red); }
   .shelf-row {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -1366,7 +1364,7 @@
           <h2>What's on <strong>today</strong>.</h2>
           <p>A snapshot of the week — books, programs, places, and news.</p>
         </div>
-        <a class="section-link">View all →</a>
+        <a class="section-link">View all</a>
       </div>
       <div class="discover">
 
@@ -1507,7 +1505,7 @@
               <div class="kicker">New arrivals</div>
               <h3>Just added to the shelves</h3>
             </div>
-            <a class="more">See all →</a>
+            <a class="more">See all</a>
           </div>
           <div class="shelf-row">
             <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-1.png" alt=""></div><div class="t">The Silent Season</div><div class="a">Lena Ortiz</div></a>
@@ -1528,7 +1526,7 @@
               <div class="kicker">Recently added</div>
               <h3>For adults &amp; teens</h3>
             </div>
-            <a class="more">See all →</a>
+            <a class="more">See all</a>
           </div>
           <div class="shelf-row">
             <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-9.png" alt=""></div><div class="t">Split Frequency</div><div class="a">Colin Reyes</div></a>
@@ -1549,7 +1547,7 @@
               <div class="kicker">Recently added</div>
               <h3>For children</h3>
             </div>
-            <a class="more">See all →</a>
+            <a class="more">See all</a>
           </div>
           <div class="shelf-row">
             <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-3.png" alt=""></div><div class="t">The Butterfly Effect</div><div class="a">Kim Park</div></a>
