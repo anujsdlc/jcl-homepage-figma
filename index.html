@@ -692,29 +692,34 @@
      ========================================================= */
   .section { padding: 72px 40px; }
   .section-inner { max-width: 1360px; margin: 0 auto; }
-  /* Left-aligned single-line section headers (Netflix/Apple rail style) */
+  /* Left-aligned two-line section headers: heading + subheading */
   .section-head {
     text-align: left;
     margin-bottom: 20px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 4px;
   }
-  /* One-liner mode: hide eyebrow + sub copy, keep just the h2 title */
-  .section-head .section-eyebrow,
-  .section-head .section-sub { display: none; }
+  /* Drop the small eyebrow tag — heading + sub is enough */
+  .section-head .section-eyebrow { display: none; }
   .section h2 {
     font-family: var(--font-brand);
     font-weight: 700;
-    font-size: clamp(18px, 1.6vw, 22px);
+    font-size: clamp(20px, 1.9vw, 24px);
     line-height: 1.2;
     letter-spacing: -0.01em;
     margin: 0;
     color: var(--navy);
+  }
+  .section-sub {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    max-width: none;
+    margin: 0;
+    line-height: 1.4;
   }
   /* Optional right-aligned action inside .section-head — Netflix-style "See all →" */
   .section-head .section-link {
