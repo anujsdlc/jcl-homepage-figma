@@ -844,6 +844,7 @@
     gap: 0;
     text-align: left;
   }
+  /* Branch cards — everything overlays the photo for a compact look */
   .branch-card {
     position: relative;
     overflow: hidden;
@@ -854,7 +855,7 @@
   .branch-card:hover { z-index: 2; }
   .branch-photo {
     position: relative;
-    height: 480px;
+    height: 380px;
     overflow: hidden;
   }
   .branch-photo-bg {
@@ -865,21 +866,22 @@
     z-index: 0;
   }
   .branch-card:hover .branch-photo-bg { transform: scale(1.06); }
+  /* Bottom gradient makes the white overlay text legible on any image */
   .branch-photo::after {
     content: '';
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.78) 100%);
     pointer-events: none;
     z-index: 1;
   }
   .branch-status {
-    position: absolute; top: 20px; left: 20px;
+    position: absolute; top: 18px; left: 18px;
     display: flex; align-items: center; gap: 8px;
-    padding: 8px 14px;
-    background: rgba(255,255,255,0.9);
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    font-size: 12px; font-weight: 600; color: var(--ink);
+    font-size: 11px; font-weight: 600; color: var(--ink);
     z-index: 2;
   }
   .branch-status::before {
@@ -889,47 +891,59 @@
   }
   .branch-chips-overlay {
     position: absolute;
-    right: 20px; bottom: 20px;
+    right: 18px; top: 18px;
     display: flex; gap: 6px;
     z-index: 2;
   }
   .branch-chips-overlay .chip {
-    padding: 6px 12px;
-    background: rgba(255,255,255,0.9);
+    padding: 5px 10px;
+    background: rgba(255,255,255,0.92);
     color: var(--ink);
-    font-size: 12px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
-  .branch-body { padding: 24px 28px; background: #fff; }
   .chip {
     padding: 4px 10px;
     background: var(--surface-alt);
     font-size: 12px; font-weight: 500;
     color: var(--ink-muted);
   }
-  .branch-name {
-    font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
-    margin-bottom: 6px;
+
+  /* Info overlay: name, address, white divider, Get Directions row */
+  .branch-overlay {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 18px 22px 18px;
+    color: #fff;
+    z-index: 2;
   }
-  .branch-addr { font-size: 14px; color: var(--ink-soft); line-height: 1.4; }
-  .branch-foot {
-    padding: 16px 24px;
-    border-top: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 13px; font-weight: 600; color: var(--ink-muted);
-    transition: color var(--dur-fast) var(--ease-smooth);
+  .branch-overlay .branch-name {
+    font-family: var(--font-brand);
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    line-height: 1.15;
   }
-  .branch-card:hover .branch-foot { color: var(--navy); }
-  .branch-foot .angle-icon {
-    width: 26px; height: 30px;
-    display: flex; align-items: center; justify-content: center;
+  .branch-overlay .branch-addr {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .branch-overlay .branch-cta {
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.32);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .branch-cta .arrow {
+    font-family: var(--font-brand);
+    font-size: 16px; font-weight: 700;
     transition: transform var(--dur-fast) var(--ease-smooth);
   }
-  .branch-foot .angle-icon img { width: 100%; height: 100%; }
-  .branch-card:hover .branch-foot .angle-icon {
-    transform: translateX(4px) translateY(-2px);
-  }
+  .branch-card:hover .branch-cta .arrow { transform: translateX(4px); }
 
   /* =========================================================
      Upcoming events (legacy card grid — kept for fallbacks)
@@ -1036,7 +1050,6 @@
   .cal-pane, .agenda-pane {
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
     padding: 18px 20px;
     box-shadow: var(--shadow-sm);
     display: flex; flex-direction: column;
@@ -1064,7 +1077,6 @@
   .cal-nav-btn {
     width: 30px; height: 30px;
     border: 1px solid var(--line-strong);
-    border-radius: 50%;
     display: grid; place-items: center;
     background: #fff;
     font-size: 14px;
@@ -1093,7 +1105,6 @@
   }
   .cal-day {
     background: var(--surface-alt);
-    border-radius: 8px;
     cursor: pointer;
     transition: all var(--dur-fast) var(--ease);
     position: relative;
@@ -1126,7 +1137,6 @@
     letter-spacing: -0.01em;
     line-height: 1.15;
     padding: 2px 5px;
-    border-radius: 3px;
     color: var(--surface);
     background: var(--navy);
     display: block;
@@ -1167,7 +1177,6 @@
     color: var(--orange);
     background: rgba(255,255,255,0.16);
     padding: 1px 5px;
-    border-radius: 999px;
     line-height: 1.4;
   }
 
@@ -1182,7 +1191,7 @@
   }
   .cal-legend .lg { display: flex; align-items: center; gap: 6px; }
   .cal-legend .lg-swatch {
-    width: 8px; height: 8px; border-radius: 2px;
+    width: 8px; height: 8px;
   }
   .cal-legend .lg-swatch.d-navy { background: var(--navy); }
   .cal-legend .lg-swatch.d-red { background: var(--red); }
@@ -1250,7 +1259,6 @@
     padding: 10px 12px;
     background: var(--surface-warm);
     border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
     color: inherit;
     transition: all var(--dur-fast) var(--ease);
     flex-shrink: 0;
@@ -1274,7 +1282,6 @@
     padding: 7px 4px;
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 8px;
     display: flex; flex-direction: column;
     align-items: center;
   }
@@ -1306,7 +1313,6 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 2px 6px;
-    border-radius: 999px;
     margin-bottom: 4px;
   }
   .agenda-tag.tag-navy { background: rgba(5,36,96,0.10); color: var(--navy); }
@@ -1346,7 +1352,6 @@
     text-align: center;
     background: var(--surface-alt);
     border: 1px dashed var(--line-strong);
-    border-radius: var(--radius-sm);
     font-family: var(--font-brand);
     font-size: 12px; font-weight: 700;
     letter-spacing: 0.02em;
@@ -1370,7 +1375,7 @@
   @media (max-width: 640px) {
     .cal-pane, .agenda-pane { padding: 14px; }
     .cal-month-name { font-size: 18px; }
-    .cal-day { border-radius: 6px; padding: 3px; min-height: 54px; }
+    .cal-day { padding: 3px; min-height: 54px; }
     .cal-day .dn { font-size: 11px; }
     .ev-pill { font-size: 8px; padding: 1px 3px; }
     .ev-more { font-size: 8px; }
@@ -1747,26 +1752,31 @@
   .footer-strip {
     background: var(--navy);
     color: #fff;
-    padding: 20px 40px;
+    padding: 28px 40px;
   }
   .footer-strip-inner {
     max-width: 1360px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    gap: 24px;
+    gap: 32px;
     flex-wrap: wrap;
   }
   .footer-strip-brand {
     display: flex; align-items: center;
-    gap: 16px;
+    gap: 20px;
+    min-width: 0;
+    flex: 1 1 auto;
   }
   .footer-strip-brand img {
-    height: 40px;
+    height: 64px;
     filter: brightness(0) invert(1);
+    flex-shrink: 0;
   }
   .footer-strip-brand span {
-    font-size: 13px;
+    font-size: 14px;
     color: rgba(255,255,255,0.72);
     letter-spacing: -0.01em;
+    line-height: 1.4;
+    max-width: 340px;
   }
   .footer-strip-links {
     display: flex; align-items: center; gap: 8px;
@@ -1866,7 +1876,7 @@
       <div class="svc-tile-grid nav-svc-grid">
         <!-- Flagships -->
         <a class="svc-tile svc-tile-tall">
-          <img src="assets/service-1.svg" alt="">
+          <img src="assets/service-8.svg" alt="">
           <div>
             <div class="svc-tile-title" data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</div>
             <div class="svc-tile-sub" data-en="Read, reserve, renew" data-es="Lee, reserva, renueva">Read, reserve, renew</div>
@@ -1886,7 +1896,7 @@
           <span class="svc-tile-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-phone.svg" alt="">
+          <img src="assets/service-12.svg" alt="">
           <span class="svc-tile-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
         </a>
         <a class="svc-tile">
@@ -1894,38 +1904,38 @@
           <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-5.svg" alt="">
+          <img src="assets/service-4.svg" alt="">
           <span class="svc-tile-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
         </a>
 
         <!-- Tech &amp; print -->
         <a class="svc-tile">
-          <img src="assets/service-6.svg" alt="">
+          <img src="assets/service-7.svg" alt="">
           <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-7.svg" alt="">
+          <img src="assets/service-10.svg" alt="">
           <span class="svc-tile-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-10.svg" alt="">
+          <img src="assets/service-5.svg" alt="">
           <span class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</span>
         </a>
         <a class="svc-tile">
-          <img src="assets/service-4.svg" alt="">
+          <img src="assets/service-2.svg" alt="">
           <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
         </a>
 
         <!-- Beyond books -->
         <a class="svc-tile svc-tile-wide">
-          <img src="assets/service-8.svg" alt="">
+          <img src="assets/service-1.svg" alt="">
           <div>
             <div class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</div>
             <div class="svc-tile-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</div>
           </div>
         </a>
         <a class="svc-tile svc-tile-wide">
-          <img src="assets/service-2.svg" alt="">
+          <img src="assets/service-6.svg" alt="">
           <div>
             <div class="svc-tile-title" data-en="Accessibility" data-es="Accesibilidad">Accessibility</div>
             <div class="svc-tile-sub" data-en="Assistive tech &amp; large-print" data-es="Tecnología asistiva">Assistive tech &amp; large-print</div>
@@ -2332,14 +2342,14 @@
           <div class="branch-photo-bg" style="background-image:url('assets/branch-1.png')"></div>
           <div class="branch-status">Open Now · Closes 8:00 PM</div>
           <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
-        </div>
-        <div class="branch-body">
-          <div class="branch-name">Arnold Branch</div>
-          <div class="branch-addr">1702 Jeffco Blvd, Arnold, MO 63010</div>
-        </div>
-        <div class="branch-foot">
-          <span>Get Directions</span>
-          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+          <div class="branch-overlay">
+            <div class="branch-name">Arnold Branch</div>
+            <div class="branch-addr">1702 Jeffco Blvd, Arnold, MO 63010</div>
+            <div class="branch-cta">
+              <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="branch-card">
@@ -2347,14 +2357,14 @@
           <div class="branch-photo-bg" style="background-image:url('assets/branch-2.png')"></div>
           <div class="branch-status">Open Now · Closes 8:00 PM</div>
           <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
-        </div>
-        <div class="branch-body">
-          <div class="branch-name">Cedar Hill Satellite</div>
-          <div class="branch-addr">6780 Parker Dr, Cedar Hill, MO 63016</div>
-        </div>
-        <div class="branch-foot">
-          <span>Get Directions</span>
-          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+          <div class="branch-overlay">
+            <div class="branch-name">Cedar Hill Satellite</div>
+            <div class="branch-addr">6780 Parker Dr, Cedar Hill, MO 63016</div>
+            <div class="branch-cta">
+              <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="branch-card">
@@ -2362,14 +2372,14 @@
           <div class="branch-photo-bg" style="background-image:url('assets/branch-3.png')"></div>
           <div class="branch-status">Open Now · Closes 8:00 PM</div>
           <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
-        </div>
-        <div class="branch-body">
-          <div class="branch-name">Northwest Branch</div>
-          <div class="branch-addr">5680 S Lakeshore Dr, High Ridge, MO</div>
-        </div>
-        <div class="branch-foot">
-          <span>Get Directions</span>
-          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+          <div class="branch-overlay">
+            <div class="branch-name">Northwest Branch</div>
+            <div class="branch-addr">5680 S Lakeshore Dr, High Ridge, MO</div>
+            <div class="branch-cta">
+              <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="branch-card">
@@ -2377,14 +2387,14 @@
           <div class="branch-photo-bg" style="background-image:url('assets/branch-4.png')"></div>
           <div class="branch-status">Open Now · Closes 8:00 PM</div>
           <div class="branch-chips-overlay"><span class="chip">Adults</span><span class="chip">Kids / Teens</span></div>
-        </div>
-        <div class="branch-body">
-          <div class="branch-name">Windsor Branch</div>
-          <div class="branch-addr">7479 Metropolitan Blvd, Barnhart, MO</div>
-        </div>
-        <div class="branch-foot">
-          <span>Get Directions</span>
-          <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
+          <div class="branch-overlay">
+            <div class="branch-name">Windsor Branch</div>
+            <div class="branch-addr">7479 Metropolitan Blvd, Barnhart, MO</div>
+            <div class="branch-cta">
+              <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2565,7 +2575,7 @@
     <div class="svc-tile-grid">
       <!-- Zone A · Flagships (2 tall tiles) — the two front doors of the library -->
       <a class="svc-tile svc-tile-tall">
-        <img src="assets/service-1.svg" alt="">
+        <img src="assets/service-8.svg" alt="">
         <div>
           <div class="svc-tile-title" data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</div>
           <div class="svc-tile-sub" data-en="Read, reserve, renew on your phone" data-es="Lee, reserva y renueva en tu móvil">Read, reserve, renew on your phone</div>
@@ -2585,7 +2595,7 @@
         <span class="svc-tile-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-phone.svg" alt="">
+        <img src="assets/service-12.svg" alt="">
         <span class="svc-tile-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
       </a>
       <a class="svc-tile">
@@ -2593,38 +2603,38 @@
         <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-5.svg" alt="">
+        <img src="assets/service-4.svg" alt="">
         <span class="svc-tile-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
       </a>
 
       <!-- Zone C · Tech &amp; print tools (2×2 quad) -->
       <a class="svc-tile">
-        <img src="assets/service-6.svg" alt="">
+        <img src="assets/service-7.svg" alt="">
         <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-7.svg" alt="">
+        <img src="assets/service-10.svg" alt="">
         <span class="svc-tile-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-10.svg" alt="">
+        <img src="assets/service-5.svg" alt="">
         <span class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</span>
       </a>
       <a class="svc-tile">
-        <img src="assets/service-4.svg" alt="">
+        <img src="assets/service-2.svg" alt="">
         <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
       </a>
 
       <!-- Zone D · Beyond books (2 wide tiles) -->
       <a class="svc-tile svc-tile-wide">
-        <img src="assets/service-8.svg" alt="">
+        <img src="assets/service-1.svg" alt="">
         <div>
           <div class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</div>
           <div class="svc-tile-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</div>
         </div>
       </a>
       <a class="svc-tile svc-tile-wide">
-        <img src="assets/service-2.svg" alt="">
+        <img src="assets/service-6.svg" alt="">
         <div>
           <div class="svc-tile-title" data-en="Accessibility" data-es="Accesibilidad">Accessibility</div>
           <div class="svc-tile-sub" data-en="Assistive tech &amp; large-print" data-es="Tecnología asistiva">Assistive tech &amp; large-print</div>
