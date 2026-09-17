@@ -710,26 +710,50 @@
   .app-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 14px 6px;
-    margin-top: 4px;
+    gap: 20px 12px;
+    margin-top: 6px;
   }
   .app {
     display: flex; flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 4px 2px;
+    gap: 8px;
     text-align: center;
-    border-radius: 10px;
-    transition: background 200ms var(--ease);
+    cursor: pointer;
   }
-  .app:hover { background: var(--surface-alt); }
-  .app img { width: 30px; height: 30px; }
+  .app-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;   /* iOS-style squircle */
+    display: grid; place-items: center;
+    box-shadow: 0 4px 12px rgba(10,10,10,0.10), inset 0 1px 0 rgba(255,255,255,0.18);
+    transition: transform 240ms var(--ease), box-shadow 240ms var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+  .app:hover .app-icon {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 10px 24px rgba(10,10,10,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .app-icon img {
+    width: 32px; height: 32px;
+    filter: brightness(0) invert(1);
+    position: relative;
+    z-index: 1;
+  }
+  .app-icon.i-navy   { background: linear-gradient(135deg, #06308a 0%, var(--navy-dark) 100%); }
+  .app-icon.i-red    { background: linear-gradient(135deg, var(--red) 0%, #a51e28 100%); }
+  .app-icon.i-orange { background: linear-gradient(135deg, var(--orange) 0%, #d94816 100%); }
+  .app-icon.i-lilac  { background: linear-gradient(135deg, #b09fce 0%, #8574a8 100%); }
+  .app-icon.i-mix1   { background: linear-gradient(135deg, var(--navy) 0%, var(--red) 100%); }
+  .app-icon.i-mix2   { background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%); }
+  .app-icon.i-mix3   { background: linear-gradient(135deg, var(--orange) 0%, #d94a1a 100%); }
+  .app-icon.i-mix4   { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); }
   .app span {
-    font-family: var(--font-brand);
-    font-size: 10px; font-weight: 600;
-    color: var(--ink-muted);
-    line-height: 1.15;
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 500;
+    color: var(--ink);
+    line-height: 1.2;
     letter-spacing: -0.01em;
+    max-width: 76px;
   }
 
   /* Books strip — 3 cols x 1 row */
@@ -1199,18 +1223,18 @@
           <div class="kicker">All 12 free services</div>
           <h3>Everything with one card</h3>
           <div class="app-grid">
-            <div class="app"><img src="assets/service-8.svg" alt=""><span>Mobile App</span></div>
-            <div class="app"><img src="assets/service-11.svg" alt=""><span>Meeting Rooms</span></div>
-            <div class="app"><img src="assets/service-3.svg" alt=""><span>Book Bundles</span></div>
-            <div class="app"><img src="assets/service-12.svg" alt=""><span>Library of Things</span></div>
-            <div class="app"><img src="assets/service-9.svg" alt=""><span>Request a Book</span></div>
-            <div class="app"><img src="assets/service-4.svg" alt=""><span>Homebound Delivery</span></div>
-            <div class="app"><img src="assets/service-7.svg" alt=""><span>WiFi Hotspots</span></div>
-            <div class="app"><img src="assets/service-10.svg" alt=""><span>Computers &amp; Printing</span></div>
-            <div class="app"><img src="assets/service-5.svg" alt=""><span>Print Anywhere</span></div>
-            <div class="app"><img src="assets/service-2.svg" alt=""><span>Smart Lockers</span></div>
-            <div class="app"><img src="assets/service-1.svg" alt=""><span>Notary &amp; Passports</span></div>
-            <div class="app"><img src="assets/service-6.svg" alt=""><span>Accessibility</span></div>
+            <div class="app"><div class="app-icon i-navy"><img src="assets/service-8.svg" alt=""></div><span>Mobile App</span></div>
+            <div class="app"><div class="app-icon i-red"><img src="assets/service-11.svg" alt=""></div><span>Meeting Rooms</span></div>
+            <div class="app"><div class="app-icon i-orange"><img src="assets/service-3.svg" alt=""></div><span>Book Bundles</span></div>
+            <div class="app"><div class="app-icon i-lilac"><img src="assets/service-12.svg" alt=""></div><span>Library of Things</span></div>
+            <div class="app"><div class="app-icon i-mix1"><img src="assets/service-9.svg" alt=""></div><span>Request a Book</span></div>
+            <div class="app"><div class="app-icon i-mix2"><img src="assets/service-4.svg" alt=""></div><span>Homebound Delivery</span></div>
+            <div class="app"><div class="app-icon i-navy"><img src="assets/service-7.svg" alt=""></div><span>WiFi Hotspots</span></div>
+            <div class="app"><div class="app-icon i-mix4"><img src="assets/service-10.svg" alt=""></div><span>Computers &amp; Printing</span></div>
+            <div class="app"><div class="app-icon i-orange"><img src="assets/service-5.svg" alt=""></div><span>Print Anywhere</span></div>
+            <div class="app"><div class="app-icon i-red"><img src="assets/service-2.svg" alt=""></div><span>Smart Lockers</span></div>
+            <div class="app"><div class="app-icon i-lilac"><img src="assets/service-1.svg" alt=""></div><span>Notary &amp; Passports</span></div>
+            <div class="app"><div class="app-icon i-mix3"><img src="assets/service-6.svg" alt=""></div><span>Accessibility</span></div>
           </div>
         </a>
 
