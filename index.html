@@ -89,9 +89,7 @@
     z-index: 60;
     background: #fff;
     border-bottom: 1px solid var(--line);
-    transition: box-shadow var(--dur) var(--ease-smooth);
   }
-  .site-topbar.is-scrolled { box-shadow: 0 6px 20px rgba(5,36,96,0.06); }
 
   .notice-bar {
     background: var(--surface-alt);
@@ -103,17 +101,7 @@
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.01em;
-    overflow: hidden;
     border-top: 1px solid var(--line);
-    transition: height var(--dur) var(--ease-smooth),
-                opacity calc(var(--dur) * 0.7) var(--ease-smooth),
-                border-top-color var(--dur) var(--ease-smooth);
-  }
-  .site-topbar.is-scrolled .notice-bar {
-    height: 0;
-    opacity: 0;
-    border-top-color: transparent;
-    pointer-events: none;
   }
   .notice-text {
     color: var(--orange);
@@ -183,24 +171,17 @@
     align-items: stretch;
     padding: 0;
     gap: 0;
-    transition: height var(--dur) var(--ease-smooth),
-                border-top-color var(--dur) var(--ease-smooth);
   }
-  .site-topbar.is-scrolled .header { height: 58px; }
   .brand {
     display: flex; align-items: center; justify-content: center;
     width: 160px; height: inherit;
     background: var(--navy);
     flex-shrink: 0;
-    transition: width var(--dur) var(--ease-smooth);
   }
-  .site-topbar.is-scrolled .brand { width: 140px; }
   .brand img {
     height: 48px;
     filter: brightness(0) invert(1);
-    transition: height var(--dur) var(--ease-smooth);
   }
-  .site-topbar.is-scrolled .brand img { height: 42px; }
 
   .search-bar {
     position: relative;
@@ -213,8 +194,7 @@
   }
   .search-bar:hover { background: var(--surface-alt); }
   .search-bar.is-open { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-  .search-bar .search-ico { width: 28px; height: 28px; opacity: 0.65; transition: width var(--dur) var(--ease-smooth), height var(--dur) var(--ease-smooth); }
-  .site-topbar.is-scrolled .search-bar .search-ico { width: 24px; height: 24px; }
+  .search-bar .search-ico { width: 28px; height: 28px; opacity: 0.65; }
   .search-bar input {
     flex: 1; border: none; background: transparent; outline: none;
     font-family: 'Arimo', sans-serif; font-size: 16px; color: var(--ink);
@@ -378,152 +358,25 @@
 
   /* =========================================================
      Main nav — top row of sticky stack
-     3 zones: [notice marquee]  [primary items]  [top-links + EN/ES]
+     2 zones: [primary items on left]  [top-links + EN/ES on right]
      ========================================================= */
   .main-nav {
-    display: grid;
-    grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+    display: flex;
     align-items: stretch;
+    justify-content: space-between;
     background: #fff;
     position: relative;
     z-index: 40;
     height: 44px;
     padding: 0 20px;
-    transition: height var(--dur) var(--ease-smooth);
-  }
-  .site-topbar.is-scrolled .main-nav { height: 40px; }
-
-  /* -- Notice marquee (left zone, hidden until scrolled) -- */
-  .nav-notice {
-    display: inline-flex; align-items: center;
-    gap: 10px;
-    height: 100%;
-    padding: 0 12px 0 4px;
-    font-family: 'Arimo', sans-serif;
-    color: var(--ink-muted);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    max-width: 0;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: max-width var(--dur) var(--ease-smooth),
-                opacity var(--dur-fast) var(--ease-smooth),
-                transform var(--dur) var(--ease-smooth),
-                background var(--dur-fast) var(--ease-smooth);
-    white-space: nowrap;
-    pointer-events: none;
-  }
-  .site-topbar.is-scrolled .nav-notice {
-    max-width: 380px;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  .nav-notice-tag {
-    display: inline-flex; align-items: center;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--surface);
-    background: var(--orange);
-    padding: 3px 8px;
-    border-radius: 4px;
-    flex-shrink: 0;
-    position: relative;
-  }
-  .nav-notice-tag::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--surface);
-    border-radius: 50%;
-    margin-right: 6px;
-    animation: notice-pulse 2s infinite;
-  }
-  @keyframes notice-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.35; }
-  }
-  .nav-notice-marquee {
-    display: inline-block;
-    overflow: hidden;
-    flex: 1;
-    min-width: 0;
-    position: relative;
-    max-width: 260px;
-  }
-  .nav-notice-text {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--ink-muted);
-    white-space: nowrap;
-    animation: notice-marquee 22s linear infinite;
-    padding-left: 100%;
-  }
-  @keyframes notice-marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-100%); }
-  }
-  .nav-notice:hover .nav-notice-text,
-  .nav-notice.is-expanded .nav-notice-text { animation-play-state: paused; }
-  .nav-notice-close {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    color: var(--ink-soft);
-    background: var(--surface-alt);
-    font-size: 16px; line-height: 1;
-    flex-shrink: 0;
-    opacity: 0; visibility: hidden;
-    transition: opacity var(--dur-fast) var(--ease-smooth);
-  }
-  .nav-notice:hover { background: var(--surface-alt); }
-
-  /* -- Expanded state: marquee fills the row, hides other nav zones -- */
-  .main-nav.notice-expanded .nav-primary,
-  .main-nav.notice-expanded .top-links {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--dur-fast) var(--ease-smooth), visibility 0s linear var(--dur-fast);
-  }
-  .main-nav.notice-expanded .nav-notice {
-    max-width: none;
-    width: 100%;
-    grid-column: 1 / -1;
-    justify-self: stretch;
-    background: linear-gradient(90deg, rgba(255,107,53,0.10) 0%, transparent 60%);
-    padding: 0 20px;
-  }
-  .main-nav.notice-expanded .nav-notice-marquee {
-    max-width: none;
-    flex: 1;
-  }
-  .main-nav.notice-expanded .nav-notice-text {
-    animation: none;
-    padding-left: 0;
-    color: var(--ink);
-    font-weight: 600;
-    white-space: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .main-nav.notice-expanded .nav-notice-close {
-    opacity: 1; visibility: visible;
-    margin-left: auto;
-  }
-  .main-nav.notice-expanded .nav-notice-close:hover {
-    background: var(--ink); color: #fff;
   }
 
-  /* -- Primary items wrapper (middle zone) -- */
   .nav-primary {
-    display: flex; justify-content: center; align-items: stretch;
+    display: flex; align-items: stretch;
     gap: 2px;
-    transition: opacity var(--dur-fast) var(--ease-smooth);
   }
 
-  /* -- Top links (right zone) -- */
+  /* Top links (right zone) */
   .main-nav .top-links {
     display: flex; align-items: center;
     gap: 22px;
@@ -531,7 +384,6 @@
     font-weight: 500;
     color: var(--ink-soft);
     letter-spacing: 0.01em;
-    transition: opacity var(--dur-fast) var(--ease-smooth);
   }
   .main-nav .top-links > span {
     cursor: pointer;
@@ -1903,7 +1755,6 @@
     .notice-text { font-size: 11px; }
     .top-links > span { display: none; }
     .header { padding: 0; height: 60px; }
-    .site-topbar.is-scrolled .header { height: 52px; }
     .brand { width: 100px; }
     .brand img { height: 36px; }
     .header-cell.get-card { min-width: 0; padding: 0 14px; font-size: 13px; }
@@ -1939,16 +1790,7 @@
 <div class="site-topbar" id="siteTopbar">
 <!-- ================= Main nav ================= -->
 <nav class="main-nav">
-  <!-- Marquee notice (visible only when scrolled) -->
-  <button class="nav-notice" id="navNotice" type="button" aria-label="Site notice">
-    <span class="nav-notice-tag" data-en="Notice" data-es="Aviso">Notice</span>
-    <span class="nav-notice-marquee">
-      <span class="nav-notice-text" data-en="Updated hours at JCL-Cedar Hill · Effective October 1, 2026" data-es="Horario actualizado en JCL-Cedar Hill · Vigente 1 de octubre, 2026">Updated hours at JCL-Cedar Hill · Effective October 1, 2026</span>
-    </span>
-    <span class="nav-notice-close" aria-hidden="true">×</span>
-  </button>
-
-  <!-- Middle: primary nav items -->
+  <!-- Left: primary nav items -->
   <div class="nav-primary">
   <div class="nav-item has-dropdown">
     <span data-en="Services" data-es="Servicios">Services</span> <span class="caret"></span>
@@ -2832,50 +2674,6 @@
   searchBackdrop.addEventListener('click', () => { searchInput.blur(); closeSearch(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { searchInput.blur(); closeSearch(); } });
 
-  // Sticky topbar — compact-on-scroll animation
-  (function () {
-    const topbar = document.getElementById('siteTopbar');
-    if (!topbar) return;
-    let ticking = false;
-    const THRESHOLD = 40;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        topbar.classList.toggle('is-scrolled', window.scrollY > THRESHOLD);
-        ticking = false;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
-
-  // Nav-notice marquee — hover/click to expand, × to collapse
-  (function () {
-    const nav = document.querySelector('.main-nav');
-    const btn = document.getElementById('navNotice');
-    const closeBtn = btn && btn.querySelector('.nav-notice-close');
-    if (!nav || !btn) return;
-
-    const expand = () => nav.classList.add('notice-expanded');
-    const collapse = () => nav.classList.remove('notice-expanded');
-
-    btn.addEventListener('mouseenter', expand);
-    // Collapse when the mouse leaves the whole nav row
-    nav.addEventListener('mouseleave', collapse);
-
-    // Click also toggles (useful on touch)
-    btn.addEventListener('click', e => {
-      if (e.target === closeBtn) { collapse(); e.stopPropagation(); return; }
-      if (nav.classList.contains('notice-expanded')) collapse();
-      else expand();
-    });
-
-    // Escape to close
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') collapse();
-    });
-  })();
 </script>
 </body>
 </html>
