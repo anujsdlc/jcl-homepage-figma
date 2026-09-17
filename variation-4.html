@@ -834,32 +834,36 @@
   .app-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 10px;
-    margin-top: 8px;
+    gap: 20px 8px;
+    margin-top: 10px;
   }
   .app {
-    display: flex; align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    border-radius: 12px;
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
     cursor: pointer;
-    background: transparent;
-    transition: background 200ms var(--ease);
   }
-  .app:hover { background: var(--surface-alt); }
   .app-icon {
-    width: 40px; height: 40px;
+    width: 60px; height: 60px;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: 14px;         /* iOS-style squircle */
     display: grid; place-items: center;
-    flex-shrink: 0;
+    transition: transform 240ms var(--ease), background 200ms var(--ease);
   }
-  .app-icon img { width: 32px; height: 32px; }
+  .app:hover .app-icon {
+    transform: translateY(-2px);
+    background: var(--surface-warm);
+  }
+  .app-icon img { width: 34px; height: 34px; }
   .app span {
     font-family: var(--font-brand);
-    font-size: 12px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--ink);
     line-height: 1.2;
     letter-spacing: -0.01em;
+    max-width: 84px;
   }
 
   /* Category shelves — full width rows with cover + title beneath each book */
