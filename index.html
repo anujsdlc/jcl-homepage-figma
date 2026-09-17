@@ -244,15 +244,11 @@
   }
   .suggest-item:hover { background: var(--surface-alt); padding-left: 20px; }
   .suggest-item .s-icon {
-    width: 34px; height: 34px;
-    background: var(--surface-alt);
+    width: 28px; height: 28px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+    flex-shrink: 0;
   }
-  .suggest-item:hover .s-icon { background: var(--navy); color: #fff; }
-  .suggest-item .s-icon img { width: 18px; height: 18px; transition: filter var(--dur-fast) var(--ease-smooth); }
-  .suggest-item:hover .s-icon img { filter: brightness(0) invert(1); }
+  .suggest-item .s-icon img { width: 24px; height: 24px; }
   .suggest-item .s-body { flex: 1; display: flex; flex-direction: column; }
   .suggest-item .s-label { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
   .suggest-item .s-sub { font-size: 12px; color: var(--ink-soft); font-weight: 400; margin-top: 2px; }
@@ -758,7 +754,7 @@
   /* =========================================================
      Books
      ========================================================= */
-  .books-section { background: var(--surface-alt); }
+  .books-section { background: #fff; }
   .book-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -938,17 +934,18 @@
     font-size: 12px; font-weight: 600;
     letter-spacing: 0.01em;
   }
-  .branch-cta .arrow {
-    font-family: var(--font-brand);
-    font-size: 16px; font-weight: 700;
+  .branch-cta .angle-icon {
+    width: 24px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
     transition: transform var(--dur-fast) var(--ease-smooth);
   }
-  .branch-card:hover .branch-cta .arrow { transform: translateX(4px); }
+  .branch-cta .angle-icon img { width: 100%; height: 100%; filter: brightness(0) invert(1); }
+  .branch-card:hover .branch-cta .angle-icon { transform: translateX(4px) translateY(-2px); }
 
   /* =========================================================
      Upcoming events (legacy card grid — kept for fallbacks)
      ========================================================= */
-  .events-section { background: var(--surface-alt); }
+  .events-section { background: #fff; }
   .events-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1037,8 +1034,7 @@
      Fits within calc(100vh - 110px sticky header) on desktop.
      Cells surface event names inline as color-coded pills.
      ========================================================= */
-  .events-cal-section { background: var(--surface-alt); }
-  .events-cal-section .section-head { margin-bottom: 16px; padding-bottom: 12px; }
+  .events-cal-section { background: #fff; }
 
   .cal-shell {
     display: grid;
@@ -1389,7 +1385,7 @@
   /* =========================================================
      Services grid — bento card style
      ========================================================= */
-  .services-section { background: var(--surface-alt); }
+  .services-section { background: #fff; }
 
   /* Mixed-size tile grid: 2/4/4/2 layout across 8 columns × 2 rows.
      No outer container "squares" — the individual tiles are the shapes. */
@@ -1623,7 +1619,7 @@
   /* =========================================================
      News & Stories
      ========================================================= */
-  .news-section { background: var(--surface-alt); }
+  .news-section { background: #fff; }
   .news-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2347,7 +2343,7 @@
             <div class="branch-addr">1702 Jeffco Blvd, Arnold, MO 63010</div>
             <div class="branch-cta">
               <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
-              <span class="arrow">→</span>
+              <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
             </div>
           </div>
         </div>
@@ -2362,7 +2358,7 @@
             <div class="branch-addr">6780 Parker Dr, Cedar Hill, MO 63016</div>
             <div class="branch-cta">
               <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
-              <span class="arrow">→</span>
+              <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
             </div>
           </div>
         </div>
@@ -2377,7 +2373,7 @@
             <div class="branch-addr">5680 S Lakeshore Dr, High Ridge, MO</div>
             <div class="branch-cta">
               <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
-              <span class="arrow">→</span>
+              <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
             </div>
           </div>
         </div>
@@ -2392,7 +2388,7 @@
             <div class="branch-addr">7479 Metropolitan Blvd, Barnhart, MO</div>
             <div class="branch-cta">
               <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
-              <span class="arrow">→</span>
+              <span class="angle-icon"><img src="assets/vector-arrow.svg" alt=""></span>
             </div>
           </div>
         </div>
@@ -2402,8 +2398,8 @@
 </section>
 
 <!-- ================= Upcoming events (calendar view) ================= -->
-<section class="section events-cal-section edge-section">
-  <div class="section-inner-wide">
+<section class="section events-cal-section">
+  <div class="section-inner">
     <div class="section-head">
       <div class="section-eyebrow" data-en="This Month" data-es="Este Mes">This Month</div>
       <h2 data-en="Upcoming Events" data-es="Próximos Eventos">Upcoming Events</h2>
