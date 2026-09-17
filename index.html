@@ -2901,19 +2901,17 @@
       });
       item.classList.add('is-open');
     };
-    const scheduleClose = () => {
+    // Only schedule a close when the pointer truly leaves the nav-item + its
+    // dropdown subtree. Moving between the label span, the caret, and the
+    // dropdown (all descendants of the nav-item) must NOT start the timer.
+    const scheduleClose = (e) => {
+      const going = e.relatedTarget;
+      if (going && item.contains(going)) return;
       clearTimeout(timer);
       timer = setTimeout(() => item.classList.remove('is-open'), 260);
     };
     item.addEventListener('mouseenter', open);
     item.addEventListener('mouseleave', scheduleClose);
-    // Keep the panel open while the mouse is over it, even if it briefly
-    // exits the nav-item's visual box during travel
-    const dd = item.querySelector('.nav-dropdown');
-    if (dd) {
-      dd.addEventListener('mouseenter', open);
-      dd.addEventListener('mouseleave', scheduleClose);
-    }
   });
 
   // Search suggestions
