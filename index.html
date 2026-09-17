@@ -81,18 +81,39 @@
   .reveal.d4 { animation-delay: 440ms; }
 
   /* =========================================================
-     Notice bar
+     Sticky top stack + Notice bar
      ========================================================= */
+  /* All three rows (nav → search → notice) share this sticky wrapper */
+  .site-topbar {
+    position: sticky; top: 0;
+    z-index: 60;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    transition: box-shadow var(--dur) var(--ease-smooth);
+  }
+  .site-topbar.is-scrolled { box-shadow: 0 6px 20px rgba(5,36,96,0.06); }
+
   .notice-bar {
     background: var(--surface-alt);
-    height: 44px;
-    padding: 0 40px;
+    height: 36px;
+    padding: 0 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.01em;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    transition: height var(--dur) var(--ease-smooth),
+                opacity calc(var(--dur) * 0.7) var(--ease-smooth),
+                border-top-color var(--dur) var(--ease-smooth);
+  }
+  .site-topbar.is-scrolled .notice-bar {
+    height: 0;
+    opacity: 0;
+    border-top-color: transparent;
+    pointer-events: none;
   }
   .notice-text {
     color: var(--orange);
@@ -152,44 +173,51 @@
   .lang-btn.active { color: #fff; }
 
   /* =========================================================
-     Header — sticky, glass
+     Header — search row (middle of sticky stack)
      ========================================================= */
   .header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
     display: flex;
-    height: 110px;
+    height: 68px;
     background: #fff;
-    border-bottom: 1px solid var(--line);
+    border-top: 1px solid var(--line);
     align-items: stretch;
     padding: 0;
     gap: 0;
-    transition: box-shadow var(--dur) var(--ease-smooth);
+    transition: height var(--dur) var(--ease-smooth),
+                border-top-color var(--dur) var(--ease-smooth);
   }
+  .site-topbar.is-scrolled .header { height: 58px; }
   .brand {
     display: flex; align-items: center; justify-content: center;
-    width: 200px; height: 110px;
+    width: 160px; height: inherit;
     background: var(--navy);
     flex-shrink: 0;
+    transition: width var(--dur) var(--ease-smooth);
   }
-  .brand img { height: 82px; filter: brightness(0) invert(1); }
+  .site-topbar.is-scrolled .brand { width: 140px; }
+  .brand img {
+    height: 48px;
+    filter: brightness(0) invert(1);
+    transition: height var(--dur) var(--ease-smooth);
+  }
+  .site-topbar.is-scrolled .brand img { height: 42px; }
 
   .search-bar {
     position: relative;
     flex: 1;
-    display: flex; align-items: center; gap: 14px;
-    padding: 0 28px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 24px;
     background: #fff;
     border-right: 1px solid var(--line);
     transition: background var(--dur-fast) var(--ease);
   }
   .search-bar:hover { background: var(--surface-alt); }
   .search-bar.is-open { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-  .search-bar .search-ico { width: 40px; height: 40px; opacity: 0.7; }
+  .search-bar .search-ico { width: 28px; height: 28px; opacity: 0.65; transition: width var(--dur) var(--ease-smooth), height var(--dur) var(--ease-smooth); }
+  .site-topbar.is-scrolled .search-bar .search-ico { width: 24px; height: 24px; }
   .search-bar input {
     flex: 1; border: none; background: transparent; outline: none;
-    font-family: 'Arimo', sans-serif; font-size: 20px; color: var(--ink);
+    font-family: 'Arimo', sans-serif; font-size: 16px; color: var(--ink);
   }
   .search-bar input::placeholder { color: var(--ink-soft); }
 
@@ -282,11 +310,11 @@
 
   .header-cell {
     display: flex; align-items: center; justify-content: center;
-    gap: 12px;
-    padding: 0 32px;
+    gap: 10px;
+    padding: 0 22px;
     font-family: var(--font-brand);
-    font-weight: 400;
-    font-size: 22px;
+    font-weight: 500;
+    font-size: 15px;
     cursor: pointer;
     white-space: nowrap;
     position: relative;
@@ -296,8 +324,8 @@
   .header-cell.get-card {
     background: linear-gradient(135deg, #ff6b35 0%, #e04e17 100%);
     color: #fff;
-    min-width: 320px;
-    font-weight: 500;
+    min-width: 220px;
+    font-weight: 600;
     overflow: hidden;
   }
   .header-cell.get-card::before {
@@ -313,17 +341,17 @@
   }
   .header-cell.get-card .card-badge {
     display: inline-flex; align-items: center; justify-content: center;
-    width: 32px; height: 32px;
+    width: 26px; height: 26px;
     background: rgba(255,255,255,0.18);
     color: #fff;
-    font-size: 18px;
+    font-size: 15px;
     transition: transform var(--dur) var(--ease);
   }
   .header-cell.get-card:hover .card-badge { transform: translateX(4px); }
   .header-cell.my-account {
     background: var(--navy); color: #fff;
     border-right: none;
-    min-width: 200px;
+    min-width: 150px;
     transition: background var(--dur-fast) var(--ease);
   }
   .header-cell.my-account:hover { background: var(--navy-dark); }
@@ -349,20 +377,22 @@
   .btn-lg { padding: 0 32px; height: 56px; font-size: 16px; }
 
   /* =========================================================
-     Main nav — clean pill
+     Main nav — clean pill (top row of sticky stack)
      ========================================================= */
   .main-nav {
     display: flex; justify-content: center; align-items: stretch;
     gap: 4px;
     background: #fff;
-    border-bottom: 1px solid var(--line);
     position: relative;
     z-index: 40;
+    height: 44px;
+    transition: height var(--dur) var(--ease-smooth);
   }
+  .site-topbar.is-scrolled .main-nav { height: 40px; }
   .nav-item {
     display: flex; align-items: center; gap: 6px;
-    padding: 18px 22px;
-    font-size: 14px; font-weight: 500;
+    padding: 0 18px;
+    font-size: 13px; font-weight: 600;
     color: var(--ink-muted);
     cursor: pointer;
     position: relative;
@@ -917,50 +947,57 @@
   .u-card.view-all:hover .go { transform: translateX(4px); }
 
   /* =========================================================
-     Events — calendar view (redesigned)
+     Events — calendar view (compact, viewport-fit)
+     Fits within calc(100vh - 110px sticky header) on desktop.
+     Cells surface event names inline as color-coded pills.
      ========================================================= */
   .events-cal-section { background: var(--surface-alt); }
+  .events-cal-section .section-head { margin-bottom: 20px; }
+  .events-cal-section .section-head h2 { font-size: clamp(30px, 3.4vw, 44px); margin-bottom: 6px; }
+  .events-cal-section .section-sub { font-size: 14px; }
+
   .cal-shell {
     display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: 24px;
-    align-items: start;
-    margin-top: 8px;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 4px;
   }
-  .cal-pane {
+  .cal-pane, .agenda-pane {
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 32px;
+    border-radius: var(--radius);
+    padding: 18px 20px;
     box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
   }
   .cal-pane-hd {
     display: flex; justify-content: space-between; align-items: end;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
-  .cal-month-title { display: flex; flex-direction: column; gap: 4px; }
+  .cal-month-title { display: flex; flex-direction: column; gap: 2px; }
   .cal-month-name {
     font-family: var(--font-brand);
-    font-size: 32px; font-weight: 700;
+    font-size: 22px; font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--navy);
     line-height: 1;
   }
   .cal-month-sub {
-    font-size: 13px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--ink-soft);
     letter-spacing: 0.02em;
   }
-  .cal-month-nav { display: flex; gap: 8px; }
+  .cal-month-nav { display: flex; gap: 6px; }
   .cal-nav-btn {
-    width: 40px; height: 40px;
+    width: 30px; height: 30px;
     border: 1px solid var(--line-strong);
     border-radius: 50%;
     display: grid; place-items: center;
     background: #fff;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--navy);
     transition: all var(--dur-fast) var(--ease);
@@ -970,86 +1007,112 @@
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    grid-auto-rows: 1fr;
+    gap: 4px;
+    flex: 1;
+    min-height: 0;
   }
   .cal-dow {
-    text-align: center;
+    text-align: left;
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 9px; font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    padding: 6px 0 10px;
+    padding: 2px 6px 6px;
   }
   .cal-day {
-    aspect-ratio: 1;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 6px;
     background: var(--surface-alt);
-    border-radius: 12px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all var(--dur-fast) var(--ease);
     position: relative;
-    padding: 6px 2px;
+    padding: 4px 5px;
+    display: flex; flex-direction: column;
+    gap: 3px;
+    min-height: 72px;
+    overflow: hidden;
   }
   .cal-day:hover:not(.cal-mute):not(.cal-today) {
     background: #fff;
-    box-shadow: 0 2px 12px rgba(5,36,96,0.10);
+    box-shadow: 0 2px 10px rgba(5,36,96,0.10);
     transform: translateY(-1px);
+    z-index: 2;
   }
   .cal-day .dn {
     font-family: var(--font-brand);
-    font-size: 16px; font-weight: 600;
+    font-size: 12px; font-weight: 700;
     color: var(--navy);
     line-height: 1;
+    padding: 1px 2px 2px;
   }
-  .cal-day .dots {
-    display: flex; gap: 4px;
-    height: 6px;
+  .cal-day.cal-mute { opacity: 0.35; background: transparent; cursor: default; }
+  .cal-day.cal-mute .dn { color: var(--ink-soft); font-weight: 500; }
+
+  /* Event pill inside a day cell */
+  .ev-pill {
+    font-family: var(--font-display);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: var(--surface);
+    background: var(--navy);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 2px solid transparent;
   }
-  .cal-day .dots i {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    display: inline-block;
+  .ev-pill.ev-navy { background: rgba(5,36,96,0.10); color: var(--navy); border-left-color: var(--navy); }
+  .ev-pill.ev-red { background: rgba(218,44,56,0.10); color: var(--red); border-left-color: var(--red); }
+  .ev-pill.ev-orange { background: rgba(255,107,53,0.14); color: #c04a20; border-left-color: var(--orange); }
+  .ev-pill.ev-ink { background: rgba(10,10,10,0.08); color: var(--ink); border-left-color: var(--ink); }
+  .ev-more {
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    color: var(--ink-soft);
+    padding: 0 4px;
+    letter-spacing: 0.02em;
   }
-  .cal-day .dots .d-navy { background: var(--navy); }
-  .cal-day .dots .d-red { background: var(--red); }
-  .cal-day .dots .d-orange { background: var(--orange); }
-  .cal-day .dots .d-ink { background: var(--ink); }
-  .cal-day.cal-mute { opacity: 0.3; background: transparent; cursor: default; }
-  .cal-day.cal-mute .dn { color: var(--ink-soft); font-weight: 400; }
 
   .cal-day.cal-today {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
     color: #fff;
-    box-shadow: 0 8px 24px rgba(5,36,96,0.28);
+    box-shadow: 0 6px 18px rgba(5,36,96,0.28);
   }
-  .cal-day.cal-today .dn { color: #fff; font-weight: 700; font-size: 22px; }
-  .cal-day.cal-today .dots i { background: #fff; opacity: 0.85; }
+  .cal-day.cal-today .dn { color: #fff; font-size: 14px; }
+  .cal-day.cal-today .ev-pill {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    border-left-color: var(--orange);
+  }
+  .cal-day.cal-today .ev-more { color: rgba(255,255,255,0.75); }
   .cal-today-tag {
-    position: absolute; top: 6px; right: 6px;
+    position: absolute; top: 4px; right: 4px;
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 8px; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--orange);
-    background: rgba(255,255,255,0.14);
-    padding: 2px 6px;
+    background: rgba(255,255,255,0.16);
+    padding: 1px 5px;
     border-radius: 999px;
+    line-height: 1.4;
   }
 
   .cal-legend {
-    display: flex; flex-wrap: wrap; gap: 16px;
+    display: flex; flex-wrap: wrap; gap: 12px;
     align-items: center;
-    margin-top: 24px;
-    padding-top: 20px;
+    margin-top: 12px;
+    padding-top: 10px;
     border-top: 1px dashed var(--line);
-    font-size: 12px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--ink-muted);
   }
-  .cal-legend .lg { display: flex; align-items: center; gap: 8px; }
+  .cal-legend .lg { display: flex; align-items: center; gap: 6px; }
   .cal-legend .lg-swatch {
-    width: 10px; height: 10px; border-radius: 50%;
+    width: 8px; height: 8px; border-radius: 2px;
   }
   .cal-legend .lg-swatch.d-navy { background: var(--navy); }
   .cal-legend .lg-swatch.d-red { background: var(--red); }
@@ -1064,75 +1127,84 @@
     text-underline-offset: 3px;
     text-decoration-color: rgba(5,36,96,0.3);
     transition: text-decoration-color var(--dur-fast);
+    font-size: 11px;
   }
   .cal-legend-link:hover { text-decoration-color: var(--red); color: var(--red); }
 
   /* Agenda pane */
   .agenda-pane {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    box-shadow: var(--shadow-sm);
-    position: sticky; top: 96px;
+    position: sticky; top: 122px;
+    max-height: calc(100vh - 130px);
   }
   .agenda-hd {
-    display: flex; align-items: center; gap: 16px;
-    padding-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
   }
   .agenda-day-num {
     font-family: var(--font-brand);
-    font-size: 56px; font-weight: 700;
+    font-size: 40px; font-weight: 700;
     letter-spacing: -0.04em; line-height: 0.9;
     color: var(--red);
   }
   .agenda-day-label {
     font-family: var(--font-brand);
-    font-size: 18px; font-weight: 700;
+    font-size: 15px; font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--navy);
+    line-height: 1.15;
   }
   .agenda-day-meta {
-    font-size: 13px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink-soft);
-    margin-top: 4px;
+    margin-top: 3px;
   }
 
-  .agenda-list { display: flex; flex-direction: column; gap: 10px; }
+  .agenda-list {
+    display: flex; flex-direction: column; gap: 8px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    margin: -4px -4px 0;
+    padding: 4px;
+  }
+  .agenda-list::-webkit-scrollbar { width: 6px; }
+  .agenda-list::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
   .agenda-row {
     display: grid;
-    grid-template-columns: 72px 1fr auto;
-    gap: 16px;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
     align-items: center;
-    padding: 14px 16px;
+    padding: 10px 12px;
     background: var(--surface-warm);
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
     color: inherit;
     transition: all var(--dur-fast) var(--ease);
+    flex-shrink: 0;
   }
   .agenda-row:hover {
     background: #fff;
     border-color: var(--line-strong);
     transform: translateX(2px);
-    box-shadow: 0 6px 20px rgba(5,36,96,0.08);
+    box-shadow: 0 4px 14px rgba(5,36,96,0.08);
   }
   .agenda-row.featured {
     background: linear-gradient(135deg, rgba(218,44,56,0.06) 0%, rgba(255,107,53,0.05) 100%);
-    border-color: rgba(218,44,56,0.22);
+    border-color: rgba(218,44,56,0.24);
   }
   .agenda-row.featured:hover {
     border-color: rgba(218,44,56,0.4);
-    box-shadow: 0 10px 28px rgba(218,44,56,0.14);
+    box-shadow: 0 6px 20px rgba(218,44,56,0.14);
   }
   .agenda-time {
     text-align: center;
-    padding: 10px 6px;
+    padding: 7px 4px;
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex; flex-direction: column;
     align-items: center;
   }
@@ -1143,29 +1215,29 @@
   }
   .agenda-time .ah {
     font-family: var(--font-brand);
-    font-size: 20px; font-weight: 700;
+    font-size: 15px; font-weight: 700;
     letter-spacing: -0.02em; line-height: 1;
     color: var(--navy);
   }
   .agenda-row.featured .agenda-time .ah { color: #fff; }
   .agenda-time .ap {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 9px; font-weight: 700;
     letter-spacing: 0.12em;
     color: var(--ink-soft);
-    margin-top: 4px;
+    margin-top: 3px;
   }
   .agenda-row.featured .agenda-time .ap { color: rgba(255,255,255,0.7); }
   .agenda-body { min-width: 0; }
   .agenda-tag {
     display: inline-block;
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.1em;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 3px 8px;
+    padding: 2px 6px;
     border-radius: 999px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .agenda-tag.tag-navy { background: rgba(5,36,96,0.10); color: var(--navy); }
   .agenda-tag.tag-red { background: rgba(218,44,56,0.10); color: var(--red); }
@@ -1173,22 +1245,22 @@
   .agenda-tag.tag-ink { background: rgba(10,10,10,0.08); color: var(--ink); }
   .agenda-title {
     font-family: var(--font-brand);
-    font-size: 16px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.25;
     color: var(--navy);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
   .agenda-meta {
-    font-size: 12px; font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--ink-soft);
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 5px;
     flex-wrap: wrap;
   }
   .agenda-dot { opacity: 0.5; }
   .agenda-arrow {
     font-family: var(--font-brand);
-    font-size: 20px; font-weight: 700;
+    font-size: 16px; font-weight: 700;
     color: var(--ink-soft);
     transition: all var(--dur-fast) var(--ease);
   }
@@ -1199,17 +1271,18 @@
 
   .agenda-viewall {
     display: block;
-    margin-top: 20px;
-    padding: 14px 20px;
+    margin-top: 10px;
+    padding: 10px 14px;
     text-align: center;
     background: var(--surface-alt);
     border: 1px dashed var(--line-strong);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
     font-family: var(--font-brand);
-    font-size: 13px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--navy);
     transition: all var(--dur-fast) var(--ease);
+    flex-shrink: 0;
   }
   .agenda-viewall:hover {
     background: var(--navy);
@@ -1220,18 +1293,22 @@
 
   @media (max-width: 1080px) {
     .cal-shell { grid-template-columns: 1fr; }
-    .agenda-pane { position: static; }
+    .agenda-pane { position: static; max-height: none; }
+    .agenda-list { overflow: visible; }
+    .cal-day { min-height: 68px; }
   }
   @media (max-width: 640px) {
-    .cal-pane, .agenda-pane { padding: 20px; }
-    .cal-month-name { font-size: 26px; }
-    .cal-day { border-radius: 8px; padding: 4px 2px; }
-    .cal-day .dn { font-size: 13px; }
-    .cal-day .dots i { width: 4px; height: 4px; }
+    .cal-pane, .agenda-pane { padding: 14px; }
+    .cal-month-name { font-size: 18px; }
+    .cal-day { border-radius: 6px; padding: 3px; min-height: 54px; }
+    .cal-day .dn { font-size: 11px; }
+    .ev-pill { font-size: 8px; padding: 1px 3px; }
+    .ev-more { font-size: 8px; }
     .cal-grid { gap: 3px; }
-    .agenda-day-num { font-size: 44px; }
-    .agenda-row { grid-template-columns: 60px 1fr; }
+    .agenda-day-num { font-size: 32px; }
+    .agenda-row { grid-template-columns: 48px 1fr; padding: 10px; }
     .agenda-arrow { display: none; }
+    .cal-today-tag { display: none; }
   }
 
   /* =========================================================
@@ -1672,11 +1749,21 @@
     .footer-links-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   }
   @media (max-width: 720px) {
-    .notice-bar { padding: 0 20px; height: auto; padding: 10px 20px; flex-direction: column; gap: 6px; }
-    .header { padding: 0 20px; gap: 12px; }
+    .notice-bar { padding: 0 16px; height: 32px; font-size: 11px; }
+    .notice-text { font-size: 11px; }
+    .top-links > span { display: none; }
+    .header { padding: 0; height: 60px; }
+    .site-topbar.is-scrolled .header { height: 52px; }
+    .brand { width: 100px; }
+    .brand img { height: 36px; }
+    .header-cell.get-card { min-width: 0; padding: 0 14px; font-size: 13px; }
+    .header-cell.my-account { min-width: 0; padding: 0 14px; font-size: 13px; }
+    .header-cell.get-card > *:not(.card-badge) { display: none; }
     .header-actions .btn { padding: 0 12px; font-size: 13px; }
-    .search-bar { display: none; }
-    .main-nav { flex-wrap: wrap; }
+    .search-bar { padding: 0 14px; }
+    .search-bar input { font-size: 14px; }
+    .search-bar .search-ico { width: 22px; height: 22px; }
+    .main-nav { display: none; }
     .section { padding: 80px 20px; }
     .hero { padding: 80px 20px 60px; }
     .book-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1698,109 +1785,8 @@
 </head>
 <body>
 
-<!-- ================= Notice bar ================= -->
-<div class="notice-bar">
-  <div class="notice-text"><span data-en="Notice:" data-es="Aviso:">Notice:</span> <b data-en="Updated hours at JCL-Cedar Hill · Effective October 1, 2026" data-es="Horario actualizado en JCL-Cedar Hill · Vigente 1 de octubre, 2026">Updated hours at JCL-Cedar Hill · Effective October 1, 2026</b></div>
-  <div class="top-links">
-    <span data-en="Explore Catalog" data-es="Explorar Catálogo">Explore Catalog</span>
-    <span data-en="Digital Library" data-es="Biblioteca Digital">Digital Library</span>
-    <span data-en="About Us" data-es="Nosotros">About Us</span>
-    <span data-en="Contact Us" data-es="Contáctenos">Contact Us</span>
-    <div class="lang-toggle" role="tablist" aria-label="Language">
-      <div class="lang-switch" id="langSwitch">
-        <div class="slider"></div>
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ================= Header ================= -->
-<header class="header">
-  <div class="brand">
-    <img src="assets/logo-mark.png" alt="Jefferson County Library">
-  </div>
-  <div class="search-bar" id="searchBar">
-    <img class="search-ico" src="assets/search.svg" alt="">
-    <input type="text" placeholder="Search" id="searchInput" autocomplete="off" data-placeholder-en="Search" data-placeholder-es="Buscar">
-    <div class="search-suggest">
-      <div class="search-suggest-inner">
-        <div class="suggest-col">
-          <div class="suggest-heading">What are you looking for?</div>
-          <ul class="suggest-list">
-            <li class="suggest-item">
-              <span class="s-icon"><img src="assets/service-1.svg" alt=""></span>
-              <span class="s-body">
-                <span class="s-label">Books</span>
-                <span class="s-sub">Fiction, non-fiction, audiobooks &amp; more</span>
-              </span>
-              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
-            </li>
-            <li class="suggest-item">
-              <span class="s-icon"><img src="assets/service-6.svg" alt=""></span>
-              <span class="s-body">
-                <span class="s-label">Digital Library</span>
-                <span class="s-sub">eBooks, streaming, online resources</span>
-              </span>
-              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
-            </li>
-            <li class="suggest-item">
-              <span class="s-icon"><img src="assets/service-3.svg" alt=""></span>
-              <span class="s-body">
-                <span class="s-label">For Kids &amp; Teens</span>
-                <span class="s-sub">Programs, story time, teen space</span>
-              </span>
-              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
-            </li>
-            <li class="suggest-item">
-              <span class="s-icon"><img src="assets/service-9.svg" alt=""></span>
-              <span class="s-body">
-                <span class="s-label">Top Books</span>
-                <span class="s-sub">Trending &amp; most-loved this month</span>
-              </span>
-              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
-            </li>
-          </ul>
-        </div>
-        <div class="suggest-col">
-          <div class="suggest-heading">Popular Searches</div>
-          <div class="suggest-tags">
-            <span class="suggest-tag">Bestsellers 2026</span>
-            <span class="suggest-tag">New releases</span>
-            <span class="suggest-tag">Storytime</span>
-            <span class="suggest-tag">Mystery novels</span>
-            <span class="suggest-tag">Homework help</span>
-            <span class="suggest-tag">Audiobooks</span>
-            <span class="suggest-tag">Book clubs</span>
-            <span class="suggest-tag">Learn Spanish</span>
-          </div>
-          <div class="suggest-heading" style="margin-top:24px">Quick Links</div>
-          <ul class="suggest-list">
-            <li class="suggest-item">
-              <span class="s-icon"><img src="assets/service-4.svg" alt=""></span>
-              <span class="s-body">
-                <span class="s-label">Get a Library Card</span>
-              </span>
-              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
-            </li>
-            <li class="suggest-item">
-              <span class="s-icon"><img src="assets/service-phone.svg" alt=""></span>
-              <span class="s-body">
-                <span class="s-label">Hours &amp; Locations</span>
-              </span>
-              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="search-backdrop" id="searchBackdrop"></div>
-  <div class="header-cell get-card" data-en="Get Your Library Card" data-es="Obtén Tu Tarjeta">Get Your Library Card</div>
-  <div class="header-cell my-account" data-en="My Account" data-es="Mi Cuenta">My Account</div>
-</header>
-
+<!-- ================= Sticky top stack (nav → search → notice) ================= -->
+<div class="site-topbar" id="siteTopbar">
 <!-- ================= Main nav ================= -->
 <nav class="main-nav">
   <div class="nav-item has-dropdown">
@@ -1963,6 +1949,108 @@
   </div>
   <div class="nav-item"><span data-en="Community Resources" data-es="Recursos Comunitarios">Community Resources</span></div>
 </nav>
+<!-- ================= Header ================= -->
+<header class="header">
+  <div class="brand">
+    <img src="assets/logo-mark.png" alt="Jefferson County Library">
+  </div>
+  <div class="search-bar" id="searchBar">
+    <img class="search-ico" src="assets/search.svg" alt="">
+    <input type="text" placeholder="Search" id="searchInput" autocomplete="off" data-placeholder-en="Search" data-placeholder-es="Buscar">
+    <div class="search-suggest">
+      <div class="search-suggest-inner">
+        <div class="suggest-col">
+          <div class="suggest-heading">What are you looking for?</div>
+          <ul class="suggest-list">
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-1.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Books</span>
+                <span class="s-sub">Fiction, non-fiction, audiobooks &amp; more</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-6.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Digital Library</span>
+                <span class="s-sub">eBooks, streaming, online resources</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-3.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">For Kids &amp; Teens</span>
+                <span class="s-sub">Programs, story time, teen space</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-9.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Top Books</span>
+                <span class="s-sub">Trending &amp; most-loved this month</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+          </ul>
+        </div>
+        <div class="suggest-col">
+          <div class="suggest-heading">Popular Searches</div>
+          <div class="suggest-tags">
+            <span class="suggest-tag">Bestsellers 2026</span>
+            <span class="suggest-tag">New releases</span>
+            <span class="suggest-tag">Storytime</span>
+            <span class="suggest-tag">Mystery novels</span>
+            <span class="suggest-tag">Homework help</span>
+            <span class="suggest-tag">Audiobooks</span>
+            <span class="suggest-tag">Book clubs</span>
+            <span class="suggest-tag">Learn Spanish</span>
+          </div>
+          <div class="suggest-heading" style="margin-top:24px">Quick Links</div>
+          <ul class="suggest-list">
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-4.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Get a Library Card</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+            <li class="suggest-item">
+              <span class="s-icon"><img src="assets/service-phone.svg" alt=""></span>
+              <span class="s-body">
+                <span class="s-label">Hours &amp; Locations</span>
+              </span>
+              <span class="s-chev"><img src="assets/arrow-service.svg" alt=""></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search-backdrop" id="searchBackdrop"></div>
+  <div class="header-cell get-card" data-en="Get Your Library Card" data-es="Obtén Tu Tarjeta">Get Your Library Card</div>
+  <div class="header-cell my-account" data-en="My Account" data-es="Mi Cuenta">My Account</div>
+</header>
+<!-- ================= Notice bar ================= -->
+<div class="notice-bar">
+  <div class="notice-text"><span data-en="Notice:" data-es="Aviso:">Notice:</span> <b data-en="Updated hours at JCL-Cedar Hill · Effective October 1, 2026" data-es="Horario actualizado en JCL-Cedar Hill · Vigente 1 de octubre, 2026">Updated hours at JCL-Cedar Hill · Effective October 1, 2026</b></div>
+  <div class="top-links">
+    <span data-en="Explore Catalog" data-es="Explorar Catálogo">Explore Catalog</span>
+    <span data-en="Digital Library" data-es="Biblioteca Digital">Digital Library</span>
+    <span data-en="About Us" data-es="Nosotros">About Us</span>
+    <span data-en="Contact Us" data-es="Contáctenos">Contact Us</span>
+    <div class="lang-toggle" role="tablist" aria-label="Language">
+      <div class="lang-switch" id="langSwitch">
+        <div class="slider"></div>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 <!-- ================= Hero ================= -->
 <section class="hero">
@@ -2242,47 +2330,49 @@
         <div class="cal-grid">
           <div class="cal-dow">Sun</div><div class="cal-dow">Mon</div><div class="cal-dow">Tue</div><div class="cal-dow">Wed</div><div class="cal-dow">Thu</div><div class="cal-dow">Fri</div><div class="cal-dow">Sat</div>
 
-          <div class="cal-day cal-mute">30</div>
-          <div class="cal-mute cal-day">31</div>
-          <div class="cal-day"><span class="dn">1</span><span class="dots"><i class="d-navy"></i></span></div>
+          <div class="cal-day cal-mute"><span class="dn">30</span></div>
+          <div class="cal-day cal-mute"><span class="dn">31</span></div>
+          <div class="cal-day"><span class="dn">1</span><span class="ev-pill ev-navy">Storytime</span></div>
           <div class="cal-day"><span class="dn">2</span></div>
-          <div class="cal-day"><span class="dn">3</span><span class="dots"><i class="d-red"></i><i class="d-navy"></i></span></div>
+          <div class="cal-day"><span class="dn">3</span><span class="ev-pill ev-red">Book Club</span><span class="ev-pill ev-navy">Storytime</span></div>
           <div class="cal-day"><span class="dn">4</span></div>
-          <div class="cal-day"><span class="dn">5</span><span class="dots"><i class="d-orange"></i></span></div>
+          <div class="cal-day"><span class="dn">5</span><span class="ev-pill ev-orange">ESL Class</span></div>
 
           <div class="cal-day"><span class="dn">6</span></div>
-          <div class="cal-day"><span class="dn">7</span><span class="dots"><i class="d-navy"></i></span></div>
+          <div class="cal-day"><span class="dn">7</span><span class="ev-pill ev-navy">Baby Bounce</span></div>
           <div class="cal-day"><span class="dn">8</span></div>
           <div class="cal-day"><span class="dn">9</span></div>
-          <div class="cal-day"><span class="dn">10</span><span class="dots"><i class="d-navy"></i><i class="d-red"></i></span></div>
-          <div class="cal-day"><span class="dn">11</span><span class="dots"><i class="d-ink"></i></span></div>
+          <div class="cal-day"><span class="dn">10</span><span class="ev-pill ev-navy">Family Movie</span><span class="ev-pill ev-red">Chess Club</span></div>
+          <div class="cal-day"><span class="dn">11</span><span class="ev-pill ev-ink">Author Talk</span></div>
           <div class="cal-day"><span class="dn">12</span></div>
 
-          <div class="cal-day"><span class="dn">13</span><span class="dots"><i class="d-navy"></i></span></div>
+          <div class="cal-day"><span class="dn">13</span><span class="ev-pill ev-navy">Storytime</span></div>
           <div class="cal-day"><span class="dn">14</span></div>
-          <div class="cal-day"><span class="dn">15</span><span class="dots"><i class="d-red"></i><i class="d-orange"></i></span></div>
-          <div class="cal-day"><span class="dn">16</span><span class="dots"><i class="d-navy"></i><i class="d-ink"></i></span></div>
+          <div class="cal-day"><span class="dn">15</span><span class="ev-pill ev-red">Résumé Help</span><span class="ev-pill ev-orange">Baby Time</span></div>
+          <div class="cal-day"><span class="dn">16</span><span class="ev-pill ev-navy">Baby Bounce</span><span class="ev-pill ev-ink">McBride Q&amp;A</span></div>
           <div class="cal-day cal-today" data-day="17">
             <span class="dn">17</span>
-            <span class="dots"><i></i><i></i><i></i></span>
             <span class="cal-today-tag" data-en="Today" data-es="Hoy">Today</span>
+            <span class="ev-pill">Hillerman Talk</span>
+            <span class="ev-pill">Homework Café</span>
+            <span class="ev-more">+2 more</span>
           </div>
-          <div class="cal-day"><span class="dn">18</span><span class="dots"><i class="d-red"></i></span></div>
-          <div class="cal-day"><span class="dn">19</span><span class="dots"><i class="d-ink"></i><i class="d-orange"></i></span></div>
+          <div class="cal-day"><span class="dn">18</span><span class="ev-pill ev-red">Coding Lab</span></div>
+          <div class="cal-day"><span class="dn">19</span><span class="ev-pill ev-ink">Author Talk</span><span class="ev-pill ev-orange">Yoga</span></div>
 
-          <div class="cal-day"><span class="dn">20</span><span class="dots"><i class="d-navy"></i></span></div>
-          <div class="cal-day"><span class="dn">21</span><span class="dots"><i class="d-red"></i><i class="d-navy"></i></span></div>
+          <div class="cal-day"><span class="dn">20</span><span class="ev-pill ev-navy">Storytime</span></div>
+          <div class="cal-day"><span class="dn">21</span><span class="ev-pill ev-red">Book Club</span><span class="ev-pill ev-navy">Storytime</span></div>
           <div class="cal-day"><span class="dn">22</span></div>
-          <div class="cal-day"><span class="dn">23</span><span class="dots"><i class="d-orange"></i></span></div>
-          <div class="cal-day"><span class="dn">24</span><span class="dots"><i class="d-navy"></i></span></div>
+          <div class="cal-day"><span class="dn">23</span><span class="ev-pill ev-orange">Résumé Help</span></div>
+          <div class="cal-day"><span class="dn">24</span><span class="ev-pill ev-navy">Baby Bounce</span></div>
           <div class="cal-day"><span class="dn">25</span></div>
-          <div class="cal-day"><span class="dn">26</span><span class="dots"><i class="d-red"></i><i class="d-navy"></i><i class="d-orange"></i></span></div>
+          <div class="cal-day"><span class="dn">26</span><span class="ev-pill ev-red">Family Day</span><span class="ev-pill ev-navy">Movie</span><span class="ev-more">+1 more</span></div>
 
           <div class="cal-day"><span class="dn">27</span></div>
-          <div class="cal-day"><span class="dn">28</span><span class="dots"><i class="d-navy"></i></span></div>
-          <div class="cal-day"><span class="dn">29</span><span class="dots"><i class="d-red"></i></span></div>
-          <div class="cal-day"><span class="dn">30</span><span class="dots"><i class="d-ink"></i></span></div>
-          <div class="cal-day cal-mute">1</div><div class="cal-day cal-mute">2</div><div class="cal-day cal-mute">3</div>
+          <div class="cal-day"><span class="dn">28</span><span class="ev-pill ev-navy">Storytime</span></div>
+          <div class="cal-day"><span class="dn">29</span><span class="ev-pill ev-red">Chess Club</span></div>
+          <div class="cal-day"><span class="dn">30</span><span class="ev-pill ev-ink">Author Talk</span></div>
+          <div class="cal-day cal-mute"><span class="dn">1</span></div><div class="cal-day cal-mute"><span class="dn">2</span></div><div class="cal-day cal-mute"><span class="dn">3</span></div>
         </div>
 
         <div class="cal-legend">
@@ -2577,6 +2667,24 @@
   searchInput.addEventListener('click', openSearch);
   searchBackdrop.addEventListener('click', () => { searchInput.blur(); closeSearch(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { searchInput.blur(); closeSearch(); } });
+
+  // Sticky topbar — compact-on-scroll animation
+  (function () {
+    const topbar = document.getElementById('siteTopbar');
+    if (!topbar) return;
+    let ticking = false;
+    const THRESHOLD = 40;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        topbar.classList.toggle('is-scrolled', window.scrollY > THRESHOLD);
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
 </script>
 </body>
 </html>
