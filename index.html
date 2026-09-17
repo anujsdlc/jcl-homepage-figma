@@ -98,7 +98,7 @@
     height: 36px;
     padding: 0 32px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-size: 12px;
     font-weight: 500;
@@ -377,21 +377,171 @@
   .btn-lg { padding: 0 32px; height: 56px; font-size: 16px; }
 
   /* =========================================================
-     Main nav — clean pill (top row of sticky stack)
+     Main nav — top row of sticky stack
+     3 zones: [notice marquee]  [primary items]  [top-links + EN/ES]
      ========================================================= */
   .main-nav {
-    display: flex; justify-content: center; align-items: stretch;
-    gap: 4px;
+    display: grid;
+    grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+    align-items: stretch;
     background: #fff;
     position: relative;
     z-index: 40;
     height: 44px;
+    padding: 0 20px;
     transition: height var(--dur) var(--ease-smooth);
   }
   .site-topbar.is-scrolled .main-nav { height: 40px; }
+
+  /* -- Notice marquee (left zone, hidden until scrolled) -- */
+  .nav-notice {
+    display: inline-flex; align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding: 0 12px 0 4px;
+    font-family: 'Arimo', sans-serif;
+    color: var(--ink-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: max-width var(--dur) var(--ease-smooth),
+                opacity var(--dur-fast) var(--ease-smooth),
+                transform var(--dur) var(--ease-smooth),
+                background var(--dur-fast) var(--ease-smooth);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .site-topbar.is-scrolled .nav-notice {
+    max-width: 380px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .nav-notice-tag {
+    display: inline-flex; align-items: center;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--surface);
+    background: var(--orange);
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .nav-notice-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--surface);
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: notice-pulse 2s infinite;
+  }
+  @keyframes notice-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  .nav-notice-marquee {
+    display: inline-block;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    max-width: 260px;
+  }
+  .nav-notice-text {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    animation: notice-marquee 22s linear infinite;
+    padding-left: 100%;
+  }
+  @keyframes notice-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
+  .nav-notice:hover .nav-notice-text,
+  .nav-notice.is-expanded .nav-notice-text { animation-play-state: paused; }
+  .nav-notice-close {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    color: var(--ink-soft);
+    background: var(--surface-alt);
+    font-size: 16px; line-height: 1;
+    flex-shrink: 0;
+    opacity: 0; visibility: hidden;
+    transition: opacity var(--dur-fast) var(--ease-smooth);
+  }
+  .nav-notice:hover { background: var(--surface-alt); }
+
+  /* -- Expanded state: marquee fills the row, hides other nav zones -- */
+  .main-nav.notice-expanded .nav-primary,
+  .main-nav.notice-expanded .top-links {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--dur-fast) var(--ease-smooth), visibility 0s linear var(--dur-fast);
+  }
+  .main-nav.notice-expanded .nav-notice {
+    max-width: none;
+    width: 100%;
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    background: linear-gradient(90deg, rgba(255,107,53,0.10) 0%, transparent 60%);
+    padding: 0 20px;
+  }
+  .main-nav.notice-expanded .nav-notice-marquee {
+    max-width: none;
+    flex: 1;
+  }
+  .main-nav.notice-expanded .nav-notice-text {
+    animation: none;
+    padding-left: 0;
+    color: var(--ink);
+    font-weight: 600;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .main-nav.notice-expanded .nav-notice-close {
+    opacity: 1; visibility: visible;
+    margin-left: auto;
+  }
+  .main-nav.notice-expanded .nav-notice-close:hover {
+    background: var(--ink); color: #fff;
+  }
+
+  /* -- Primary items wrapper (middle zone) -- */
+  .nav-primary {
+    display: flex; justify-content: center; align-items: stretch;
+    gap: 2px;
+    transition: opacity var(--dur-fast) var(--ease-smooth);
+  }
+
+  /* -- Top links (right zone) -- */
+  .main-nav .top-links {
+    display: flex; align-items: center;
+    gap: 22px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.01em;
+    transition: opacity var(--dur-fast) var(--ease-smooth);
+  }
+  .main-nav .top-links > span {
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+  .main-nav .top-links > span:hover { color: var(--red); }
+
   .nav-item {
     display: flex; align-items: center; gap: 6px;
-    padding: 0 18px;
+    padding: 0 16px;
     font-size: 13px; font-weight: 600;
     color: var(--ink-muted);
     cursor: pointer;
@@ -1789,6 +1939,17 @@
 <div class="site-topbar" id="siteTopbar">
 <!-- ================= Main nav ================= -->
 <nav class="main-nav">
+  <!-- Marquee notice (visible only when scrolled) -->
+  <button class="nav-notice" id="navNotice" type="button" aria-label="Site notice">
+    <span class="nav-notice-tag" data-en="Notice" data-es="Aviso">Notice</span>
+    <span class="nav-notice-marquee">
+      <span class="nav-notice-text" data-en="Updated hours at JCL-Cedar Hill · Effective October 1, 2026" data-es="Horario actualizado en JCL-Cedar Hill · Vigente 1 de octubre, 2026">Updated hours at JCL-Cedar Hill · Effective October 1, 2026</span>
+    </span>
+    <span class="nav-notice-close" aria-hidden="true">×</span>
+  </button>
+
+  <!-- Middle: primary nav items -->
+  <div class="nav-primary">
   <div class="nav-item has-dropdown">
     <span data-en="Services" data-es="Servicios">Services</span> <span class="caret"></span>
     <div class="nav-dropdown">
@@ -1948,6 +2109,22 @@
     </div>
   </div>
   <div class="nav-item"><span data-en="Community Resources" data-es="Recursos Comunitarios">Community Resources</span></div>
+  </div>
+
+  <!-- Right: top links + language (kept in place, same line as menu) -->
+  <div class="top-links">
+    <span data-en="Explore Catalog" data-es="Explorar Catálogo">Explore Catalog</span>
+    <span data-en="Digital Library" data-es="Biblioteca Digital">Digital Library</span>
+    <span data-en="About Us" data-es="Nosotros">About Us</span>
+    <span data-en="Contact Us" data-es="Contáctenos">Contact Us</span>
+    <div class="lang-toggle" role="tablist" aria-label="Language">
+      <div class="lang-switch" id="langSwitch">
+        <div class="slider"></div>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
 </nav>
 <!-- ================= Header ================= -->
 <header class="header">
@@ -2034,21 +2211,8 @@
   <div class="header-cell my-account" data-en="My Account" data-es="Mi Cuenta">My Account</div>
 </header>
 <!-- ================= Notice bar ================= -->
-<div class="notice-bar">
+<div class="notice-bar" id="noticeBar">
   <div class="notice-text"><span data-en="Notice:" data-es="Aviso:">Notice:</span> <b data-en="Updated hours at JCL-Cedar Hill · Effective October 1, 2026" data-es="Horario actualizado en JCL-Cedar Hill · Vigente 1 de octubre, 2026">Updated hours at JCL-Cedar Hill · Effective October 1, 2026</b></div>
-  <div class="top-links">
-    <span data-en="Explore Catalog" data-es="Explorar Catálogo">Explore Catalog</span>
-    <span data-en="Digital Library" data-es="Biblioteca Digital">Digital Library</span>
-    <span data-en="About Us" data-es="Nosotros">About Us</span>
-    <span data-en="Contact Us" data-es="Contáctenos">Contact Us</span>
-    <div class="lang-toggle" role="tablist" aria-label="Language">
-      <div class="lang-switch" id="langSwitch">
-        <div class="slider"></div>
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="es">ES</button>
-      </div>
-    </div>
-  </div>
 </div>
 </div>
 
@@ -2684,6 +2848,33 @@
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+  })();
+
+  // Nav-notice marquee — hover/click to expand, × to collapse
+  (function () {
+    const nav = document.querySelector('.main-nav');
+    const btn = document.getElementById('navNotice');
+    const closeBtn = btn && btn.querySelector('.nav-notice-close');
+    if (!nav || !btn) return;
+
+    const expand = () => nav.classList.add('notice-expanded');
+    const collapse = () => nav.classList.remove('notice-expanded');
+
+    btn.addEventListener('mouseenter', expand);
+    // Collapse when the mouse leaves the whole nav row
+    nav.addEventListener('mouseleave', collapse);
+
+    // Click also toggles (useful on touch)
+    btn.addEventListener('click', e => {
+      if (e.target === closeBtn) { collapse(); e.stopPropagation(); return; }
+      if (nav.classList.contains('notice-expanded')) collapse();
+      else expand();
+    });
+
+    // Escape to close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') collapse();
+    });
   })();
 </script>
 </body>
