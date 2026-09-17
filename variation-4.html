@@ -943,42 +943,65 @@
     line-height: 1.3;
   }
 
-  /* Branches — 1 col x 1 row */
-  .b-branch {
-    grid-column: span 1;
-    position: relative;
+  /* Branches — full-width row of 4 image cards */
+  .branches-row {
+    grid-column: span 6;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .br-card {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
     overflow: hidden;
-    color: #fff;
+    position: relative;
+    cursor: pointer;
+    background: var(--surface-alt);
+    transition: transform 300ms var(--ease), box-shadow 300ms var(--ease);
   }
-  .b-branch .bg {
+  .br-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .br-card .bg {
     position: absolute; inset: 0;
-    background: url('assets/branch-1.png') center/cover no-repeat;
+    background-size: cover;
+    background-position: center;
+    transition: transform 600ms var(--ease);
   }
-  .b-branch::after {
+  .br-card:hover .bg { transform: scale(1.06); }
+  .br-card::after {
     content: '';
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.75) 100%);
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.78) 100%);
   }
-  .b-branch .body {
-    position: relative;
-    padding: 20px;
-    display: flex; flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
-    min-height: 160px;
+  .br-card .body {
+    position: absolute; left: 20px; right: 20px; bottom: 18px;
+    color: #fff; z-index: 2;
   }
-  .b-branch .kicker {
+  .br-card .kicker {
     font-family: var(--font-brand);
     font-size: 9px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 4px;
   }
-  .b-branch h3 {
+  .br-card .name {
     font-family: var(--font-brand);
-    font-size: 15px; font-weight: 700;
+    font-size: 17px; font-weight: 700;
     letter-spacing: -0.01em;
-    line-height: 1.15;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .br-card .status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.9);
+  }
+  .br-card .status::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 3px rgba(74,222,128,0.28);
   }
 
   /* News — 2 cols x 1 row */
@@ -1444,14 +1467,38 @@
           </div>
         </a>
 
-        <!-- Nearest branch — 1 col -->
-        <a class="b-card b-branch">
-          <div class="bg"></div>
-          <div class="body">
-            <div class="kicker">Nearest</div>
-            <h3>Lakewood Central<br>Open until 9 PM</h3>
-          </div>
-        </a>
+        <!-- Branches — full-width row of 4 image cards -->
+        <div class="branches-row">
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-1.png')"></div>
+            <div class="body">
+              <div class="kicker">Nearest</div>
+              <div class="name">Arnold Branch</div>
+              <div class="status">Open until 9 PM</div>
+            </div>
+          </a>
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-2.png')"></div>
+            <div class="body">
+              <div class="name">Cedar Hill Satellite</div>
+              <div class="status">Open until 8 PM</div>
+            </div>
+          </a>
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-3.png')"></div>
+            <div class="body">
+              <div class="name">Northwest Branch</div>
+              <div class="status">Open until 6 PM</div>
+            </div>
+          </a>
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-4.png')"></div>
+            <div class="body">
+              <div class="name">Windsor Branch</div>
+              <div class="status">Open until 8 PM</div>
+            </div>
+          </a>
+        </div>
 
         <!-- Shelf 1 · New Arrivals -->
         <div class="b-card b-shelf">
