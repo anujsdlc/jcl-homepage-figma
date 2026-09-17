@@ -1136,6 +1136,48 @@
   .book-info-2 { padding: 14px 16px; }
   .book-info-2 .title { font-family: var(--font-brand); font-size: 14px; font-weight: 700; color: var(--navy); }
   .book-info-2 .author { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+
+  /* Category rows within the books section */
+  .shelf-cat-2 { margin-top: 40px; }
+  .shelf-cat-2:first-child { margin-top: 0; }
+  .shelf-cat-2-hd {
+    display: flex; align-items: baseline; gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--navy);
+  }
+  .shelf-cat-2-hd .kicker {
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink-soft);
+  }
+  .shelf-cat-2-hd h3 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0;
+  }
+  .shelf-cat-2-hd .more {
+    margin-left: auto;
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 200ms var(--ease);
+  }
+  .shelf-cat-2-hd .more:hover { color: var(--red); }
+  .shelf-cat-2 .book-grid-2 {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 14px;
+  }
+  .shelf-cat-2 .book-card-2 { border-width: 1.5px; }
+  .shelf-cat-2 .book-info-2 { padding: 10px 12px; }
+  .shelf-cat-2 .book-info-2 .title { font-size: 12px; line-height: 1.2; }
+  .shelf-cat-2 .book-info-2 .author { font-size: 10px; }
   /* Inline pagination on section head */
   .page-strip {
     display: flex; align-items: center; gap: 4px;
@@ -1443,41 +1485,134 @@
 <!-- Books -->
 <section class="section books-section-2">
   <div class="section-inner-2">
-    <div class="section-head-2 with-nav">
-      <div>
-        <h2>Enjoy Our Newest Reads</h2>
-        <p>Fresh titles curated by our librarians — fiction and non-fiction.</p>
+    <div class="section-head-2">
+      <h2>Enjoy Our Newest Reads</h2>
+      <p>Fresh titles curated by our librarians — fiction and non-fiction, for every age.</p>
+    </div>
+
+    <div class="shelf-cat-2">
+      <div class="shelf-cat-2-hd">
+        <span class="kicker">Just in</span>
+        <h3>New arrivals</h3>
+        <span class="more">See all</span>
       </div>
-      <div class="page-strip">
-        <button class="page-arr">←</button>
-        <button class="page-num on">1</button>
-        <button class="page-num">2</button>
-        <button class="page-num">3</button>
-        <button class="page-num">4</button>
-        <button class="page-num">5</button>
-        <button class="page-arr">→</button>
+      <div class="book-grid-2">
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-1.png')"></div>
+          <div class="book-info-2"><div class="title">The Silent Season</div><div class="author">Lena Ortiz</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-2.png')"></div>
+          <div class="book-info-2"><div class="title">Steller Drift</div><div class="author">Samantha Allen</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-3.png')"></div>
+          <div class="book-info-2"><div class="title">Whispers at Dusk</div><div class="author">Kai Nakamura</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-4.png')"></div>
+          <div class="book-info-2"><div class="title">Habit of Mind</div><div class="author">Eleanor Voss</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-5.png')"></div>
+          <div class="book-info-2"><div class="title">Cold Comfort</div><div class="author">Anders Volk</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-6.png')"></div>
+          <div class="book-info-2"><div class="title">Echoes of Tomorrow</div><div class="author">Adaeze Chen</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-7.png')"></div>
+          <div class="book-info-2"><div class="title">Rivers of the West</div><div class="author">Priya Ramesh</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-8.png')"></div>
+          <div class="book-info-2"><div class="title">Notes from a Small Country</div><div class="author">Adaeze Chen</div></div>
+        </div>
       </div>
     </div>
-    <div class="book-grid-2">
-      <div class="book-card-2">
-        <div class="book-cover-2" style="background-image:url('assets/book-2.png')"></div>
-        <div class="book-info-2"><div class="title">Steller Drift</div><div class="author">Samantha Allen</div></div>
+
+    <div class="shelf-cat-2">
+      <div class="shelf-cat-2-hd">
+        <span class="kicker">Recently added</span>
+        <h3>For adults &amp; teens</h3>
+        <span class="more">See all</span>
       </div>
-      <div class="book-card-2">
-        <div class="book-cover-2" style="background-image:url('assets/book-3.png')"></div>
-        <div class="book-info-2"><div class="title">Whispers</div><div class="author">Samantha Allen</div></div>
+      <div class="book-grid-2">
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-9.png')"></div>
+          <div class="book-info-2"><div class="title">Split Frequency</div><div class="author">Colin Reyes</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-2.png')"></div>
+          <div class="book-info-2"><div class="title">Midnight Courthouse</div><div class="author">James Merrick</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-3.png')"></div>
+          <div class="book-info-2"><div class="title">The Copper Sun</div><div class="author">Rita Marino</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-4.png')"></div>
+          <div class="book-info-2"><div class="title">Orbit Decay</div><div class="author">Marcus Voss</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-5.png')"></div>
+          <div class="book-info-2"><div class="title">Paperwolf</div><div class="author">Devon Chen</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-6.png')"></div>
+          <div class="book-info-2"><div class="title">All Is Numbers</div><div class="author">Tara Wells</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-7.png')"></div>
+          <div class="book-info-2"><div class="title">Ashfall Diaries</div><div class="author">Rina Kellner</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-8.png')"></div>
+          <div class="book-info-2"><div class="title">The Weeknight Baker</div><div class="author">Sam Ito</div></div>
+        </div>
       </div>
-      <div class="book-card-2">
-        <div class="book-cover-2" style="background-image:url('assets/book-4.png')"></div>
-        <div class="book-info-2"><div class="title">Habit of Mind</div><div class="author">Samantha Allen</div></div>
+    </div>
+
+    <div class="shelf-cat-2">
+      <div class="shelf-cat-2-hd">
+        <span class="kicker">Recently added</span>
+        <h3>For children</h3>
+        <span class="more">See all</span>
       </div>
-      <div class="book-card-2">
-        <div class="book-cover-2" style="background-image:url('assets/book-5.png')"></div>
-        <div class="book-info-2"><div class="title">Puck</div><div class="author">Samantha Allen</div></div>
-      </div>
-      <div class="book-card-2">
-        <div class="book-cover-2" style="background-image:url('assets/book-6.png')"></div>
-        <div class="book-info-2"><div class="title">Echoes of Tomorrow</div><div class="author">Samantha Allen</div></div>
+      <div class="book-grid-2">
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-1.png')"></div>
+          <div class="book-info-2"><div class="title">The Butterfly Effect</div><div class="author">Kim Park</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-3.png')"></div>
+          <div class="book-info-2"><div class="title">Little Owl's Big Day</div><div class="author">Sam Ito</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-5.png')"></div>
+          <div class="book-info-2"><div class="title">Puck the Explorer</div><div class="author">Emma Blue</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-2.png')"></div>
+          <div class="book-info-2"><div class="title">Mango &amp; Friends</div><div class="author">Lucia Ortiz</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-6.png')"></div>
+          <div class="book-info-2"><div class="title">The Rainbow Bakery</div><div class="author">Ravi Menon</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-4.png')"></div>
+          <div class="book-info-2"><div class="title">Journey to Glenwood</div><div class="author">Ida Ferrari</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-8.png')"></div>
+          <div class="book-info-2"><div class="title">The Robot in Room 12</div><div class="author">Sarah Kim</div></div>
+        </div>
+        <div class="book-card-2">
+          <div class="book-cover-2" style="background-image:url('assets/book-9.png')"></div>
+          <div class="book-info-2"><div class="title">The Missing Puzzle</div><div class="author">Hank Holloway</div></div>
+        </div>
       </div>
     </div>
   </div>

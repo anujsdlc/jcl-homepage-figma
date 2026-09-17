@@ -710,6 +710,46 @@
     grid-template-columns: repeat(6, minmax(180px, 1fr));
     gap: 24px;
   }
+  /* Category rows within the shelf section */
+  .shelf-cat { margin-top: 48px; }
+  .shelf-cat:first-child { margin-top: 0; }
+  .shelf-cat-hd {
+    display: flex; align-items: baseline; gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .shelf-cat-hd .kicker {
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink-soft);
+  }
+  .shelf-cat-hd h3 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0;
+  }
+  .shelf-cat-hd .more {
+    margin-left: auto;
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    cursor: pointer;
+    transition: color 200ms var(--ease);
+  }
+  .shelf-cat-hd .more:hover { color: var(--red); }
+  .shelf-cat .shelf-scroll {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 16px;
+  }
+  .shelf-cat .book h4 { font-size: 13px; line-height: 1.2; }
+  .shelf-cat .book .author { font-size: 11px; }
+  .shelf-cat .book .avail { display: none; }
   .book {
     display: flex; flex-direction: column;
     cursor: pointer;
@@ -1105,7 +1145,7 @@
   </nav>
   <div class="header-actions">
     <button class="btn btn-ghost">Sign In</button>
-    <button class="btn btn-accent">Get a Card →</button>
+    <button class="btn btn-accent">Get a Card</button>
   </div>
 </header>
 
@@ -1143,7 +1183,7 @@
 
     <div class="hero-cta-row">
       <button class="btn btn-primary">Reserve a study room</button>
-      <button class="btn btn-ghost">Browse eBooks & audio →</button>
+      <button class="btn btn-ghost">Browse eBooks & audio</button>
     </div>
   </div>
 
@@ -1174,7 +1214,7 @@
     <div class="pillar-body">
       <h3>Get a library card</h3>
       <p>Free for anyone who lives, works, or attends school in Jefferson County. Sign up online in 3 minutes.</p>
-      <a class="lnk" href="#">Start application →</a>
+      <a class="lnk" href="#">Start application</a>
     </div>
   </div>
   <div class="pillar">
@@ -1182,7 +1222,7 @@
     <div class="pillar-body">
       <h3>Manage my account</h3>
       <p>Renew items, place holds, pay fines, and see everything you've ever borrowed. Sign in with your card number.</p>
-      <a class="lnk" href="#">Access account →</a>
+      <a class="lnk" href="#">Access account</a>
     </div>
   </div>
   <div class="pillar">
@@ -1190,7 +1230,7 @@
     <div class="pillar-body">
       <h3>What's on this week</h3>
       <p>Storytimes, author talks, coding for kids, ESL circles, and more. 47 events in the next 7 days.</p>
-      <a class="lnk" href="#">See full calendar →</a>
+      <a class="lnk" href="#">See full calendar</a>
     </div>
   </div>
 </div>
@@ -1226,7 +1266,7 @@
     <div class="sect-nav">
       <button aria-label="Previous">←</button>
       <button aria-label="Next">→</button>
-      <a class="btn btn-ghost" href="#">Full calendar →</a>
+      <a class="btn btn-ghost" href="#">Full calendar</a>
     </div>
   </div>
 
@@ -1244,7 +1284,7 @@
       </div>
       <div class="cal-footer">
         <span>47 events this month</span>
-        <a href="#">Subscribe .ics →</a>
+        <a href="#">Subscribe .ics</a>
       </div>
     </div>
 
@@ -1330,7 +1370,7 @@
         2 1 8 6 3 · 0 0 4 5 5 · 9 8 2 1
       </div>
     </div>
-    <button class="btn btn-primary">Apply for a card →</button>
+    <button class="btn btn-primary">Apply for a card</button>
     <button class="btn btn-ghost" style="margin-left: 12px;">What can I use my card for?</button>
   </div>
 
@@ -1353,7 +1393,7 @@
         <div class="ap-row"><span class="lbl">Due in the next 3 days</span><span class="val warn">3 items</span></div>
         <div class="ap-row"><span class="lbl">Fines &amp; fees</span><span class="val">$0.00</span></div>
       </div>
-      <button class="ap-btn">Go to my account →</button>
+      <button class="ap-btn">Go to my account</button>
     </div>
   </div>
 </section>
@@ -1368,52 +1408,64 @@
     <div class="sect-nav">
       <button>←</button>
       <button>→</button>
-      <a class="btn btn-ghost" href="#">Browse all new →</a>
+      <a class="btn btn-ghost" href="#">Browse all new</a>
     </div>
   </div>
 
-  <div class="shelf-scroll">
-    <div class="book">
-      <div class="book-cover"><span class="book-badge">New</span><img src="assets/book-1.png" alt=""></div>
-      <div class="cat">Fiction</div>
-      <h4>The Silent Season</h4>
-      <div class="author">by Lena Ortiz</div>
-      <div class="avail now">● Available now</div>
+  <!-- Category 1 · New arrivals -->
+  <div class="shelf-cat">
+    <div class="shelf-cat-hd">
+      <span class="kicker">New arrivals</span>
+      <h3>Just added to the shelves</h3>
+      <a class="more">See all</a>
     </div>
-    <div class="book">
-      <div class="book-cover"><span class="book-badge">Bestseller</span><img src="assets/book-2.png" alt=""></div>
-      <div class="cat">Mystery</div>
-      <h4>Cold Fronts</h4>
-      <div class="author">by James Merrick</div>
-      <div class="avail wait">● 4 holds ahead</div>
+    <div class="shelf-scroll">
+      <div class="book"><div class="book-cover"><img src="assets/book-1.png" alt=""></div><h4>The Silent Season</h4><div class="author">by Lena Ortiz</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-2.png" alt=""></div><h4>Steller Drift</h4><div class="author">by Samantha Allen</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-3.png" alt=""></div><h4>Whispers at Dusk</h4><div class="author">by Kai Nakamura</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-4.png" alt=""></div><h4>Habit of Mind</h4><div class="author">by Eleanor Voss</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-5.png" alt=""></div><h4>Cold Comfort</h4><div class="author">by Anders Volk</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-6.png" alt=""></div><h4>Echoes of Tomorrow</h4><div class="author">by Adaeze Chen</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-7.png" alt=""></div><h4>Rivers of the West</h4><div class="author">by Priya Ramesh</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-8.png" alt=""></div><h4>Notes from a Small Country</h4><div class="author">by Adaeze Chen</div></div>
     </div>
-    <div class="book">
-      <div class="book-cover"><img src="assets/book-3.png" alt=""></div>
-      <div class="cat">History</div>
-      <h4>Rivers of the West</h4>
-      <div class="author">by Priya Ramesh</div>
-      <div class="avail now">● Available now</div>
+  </div>
+
+  <!-- Category 2 · Adults & teens -->
+  <div class="shelf-cat">
+    <div class="shelf-cat-hd">
+      <span class="kicker">Recently added</span>
+      <h3>For adults &amp; teens</h3>
+      <a class="more">See all</a>
     </div>
-    <div class="book">
-      <div class="book-cover"><span class="book-badge">Staff pick</span><img src="assets/book-4.png" alt=""></div>
-      <div class="cat">Biography</div>
-      <h4>Notes from a Small Country</h4>
-      <div class="author">by Adaeze Chen</div>
-      <div class="avail now">● Available now</div>
+    <div class="shelf-scroll">
+      <div class="book"><div class="book-cover"><img src="assets/book-9.png" alt=""></div><h4>Split Frequency</h4><div class="author">by Colin Reyes</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-4.png" alt=""></div><h4>Midnight Courthouse</h4><div class="author">by James Merrick</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-6.png" alt=""></div><h4>The Copper Sun</h4><div class="author">by Rita Marino</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-2.png" alt=""></div><h4>Orbit Decay</h4><div class="author">by Marcus Voss</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-7.png" alt=""></div><h4>Paperwolf</h4><div class="author">by Devon Chen</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-8.png" alt=""></div><h4>All Is Numbers</h4><div class="author">by Tara Wells</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-5.png" alt=""></div><h4>Ashfall Diaries</h4><div class="author">by Rina Kellner</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-1.png" alt=""></div><h4>The Weeknight Baker</h4><div class="author">by Sam Ito</div></div>
     </div>
-    <div class="book">
-      <div class="book-cover"><img src="assets/book-5.png" alt=""></div>
-      <div class="cat">Sci-fi</div>
-      <h4>Orbit Decay</h4>
-      <div class="author">by Marcus Voss</div>
-      <div class="avail wait">● 12 holds ahead</div>
+  </div>
+
+  <!-- Category 3 · Children -->
+  <div class="shelf-cat">
+    <div class="shelf-cat-hd">
+      <span class="kicker">Recently added</span>
+      <h3>For children</h3>
+      <a class="more">See all</a>
     </div>
-    <div class="book">
-      <div class="book-cover"><span class="book-badge">New</span><img src="assets/book-6.png" alt=""></div>
-      <div class="cat">Cookbook</div>
-      <h4>The Weeknight Baker</h4>
-      <div class="author">by Sam Ito</div>
-      <div class="avail now">● Available now</div>
+    <div class="shelf-scroll">
+      <div class="book"><div class="book-cover"><img src="assets/book-3.png" alt=""></div><h4>The Butterfly Effect</h4><div class="author">by Kim Park</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-5.png" alt=""></div><h4>Little Owl's Big Day</h4><div class="author">by Sam Ito</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-6.png" alt=""></div><h4>Puck the Explorer</h4><div class="author">by Emma Blue</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-9.png" alt=""></div><h4>Mango &amp; Friends</h4><div class="author">by Lucia Ortiz</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-1.png" alt=""></div><h4>The Rainbow Bakery</h4><div class="author">by Ravi Menon</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-2.png" alt=""></div><h4>Journey to Glenwood</h4><div class="author">by Ida Ferrari</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-4.png" alt=""></div><h4>The Robot in Room 12</h4><div class="author">by Sarah Kim</div></div>
+      <div class="book"><div class="book-cover"><img src="assets/book-7.png" alt=""></div><h4>The Missing Puzzle</h4><div class="author">by Hank Holloway</div></div>
     </div>
   </div>
 </section>
@@ -1426,7 +1478,7 @@
       <h1 class="sect-title">Handpicked <span class="accent">this month</span>.</h1>
     </div>
     <div class="sect-nav">
-      <a class="btn btn-ghost" href="#">All programs →</a>
+      <a class="btn btn-ghost" href="#">All programs</a>
     </div>
   </div>
   <div class="spot-grid-1">
@@ -1465,7 +1517,7 @@
       <h1 class="sect-title">Library <span class="accent">services</span>.</h1>
     </div>
     <div class="sect-nav">
-      <a class="btn btn-ghost" href="#">All services →</a>
+      <a class="btn btn-ghost" href="#">All services</a>
     </div>
   </div>
   <div class="svc-tile-grid-1">
@@ -1519,7 +1571,7 @@
       <h1 class="sect-title">What's <span class="accent">new</span>.</h1>
     </div>
     <div class="sect-nav">
-      <a class="btn btn-ghost" href="#">All news →</a>
+      <a class="btn btn-ghost" href="#">All news</a>
     </div>
   </div>
   <div class="news-grid-1">
@@ -1558,7 +1610,7 @@
       <h1 class="sect-title">Find your <span class="accent">closest</span>.</h1>
     </div>
     <div class="sect-nav">
-      <a class="btn btn-ghost" href="#">Map view →</a>
+      <a class="btn btn-ghost" href="#">Map view</a>
     </div>
   </div>
 

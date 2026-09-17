@@ -3,17 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jefferson County Library — The Portal</title>
+<title>Jefferson County Library — The Bento</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* =========================================================
-     VARIATION 3 — "THE PORTAL" (LIGHT)
-     Digital concierge / dashboard on a light surface.
-     Locked to JCL brand tokens (navy, red, orange, lilac, ink).
-     Character: data-rich cards, real-time status, personalized
-     greeting, ⌘K search — on a bright, calm canvas.
+     VARIATION 4 — "THE BENTO"
+     Apple-clean: side rails + 3 focused sections + minimal chrome
      ========================================================= */
   :root {
     --navy: #052460;
@@ -27,23 +24,17 @@
     --surface: #ffffff;
     --surface-alt: #f5f5f7;
     --surface-warm: #fafafa;
-
-    --border: rgba(10,10,10,0.08);
-    --border-strong: rgba(10,10,10,0.14);
-
-    --gradient-1: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
-    --gradient-2: linear-gradient(135deg, var(--navy) 0%, var(--red) 100%);
-    --gradient-glow: radial-gradient(circle at 30% 20%, rgba(218,44,56,0.10), transparent 55%),
-                     radial-gradient(circle at 75% 85%, rgba(255,107,53,0.08), transparent 55%);
-
-    --shadow-sm: 0 1px 2px rgba(10,10,10,0.04), 0 2px 8px rgba(10,10,10,0.04);
-    --shadow: 0 4px 16px rgba(10,10,10,0.06), 0 1px 3px rgba(10,10,10,0.04);
+    --line: rgba(10,10,10,0.08);
+    --line-strong: rgba(10,10,10,0.14);
+    --radius: 20px;
+    --radius-lg: 28px;
+    --shadow: 0 1px 2px rgba(10,10,10,0.04), 0 8px 24px rgba(10,10,10,0.04);
     --shadow-lg: 0 24px 60px rgba(10,10,10,0.10);
-    --shadow-glow: 0 8px 30px rgba(218,44,56,0.18);
-
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --font-display: 'Arimo', system-ui, -apple-system, sans-serif;
     --font-brand: 'Comfortaa', 'Arimo', system-ui, sans-serif;
+    --rail-l: 260px;
+    --rail-r: 300px;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,1663 +43,1698 @@
     font-family: var(--font-display);
     color: var(--ink);
     background: var(--surface-alt);
-    font-size: 15px;
-    line-height: 1.55;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-  }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background: var(--gradient-glow);
-    pointer-events: none;
-    z-index: 0;
-  }
-  body::after {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(10,10,10,0.05) 1px, transparent 0);
-    background-size: 24px 24px;
-    pointer-events: none;
-    z-index: 0;
-    mask-image: linear-gradient(180deg, transparent 0%, black 25%, black 75%, transparent 100%);
-    opacity: 0.6;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
   }
   img, svg { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
-  ::selection { background: var(--red); color: var(--surface); }
+  ::selection { background: var(--navy); color: #fff; }
 
-  /* ============ Notice ticker ============ */
-  .ticker {
-    background: var(--ink);
-    color: var(--surface);
-    padding: 10px 32px;
-    display: flex; justify-content: space-between;
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    position: relative; z-index: 5;
+  /* ============ Top nav (slim) ============ */
+  .top {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--line);
   }
-  .ticker-left { display: flex; gap: 24px; align-items: center; }
-  .ticker-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--orange);
-    box-shadow: 0 0 10px var(--orange);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-  .ticker-right { display: flex; gap: 20px; opacity: 0.7; }
-  .ticker-right a { transition: color 200ms, opacity 200ms; }
-  .ticker-right a:hover { color: var(--orange); opacity: 1; }
-
-  /* ============ Nav ============ */
-  header.nav {
-    padding: 20px 32px;
+  .top-inner {
+    max-width: 1440px; margin: 0 auto;
+    padding: 12px 32px;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 32px;
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(245,245,247,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+    gap: 24px;
+    position: relative;
+  }
+  .top-nav {
+    display: flex; gap: 2px;
+    justify-content: center;
+    font-family: var(--font-brand);
+    font-weight: 600; font-size: 13px;
+  }
+  .nav-item {
+    position: static;
+    padding: 10px 14px;
+    color: var(--ink-muted);
+    cursor: pointer;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all 200ms var(--ease);
+  }
+  .nav-item:hover, .nav-item.is-open { color: var(--ink); background: var(--surface-alt); }
+  .nav-item .caret {
+    width: 6px; height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 200ms var(--ease);
+  }
+  .nav-item.is-open .caret { transform: rotate(225deg) translateY(0); }
+
+  /* Mega dropdown */
+  .mega {
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 24px 60px rgba(10,10,10,0.10);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+    z-index: 45;
+    padding: 28px max(32px, calc((100% - 1200px) / 2)) 32px;
+  }
+  .mega::before {
+    content: '';
+    position: absolute;
+    top: -14px; left: 0; right: 0; height: 14px;
+  }
+  .nav-item.is-open .mega { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .mega-hd {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 16px;
+  }
+  .mega-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px 20px;
+  }
+  .mega-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 200ms var(--ease);
+  }
+  .mega-item:hover { background: var(--surface-alt); transform: translateX(2px); }
+  .mega-item img { width: 22px; height: 22px; flex-shrink: 0; }
+  .mega-item .body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .mega-item .t {
+    font-family: var(--font-brand);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .mega-item .s {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+  /* Locations mega — 4 photo cards */
+  .mega-locs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .mega-loc {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 200ms var(--ease);
+  }
+  .mega-loc:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .mega-loc-img { height: 88px; background-size: cover; background-position: center; }
+  .mega-loc .body { padding: 12px 14px 14px; }
+  .mega-loc .n {
+    font-family: var(--font-brand);
+    font-size: 14px; font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .mega-loc .a {
+    font-size: 11px; color: var(--ink-soft);
+    margin-top: 2px;
+    line-height: 1.4;
   }
   .brand {
+    display: flex; align-items: center;
+    transition: transform 200ms var(--ease);
+  }
+  .brand:hover { transform: translateY(-1px); }
+  .brand { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .brand img { height: 52px; }
+  .brand small {
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    padding-left: 2px;
+  }
+  .top-actions { display: flex; gap: 8px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 40px; padding: 0 20px;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
+    transition: all 200ms var(--ease);
+    white-space: nowrap;
+    border: none; cursor: pointer;
+  }
+  .btn-ghost { color: var(--navy); background: transparent; }
+  .btn-ghost:hover { background: var(--surface-alt); }
+  .btn-fill { color: #fff; background: var(--navy); }
+  .btn-fill:hover { background: var(--navy-dark); transform: translateY(-1px); }
+  .btn-lg { height: 48px; padding: 0 24px; font-size: 14px; }
+
+  /* ============ Main layout ============ */
+  .layout {
+    max-width: 1440px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: var(--rail-l) 1fr var(--rail-r);
+    gap: 24px;
+    padding: 24px 32px;
+    align-items: start;
+  }
+  .main { min-width: 0; }
+
+  /* ============ Side rails (left + right) ============ */
+  .rail {
+    position: sticky; top: 88px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex; flex-direction: column;
+    gap: 8px;
+  }
+  .rail-title {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 0 12px 8px;
+  }
+
+  /* Left rail — category nav */
+  .rail-left .rail-link {
     display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 500;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: all 200ms var(--ease);
+  }
+  .rail-left .rail-link:hover { background: var(--surface-alt); color: var(--ink); }
+  .rail-left .rail-link.active { background: var(--navy); color: #fff; }
+  .rail-link .icn { display: none; }
+  .rail-left .rail-link .count {
+    margin-left: auto;
+    padding: 2px 8px;
+    background: var(--surface-alt);
+    color: var(--ink-soft);
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.06em;
+    border-radius: 999px;
+  }
+  .rail-left .rail-link.active .count { background: rgba(255,255,255,0.18); color: #fff; }
+  .rail-divider {
+    height: 1px; background: var(--line);
+    margin: 8px 0;
+  }
+
+  /* Right rail — account/status */
+  .rail-user {
+    display: flex; align-items: center; gap: 12px;
+    padding: 6px 12px 16px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 8px;
+  }
+  .rail-user .av {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), var(--red));
+    color: #fff;
+    display: grid; place-items: center;
     font-family: var(--font-brand);
     font-weight: 700;
     font-size: 17px;
+  }
+  .rail-user .who {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+  }
+  .rail-user .who strong {
+    display: block;
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
     letter-spacing: -0.01em;
-    color: var(--navy);
+    margin-bottom: 2px;
   }
-  .brand-mark {
-    width: 36px; height: 36px;
-    background: var(--gradient-1);
-    border-radius: 10px;
-    display: grid; place-items: center;
-    color: var(--surface);
-    font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 20px;
-    box-shadow: var(--shadow-glow);
-    position: relative;
-  }
-  .brand-mark::after {
-    content: '';
-    position: absolute; inset: -2px;
-    border: 1px solid rgba(218,44,56,0.35);
+  .rail-stat {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px;
     border-radius: 12px;
+    cursor: pointer;
+    transition: background 200ms var(--ease);
   }
-  .brand-lock { display: flex; flex-direction: column; line-height: 1; }
-  .brand-lock small { font-family: var(--font-brand); font-size: 9px; font-weight: 500; letter-spacing: 0.2em; color: var(--ink-soft); margin-top: 4px; }
-
-  .nav-primary {
-    display: flex; gap: 4px; justify-content: center;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 4px;
-    border-radius: 999px;
-    max-width: 640px;
-    margin: 0 auto;
-    box-shadow: var(--shadow-sm);
-  }
-  .nav-primary a {
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-family: var(--font-brand);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--ink-muted);
-    transition: all 200ms var(--ease);
-    letter-spacing: 0.02em;
-  }
-  .nav-primary a:hover { color: var(--ink); background: var(--surface-alt); }
-  .nav-primary a.active { background: rgba(218,44,56,0.10); color: var(--red); }
-
-  .nav-actions { display: flex; align-items: center; gap: 10px; }
-  .btn {
-    padding: 9px 16px;
-    border-radius: 10px;
-    font-family: var(--font-brand);
+  .rail-stat:hover { background: var(--surface-alt); }
+  .rail-stat .lbl {
+    font-family: var(--font-display);
     font-size: 13px;
-    font-weight: 700;
-    transition: all 240ms var(--ease);
-    display: inline-flex; align-items: center; gap: 8px;
-    letter-spacing: 0.01em;
+    color: var(--ink-muted);
   }
-  .btn-ghost { border: 1px solid var(--border-strong); color: var(--ink); background: var(--surface); }
-  .btn-ghost:hover { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-  .btn-primary {
-    background: var(--gradient-1);
-    color: var(--surface);
-    box-shadow: var(--shadow-glow);
+  .rail-stat .val {
+    font-family: var(--font-brand);
+    font-weight: 700; font-size: 14px;
+    color: var(--ink);
+  }
+  .rail-stat.warn .val { color: var(--red); }
+  .rail-cta {
+    margin-top: 12px;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    border-radius: 14px;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 200ms var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+  .rail-cta::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(255,107,53,0.5), transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .rail-cta:hover { transform: translateY(-2px); }
+  .rail-cta .k {
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 4px;
     position: relative;
   }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 40px rgba(218,44,56,0.32); }
-  .kbd {
-    display: inline-flex; align-items: center; gap: 4px;
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    padding: 2px 6px;
-    border-radius: 4px;
+  .rail-cta .t {
     font-family: var(--font-brand);
     font-weight: 500;
-    font-size: 10px;
-    color: var(--ink-soft);
-  }
-
-  /* ============ HERO / Portal shell ============ */
-  .portal {
-    padding: 40px 32px 60px;
-    max-width: 1440px;
-    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
     position: relative;
-    z-index: 2;
   }
-  .greet-row {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 32px;
-    flex-wrap: wrap; gap: 20px;
+  .rail-cta .t strong { font-weight: 700; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.85) 60%, var(--surface) 100%),
+                url('assets/hero-bookshelf.png') center/cover no-repeat,
+                var(--lilac);
+    border-radius: var(--radius-lg);
+    padding: 80px 40px 60px;
+    text-align: center;
+    overflow: hidden;
   }
-  .greet {
+  .hero-kicker {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 999px;
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
     font-family: var(--font-brand);
     font-weight: 300;
-    font-size: clamp(40px, 5.5vw, 76px);
+    font-size: clamp(40px, 5.4vw, 76px);
     line-height: 1.02;
-    letter-spacing: -0.02em;
-    color: var(--navy);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 16px;
   }
-  .greet .accent {
+  .hero h1 .accent {
+    display: block;
     font-weight: 700;
-    background: var(--gradient-1);
+    background: linear-gradient(135deg, var(--navy), var(--red));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .greet .time-badge {
-    font-family: var(--font-brand);
-    font-size: 12px;
-    font-weight: 500;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 6px 12px;
-    border-radius: 999px;
+  .hero-sub {
+    font-size: 16px;
     color: var(--ink-muted);
-    display: inline-flex; align-items: center; gap: 8px;
-    letter-spacing: 0.06em;
-    vertical-align: middle;
-    margin-left: 12px;
-    box-shadow: var(--shadow-sm);
+    max-width: 520px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
   }
-  .greet .time-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange); }
-
-  .greet-sub {
-    color: var(--ink-muted);
-    font-family: var(--font-display);
-    font-size: 17px;
-    max-width: 720px;
-    margin-top: 12px;
-    line-height: 1.55;
-  }
-  .greet-sub strong { color: var(--ink); font-weight: 700; }
-
-  .status-strip {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    align-items: center;
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    letter-spacing: 0.06em;
-    margin-top: 24px;
-  }
-  .status-strip .pill {
-    padding: 6px 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+  .hero-search {
+    max-width: 640px;
+    margin: 0 auto 16px;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255,255,255,0.5);
     border-radius: 999px;
-    display: inline-flex; align-items: center; gap: 8px;
-    box-shadow: var(--shadow-sm);
-  }
-  .status-strip .pill.hot {
-    background: rgba(218,44,56,0.08);
-    border-color: rgba(218,44,56,0.28);
-    color: var(--red);
-  }
-  .status-strip .pill.hot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 1.5s infinite; }
-  .status-strip .pill.ok {
-    background: rgba(200,184,219,0.28);
-    border-color: rgba(200,184,219,0.5);
-    color: var(--navy);
-  }
-  .status-strip .pill.ok::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--navy); }
-
-  /* ============ Search — command palette style ============ */
-  .search-hero {
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 20px;
-    padding: 8px;
-    margin-top: 40px;
-    box-shadow: 0 24px 60px rgba(10,10,10,0.08), 0 0 40px rgba(218,44,56,0.06);
-    position: relative;
-    overflow: hidden;
-  }
-  .search-hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 90% 0%, rgba(255,107,53,0.10), transparent 50%),
-                radial-gradient(circle at 10% 100%, rgba(218,44,56,0.08), transparent 50%);
-    pointer-events: none;
-    border-radius: 20px;
-  }
-  .search-scope-row {
-    display: flex; align-items: center; gap: 4px;
-    padding: 8px 12px 0;
-    position: relative;
-    z-index: 2;
-    flex-wrap: wrap;
-  }
-  .scope-tab {
-    padding: 8px 16px;
-    font-family: var(--font-brand);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    border-radius: 8px;
-    transition: all 200ms;
-    display: inline-flex; align-items: center; gap: 6px;
-    letter-spacing: 0.02em;
-    background: transparent;
-    border: 1px solid transparent;
-  }
-  .scope-tab:hover { color: var(--ink); background: var(--surface-alt); }
-  .scope-tab.active {
-    background: rgba(218,44,56,0.10);
-    color: var(--red);
-    border: 1px solid rgba(218,44,56,0.30);
-  }
-  .scope-tab .badge {
-    background: var(--surface-alt);
-    padding: 1px 6px;
-    border-radius: 999px;
-    font-family: var(--font-brand);
-    font-weight: 500;
-    font-size: 10px;
-    color: var(--ink-soft);
-  }
-  .scope-tab.active .badge { background: rgba(218,44,56,0.15); color: var(--red); }
-
-  .search-input-wrap {
+    padding: 6px;
     display: flex; align-items: center;
-    padding: 12px 20px;
-    position: relative;
-    z-index: 2;
+    gap: 8px;
+    box-shadow: 0 20px 60px rgba(5,36,96,0.12), 0 4px 12px rgba(10,10,10,0.05);
+    transition: transform 240ms var(--ease), box-shadow 240ms var(--ease);
   }
-  .search-icon-lg {
-    color: var(--ink-soft);
-    margin-right: 16px;
-    flex-shrink: 0;
+  .hero-search:focus-within {
+    transform: translateY(-1px);
+    box-shadow: 0 24px 70px rgba(5,36,96,0.18);
+    background: #fff;
   }
-  .search-input-wrap input {
-    flex: 1;
-    background: transparent; border: none; outline: none;
+  .hero-search .s-ico { margin-left: 18px; color: var(--ink-soft); flex-shrink: 0; }
+  .hero-search input {
+    flex: 1; min-width: 0;
+    background: transparent;
+    border: none; outline: none;
+    padding: 12px 8px;
     font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 500;
+    font-size: 15px;
     color: var(--ink);
-    padding: 16px 0;
-    letter-spacing: -0.01em;
   }
-  .search-input-wrap input::placeholder { color: var(--ink-soft); font-weight: 400; }
-  .search-input-wrap .kbd-hint { flex-shrink: 0; }
-
-  .search-suggest {
-    padding: 12px 20px 16px;
-    border-top: 1px solid var(--border);
-    position: relative; z-index: 2;
-  }
-  .suggest-hd {
-    font-family: var(--font-brand);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 8px;
-  }
-  .suggest-items { display: flex; flex-direction: column; gap: 2px; }
-  .suggest-item {
-    display: flex; align-items: center; gap: 12px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    font-size: 14px;
-    color: var(--ink-muted);
+  .hero-search input::placeholder { color: var(--ink-soft); }
+  .hero-search .s-go {
+    height: 44px; padding: 0 22px;
+    background: var(--navy); color: #fff;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
     cursor: pointer;
-    transition: all 160ms;
   }
-  .suggest-item:hover { background: var(--surface-alt); color: var(--ink); }
-  .suggest-item .type {
+  .hero-search .s-go:hover { background: var(--navy-dark); }
+  .hero-hints {
+    display: flex; justify-content: center; align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
     font-family: var(--font-brand);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 4px;
-    background: var(--surface-alt);
+    font-size: 11px; font-weight: 600;
     color: var(--ink-soft);
-    min-width: 70px;
-    text-align: center;
   }
-  .suggest-item .type.book { background: rgba(218,44,56,0.10); color: var(--red); }
-  .suggest-item .type.event { background: rgba(255,107,53,0.14); color: var(--orange); }
-  .suggest-item .type.author { background: rgba(200,184,219,0.5); color: var(--navy); }
-  .suggest-item .type.help { background: rgba(5,36,96,0.08); color: var(--navy); }
-  .suggest-item .arr { margin-left: auto; opacity: 0.4; }
+  .hero-hints .lbl { margin-right: 4px; }
+  .hero-hint {
+    padding: 4px 12px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 999px;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all 200ms var(--ease);
+  }
+  .hero-hint:hover { background: var(--navy); color: #fff; }
 
-  /* ============ Quick action rail ============ */
-  .quick-rail {
+  /* ============ Section shells ============ */
+  .section { margin-top: 24px; }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin: 8px 4px 20px;
+    gap: 16px;
+  }
+  .section-head h2 {
+    font-family: var(--font-brand);
+    font-weight: 300;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .section-head h2 strong { font-weight: 700; color: var(--navy); }
+  .section-head p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .section-link {
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    padding: 8px 16px;
+    background: var(--surface);
+    border-radius: 999px;
+    transition: all 200ms var(--ease);
+    white-space: nowrap;
+  }
+  .section-link:hover { background: var(--navy); color: #fff; }
+
+  /* ============ Quick actions bento ============ */
+  .qa-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    margin-top: 32px;
   }
   .qa-card {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 22px;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 14px;
     cursor: pointer;
-    transition: all 260ms var(--ease);
+    transition: transform 300ms var(--ease), box-shadow 300ms var(--ease);
+    min-height: 200px;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
   }
-  .qa-card::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, transparent 40%, rgba(218,44,56,0.05) 100%);
-    opacity: 0;
-    transition: opacity 260ms;
-  }
-  .qa-card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: var(--shadow); }
-  .qa-card:hover::before { opacity: 1; }
-  .qa-card .glyph {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    display: grid; place-items: center;
-    margin-bottom: 16px;
-    font-family: var(--font-brand);
-    font-size: 18px;
-    font-weight: 700;
-    position: relative; z-index: 1;
-  }
-  .qa-card.qa-a .glyph { background: rgba(218,44,56,0.10); color: var(--red); }
-  .qa-card.qa-b .glyph { background: rgba(5,36,96,0.10); color: var(--navy); }
-  .qa-card.qa-c .glyph { background: rgba(200,184,219,0.4); color: var(--navy); }
-  .qa-card.qa-d .glyph { background: rgba(255,107,53,0.14); color: var(--orange); }
-  .qa-card h3 {
-    font-family: var(--font-brand);
-    font-size: 16px; font-weight: 700; letter-spacing: -0.01em;
-    margin-bottom: 4px;
-    position: relative; z-index: 1;
-    color: var(--navy);
-  }
-  .qa-card p { color: var(--ink-muted); font-size: 13px; position: relative; z-index: 1; line-height: 1.5; }
-  .qa-card .stat {
-    margin-top: 14px; padding-top: 14px;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    letter-spacing: 0.06em;
-    position: relative; z-index: 1;
-  }
-  .qa-card .stat strong { color: var(--navy); font-weight: 700; }
-  .qa-card .arr { color: var(--ink-soft); transition: transform 240ms; }
-  .qa-card:hover .arr { transform: translateX(4px); color: var(--red); }
-
-  /* ============ ACCOUNT + EVENTS split ============ */
-  .split-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 24px;
-  }
-
-  .account-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .account-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 100px;
-    background: radial-gradient(ellipse at 30% 20%, rgba(218,44,56,0.10), transparent 60%);
-    pointer-events: none;
-  }
-  .ac-head {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 18px;
-    position: relative;
-  }
-  .ac-user { display: flex; align-items: center; gap: 12px; }
-  .ac-user .av {
-    width: 44px; height: 44px;
-    background: var(--gradient-1);
+  .qa-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .qa-card .qa-glyph {
+    width: 48px; height: 48px;
     border-radius: 12px;
     display: grid; place-items: center;
+  }
+  .qa-card .qa-glyph img { width: 28px; height: 28px; }
+  .qa-card .qa-title {
     font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 18px; color: var(--surface);
-    box-shadow: var(--shadow-glow);
+    font-size: 18px; font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-top: auto;
   }
-  .ac-user .name { font-family: var(--font-brand); font-size: 17px; font-weight: 700; color: var(--navy); }
-  .ac-user .sub { font-family: var(--font-brand); font-weight: 500; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.06em; margin-top: 2px; }
-  .ac-actions { display: flex; gap: 6px; }
-  .ac-actions button {
-    padding: 6px 10px;
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--ink-muted);
-    letter-spacing: 0.06em;
-    transition: all 200ms;
-  }
-  .ac-actions button:hover { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-
-  .ac-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
-  .ac-stat {
-    padding: 14px 12px;
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    position: relative;
-  }
-  .ac-stat.warn { border-color: rgba(218,44,56,0.28); background: rgba(218,44,56,0.06); }
-  .ac-stat.good { border-color: rgba(5,36,96,0.14); background: rgba(200,184,219,0.28); }
-  .ac-stat .n { font-family: var(--font-brand); font-weight: 700; font-size: 30px; line-height: 1; letter-spacing: -0.02em; color: var(--navy); }
-  .ac-stat .l { font-family: var(--font-brand); font-size: 10px; font-weight: 700; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 6px; }
-  .ac-stat.warn .n { color: var(--red); }
-
-  .ac-items { display: flex; flex-direction: column; gap: 8px; }
-  .ac-item {
-    display: grid;
-    grid-template-columns: 36px 1fr auto;
-    gap: 12px;
-    align-items: center;
-    padding: 10px 12px;
-    background: var(--surface-warm);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    transition: all 200ms;
-    cursor: pointer;
-  }
-  .ac-item:hover { background: var(--surface-alt); border-color: var(--border-strong); }
-  .ac-item .cov { width: 36px; height: 48px; border-radius: 4px; overflow: hidden; background: var(--surface-alt); }
-  .ac-item .cov img { width: 100%; height: 100%; object-fit: cover; }
-  .ac-item .info h5 { font-family: var(--font-brand); font-size: 14px; font-weight: 700; line-height: 1.2; color: var(--navy); }
-  .ac-item .info small { font-family: var(--font-brand); font-weight: 500; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.04em; }
-  .ac-item .due {
-    font-family: var(--font-brand);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 999px;
-    background: rgba(200,184,219,0.4);
-    color: var(--navy);
-    letter-spacing: 0.06em;
-  }
-  .ac-item .due.warn { background: rgba(255,107,53,0.18); color: var(--orange); }
-  .ac-item .due.danger { background: rgba(218,44,56,0.14); color: var(--red); }
-
-  .ac-foot {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-  }
-  .ac-foot a {
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--navy);
-    text-transform: uppercase;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .ac-foot a:hover { color: var(--red); }
-
-  .events-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .events-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 100px;
-    background: radial-gradient(ellipse at 70% 20%, rgba(255,107,53,0.10), transparent 60%);
-    pointer-events: none;
-  }
-  .ec-head {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-bottom: 16px; border-bottom: 1px solid var(--border);
-    margin-bottom: 18px;
-  }
-  .ec-head h3 { font-family: var(--font-brand); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--navy); }
-  .ec-head h3 .accent { color: var(--red); font-weight: 700; }
-  .ec-nav { display: flex; gap: 4px; align-items: center; }
-  .ec-nav button {
-    width: 30px; height: 30px;
-    border-radius: 8px;
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    color: var(--ink-muted);
-    font-family: var(--font-brand);
-    font-weight: 700;
+  .qa-card p {
     font-size: 13px;
-    transition: all 200ms;
-  }
-  .ec-nav button:hover { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-
-  .strip-cal {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-bottom: 20px;
-  }
-  .sc-day {
-    aspect-ratio: 1;
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 500;
     color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  /* Diagonal arrow, top-right — icon only, no circle */
+  .qa-card .qa-arr {
+    position: absolute;
+    top: 24px; right: 24px;
+    color: var(--ink-soft);
+    transition: color 240ms var(--ease), transform 240ms var(--ease);
+  }
+  .qa-card .qa-arr svg { width: 18px; height: 18px; }
+  .qa-card:hover .qa-arr { color: var(--navy); transform: translate(2px, -2px); }
+  .qa-a .qa-glyph { background: rgba(5,36,96,0.10); color: var(--navy); }
+  .qa-b .qa-glyph { background: rgba(218,44,56,0.10); color: var(--red); }
+  .qa-c .qa-glyph { background: rgba(255,107,53,0.14); color: var(--orange); }
+  .qa-d .qa-glyph { background: rgba(200,184,219,0.4); color: var(--navy); }
+
+  /* ============ Discover bento (mixed content) ============ */
+  .discover {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    grid-auto-rows: minmax(160px, auto);
+  }
+  .b-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
     cursor: pointer;
-    transition: all 200ms;
+    transition: transform 300ms var(--ease), box-shadow 300ms var(--ease);
+    display: flex; flex-direction: column;
     position: relative;
   }
-  .sc-day .dow { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
-  .sc-day .d { font-family: var(--font-brand); font-size: 15px; font-weight: 700; color: var(--navy); }
-  .sc-day:hover { background: var(--surface-warm); border-color: var(--border-strong); }
-  .sc-day.today {
-    background: linear-gradient(135deg, rgba(218,44,56,0.12), rgba(255,107,53,0.10));
-    border-color: rgba(218,44,56,0.35);
-    box-shadow: var(--shadow-glow);
-  }
-  .sc-day.today .d { color: var(--red); }
-  .sc-day.today .dow { color: var(--orange); }
-  .sc-day .n { font-size: 9px; font-weight: 700; color: var(--red); margin-top: 3px; }
+  .b-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
-  .event-list { display: flex; flex-direction: column; gap: 10px; }
-  .ev {
-    padding: 14px;
-    background: var(--surface-warm);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 200ms;
-    display: grid;
-    grid-template-columns: 68px 1fr auto;
-    gap: 14px;
-    align-items: center;
-  }
-  .ev:hover { background: var(--surface-alt); border-color: var(--border-strong); transform: translateX(2px); }
-  .ev-time {
-    text-align: center;
-    padding: 8px 4px;
+  /* Book of the week — 3 cols x 2 rows · image 3/4 top, text 1/4 bottom */
+  .b-book {
+    grid-column: span 3;
+    grid-row: span 2;
+    padding: 0;
+    display: flex; flex-direction: column;
     background: var(--surface);
-    border-radius: 8px;
-    border: 1px solid var(--border);
+    overflow: hidden;
   }
-  .ev-time .h { font-family: var(--font-brand); font-weight: 700; font-size: 18px; line-height: 1; letter-spacing: -0.01em; color: var(--navy); }
-  .ev-time .ap { font-family: var(--font-brand); font-weight: 500; font-size: 9px; color: var(--ink-soft); margin-top: 4px; letter-spacing: 0.1em; }
-  .ev-body .tag {
-    display: inline-block;
-    font-family: var(--font-brand);
-    font-size: 9px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 999px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .ev-body .tag.kids { background: rgba(200,184,219,0.5); color: var(--navy); }
-  .ev-body .tag.adult { background: rgba(218,44,56,0.12); color: var(--red); }
-  .ev-body .tag.teens { background: rgba(5,36,96,0.10); color: var(--navy); }
-  .ev-body .tag.author { background: rgba(255,107,53,0.14); color: var(--orange); }
-  .ev-body h4 { font-family: var(--font-brand); font-size: 14px; font-weight: 700; line-height: 1.25; margin-bottom: 3px; color: var(--navy); }
-  .ev-body p { font-family: var(--font-brand); font-weight: 500; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.04em; }
-  .ev .rsvp {
-    padding: 6px 10px;
-    background: rgba(218,44,56,0.12);
-    border: 1px solid rgba(218,44,56,0.28);
-    color: var(--red);
-    border-radius: 8px;
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    transition: all 200ms;
-  }
-  .ev .rsvp:hover { background: var(--red); color: var(--surface); }
-
-  /* ============ Section header shared ============ */
-  .section {
-    max-width: 1440px; margin: 0 auto;
-    padding: 80px 32px;
-    position: relative; z-index: 2;
-  }
-  .sect-head {
-    display: flex; justify-content: space-between; align-items: end;
-    gap: 24px;
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-  .sect-head .eyebrow {
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 12px;
-  }
-  .sect-head h2 {
-    font-family: var(--font-brand);
-    font-weight: 300;
-    font-size: clamp(38px, 4.5vw, 60px);
-    line-height: 1.02;
-    letter-spacing: -0.02em;
-    color: var(--navy);
-  }
-  .sect-head h2 .accent { font-weight: 700; background: var(--gradient-1); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .sect-head .link-more {
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--ink-muted);
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 14px;
-    border: 1px solid var(--border-strong);
-    border-radius: 8px;
-    background: var(--surface);
-    transition: all 200ms;
-  }
-  .sect-head .link-more:hover { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-
-  /* ============ Card CTA — glowing card ============ */
-  .card-cta {
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 24px;
-    padding: 60px 48px;
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 60px;
-    align-items: center;
+  .b-book-cover {
+    flex: 3;
+    background: linear-gradient(160deg, var(--surface-alt) 0%, var(--surface-warm) 100%);
+    display: grid; place-items: center;
+    padding: 32px;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow);
+    min-height: 0;
   }
-  .card-cta::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 80% 20%, rgba(218,44,56,0.14), transparent 50%),
-                radial-gradient(circle at 20% 80%, rgba(255,107,53,0.10), transparent 50%);
-    pointer-events: none;
+  .b-book-cover img {
+    max-width: 200px;
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 24px 48px rgba(10,10,10,0.22), 0 6px 12px rgba(10,10,10,0.08);
+    transition: transform 500ms var(--ease);
   }
-  .cc-copy { position: relative; z-index: 2; }
-  .cc-copy .eyebrow {
+  .b-book:hover .b-book-cover img { transform: translateY(-4px) scale(1.02); }
+  .b-book-body {
+    flex: 1;
+    padding: 18px 24px 22px;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    border-top: 1px solid var(--line);
+  }
+  .b-book-body .kicker {
     font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 20px;
-    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange);
   }
-  .cc-copy .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--red); }
-  .cc-copy h2 {
+  .b-book-body h3 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-top: 3px;
+  }
+  .b-book-body .author {
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  /* Events — full-width interactive widget: list left + mini calendar right */
+  .b-event {
+    grid-column: span 6;
+    padding: 24px 28px;
+    background: var(--surface);
+    color: var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 28px;
+    min-height: 340px;
+  }
+  .ev-list-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .ev-list-side .kicker {
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .ev-day-hdr {
+    display: flex; align-items: center; gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ev-day-hdr .d {
     font-family: var(--font-brand);
     font-weight: 300;
-    font-size: clamp(40px, 5vw, 68px);
-    line-height: 1.04;
-    letter-spacing: -0.02em;
-    margin-bottom: 20px;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.025em;
     color: var(--navy);
   }
-  .cc-copy h2 .accent { font-weight: 700; background: var(--gradient-1); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .cc-copy p { color: var(--ink-muted); font-family: var(--font-display); font-size: 16px; max-width: 460px; margin-bottom: 24px; line-height: 1.6; }
-
-  .perks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; max-width: 480px; }
-  .perk-chip {
+  .ev-day-hdr .day-name {
+    font-family: var(--font-brand);
+    font-size: 15px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .ev-day-hdr .day-meta {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 600;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  #ev-list-rows {
+    display: flex; flex-direction: column; gap: 8px;
+    overflow-y: auto;
+    max-height: 240px;
+    padding-right: 4px;
+  }
+  #ev-list-rows::-webkit-scrollbar { width: 4px; }
+  #ev-list-rows::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 2px; }
+  .ev-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
     padding: 10px 14px;
     background: var(--surface-alt);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-family: var(--font-brand);
-    font-weight: 500;
-    font-size: 13px;
-    color: var(--ink);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .perk-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--navy); box-shadow: 0 0 8px rgba(5,36,96,0.35); flex-shrink: 0; }
-
-  .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-
-  /* 3D card viz */
-  .card-3d-wrap {
-    perspective: 1400px;
-    display: grid; place-items: center;
-    position: relative; z-index: 2;
-  }
-  .card-3d {
-    width: 100%;
-    max-width: 400px;
-    aspect-ratio: 1.586;
-    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--red) 100%);
-    border-radius: 20px;
-    padding: 28px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    box-shadow:
-      0 30px 60px rgba(10,10,10,0.18),
-      0 0 60px rgba(218,44,56,0.25);
-    position: relative;
-    overflow: hidden;
-    transform: rotateY(-14deg) rotateX(8deg);
-    transition: transform 800ms var(--ease);
-  }
-  .card-3d:hover { transform: rotateY(0deg) rotateX(0deg); }
-  .card-3d::before {
-    content: '';
-    position: absolute; inset: -1px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--red), var(--orange), var(--lilac));
-    z-index: -1;
-    opacity: 0.5;
-  }
-  .card-3d::after {
-    content: '';
-    position: absolute; top: -80px; right: -80px;
-    width: 260px; height: 260px;
-    background: radial-gradient(circle, rgba(255,107,53,0.55), transparent 60%);
-    border-radius: 50%;
-  }
-  .c3d-top {
-    display: flex; justify-content: space-between; align-items: center;
-    color: var(--surface);
-    font-family: var(--font-brand);
-    font-weight: 600;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    z-index: 1; position: relative;
-  }
-  .c3d-chip {
-    width: 42px; height: 32px;
-    background: linear-gradient(135deg, var(--orange), #ffb37a);
-    border-radius: 6px;
-    position: relative;
-  }
-  .c3d-chip::before {
-    content: '';
-    position: absolute; inset: 4px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 4px;
-    background: linear-gradient(90deg, transparent 33%, rgba(0,0,0,0.15) 33% 66%, transparent 66%);
-    background-size: 12px 100%;
-  }
-  .c3d-name {
-    font-family: var(--font-brand); font-weight: 500;
-    font-size: 26px; line-height: 1; color: var(--surface);
-    z-index: 1; position: relative;
-  }
-  .c3d-num {
-    font-family: var(--font-brand); font-weight: 600; font-size: 15px; letter-spacing: 0.16em;
-    color: rgba(255,255,255,0.9);
-    z-index: 1; position: relative;
-  }
-  .c3d-btm {
-    display: flex; justify-content: space-between; align-items: end;
-    color: rgba(255,255,255,0.75);
-    font-family: var(--font-brand); font-weight: 500; font-size: 10px; letter-spacing: 0.16em;
-    z-index: 1; position: relative;
-  }
-  .c3d-btm .logo { color: var(--surface); font-family: var(--font-brand); font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
-
-  /* ============ Discover shelf ============ */
-  .shelf {
-    display: grid; grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
-  }
-  .b {
+    border-radius: 12px;
+    align-items: center;
+    transition: background 200ms var(--ease);
     cursor: pointer;
-    transition: transform 320ms var(--ease);
   }
-  .b:hover { transform: translateY(-6px); }
-  .b-cover {
-    aspect-ratio: 2/3;
-    background: var(--surface-alt);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    margin-bottom: 14px;
-    border: 1px solid var(--border);
-    transition: box-shadow 320ms;
-  }
-  .b:hover .b-cover { box-shadow: var(--shadow-lg); }
-  .b-cover img { width: 100%; height: 100%; object-fit: cover; }
-  .b-cover .badge {
-    position: absolute; top: 10px; left: 10px;
-    padding: 3px 8px;
-    background: var(--gradient-1);
-    color: var(--surface);
-    font-family: var(--font-brand);
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 700;
-    border-radius: 4px;
-    box-shadow: var(--shadow-glow);
-  }
-  .b .cat { font-family: var(--font-brand); font-size: 10px; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
-  .b h4 { font-family: var(--font-brand); font-size: 15px; font-weight: 700; line-height: 1.2; margin-bottom: 2px; color: var(--navy); }
-  .b .author { font-family: var(--font-display); font-size: 13px; color: var(--ink-muted); }
-  .b .avail {
-    font-family: var(--font-brand);
-    font-weight: 600;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    margin-top: 8px;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .b .avail::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
-  .b .avail.now { color: var(--navy); }
-  .b .avail.now::before { background: var(--navy); }
-  .b .avail.wait { color: var(--orange); }
-  .b .avail.wait::before { background: var(--orange); }
-
-  /* ============ Services grid ============ */
-  .services-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-  }
-  .svc {
-    padding: 24px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 240ms var(--ease);
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .svc:hover { border-color: rgba(218,44,56,0.35); transform: translateY(-3px); box-shadow: var(--shadow); }
-  .svc-glyph {
-    width: 40px; height: 40px;
-    background: rgba(218,44,56,0.10);
-    border-radius: 10px;
-    display: grid; place-items: center;
-    color: var(--red);
-    font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 18px;
-    margin-bottom: 16px;
-    position: relative; z-index: 1;
-  }
-  .svc h4 { font-family: var(--font-brand); font-size: 15px; font-weight: 700; margin-bottom: 6px; position: relative; z-index: 1; color: var(--navy); }
-  .svc p { font-size: 13px; color: var(--ink-muted); position: relative; z-index: 1; line-height: 1.5; }
-  .svc .meta {
-    margin-top: 14px; padding-top: 14px;
-    border-top: 1px solid var(--border);
-    font-family: var(--font-brand); font-size: 10px; font-weight: 600;
-    letter-spacing: 0.06em; color: var(--ink-soft);
-    display: flex; justify-content: space-between; align-items: center;
-    position: relative; z-index: 1;
-  }
-  .svc .meta strong { color: var(--red); font-weight: 700; }
-
-  /* ============ Branches ============ */
-  .branches-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .br {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 240ms var(--ease);
-    box-shadow: var(--shadow-sm);
-  }
-  .br:hover { border-color: var(--border-strong); transform: translateY(-3px); box-shadow: var(--shadow); }
-  .br-img { aspect-ratio: 3/2; overflow: hidden; position: relative; background: var(--surface-alt); }
-  .br-img img { width: 100%; height: 100%; object-fit: cover; }
-  .br-body { padding: 18px; }
-  .br-body h4 { font-family: var(--font-brand); font-size: 17px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.01em; color: var(--navy); }
-  .br-body .addr { font-family: var(--font-brand); font-weight: 500; font-size: 11px; color: var(--ink-soft); margin-bottom: 12px; letter-spacing: 0.04em; }
-  .br-body .status {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 999px;
-    background: rgba(200,184,219,0.4);
-    color: var(--navy);
-    letter-spacing: 0.06em;
-  }
-  .br-body .status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--navy); }
-  .br-body .status.closed { background: rgba(218,44,56,0.12); color: var(--red); }
-  .br-body .status.closed::before { background: var(--red); }
-  .br-body .dist {
-    font-family: var(--font-brand); font-weight: 500;
-    font-size: 11px;
-    color: var(--ink-soft);
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between;
-  }
-
-  /* ============ Support banner ============ */
-  .support {
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 24px;
-    padding: 60px 48px;
+  .ev-row:hover { background: var(--surface-warm); box-shadow: 0 4px 12px rgba(10,10,10,0.06); }
+  .ev-row .time {
     text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow);
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.01em;
   }
-  .support::before {
+  .ev-row .time small {
+    display: block;
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-top: 3px;
+  }
+  .ev-row .title {
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .ev-row .loc {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 500;
+    color: var(--ink-soft);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+  .ev-row .tag {
+    padding: 3px 8px;
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 999px;
+  }
+  .ev-tag-navy { background: rgba(5,36,96,0.10); color: var(--navy); }
+  .ev-tag-red { background: rgba(218,44,56,0.10); color: var(--red); }
+  .ev-tag-orange { background: rgba(255,107,53,0.14); color: var(--orange); }
+  .ev-empty {
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13px;
+    background: var(--surface-alt);
+    border-radius: 12px;
+  }
+
+  /* Mini calendar (right side) */
+  .ev-cal-side {
+    background: var(--surface-alt);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex; flex-direction: column;
+    gap: 10px;
+  }
+  .ev-cal-hdr {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .ev-cal-hdr .m {
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .ev-cal-nav { display: flex; gap: 2px; }
+  .ev-cal-nav button {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 700;
+    color: var(--navy);
+    background: transparent;
+    transition: background 200ms;
+    cursor: pointer;
+  }
+  .ev-cal-nav button:hover { background: var(--surface); }
+  .ev-cal-dow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    padding: 4px 0;
+  }
+  .ev-cal-dow span {
+    text-align: center;
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  .ev-cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 200ms var(--ease);
+    position: relative;
+  }
+  .cal-day > span {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .cal-day.mute { opacity: 0.28; cursor: default; }
+  .cal-day.mute > span { color: var(--ink-soft); }
+  .cal-day:hover:not(.mute):not(.selected) { background: var(--surface); }
+  .cal-day .dot {
+    position: absolute;
+    bottom: 4px;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+  .cal-day.selected { background: var(--navy); }
+  .cal-day.selected > span { color: #fff; }
+  .cal-day.selected .dot { background: var(--orange); }
+
+  /* Services — 3 cols x 2 rows · all 12 services as app tiles */
+  .b-svc {
+    grid-column: span 3;
+    grid-row: span 2;
+    padding: 24px 26px;
+    display: flex; flex-direction: column;
+    gap: 14px;
+    justify-content: space-between;
+  }
+  .b-svc .kicker {
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .b-svc h3 {
+    font-family: var(--font-brand);
+    font-size: 15px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 8px;
+    margin-top: 10px;
+  }
+  .app {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .app-icon {
+    width: 60px; height: 60px;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: 14px;         /* iOS-style squircle */
+    display: grid; place-items: center;
+    transition: transform 240ms var(--ease), background 200ms var(--ease);
+  }
+  .app:hover .app-icon {
+    transform: translateY(-2px);
+    background: var(--surface-warm);
+  }
+  .app-icon img { width: 34px; height: 34px; }
+  .app span {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    max-width: 84px;
+  }
+
+  /* Category shelves — full width rows with cover + title beneath each book */
+  .b-shelf {
+    grid-column: span 6;
+    padding: 22px 24px;
+    display: flex; flex-direction: column;
+    gap: 14px;
+  }
+  .b-shelf-hd {
+    display: flex; justify-content: space-between; align-items: end;
+    gap: 16px;
+  }
+  .b-shelf-hd > div:first-child {
+    display: flex; align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .b-shelf-hd .kicker {
+    font-family: var(--font-brand);
+    font-size: 14px; font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink-soft);
+  }
+  .b-shelf-hd h3 {
+    font-family: var(--font-brand);
+    font-size: 16px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin: 0;
+  }
+  .b-shelf-hd .more {
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--navy);
+    transition: color 200ms var(--ease);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .b-shelf-hd .more:hover { color: var(--red); }
+  .shelf-row {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 12px;
+  }
+  .shelf-book {
+    display: flex; flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .shelf-book-cover {
+    aspect-ratio: 2/3;
+    background: var(--surface-warm);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 6px 14px rgba(10,10,10,0.14), 0 2px 4px rgba(10,10,10,0.06);
+    transition: transform 240ms var(--ease), box-shadow 240ms var(--ease);
+  }
+  .shelf-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .shelf-book:hover .shelf-book-cover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(10,10,10,0.20), 0 4px 8px rgba(10,10,10,0.08);
+  }
+  .shelf-book .t {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .shelf-book .a {
+    font-family: var(--font-display);
+    font-size: 10px;
+    color: var(--ink-soft);
+    line-height: 1.3;
+  }
+
+  /* Branches — full-width row of 4 image cards */
+  .branches-row {
+    grid-column: span 6;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .br-card {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: var(--surface-alt);
+    transition: transform 300ms var(--ease), box-shadow 300ms var(--ease);
+  }
+  .br-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .br-card .bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 600ms var(--ease);
+  }
+  .br-card:hover .bg { transform: scale(1.06); }
+  .br-card::after {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, rgba(218,44,56,0.14), transparent 65%);
-    pointer-events: none;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.78) 100%);
   }
-  .support .eyebrow {
-    display: inline-block;
+  .br-card .body {
+    position: absolute; left: 20px; right: 20px; bottom: 18px;
+    color: #fff; z-index: 2;
+  }
+  .br-card .kicker {
     font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 4px;
+  }
+  .br-card .name {
+    font-family: var(--font-brand);
+    font-size: 17px; font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .br-card .status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.9);
+  }
+  .br-card .status::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 3px rgba(74,222,128,0.28);
+  }
+
+  /* News — 2 cols x 1 row */
+  .b-news {
+    grid-column: span 2;
+    padding: 22px 24px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .b-news .kicker {
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--red);
-    padding: 6px 14px;
-    background: rgba(218,44,56,0.08);
-    border: 1px solid rgba(218,44,56,0.24);
-    border-radius: 999px;
-    margin-bottom: 20px;
+  }
+  .b-news h3 {
+    font-family: var(--font-brand);
+    font-size: 17px; font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .b-news p {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* Newsletter — full width, last row */
+  .b-news-signup {
+    grid-column: span 6;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, var(--red) 0%, #a51e28 100%);
+    color: #fff;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .b-news-signup::before {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,107,53,0.4), transparent 65%);
+    border-radius: 50%;
+  }
+  .b-news-signup .kicker {
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
     position: relative;
   }
-  .support h2 {
+  .b-news-signup h3 {
     font-family: var(--font-brand);
     font-weight: 300;
-    font-size: clamp(40px, 5vw, 64px);
-    line-height: 1.04;
+    font-size: 24px;
+    line-height: 1.1;
     letter-spacing: -0.02em;
-    margin-bottom: 18px;
     position: relative;
-    color: var(--navy);
   }
-  .support h2 .accent { font-weight: 700; background: var(--gradient-1); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .support p {
-    color: var(--ink-muted);
+  .b-news-signup h3 strong { font-weight: 700; }
+  .b-news-signup form {
+    display: flex; gap: 6px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.24);
+    padding: 4px;
+    border-radius: 999px;
+    position: relative;
+  }
+  .b-news-signup input {
+    flex: 1; min-width: 0;
+    background: transparent;
+    border: none; outline: none;
+    padding: 8px 14px;
+    color: #fff;
     font-family: var(--font-display);
-    font-size: 17px;
-    max-width: 600px;
-    margin: 0 auto 28px;
-    position: relative;
-    line-height: 1.6;
+    font-size: 13px;
   }
-  .support-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
-  .impact-stats {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 48px;
-    padding-top: 40px;
-    border-top: 1px solid var(--border);
-    position: relative;
-  }
-  .impact-stat .n {
+  .b-news-signup input::placeholder { color: rgba(255,255,255,0.55); }
+  .b-news-signup button {
+    padding: 0 18px; height: 34px;
+    background: #fff; color: var(--red);
+    border-radius: 999px;
     font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 42px;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-weight: 700; font-size: 12px;
+    cursor: pointer;
   }
-  .impact-stat .l {
-    font-family: var(--font-brand);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-top: 8px;
-  }
+  .b-news-signup button:hover { background: var(--ink); color: #fff; }
 
-  /* ============ Footer ============ */
-  footer {
-    padding: 60px 32px 32px;
-    background: var(--ink);
-    color: var(--surface);
-    position: relative; z-index: 2;
+  /* Footer with big logo */
+  .foot {
+    max-width: 1440px; margin: 20px auto 0;
+    padding: 40px 32px 40px;
+    display: flex; flex-direction: column;
+    gap: 28px;
   }
-  .foot-grid {
-    max-width: 1440px; margin: 0 auto;
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    gap: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.14);
+  .foot-brand {
+    display: flex; justify-content: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
   }
-  .foot-brand p { opacity: 0.7; font-size: 14px; max-width: 320px; margin-top: 14px; line-height: 1.6; }
-  .foot-col h4 { font-family: var(--font-brand); font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
-  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .foot-col a { font-size: 14px; opacity: 0.85; transition: opacity 200ms; }
-  .foot-col a:hover { opacity: 1; color: var(--orange); }
+  .foot-brand img { height: 72px; }
   .foot-btm {
-    max-width: 1440px; margin: 0 auto;
-    padding-top: 20px;
-    display: flex; justify-content: space-between;
-    font-family: var(--font-brand); font-size: 11px; font-weight: 500;
-    opacity: 0.5;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 500;
     letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+    gap: 16px;
   }
+  .foot .socials { display: flex; gap: 6px; }
+  .foot .socials a {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: grid; place-items: center;
+    transition: all 200ms var(--ease);
+  }
+  .foot .socials a:hover { background: var(--navy); }
+  .foot .socials img { width: 12px; height: 12px; transition: filter 200ms; }
+  .foot .socials a:hover img { filter: brightness(0) invert(1); }
 
-  /* ============ Responsive ============ */
-  @media (max-width: 1080px) {
-    .quick-rail { grid-template-columns: 1fr 1fr; }
-    .split-grid { grid-template-columns: 1fr; }
-    .services-grid, .branches-grid, .shelf { grid-template-columns: repeat(3, 1fr); }
-    .card-cta { grid-template-columns: 1fr; padding: 40px 28px; }
-    .impact-stats { grid-template-columns: 1fr 1fr; }
-    .nav-primary { display: none; }
+  /* Responsive */
+  @media (max-width: 1280px) {
+    .layout { grid-template-columns: 240px 1fr; }
+    .rail-right { display: none; }
+  }
+  @media (max-width: 1024px) {
+    .layout { grid-template-columns: 1fr; padding: 16px 24px; }
+    .rail-left { display: none; }
+    .qa-grid { grid-template-columns: repeat(2, 1fr); }
+    .discover { grid-template-columns: repeat(4, 1fr); }
+    .b-book, .b-event, .b-shelf, .b-news-signup { grid-column: span 4; }
+    .b-svc, .b-news { grid-column: span 2; }
+    .b-branch { grid-column: span 2; min-height: 200px; }
   }
   @media (max-width: 640px) {
-    .greet { font-size: 36px; }
-    .search-input-wrap input { font-size: 18px; }
-    .search-scope-row { flex-wrap: wrap; }
-    .quick-rail { grid-template-columns: 1fr; }
-    .ac-stats { grid-template-columns: 1fr 1fr; }
-    .strip-cal { grid-template-columns: repeat(7, 1fr); gap: 3px; }
-    .sc-day { border-radius: 6px; }
-    .shelf, .services-grid, .branches-grid { grid-template-columns: 1fr 1fr; }
-    .impact-stats { grid-template-columns: 1fr 1fr; }
-    .foot-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-    header.nav { grid-template-columns: auto auto; padding: 14px 20px; }
-    .portal, .section { padding-left: 20px; padding-right: 20px; }
-    .card-cta, .support { padding: 40px 24px; }
-    .nav-actions .btn-ghost { display: none; }
-    .ticker { font-size: 10px; padding: 8px 16px; }
-    .ticker-right { display: none; }
+    .top-inner { padding: 10px 20px; }
+    .brand img { height: 42px; }
+    .btn-ghost { display: none; }
+    .layout { padding: 12px 16px; }
+    .hero { padding: 48px 20px 40px; border-radius: var(--radius); }
+    .qa-grid { grid-template-columns: 1fr; }
+    .discover { grid-template-columns: 1fr; }
+    .b-book, .b-event, .b-svc, .b-shelf, .b-news, .b-news-signup, .b-branch { grid-column: span 1; }
+    .b-book { grid-template-columns: 1fr; text-align: center; }
+    .b-book-cover { margin: 0 auto; width: 140px; }
+    .b-shelf .covers { grid-template-columns: repeat(5, 1fr); }
+    .b-shelf .covers img:nth-child(n+6) { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- Status ticker -->
-<div class="ticker">
-  <div class="ticker-left">
-    <span class="ticker-dot"></span>
-    <span>ALL SYSTEMS OPERATIONAL · 7/7 BRANCHES OPEN · 47 EVENTS TODAY</span>
-  </div>
-  <div class="ticker-right">
-    <a href="#">EN / ES</a>
-    <a href="#">A11Y</a>
-    <a href="#">STATUS</a>
-  </div>
-</div>
+<!-- Slim top nav with mega menus -->
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#">
+      <img src="assets/logo-image.png" alt="Jefferson County Library">
+      <small>Jefferson County · Missouri</small>
+    </a>
 
-<!-- Nav -->
-<header class="nav">
-  <a class="brand" href="#">
-    <span class="brand-mark">J</span>
-    <span class="brand-lock">Jefferson County Library<small>MISSOURI · THE PORTAL</small></span>
-  </a>
-  <nav class="nav-primary">
-    <a href="#" class="active">Home</a>
-    <a href="#">Discover</a>
-    <a href="#">Events</a>
-    <a href="#">Learn</a>
-    <a href="#">Services</a>
-    <a href="#">Locations</a>
-  </nav>
-  <div class="nav-actions">
-    <button class="btn btn-ghost">Sign In</button>
-    <button class="btn btn-primary">Get a Card →</button>
+    <nav class="top-nav">
+      <div class="nav-item">
+        <span>Services</span> <span class="caret"></span>
+        <div class="mega">
+          <div class="mega-hd">Library Services · All 12</div>
+          <div class="mega-grid">
+            <a class="mega-item"><img src="assets/service-8.svg" alt=""><span class="body"><span class="t">Mobile App</span><span class="s">Read, reserve, renew</span></span></a>
+            <a class="mega-item"><img src="assets/service-11.svg" alt=""><span class="body"><span class="t">Meeting Rooms</span><span class="s">Free to book</span></span></a>
+            <a class="mega-item"><img src="assets/service-3.svg" alt=""><span class="body"><span class="t">Book Bundles</span><span class="s">Curated picks</span></span></a>
+            <a class="mega-item"><img src="assets/service-12.svg" alt=""><span class="body"><span class="t">Library of Things</span><span class="s">Telescopes &amp; tools</span></span></a>
+            <a class="mega-item"><img src="assets/service-9.svg" alt=""><span class="body"><span class="t">Request a Book</span><span class="s">Can't find it? Ask us</span></span></a>
+            <a class="mega-item"><img src="assets/service-4.svg" alt=""><span class="body"><span class="t">Homebound Delivery</span><span class="s">Books to your door</span></span></a>
+            <a class="mega-item"><img src="assets/service-7.svg" alt=""><span class="body"><span class="t">WiFi Hotspots</span><span class="s">Borrow internet</span></span></a>
+            <a class="mega-item"><img src="assets/service-10.svg" alt=""><span class="body"><span class="t">Computers &amp; Printing</span><span class="s">Public workstations</span></span></a>
+            <a class="mega-item"><img src="assets/service-5.svg" alt=""><span class="body"><span class="t">Print Anywhere</span><span class="s">Send &amp; pick up</span></span></a>
+            <a class="mega-item"><img src="assets/service-2.svg" alt=""><span class="body"><span class="t">Smart Lockers</span><span class="s">24/7 pickup</span></span></a>
+            <a class="mega-item"><img src="assets/service-1.svg" alt=""><span class="body"><span class="t">Notary &amp; Passports</span><span class="s">Documents &amp; ID</span></span></a>
+            <a class="mega-item"><img src="assets/service-6.svg" alt=""><span class="body"><span class="t">Accessibility</span><span class="s">Assistive tech</span></span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <span>Genealogy</span> <span class="caret"></span>
+        <div class="mega">
+          <div class="mega-hd">Research Your Roots</div>
+          <div class="mega-grid">
+            <a class="mega-item"><img src="assets/service-3.svg" alt=""><span class="body"><span class="t">About Genealogy</span><span class="s">Start your family history</span></span></a>
+            <a class="mega-item"><img src="assets/service-1.svg" alt=""><span class="body"><span class="t">Databases</span><span class="s">Ancestry &amp; FamilySearch</span></span></a>
+            <a class="mega-item"><img src="assets/service-9.svg" alt=""><span class="body"><span class="t">Newspaper Archives</span><span class="s">Historical Missouri papers</span></span></a>
+            <a class="mega-item"><img src="assets/service-10.svg" alt=""><span class="body"><span class="t">Local History</span><span class="s">140 years of records</span></span></a>
+            <a class="mega-item"><img src="assets/service-11.svg" alt=""><span class="body"><span class="t">Classes &amp; Workshops</span><span class="s">Learn the tools</span></span></a>
+            <a class="mega-item"><img src="assets/service-12.svg" alt=""><span class="body"><span class="t">Genealogy Podcast</span><span class="s">Weekly episodes</span></span></a>
+            <a class="mega-item"><img src="assets/service-4.svg" alt=""><span class="body"><span class="t">Archives Visits</span><span class="s">By appointment</span></span></a>
+            <a class="mega-item"><img src="assets/service-2.svg" alt=""><span class="body"><span class="t">Ask a Genealogist</span><span class="s">1-on-1 research help</span></span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <span>Support</span> <span class="caret"></span>
+        <div class="mega">
+          <div class="mega-hd">Support Your Library</div>
+          <div class="mega-grid">
+            <a class="mega-item"><img src="assets/service-3.svg" alt=""><span class="body"><span class="t">Library Foundation</span><span class="s">Grow the collection</span></span></a>
+            <a class="mega-item"><img src="assets/service-9.svg" alt=""><span class="body"><span class="t">Friends of JCL</span><span class="s">Volunteer group</span></span></a>
+            <a class="mega-item"><img src="assets/service-11.svg" alt=""><span class="body"><span class="t">Volunteer</span><span class="s">Shelve, tutor, greet</span></span></a>
+            <a class="mega-item"><img src="assets/service-2.svg" alt=""><span class="body"><span class="t">Donate</span><span class="s">One-time or monthly</span></span></a>
+            <a class="mega-item"><img src="assets/service-6.svg" alt=""><span class="body"><span class="t">Book Donations</span><span class="s">Give books a second home</span></span></a>
+            <a class="mega-item"><img src="assets/service-1.svg" alt=""><span class="body"><span class="t">Board of Trustees</span><span class="s">Meet the board</span></span></a>
+            <a class="mega-item"><img src="assets/service-7.svg" alt=""><span class="body"><span class="t">Advocacy</span><span class="s">Speak up for JCL</span></span></a>
+            <a class="mega-item"><img src="assets/service-8.svg" alt=""><span class="body"><span class="t">Merchandise</span><span class="s">Show your library love</span></span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <span>Locations</span> <span class="caret"></span>
+        <div class="mega">
+          <div class="mega-hd">Our Branches · 4 nearby</div>
+          <div class="mega-locs">
+            <a class="mega-loc">
+              <div class="mega-loc-img" style="background-image:url('assets/branch-1.png')"></div>
+              <div class="body"><div class="n">Arnold Branch</div><div class="a">1702 Jeffco Blvd · Open until 9 PM</div></div>
+            </a>
+            <a class="mega-loc">
+              <div class="mega-loc-img" style="background-image:url('assets/branch-2.png')"></div>
+              <div class="body"><div class="n">Cedar Hill Satellite</div><div class="a">6780 Parker Dr · Open until 8 PM</div></div>
+            </a>
+            <a class="mega-loc">
+              <div class="mega-loc-img" style="background-image:url('assets/branch-3.png')"></div>
+              <div class="body"><div class="n">Northwest Branch</div><div class="a">5680 S Lakeshore Dr · Open until 6 PM</div></div>
+            </a>
+            <a class="mega-loc">
+              <div class="mega-loc-img" style="background-image:url('assets/branch-4.png')"></div>
+              <div class="body"><div class="n">Windsor Branch</div><div class="a">7479 Metropolitan Blvd · Open until 8 PM</div></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="top-actions">
+      <button class="btn btn-ghost">Sign In</button>
+      <button class="btn btn-fill">Get a Card</button>
+    </div>
   </div>
 </header>
 
-<!-- PORTAL / Hero -->
-<section class="portal">
-  <div class="greet-row">
-    <div>
-      <div style="font-family: var(--font-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--red); margin-bottom: 12px;">◆ THURSDAY · SEPT 17 · 2026</div>
-      <h1 class="greet">Good afternoon,<br><span class="accent">welcome back.</span><span class="time-badge"><span class="dot"></span>2:47 PM MDT</span></h1>
-      <p class="greet-sub">You have <strong>3 items due Friday</strong>, <strong>2 holds ready for pickup</strong>, and there are <strong>7 events happening today</strong> across your saved branches.</p>
-    </div>
-  </div>
+<!-- Layout: left rail | main | right rail -->
+<div class="layout">
 
-  <div class="status-strip">
-    <span class="pill hot">3 due Fri</span>
-    <span class="pill">2 holds ready · Arnold</span>
-    <span class="pill ok">Arnold open until 9 PM</span>
-    <span class="pill">Wi-Fi: 100% uptime</span>
-    <span class="pill">Study rooms available: 8</span>
-  </div>
+  <!-- Left rail — categories -->
+  <aside class="rail rail-left">
+    <div class="rail-title">Discover</div>
+    <a class="rail-link active"><span class="icn">◆</span> Home</a>
+    <a class="rail-link"><span class="icn">◇</span> Books</a>
+    <a class="rail-link"><span class="icn">◐</span> eBooks &amp; Audio</a>
+    <a class="rail-link"><span class="icn">☼</span> Events <span class="count">47</span></a>
+    <a class="rail-link"><span class="icn">✎</span> Research</a>
+    <a class="rail-link"><span class="icn">☰</span> Meeting Rooms</a>
+    <div class="rail-divider"></div>
+    <div class="rail-title">Audiences</div>
+    <a class="rail-link"><span class="icn">●</span> Adults</a>
+    <a class="rail-link"><span class="icn">●</span> Kids &amp; Families</a>
+    <a class="rail-link"><span class="icn">●</span> Teens</a>
+    <div class="rail-divider"></div>
+    <div class="rail-title">More</div>
+    <a class="rail-link"><span class="icn">◈</span> Genealogy</a>
+    <a class="rail-link"><span class="icn">✿</span> Support JCL</a>
+    <a class="rail-link"><span class="icn">✉</span> Contact</a>
+  </aside>
 
-  <!-- Search -->
-  <div class="search-hero">
-    <div class="search-scope-row">
-      <button class="scope-tab active">Catalog <span class="badge">1.4M</span></button>
-      <button class="scope-tab">Events <span class="badge">47</span></button>
-      <button class="scope-tab">Digital <span class="badge">240K</span></button>
-      <button class="scope-tab">Research</button>
-      <button class="scope-tab">Ask a Librarian</button>
-      <button class="scope-tab">Website</button>
-    </div>
-    <div class="search-input-wrap">
-      <svg class="search-icon-lg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-      <input type="text" placeholder="Search anything — a book, an author, a topic, or 'toddler storytime near me'…">
-      <span class="kbd-hint kbd">⌘ K</span>
-    </div>
-    <div class="search-suggest">
-      <div class="suggest-hd">Trending in Jefferson County · updated live</div>
-      <div class="suggest-items">
-        <div class="suggest-item"><span class="type book">Book</span> The Silent Season <span style="color: var(--navy); margin-left: auto; font-family: var(--font-brand); font-weight: 600; font-size: 11px;">12 copies available</span></div>
-        <div class="suggest-item"><span class="type event">Event</span> Anne Hillerman: writing the Southwest <span style="color: var(--ink-soft); margin-left: auto; font-family: var(--font-brand); font-weight: 500; font-size: 11px;">Tonight · 7 PM · Arnold</span></div>
-        <div class="suggest-item"><span class="type author">Author</span> James Baldwin — 12 titles, 3 biographies <span class="arr">↗</span></div>
-        <div class="suggest-item"><span class="type help">Help</span> How do I renew items from home? <span class="arr">↗</span></div>
-        <div class="suggest-item"><span class="type book">Book</span> Learn Spanish · Rosetta Stone free with card <span class="arr">↗</span></div>
+  <!-- Main content: 3 sections -->
+  <main class="main">
+
+    <!-- 1 · HERO -->
+    <section class="hero">
+      <div class="hero-kicker">Autumn Reading · Vol. 72</div>
+      <h1>
+        Discover your
+        <span class="accent">next chapter.</span>
+      </h1>
+      <p class="hero-sub">
+        Search 1.4 million titles or find something happening tonight — across seven branches, free with your card.
+      </p>
+      <form class="hero-search" onsubmit="event.preventDefault();">
+        <svg class="s-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input type="text" placeholder="Search books, authors, events, or ask a librarian…">
+        <button class="s-go" type="submit">Search</button>
+      </form>
+      <div class="hero-hints">
+        <span class="lbl">Try:</span>
+        <a class="hero-hint">Toddler storytime</a>
+        <a class="hero-hint">Missouri history</a>
+        <a class="hero-hint">Learn Spanish</a>
+        <a class="hero-hint">Genealogy</a>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Quick rail -->
-  <div class="quick-rail">
-    <div class="qa-card qa-a">
-      <div class="glyph">✎</div>
-      <h3>Get a library card</h3>
-      <p>Free — anyone in Jefferson County qualifies. 3-minute application, instant digital card.</p>
-      <div class="stat"><span>APPLY ONLINE</span><span class="arr">→</span></div>
-    </div>
-    <div class="qa-card qa-b">
-      <div class="glyph">◐</div>
-      <h3>My account</h3>
-      <p>Renewals, holds, fines, reading history — all encrypted and private by default.</p>
-      <div class="stat"><span><strong>7</strong> items out · <strong>2</strong> ready</span><span class="arr">→</span></div>
-    </div>
-    <div class="qa-card qa-c">
-      <div class="glyph">☰</div>
-      <h3>Book a room</h3>
-      <p>Study rooms, meeting spaces, maker labs, recording studios. Reserve up to 30 days out.</p>
-      <div class="stat"><span><strong>8</strong> rooms open now</span><span class="arr">→</span></div>
-    </div>
-    <div class="qa-card qa-d">
-      <div class="glyph">☼</div>
-      <h3>Today's events</h3>
-      <p>Baby storytime to author talks. Free with a card, or open to the public.</p>
-      <div class="stat"><span><strong>7</strong> events · next 4:00 PM</span><span class="arr">→</span></div>
-    </div>
-  </div>
-
-  <!-- Split: Account + Events -->
-  <div class="split-grid">
-
-    <div class="account-card">
-      <div class="ac-head">
-        <div class="ac-user">
-          <div class="av">M</div>
-          <div>
-            <div class="name">Maya Rodriguez</div>
-            <div class="sub">CARD 21863·00455·9821 · MEMBER SINCE 2019</div>
-          </div>
-        </div>
-        <div class="ac-actions">
-          <button>RENEW ALL</button>
-          <button>SETTINGS</button>
-        </div>
-      </div>
-
-      <div class="ac-stats">
-        <div class="ac-stat good"><div class="n">7</div><div class="l">Checked out</div></div>
-        <div class="ac-stat"><div class="n">2</div><div class="l">Holds ready</div></div>
-        <div class="ac-stat warn"><div class="n">3</div><div class="l">Due in 3 days</div></div>
-        <div class="ac-stat"><div class="n">$0</div><div class="l">Balance</div></div>
-      </div>
-
-      <div style="font-family: var(--font-brand); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px;">Due next</div>
-      <div class="ac-items">
-        <div class="ac-item">
-          <div class="cov"><img src="assets/book-1.png" alt=""></div>
-          <div class="info"><h5>The Silent Season</h5><small>LENA ORTIZ · LAKEWOOD BRANCH</small></div>
-          <span class="due warn">FRI</span>
-        </div>
-        <div class="ac-item">
-          <div class="cov"><img src="assets/book-2.png" alt=""></div>
-          <div class="info"><h5>Wandering Stars</h5><small>TOMMY ORANGE · EBOOK · LIBBY</small></div>
-          <span class="due danger">TOMORROW</span>
-        </div>
-        <div class="ac-item">
-          <div class="cov"><img src="assets/book-3.png" alt=""></div>
-          <div class="info"><h5>The Bee Sting</h5><small>PAUL MURRAY · AUDIOBOOK</small></div>
-          <span class="due">SEP 24</span>
-        </div>
-      </div>
-
-      <div class="ac-foot">
-        <a href="#">→ FULL ACCOUNT</a>
-        <a href="#" style="color: var(--red);">→ READING HISTORY</a>
-      </div>
-    </div>
-
-    <div class="events-card">
-      <div class="ec-head">
-        <h3>What's <span class="accent">happening</span>.</h3>
-        <div class="ec-nav">
-          <button>‹</button>
-          <span style="font-family: var(--font-brand); font-size: 11px; font-weight: 600; color: var(--ink-soft); padding: 0 8px; letter-spacing: 0.08em;">THIS WEEK</span>
-          <button>›</button>
-        </div>
-      </div>
-
-      <div class="strip-cal">
-        <div class="sc-day"><span class="dow">SUN</span><span class="d">13</span><span class="n">3</span></div>
-        <div class="sc-day"><span class="dow">MON</span><span class="d">14</span><span class="n">5</span></div>
-        <div class="sc-day"><span class="dow">TUE</span><span class="d">15</span><span class="n">6</span></div>
-        <div class="sc-day"><span class="dow">WED</span><span class="d">16</span><span class="n">7</span></div>
-        <div class="sc-day today"><span class="dow">THU</span><span class="d">17</span><span class="n">9</span></div>
-        <div class="sc-day"><span class="dow">FRI</span><span class="d">18</span><span class="n">8</span></div>
-        <div class="sc-day"><span class="dow">SAT</span><span class="d">19</span><span class="n">9</span></div>
-      </div>
-
-      <div class="event-list">
-        <div class="ev">
-          <div class="ev-time"><div class="h">4:00</div><div class="ap">PM</div></div>
-          <div class="ev-body">
-            <span class="tag teens">TEENS · GR 6–12</span>
-            <h4>Homework Café with tutors on-hand</h4>
-            <p>COLUMBINE · DROP-IN · FREE</p>
-          </div>
-          <button class="rsvp">SAVE</button>
-        </div>
-        <div class="ev">
-          <div class="ev-time"><div class="h">6:00</div><div class="ap">PM</div></div>
-          <div class="ev-body">
-            <span class="tag adult">ADULTS · WORKSHOP</span>
-            <h4>Résumé rescue: 1-on-1 career coaching</h4>
-            <p>WHEAT RIDGE · REGISTER · 30 MIN SLOTS</p>
-          </div>
-          <button class="rsvp">RSVP</button>
-        </div>
-        <div class="ev">
-          <div class="ev-time"><div class="h">7:00</div><div class="ap">PM</div></div>
-          <div class="ev-body">
-            <span class="tag author">AUTHOR TALK</span>
-            <h4>Anne Hillerman on the American Southwest</h4>
-            <p>LAKEWOOD · FREE RSVP · SIGNING TO FOLLOW</p>
-          </div>
-          <button class="rsvp">RSVP</button>
-        </div>
-        <div class="ev">
-          <div class="ev-time"><div class="h">7:30</div><div class="ap">PM</div></div>
-          <div class="ev-body">
-            <span class="tag kids">FAMILIES · ALL AGES</span>
-            <h4>Family movie night: Studio Ghibli marathon</h4>
-            <p>GOLDEN · POPCORN INCLUDED · FREE</p>
-          </div>
-          <button class="rsvp">SAVE</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- Discover / New arrivals -->
-<section class="section">
-  <div class="sect-head">
-    <div>
-      <div class="eyebrow">◆ 01 · CURATED FOR YOU</div>
-      <h2>Discover what's <span class="accent">next</span>.</h2>
-    </div>
-    <a class="link-more" href="#">SEE ALL NEW ARRIVALS →</a>
-  </div>
-
-  <div class="shelf">
-    <div class="b">
-      <div class="b-cover"><span class="badge">NEW</span><img src="assets/book-1.png" alt=""></div>
-      <div class="cat">FICTION</div>
-      <h4>The Silent Season</h4>
-      <div class="author">Lena Ortiz</div>
-      <div class="avail now">3 available</div>
-    </div>
-    <div class="b">
-      <div class="b-cover"><span class="badge">TRENDING</span><img src="assets/book-2.png" alt=""></div>
-      <div class="cat">MYSTERY</div>
-      <h4>Cold Fronts</h4>
-      <div class="author">James Merrick</div>
-      <div class="avail wait">4 holds</div>
-    </div>
-    <div class="b">
-      <div class="b-cover"><img src="assets/book-3.png" alt=""></div>
-      <div class="cat">HISTORY</div>
-      <h4>Rivers of the West</h4>
-      <div class="author">Priya Ramesh</div>
-      <div class="avail now">Available</div>
-    </div>
-    <div class="b">
-      <div class="b-cover"><span class="badge">STAFF PICK</span><img src="assets/book-4.png" alt=""></div>
-      <div class="cat">BIOGRAPHY</div>
-      <h4>Notes from a Small Country</h4>
-      <div class="author">Adaeze Chen</div>
-      <div class="avail now">Available</div>
-    </div>
-    <div class="b">
-      <div class="b-cover"><img src="assets/book-5.png" alt=""></div>
-      <div class="cat">SCI-FI</div>
-      <h4>Orbit Decay</h4>
-      <div class="author">Marcus Voss</div>
-      <div class="avail wait">12 holds</div>
-    </div>
-    <div class="b">
-      <div class="b-cover"><span class="badge">NEW</span><img src="assets/book-6.png" alt=""></div>
-      <div class="cat">COOKBOOK</div>
-      <h4>The Weeknight Baker</h4>
-      <div class="author">Sam Ito</div>
-      <div class="avail now">Available</div>
-    </div>
-  </div>
-</section>
-
-<!-- Card CTA -->
-<section class="section">
-  <div class="card-cta">
-    <div class="cc-copy">
-      <div class="eyebrow">◆ 02 · GET STARTED</div>
-      <h2>Your library card is<br><span class="accent">the whole platform.</span></h2>
-      <p>One card unlocks 1.4M physical items, 240K digital titles, four maker labs, museum passes, language learning, streaming video, and career coaching. Free.</p>
-
-      <div class="perks-grid">
-        <div class="perk-chip"><span class="dot"></span> 1.4M books &amp; media</div>
-        <div class="perk-chip"><span class="dot"></span> Libby, Kanopy, Hoopla</div>
-        <div class="perk-chip"><span class="dot"></span> 3D printers &amp; makerspace</div>
-        <div class="perk-chip"><span class="dot"></span> Free museum passes</div>
-        <div class="perk-chip"><span class="dot"></span> Rosetta Stone languages</div>
-        <div class="perk-chip"><span class="dot"></span> LinkedIn Learning</div>
-      </div>
-
-      <div class="cta-buttons">
-        <button class="btn btn-primary">Apply for a card →</button>
-        <button class="btn btn-ghost">Read the FAQ</button>
-      </div>
-    </div>
-
-    <div class="card-3d-wrap">
-      <div class="card-3d">
-        <div class="c3d-top">
-          <span>JEFFERSON COUNTY LIBRARY</span>
-          <div class="c3d-chip"></div>
-        </div>
+    <!-- 2 · Quick actions -->
+    <section class="section">
+      <div class="section-head">
         <div>
-          <div class="c3d-name">Your Name</div>
-          <div style="color: rgba(255,255,255,0.7); font-family: var(--font-brand); font-weight: 500; font-size: 10px; letter-spacing: 0.14em; margin-top: 4px;">MEMBER · CLASS A</div>
-        </div>
-        <div class="c3d-num">2186 · 3004 · 5598 · 21</div>
-        <div class="c3d-btm">
-          <span>VALID THRU · 09/32</span>
-          <span class="logo">J</span>
+          <h2>Start <strong>here</strong>.</h2>
+          <p>Four things to do first — free with your library card.</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="qa-grid">
+        <a class="qa-card qa-a">
+          <div class="qa-glyph"><img src="assets/service-1.svg" alt=""></div>
+          <div class="qa-arr">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+          <div>
+            <div class="qa-title">Get a library card</div>
+            <p>Free for anyone in Jefferson County. Takes 3 minutes online.</p>
+          </div>
+        </a>
+        <a class="qa-card qa-b">
+          <div class="qa-glyph"><img src="assets/service-8.svg" alt=""></div>
+          <div class="qa-arr">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+          <div>
+            <div class="qa-title">My account</div>
+            <p>Renew items, place holds, pay fines, see history.</p>
+          </div>
+        </a>
+        <a class="qa-card qa-c">
+          <div class="qa-glyph"><img src="assets/service-11.svg" alt=""></div>
+          <div class="qa-arr">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+          <div>
+            <div class="qa-title">Book a room</div>
+            <p>Study rooms, meeting spaces, maker labs — free.</p>
+          </div>
+        </a>
+        <a class="qa-card qa-d">
+          <div class="qa-glyph"><img src="assets/service-12.svg" alt=""></div>
+          <div class="qa-arr">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+          <div>
+            <div class="qa-title">Today's events</div>
+            <p>7 programs happening across the county in the next 12 hours.</p>
+          </div>
+        </a>
+      </div>
+    </section>
 
-<!-- Services grid -->
-<section class="section">
-  <div class="sect-head">
-    <div>
-      <div class="eyebrow">◆ 03 · WAYS TO USE US</div>
-      <h2>More than <span class="accent">books</span>.</h2>
-    </div>
-    <a class="link-more" href="#">ALL SERVICES →</a>
-  </div>
+    <!-- 3 · Discover bento (mixed content) -->
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>What's on <strong>today</strong>.</h2>
+          <p>A snapshot of the week — books, programs, places, and news.</p>
+        </div>
+        <a class="section-link">View all</a>
+      </div>
+      <div class="discover">
 
-  <div class="services-grid">
-    <div class="svc">
-      <div class="svc-glyph">◇</div>
-      <h4>Digital library</h4>
-      <p>eBooks, audiobooks, movies, and magazines — instant borrow with your card.</p>
-      <div class="meta"><span>LIBBY · KANOPY · HOOPLA</span><strong>→</strong></div>
-    </div>
-    <div class="svc">
-      <div class="svc-glyph">☰</div>
-      <h4>Study &amp; meeting rooms</h4>
-      <p>Quiet study rooms, group spaces, and full conference rooms. Free to book.</p>
-      <div class="meta"><span>7 BRANCHES · 42 ROOMS</span><strong>→</strong></div>
-    </div>
-    <div class="svc">
-      <div class="svc-glyph">◐</div>
-      <h4>Career coaching</h4>
-      <p>1-on-1 sessions, résumé help, interview prep, and free digital skills classes.</p>
-      <div class="meta"><span>FREE · BY APPOINTMENT</span><strong>→</strong></div>
-    </div>
-    <div class="svc">
-      <div class="svc-glyph">✎</div>
-      <h4>Maker labs</h4>
-      <p>3D printers, sewing, laser cutter, cricut, recording studio, and free training.</p>
-      <div class="meta"><span>GOLDEN · LAKEWOOD</span><strong>→</strong></div>
-    </div>
-    <div class="svc">
-      <div class="svc-glyph">◆</div>
-      <h4>Research databases</h4>
-      <p>Academic journals, business data, ancestry, and 100+ specialized databases.</p>
-      <div class="meta"><span>1M+ ARTICLES</span><strong>→</strong></div>
-    </div>
-    <div class="svc">
-      <div class="svc-glyph">☼</div>
-      <h4>Genealogy &amp; local history</h4>
-      <p>140 years of Missouri records, oral histories, and archival photos. Live help.</p>
-      <div class="meta"><span>ARCHIVES · WHEAT RIDGE</span><strong>→</strong></div>
-    </div>
-    <div class="svc">
-      <div class="svc-glyph">✿</div>
-      <h4>Programs &amp; classes</h4>
-      <p>Storytimes, book clubs, ESL circles, technology help, author talks — all free.</p>
-      <div class="meta"><span>200+ MONTHLY</span><strong>→</strong></div>
-    </div>
-    <div class="svc">
-      <div class="svc-glyph">◑</div>
-      <h4>Homebound delivery</h4>
-      <p>We come to you. Monthly delivery of books, DVDs, and large-print for neighbors who need it.</p>
-      <div class="meta"><span>400+ SERVED</span><strong>→</strong></div>
-    </div>
-  </div>
-</section>
+        <!-- Events — calendar + interactive list -->
+        <div class="b-card b-event">
+          <div class="ev-list-side">
+            <div class="kicker">Events</div>
+            <div class="ev-day-hdr">
+              <span class="d" id="ev-day-num">17</span>
+              <div>
+                <div class="day-name" id="ev-day-name">Thursday, September 17</div>
+                <div class="day-meta"><span id="ev-day-count">3</span> events</div>
+              </div>
+            </div>
+            <div id="ev-list-rows">
+              <!-- populated by JS -->
+            </div>
+          </div>
+          <div class="ev-cal-side">
+            <div class="ev-cal-hdr">
+              <span class="m">September 2026</span>
+              <div class="ev-cal-nav">
+                <button aria-label="Previous month">‹</button>
+                <button aria-label="Next month">›</button>
+              </div>
+            </div>
+            <div class="ev-cal-dow"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+            <div class="ev-cal-days">
+              <div class="cal-day mute"><span>30</span></div>
+              <div class="cal-day mute"><span>31</span></div>
+              <div class="cal-day" data-day="1"><span>1</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="2"><span>2</span></div>
+              <div class="cal-day" data-day="3"><span>3</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="4"><span>4</span></div>
+              <div class="cal-day" data-day="5"><span>5</span><i class="dot"></i></div>
 
-<!-- Branches -->
-<section class="section">
-  <div class="sect-head">
-    <div>
-      <div class="eyebrow">◆ 04 · LIVE STATUS · UPDATED EVERY 60 SEC</div>
-      <h2>Your <span class="accent">closest</span> branches.</h2>
-    </div>
-    <a class="link-more" href="#">MAP VIEW →</a>
-  </div>
+              <div class="cal-day" data-day="6"><span>6</span></div>
+              <div class="cal-day" data-day="7"><span>7</span></div>
+              <div class="cal-day" data-day="8"><span>8</span></div>
+              <div class="cal-day" data-day="9"><span>9</span></div>
+              <div class="cal-day" data-day="10"><span>10</span></div>
+              <div class="cal-day" data-day="11"><span>11</span></div>
+              <div class="cal-day" data-day="12"><span>12</span></div>
 
-  <div class="branches-grid">
-    <div class="br">
-      <div class="br-img"><img src="assets/branch-1.png" alt=""></div>
-      <div class="br-body">
-        <h4>Arnold Central</h4>
-        <div class="addr">10200 W 20TH AVE · LAKEWOOD</div>
-        <span class="status">OPEN UNTIL 9 PM</span>
-        <div class="dist"><span>2.1 MI · 7 MIN DRIVE</span><span>WI-FI · 100%</span></div>
-      </div>
-    </div>
-    <div class="br">
-      <div class="br-img"><img src="assets/branch-2.png" alt=""></div>
-      <div class="br-body">
-        <h4>Cedar Hill</h4>
-        <div class="addr">7525 W 57TH AVE · ARVADA</div>
-        <span class="status">OPEN UNTIL 8 PM</span>
-        <div class="dist"><span>4.8 MI · 12 MIN DRIVE</span><span>WI-FI · 100%</span></div>
-      </div>
-    </div>
-    <div class="br">
-      <div class="br-img"><img src="assets/branch-3.png" alt=""></div>
-      <div class="br-body">
-        <h4>High Ridge</h4>
-        <div class="addr">1019 10TH STREET · GOLDEN</div>
-        <span class="status">OPEN UNTIL 6 PM</span>
-        <div class="dist"><span>6.3 MI · 15 MIN DRIVE</span><span>WI-FI · 100%</span></div>
-      </div>
-    </div>
-    <div class="br">
-      <div class="br-img"><img src="assets/branch-4.png" alt=""></div>
-      <div class="br-body">
-        <h4>Northwest</h4>
-        <div class="addr">7706 W BOWLES AVE · LITTLETON</div>
-        <span class="status closed">CLOSED · REOPENS 9 AM</span>
-        <div class="dist"><span>8.7 MI · 18 MIN DRIVE</span><span>WI-FI · —</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+              <div class="cal-day" data-day="13"><span>13</span></div>
+              <div class="cal-day" data-day="14"><span>14</span></div>
+              <div class="cal-day" data-day="15"><span>15</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="16"><span>16</span><i class="dot"></i></div>
+              <div class="cal-day selected" data-day="17"><span>17</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="18"><span>18</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="19"><span>19</span><i class="dot"></i></div>
 
-<!-- Support -->
-<section class="section">
-  <div class="support">
-    <div class="eyebrow">◆ 05 · SUPPORT YOUR LIBRARY</div>
-    <h2>Everything free costs<br><span class="accent">something</span>. Help us keep going.</h2>
-    <p>Your gift funds programs, expands our collection, and keeps our doors open. 100% of donations stay in Jefferson County. Every dollar returns to your neighbors.</p>
-    <div class="support-actions">
-      <button class="btn btn-primary" style="padding: 12px 22px; font-size: 14px;">Donate to the Foundation →</button>
-      <button class="btn btn-ghost" style="padding: 12px 22px; font-size: 14px;">Join Friends of JCL</button>
-      <button class="btn btn-ghost" style="padding: 12px 22px; font-size: 14px;">Volunteer</button>
-    </div>
-    <div class="impact-stats">
-      <div class="impact-stat">
-        <div class="n">1.4M</div>
-        <div class="l">Items borrowed / year</div>
-      </div>
-      <div class="impact-stat">
-        <div class="n">312K</div>
-        <div class="l">Cardholders in Jeffco</div>
-      </div>
-      <div class="impact-stat">
-        <div class="n">2,400</div>
-        <div class="l">Free programs / year</div>
-      </div>
-      <div class="impact-stat">
-        <div class="n">$1M+</div>
-        <div class="l">In digital access saved</div>
-      </div>
-    </div>
-  </div>
-</section>
+              <div class="cal-day" data-day="20"><span>20</span></div>
+              <div class="cal-day" data-day="21"><span>21</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="22"><span>22</span></div>
+              <div class="cal-day" data-day="23"><span>23</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="24"><span>24</span></div>
+              <div class="cal-day" data-day="25"><span>25</span></div>
+              <div class="cal-day" data-day="26"><span>26</span><i class="dot"></i></div>
 
-<footer>
-  <div class="foot-grid">
-    <div class="foot-brand">
-      <div class="brand" style="font-size: 20px; color: var(--surface);">
-        <span class="brand-mark">J</span>
-        <span class="brand-lock" style="color: var(--surface);">Jefferson County Library<small style="color: rgba(255,255,255,0.5);">MISSOURI · THE PORTAL</small></span>
+              <div class="cal-day" data-day="27"><span>27</span></div>
+              <div class="cal-day" data-day="28"><span>28</span></div>
+              <div class="cal-day" data-day="29"><span>29</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="30"><span>30</span></div>
+              <div class="cal-day mute"><span>1</span></div>
+              <div class="cal-day mute"><span>2</span></div>
+              <div class="cal-day mute"><span>3</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book of the week · image 3/4 top, text 1/4 bottom -->
+        <a class="b-card b-book">
+          <div class="b-book-cover"><img src="assets/book-1.png" alt=""></div>
+          <div class="b-book-body">
+            <div class="kicker">Book of the week</div>
+            <h3>The Silent Season</h3>
+            <div class="author">by Lena Ortiz · 12 available</div>
+          </div>
+        </a>
+
+        <!-- Services — all 12 as app icons + names -->
+        <a class="b-card b-svc">
+          <div class="kicker">Library Services</div>
+          <div class="app-grid">
+            <div class="app"><div class="app-icon"><img src="assets/service-8.svg" alt=""></div><span>Mobile App</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-11.svg" alt=""></div><span>Meeting Rooms</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-3.svg" alt=""></div><span>Book Bundles</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-12.svg" alt=""></div><span>Library of Things</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-9.svg" alt=""></div><span>Request a Book</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-4.svg" alt=""></div><span>Homebound Delivery</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-7.svg" alt=""></div><span>WiFi Hotspots</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-10.svg" alt=""></div><span>Computers &amp; Printing</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-5.svg" alt=""></div><span>Print Anywhere</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-2.svg" alt=""></div><span>Smart Lockers</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-1.svg" alt=""></div><span>Notary &amp; Passports</span></div>
+            <div class="app"><div class="app-icon"><img src="assets/service-6.svg" alt=""></div><span>Accessibility</span></div>
+          </div>
+        </a>
+
+        <!-- Branches — full-width row of 4 image cards -->
+        <div class="branches-row">
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-1.png')"></div>
+            <div class="body">
+              <div class="kicker">Nearest</div>
+              <div class="name">Arnold Branch</div>
+              <div class="status">Open until 9 PM</div>
+            </div>
+          </a>
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-2.png')"></div>
+            <div class="body">
+              <div class="name">Cedar Hill Satellite</div>
+              <div class="status">Open until 8 PM</div>
+            </div>
+          </a>
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-3.png')"></div>
+            <div class="body">
+              <div class="name">Northwest Branch</div>
+              <div class="status">Open until 6 PM</div>
+            </div>
+          </a>
+          <a class="br-card">
+            <div class="bg" style="background-image:url('assets/branch-4.png')"></div>
+            <div class="body">
+              <div class="name">Windsor Branch</div>
+              <div class="status">Open until 8 PM</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Shelf 1 · New Arrivals -->
+        <div class="b-card b-shelf">
+          <div class="b-shelf-hd">
+            <div>
+              <div class="kicker">New arrivals</div>
+              <h3>Just added to the shelves</h3>
+            </div>
+            <a class="more">See all</a>
+          </div>
+          <div class="shelf-row">
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-1.png" alt=""></div><div class="t">The Silent Season</div><div class="a">Lena Ortiz</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-2.png" alt=""></div><div class="t">Steller Drift</div><div class="a">Samantha Allen</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-3.png" alt=""></div><div class="t">Whispers at Dusk</div><div class="a">Kai Nakamura</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-4.png" alt=""></div><div class="t">Habit of Mind</div><div class="a">Eleanor Voss</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-5.png" alt=""></div><div class="t">Cold Comfort</div><div class="a">Anders Volk</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-6.png" alt=""></div><div class="t">Echoes of Tomorrow</div><div class="a">Adaeze Chen</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-7.png" alt=""></div><div class="t">Rivers of the West</div><div class="a">Priya Ramesh</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-8.png" alt=""></div><div class="t">Notes from a Small Country</div><div class="a">Adaeze Chen</div></a>
+          </div>
+        </div>
+
+        <!-- Shelf 2 · Recently Added for Adults &amp; Teens -->
+        <div class="b-card b-shelf">
+          <div class="b-shelf-hd">
+            <div>
+              <div class="kicker">Recently added</div>
+              <h3>For adults &amp; teens</h3>
+            </div>
+            <a class="more">See all</a>
+          </div>
+          <div class="shelf-row">
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-9.png" alt=""></div><div class="t">Split Frequency</div><div class="a">Colin Reyes</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-4.png" alt=""></div><div class="t">Midnight Courthouse</div><div class="a">James Merrick</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-6.png" alt=""></div><div class="t">The Copper Sun</div><div class="a">Rita Marino</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-2.png" alt=""></div><div class="t">Orbit Decay</div><div class="a">Marcus Voss</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-7.png" alt=""></div><div class="t">Paperwolf</div><div class="a">Devon Chen</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-8.png" alt=""></div><div class="t">All Is Numbers</div><div class="a">Tara Wells</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-5.png" alt=""></div><div class="t">Ashfall Diaries</div><div class="a">Rina Kellner</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-1.png" alt=""></div><div class="t">The Weeknight Baker</div><div class="a">Sam Ito</div></a>
+          </div>
+        </div>
+
+        <!-- Shelf 3 · Recently Added for Children -->
+        <div class="b-card b-shelf">
+          <div class="b-shelf-hd">
+            <div>
+              <div class="kicker">Recently added</div>
+              <h3>For children</h3>
+            </div>
+            <a class="more">See all</a>
+          </div>
+          <div class="shelf-row">
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-3.png" alt=""></div><div class="t">The Butterfly Effect</div><div class="a">Kim Park</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-5.png" alt=""></div><div class="t">Little Owl's Big Day</div><div class="a">Sam Ito</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-6.png" alt=""></div><div class="t">Puck the Explorer</div><div class="a">Emma Blue</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-9.png" alt=""></div><div class="t">Mango &amp; Friends</div><div class="a">Lucia Ortiz</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-1.png" alt=""></div><div class="t">The Rainbow Bakery</div><div class="a">Ravi Menon</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-2.png" alt=""></div><div class="t">Journey to Glenwood</div><div class="a">Ida Ferrari</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-4.png" alt=""></div><div class="t">The Robot in Room 12</div><div class="a">Sarah Kim</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-7.png" alt=""></div><div class="t">The Missing Puzzle</div><div class="a">Hank Holloway</div></a>
+          </div>
+        </div>
+
+        <!-- News — 2 col -->
+        <a class="b-card b-news">
+          <div class="kicker">News · Sep 12</div>
+          <div>
+            <h3>Cedar Hill Satellite reopens with updated hours</h3>
+            <p>After a two-week refresh, our Cedar Hill branch is open again — with new evening hours and a bigger kids' area.</p>
+          </div>
+        </a>
+
+        <!-- Newsletter — 3 col -->
+        <div class="b-card b-news-signup">
+          <div class="kicker">Never miss a story</div>
+          <h3>New arrivals + events, <strong>weekly.</strong></h3>
+          <form onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
+            <input type="email" required placeholder="Enter your email">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+
       </div>
-      <p>Seven branches, 1.4 million items, one card. Free for anyone who lives, works, or attends school in Jefferson County, Missouri.</p>
+    </section>
+  </main>
+
+  <!-- Right rail — account/status -->
+  <aside class="rail rail-right">
+    <div class="rail-user">
+      <div class="av">M</div>
+      <div class="who">
+        Signed in as
+        <strong>Maya R.</strong>
+      </div>
     </div>
-    <div class="foot-col">
-      <h4>DISCOVER</h4>
-      <ul>
-        <li><a href="#">Catalog</a></li>
-        <li><a href="#">Digital library</a></li>
-        <li><a href="#">Research</a></li>
-        <li><a href="#">Kids &amp; teens</a></li>
-      </ul>
+    <div class="rail-title">Your library</div>
+    <div class="rail-stat"><span class="lbl">Checked out</span><span class="val">7</span></div>
+    <div class="rail-stat"><span class="lbl">Holds ready</span><span class="val">2</span></div>
+    <div class="rail-stat warn"><span class="lbl">Due in 3 days</span><span class="val">3</span></div>
+    <div class="rail-stat"><span class="lbl">Fines &amp; fees</span><span class="val">$0.00</span></div>
+    <div class="rail-divider"></div>
+    <div class="rail-cta">
+      <div class="k">Support JCL</div>
+      <div class="t">Give back to your<br><strong>library →</strong></div>
     </div>
-    <div class="foot-col">
-      <h4>VISIT</h4>
-      <ul>
-        <li><a href="#">Locations</a></li>
-        <li><a href="#">Events</a></li>
-        <li><a href="#">Book a room</a></li>
-        <li><a href="#">Accessibility</a></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>ACCOUNT</h4>
-      <ul>
-        <li><a href="#">Sign in</a></li>
-        <li><a href="#">Get a card</a></li>
-        <li><a href="#">Ask a librarian</a></li>
-        <li><a href="#">Privacy &amp; data</a></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>SUPPORT</h4>
-      <ul>
-        <li><a href="#">Donate</a></li>
-        <li><a href="#">Friends of JCL</a></li>
-        <li><a href="#">Volunteer</a></li>
-        <li><a href="#">Careers</a></li>
-      </ul>
-    </div>
+    <div class="rail-title" style="margin-top: 8px;">Quick access</div>
+    <a class="rail-link"><span class="icn">◑</span> Reading history</a>
+    <a class="rail-link"><span class="icn">☰</span> My reservations</a>
+    <a class="rail-link"><span class="icn">◇</span> Reading lists</a>
+  </aside>
+
+</div>
+
+<!-- Footer with big logo -->
+<footer class="foot">
+  <div class="foot-brand">
+    <img src="assets/logo-image.png" alt="Jefferson County Library">
   </div>
   <div class="foot-btm">
-    <div>© 2026 JEFFERSON COUNTY PUBLIC LIBRARY</div>
-    <div>PORTAL v2.0 · LIGHT · BUILD 2026.09.17</div>
+    <div>© 2026 JEFFERSON COUNTY LIBRARY · YOUR PLACE TO LEARN, CONNECT, GROW &amp; ACHIEVE</div>
+    <div class="socials">
+      <a><img src="assets/facebook.svg" alt="Facebook"></a>
+      <a><img src="assets/instagram.svg" alt="Instagram"></a>
+      <a><img src="assets/youtube.svg" alt="YouTube"></a>
+      <a><img src="assets/link.svg" alt="Website"></a>
+    </div>
   </div>
 </footer>
 
 <script>
-  document.querySelectorAll('.scope-tab').forEach(t => {
-    t.addEventListener('click', () => {
-      document.querySelectorAll('.scope-tab').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
+  // Mega-menu hover — single mouseleave listener on nav-item, with relatedTarget
+  // guard so moving between the label span, caret, and mega panel never closes.
+  document.querySelectorAll('.nav-item').forEach(item => {
+    let timer;
+    const open = () => {
+      clearTimeout(timer);
+      document.querySelectorAll('.nav-item.is-open').forEach(o => { if (o !== item) o.classList.remove('is-open'); });
+      item.classList.add('is-open');
+    };
+    const scheduleClose = (e) => {
+      const going = e.relatedTarget;
+      if (going && item.contains(going)) return;
+      clearTimeout(timer);
+      timer = setTimeout(() => item.classList.remove('is-open'), 240);
+    };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', scheduleClose);
+  });
+
+  // Events widget — click a day, see that day's events in the list.
+  (function () {
+    const eventsByDay = {
+      1:  [{ t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Cedar Hill Branch', tg:'Kids',   c:'ev-tag-navy' }],
+      3:  [{ t:'6:00',  ap:'PM', ti:'ESL Conversation Circle', lo:'Arnold Branch', tg:'Adults', c:'ev-tag-red' }],
+      5:  [{ t:'4:00',  ap:'PM', ti:'Résumé Rescue',    lo:'Imperial Branch', tg:'Career', c:'ev-tag-orange' }],
+      15: [
+        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Cedar Hill Branch',       tg:'Kids',   c:'ev-tag-navy' },
+        { t:'3:00',  ap:'PM', ti:'Résumé Rescue',        lo:'Imperial Branch',  tg:'Career', c:'ev-tag-orange' },
+      ],
+      16: [
+        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme',    lo:'Cedar Hill Branch',    tg:'Kids',   c:'ev-tag-navy' },
+        { t:'6:30',  ap:'PM', ti:'Silent Season Book Club',  lo:'Arnold Branch',  tg:'Adults', c:'ev-tag-red' },
+      ],
+      17: [
+        { t:'4:00', ap:'PM', ti:'Homework Café with tutors',           lo:'Northwest Branch',   tg:'Teens',  c:'ev-tag-navy' },
+        { t:'6:00', ap:'PM', ti:'Résumé Rescue drop-in',                lo:'Imperial Branch', tg:'Career', c:'ev-tag-orange' },
+        { t:'7:00', ap:'PM', ti:'Anne Hillerman on the Southwest',      lo:'Arnold Branch',    tg:'Author', c:'ev-tag-red' },
+      ],
+      18: [{ t:'6:00', ap:'PM', ti:'Teen Coding Lab with Raspberry Pi', lo:'High Ridge Branch', tg:'Teens', c:'ev-tag-navy' }],
+      19: [
+        { t:'10:30', ap:'AM', ti:'Bilingual Storytime',     lo:'Cedar Hill Branch',   tg:'Kids',   c:'ev-tag-navy' },
+        { t:'5:30',  ap:'PM', ti:'Yoga at the Library',     lo:'Arnold Branch', tg:'Adults', c:'ev-tag-red' },
+      ],
+      21: [
+        { t:'10:00', ap:'AM', ti:'Storytime for preschoolers', lo:'Cedar Hill Branch',   tg:'Kids',    c:'ev-tag-navy' },
+        { t:'1:00',  ap:'PM', ti:'Genealogy Open Lab',         lo:'Northwest Branch', tg:'All Ages', c:'ev-tag-orange' },
+      ],
+      23: [{ t:'3:00', ap:'PM', ti:'Résumé Rescue drop-in', lo:'Imperial Branch', tg:'Career', c:'ev-tag-orange' }],
+      26: [
+        { t:'10:00', ap:'AM', ti:'Family Storytime',       lo:'All Branches',   tg:'Family', c:'ev-tag-navy' },
+        { t:'2:00',  ap:'PM', ti:'Kids Movie Matinee',     lo:'High Ridge Branch',  tg:'Kids',   c:'ev-tag-red' },
+      ],
+      29: [{ t:'6:30', ap:'PM', ti:'Nature Explorers: Backyard Birds', lo:'Arnold Branch', tg:'Family', c:'ev-tag-navy' }],
+    };
+    const dayName = (d) => new Date(2026, 8, d).toLocaleDateString('en-US', { weekday: 'long' });
+    const rows   = document.getElementById('ev-list-rows');
+    const dayNum = document.getElementById('ev-day-num');
+    const dayNm  = document.getElementById('ev-day-name');
+    const dayCt  = document.getElementById('ev-day-count');
+
+    const render = (day) => {
+      const items = eventsByDay[day] || [];
+      dayNum.textContent = day;
+      dayNm.textContent  = `${dayName(day)}, September ${day}`;
+      dayCt.textContent  = items.length;
+      if (items.length === 0) {
+        rows.innerHTML = `<div class="ev-empty">Nothing scheduled today. Try a highlighted day.</div>`;
+        return;
+      }
+      rows.innerHTML = items.map(e => `
+        <div class="ev-row">
+          <div class="time">${e.t}<small>${e.ap}</small></div>
+          <div>
+            <div class="title">${e.ti}</div>
+            <div class="loc">${e.lo}</div>
+          </div>
+          <span class="tag ${e.c}">${e.tg}</span>
+        </div>`).join('');
+    };
+
+    document.querySelectorAll('.cal-day').forEach(el => {
+      if (el.classList.contains('mute')) return;
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
+        el.classList.add('selected');
+        render(parseInt(el.dataset.day, 10));
+      });
     });
-  });
-  document.addEventListener('keydown', e => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      document.querySelector('.search-input-wrap input').focus();
-    }
-  });
+
+    render(17); // default: Today
+  })();
 </script>
+
 </body>
 </html>
