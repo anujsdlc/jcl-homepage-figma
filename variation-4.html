@@ -862,39 +862,82 @@
     letter-spacing: -0.01em;
   }
 
-  /* Books strip — 3 cols x 1 row */
+  /* Category shelves — full width rows with cover + title beneath each book */
   .b-shelf {
-    grid-column: span 3;
+    grid-column: span 6;
     padding: 22px 24px;
     display: flex; flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
-  .b-shelf .kicker {
+  .b-shelf-hd {
+    display: flex; justify-content: space-between; align-items: end;
+    gap: 16px;
+  }
+  .b-shelf-hd .kicker {
     font-family: var(--font-brand);
     font-size: 10px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-soft);
   }
-  .b-shelf h3 {
+  .b-shelf-hd h3 {
     font-family: var(--font-brand);
-    font-size: 15px; font-weight: 700;
-    color: var(--ink);
+    font-size: 16px; font-weight: 700;
     letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-top: 2px;
   }
-  .b-shelf .covers {
+  .b-shelf-hd .more {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    transition: background 200ms var(--ease);
+    white-space: nowrap;
+  }
+  .b-shelf-hd .more:hover { background: var(--navy); color: #fff; }
+  .shelf-row {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 6px;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 12px;
   }
-  .b-shelf .covers img {
-    width: 100%;
+  .shelf-book {
+    display: flex; flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .shelf-book-cover {
     aspect-ratio: 2/3;
-    object-fit: cover;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(10,10,10,0.10);
-    transition: transform 200ms var(--ease);
+    background: var(--surface-warm);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 6px 14px rgba(10,10,10,0.14), 0 2px 4px rgba(10,10,10,0.06);
+    transition: transform 240ms var(--ease), box-shadow 240ms var(--ease);
   }
-  .b-shelf .covers img:hover { transform: translateY(-3px) rotate(-2deg); }
+  .shelf-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .shelf-book:hover .shelf-book-cover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(10,10,10,0.20), 0 4px 8px rgba(10,10,10,0.08);
+  }
+  .shelf-book .t {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .shelf-book .a {
+    font-family: var(--font-display);
+    font-size: 10px;
+    color: var(--ink-soft);
+    line-height: 1.3;
+  }
 
   /* Branches — 1 col x 1 row */
   .b-branch {
@@ -1407,22 +1450,68 @@
           </div>
         </a>
 
-        <!-- Books strip — 3 col with all 9 covers -->
-        <a class="b-card b-shelf">
-          <div class="kicker">New arrivals</div>
-          <h3>Just added to the shelf</h3>
-          <div class="covers">
-            <img src="assets/book-1.png" alt="">
-            <img src="assets/book-2.png" alt="">
-            <img src="assets/book-3.png" alt="">
-            <img src="assets/book-4.png" alt="">
-            <img src="assets/book-5.png" alt="">
-            <img src="assets/book-6.png" alt="">
-            <img src="assets/book-7.png" alt="">
-            <img src="assets/book-8.png" alt="">
-            <img src="assets/book-9.png" alt="">
+        <!-- Shelf 1 · New Arrivals -->
+        <div class="b-card b-shelf">
+          <div class="b-shelf-hd">
+            <div>
+              <div class="kicker">New arrivals</div>
+              <h3>Just added to the shelves</h3>
+            </div>
+            <a class="more">See all →</a>
           </div>
-        </a>
+          <div class="shelf-row">
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-1.png" alt=""></div><div class="t">The Silent Season</div><div class="a">Lena Ortiz</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-2.png" alt=""></div><div class="t">Steller Drift</div><div class="a">Samantha Allen</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-3.png" alt=""></div><div class="t">Whispers at Dusk</div><div class="a">Kai Nakamura</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-4.png" alt=""></div><div class="t">Habit of Mind</div><div class="a">Eleanor Voss</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-5.png" alt=""></div><div class="t">Cold Comfort</div><div class="a">Anders Volk</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-6.png" alt=""></div><div class="t">Echoes of Tomorrow</div><div class="a">Adaeze Chen</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-7.png" alt=""></div><div class="t">Rivers of the West</div><div class="a">Priya Ramesh</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-8.png" alt=""></div><div class="t">Notes from a Small Country</div><div class="a">Adaeze Chen</div></a>
+          </div>
+        </div>
+
+        <!-- Shelf 2 · Recently Added for Adults &amp; Teens -->
+        <div class="b-card b-shelf">
+          <div class="b-shelf-hd">
+            <div>
+              <div class="kicker">Recently added</div>
+              <h3>For adults &amp; teens</h3>
+            </div>
+            <a class="more">See all →</a>
+          </div>
+          <div class="shelf-row">
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-9.png" alt=""></div><div class="t">Split Frequency</div><div class="a">Colin Reyes</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-4.png" alt=""></div><div class="t">Midnight Courthouse</div><div class="a">James Merrick</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-6.png" alt=""></div><div class="t">The Copper Sun</div><div class="a">Rita Marino</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-2.png" alt=""></div><div class="t">Orbit Decay</div><div class="a">Marcus Voss</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-7.png" alt=""></div><div class="t">Paperwolf</div><div class="a">Devon Chen</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-8.png" alt=""></div><div class="t">All Is Numbers</div><div class="a">Tara Wells</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-5.png" alt=""></div><div class="t">Ashfall Diaries</div><div class="a">Rina Kellner</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-1.png" alt=""></div><div class="t">The Weeknight Baker</div><div class="a">Sam Ito</div></a>
+          </div>
+        </div>
+
+        <!-- Shelf 3 · Recently Added for Children -->
+        <div class="b-card b-shelf">
+          <div class="b-shelf-hd">
+            <div>
+              <div class="kicker">Recently added</div>
+              <h3>For children</h3>
+            </div>
+            <a class="more">See all →</a>
+          </div>
+          <div class="shelf-row">
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-3.png" alt=""></div><div class="t">The Butterfly Effect</div><div class="a">Kim Park</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-5.png" alt=""></div><div class="t">Little Owl's Big Day</div><div class="a">Sam Ito</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-6.png" alt=""></div><div class="t">Puck the Explorer</div><div class="a">Emma Blue</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-9.png" alt=""></div><div class="t">Mango &amp; Friends</div><div class="a">Lucia Ortiz</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-1.png" alt=""></div><div class="t">The Rainbow Bakery</div><div class="a">Ravi Menon</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-2.png" alt=""></div><div class="t">Journey to Glenwood</div><div class="a">Ida Ferrari</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-4.png" alt=""></div><div class="t">The Robot in Room 12</div><div class="a">Sarah Kim</div></a>
+            <a class="shelf-book"><div class="shelf-book-cover"><img src="assets/book-7.png" alt=""></div><div class="t">The Missing Puzzle</div><div class="a">Hank Holloway</div></a>
+          </div>
+        </div>
 
         <!-- News — 2 col -->
         <a class="b-card b-news">
