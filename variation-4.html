@@ -529,21 +529,15 @@
     color: var(--ink-soft);
     line-height: 1.45;
   }
-  /* Diagonal arrow, top-right */
+  /* Diagonal arrow, top-right — icon only, no circle */
   .qa-card .qa-arr {
     position: absolute;
-    top: 20px; right: 20px;
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1.5px solid var(--line-strong);
-    display: grid; place-items: center;
-    color: var(--ink);
-    transition: all 240ms var(--ease);
+    top: 24px; right: 24px;
+    color: var(--ink-soft);
+    transition: color 240ms var(--ease), transform 240ms var(--ease);
   }
-  .qa-card .qa-arr svg { width: 13px; height: 13px; transition: transform 240ms var(--ease); }
-  .qa-card:hover .qa-arr { background: var(--navy); border-color: var(--navy); color: #fff; }
-  .qa-card:hover .qa-arr svg { transform: translate(2px, -2px); }
+  .qa-card .qa-arr svg { width: 18px; height: 18px; }
+  .qa-card:hover .qa-arr { color: var(--navy); transform: translate(2px, -2px); }
   .qa-a .qa-glyph { background: rgba(5,36,96,0.10); color: var(--navy); }
   .qa-b .qa-glyph { background: rgba(218,44,56,0.10); color: var(--red); }
   .qa-c .qa-glyph { background: rgba(255,107,53,0.14); color: var(--orange); }
