@@ -886,10 +886,15 @@
     display: flex; justify-content: space-between; align-items: end;
     gap: 16px;
   }
+  .b-shelf-hd > div:first-child {
+    display: flex; align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
   .b-shelf-hd .kicker {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
+    font-size: 14px; font-weight: 500;
+    letter-spacing: -0.01em;
     color: var(--ink-soft);
   }
   .b-shelf-hd h3 {
@@ -897,7 +902,7 @@
     font-size: 16px; font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--navy);
-    margin-top: 2px;
+    margin: 0;
   }
   .b-shelf-hd .more {
     font-family: var(--font-brand);
