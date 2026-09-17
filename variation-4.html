@@ -560,68 +560,63 @@
   }
   .b-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
-  /* Book of the week — 3 cols x 2 rows */
+  /* Book of the week — 3 cols x 2 rows · image 3/4 top, text 1/4 bottom */
   .b-book {
     grid-column: span 3;
     grid-row: span 2;
-    padding: 32px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 28px;
-    align-items: center;
+    padding: 0;
+    display: flex; flex-direction: column;
     background: var(--surface);
+    overflow: hidden;
   }
   .b-book-cover {
-    width: 180px;
-    aspect-ratio: 2/3;
-    border-radius: 12px;
+    flex: 3;
+    background: linear-gradient(160deg, var(--surface-alt) 0%, var(--surface-warm) 100%);
+    display: grid; place-items: center;
+    padding: 32px;
+    position: relative;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(10,10,10,0.20);
-    transform: rotate(-3deg);
+    min-height: 0;
+  }
+  .b-book-cover img {
+    max-width: 200px;
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 24px 48px rgba(10,10,10,0.22), 0 6px 12px rgba(10,10,10,0.08);
     transition: transform 500ms var(--ease);
   }
-  .b-book:hover .b-book-cover { transform: rotate(0); }
-  .b-book-cover img { width: 100%; height: 100%; object-fit: cover; }
-  .b-book .kicker {
+  .b-book:hover .b-book-cover img { transform: translateY(-4px) scale(1.02); }
+  .b-book-body {
+    flex: 1;
+    padding: 18px 24px 22px;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    border-top: 1px solid var(--line);
+  }
+  .b-book-body .kicker {
     font-family: var(--font-brand);
     font-size: 10px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--orange);
-    margin-bottom: 8px;
   }
-  .b-book h3 {
+  .b-book-body h3 {
     font-family: var(--font-brand);
-    font-weight: 300;
-    font-size: 26px;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 6px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-top: 3px;
   }
-  .b-book h3 strong { font-weight: 700; color: var(--navy); }
-  .b-book .author {
+  .b-book-body .author {
+    font-family: var(--font-display);
     font-size: 13px;
     color: var(--ink-soft);
-    margin-bottom: 14px;
-  }
-  .b-book p {
-    font-size: 13px;
-    color: var(--ink-muted);
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-  .b-book-meta {
-    display: flex; gap: 6px;
-    flex-wrap: wrap;
-    font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.06em;
-  }
-  .b-book-meta span {
-    padding: 4px 10px;
-    background: var(--surface-alt);
-    color: var(--navy);
-    border-radius: 999px;
+    margin-top: 2px;
   }
 
   /* Events — full-width interactive widget: list left + mini calendar right */
@@ -1373,19 +1368,13 @@
           </div>
         </div>
 
-        <!-- Book of the week — big -->
+        <!-- Book of the week · image 3/4 top, text 1/4 bottom -->
         <a class="b-card b-book">
           <div class="b-book-cover"><img src="assets/book-1.png" alt=""></div>
-          <div>
+          <div class="b-book-body">
             <div class="kicker">Book of the week</div>
-            <h3>The <strong>Heaven &amp; Earth</strong> Grocery Store</h3>
-            <div class="author">by James McBride</div>
-            <p>James McBride's Pulitzer-winning novel of a Pennsylvania mill town where Black, Jewish, and immigrant lives collide in the summer of 1972.</p>
-            <div class="b-book-meta">
-              <span>12 of 24 available</span>
-              <span>3 waiting</span>
-              <span>Book · eBook · Audio</span>
-            </div>
+            <h3>The Heaven &amp; Earth Grocery Store</h3>
+            <div class="author">by James McBride · 12 available</div>
           </div>
         </a>
 
