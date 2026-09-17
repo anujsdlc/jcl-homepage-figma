@@ -413,29 +413,35 @@
   .nav-item.is-open .caret { transform: rotate(225deg) translateY(0); }
 
   /* Nav dropdowns */
-  /* Mega-menu — anchored to main-nav so it never clips */
+  /* Mega-menu — full-width panel below the nav row */
   .nav-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    margin: 0 auto;
-    max-width: 1200px;
+    width: 100%;
     background: #fff;
     box-shadow: 0 24px 60px rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.05);
-    border: 1px solid var(--line);
-    border-top: none;
-    border-radius: 0 0 12px 12px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-8px);
+    transform: translateY(-2px);
     transition: opacity var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
     z-index: 45;
-    padding: 24px 28px;
+    /* Full-width background, content centered up to 1360px max */
+    padding: 28px max(40px, calc((100% - 1360px) / 2)) 32px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px 24px;
     text-align: left;
+  }
+  /* Invisible hover bridge above the panel so the mouse can travel
+     from the nav-item down without dropping the hover state */
+  .nav-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -14px; left: 0; right: 0; height: 14px;
   }
   .nav-item.is-open .nav-dropdown {
     opacity: 1;
@@ -767,26 +773,44 @@
     margin-top: 56px;
   }
   .page-btn {
-    width: 40px; height: 40px;
+    width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 600;
+    font-size: 13px; font-weight: 600;
     color: var(--ink-muted);
     cursor: pointer;
+    border-radius: 6px;
     transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
   }
-  .page-btn:hover { background: #fff; color: var(--ink); }
+  .page-btn:hover { background: var(--surface-alt); color: var(--ink); }
   .page-btn.active { background: var(--navy); color: #fff; }
   .page-arrow {
-    width: 44px; height: 40px;
+    width: 32px; height: 32px;
     background: #fff;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    border-radius: 50%;
     cursor: pointer;
-    transition: transform var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth);
-    margin: 0 8px;
+    transition: transform var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
+    margin: 0 4px;
   }
-  .page-arrow img { width: 18px; height: 18px; transition: filter var(--dur-fast) var(--ease-smooth); }
+  .page-arrow:hover { border-color: var(--ink); }
+  .page-arrow img { width: 14px; height: 14px; transition: filter var(--dur-fast) var(--ease-smooth); }
   .page-arrow.prev img { transform: rotate(180deg); }
+
+  /* Inline pagination: sits on the right of the section head, same row as title */
+  .section-head-with-nav {
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .section-head-with-nav .section-head-text { flex: 1; min-width: 0; }
+  .pagination-inline {
+    margin-top: 0;
+    gap: 2px;
+    flex-shrink: 0;
+  }
   .page-arrow:hover { background: var(--navy); }
   .page-arrow:hover img { filter: brightness(0) invert(1); }
 
@@ -2224,10 +2248,20 @@
 <!-- ================= Books ================= -->
 <section class="section books-section">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-eyebrow" data-en="Explore Our New Materials" data-es="Explora Nuestros Nuevos Materiales">Explore Our New Materials</div>
-      <h2 data-en="Enjoy Our Newest Reads" data-es="Disfruta Nuestras Nuevas Lecturas">Enjoy Our Newest Reads</h2>
-      <p class="section-sub" data-en="Fresh titles curated by our librarians — from fiction to non-fiction, discover your next favorite." data-es="Nuevos títulos seleccionados por nuestros bibliotecarios — desde ficción hasta no ficción, descubre tu próximo favorito.">Fresh titles curated by our librarians — from fiction to non-fiction, discover your next favorite.</p>
+    <div class="section-head section-head-with-nav">
+      <div class="section-head-text">
+        <h2 data-en="Enjoy Our Newest Reads" data-es="Disfruta Nuestras Nuevas Lecturas">Enjoy Our Newest Reads</h2>
+        <p class="section-sub" data-en="Fresh titles curated by our librarians — from fiction to non-fiction, discover your next favorite." data-es="Nuevos títulos seleccionados por nuestros bibliotecarios — desde ficción hasta no ficción, descubre tu próximo favorito.">Fresh titles curated by our librarians — from fiction to non-fiction, discover your next favorite.</p>
+      </div>
+      <div class="pagination pagination-inline">
+        <div class="page-arrow prev"><img src="assets/arrow-blue.svg" alt=""></div>
+        <div class="page-btn active">1</div>
+        <div class="page-btn">2</div>
+        <div class="page-btn">3</div>
+        <div class="page-btn">4</div>
+        <div class="page-btn">5</div>
+        <div class="page-arrow"><img src="assets/arrow-blue.svg" alt=""></div>
+      </div>
     </div>
     <div class="book-grid">
       <div class="book-card">
@@ -2250,15 +2284,6 @@
         <div class="book-cover" style="background-image:url('assets/book-6.png')"></div>
         <div class="book-info"><div class="title">Echoes of Tomorrow</div><div class="author">Samantha Allen</div></div>
       </div>
-    </div>
-    <div class="pagination">
-      <div class="page-arrow prev"><img src="assets/arrow-blue.svg" alt=""></div>
-      <div class="page-btn active">1</div>
-      <div class="page-btn">2</div>
-      <div class="page-btn">3</div>
-      <div class="page-btn">4</div>
-      <div class="page-btn">5</div>
-      <div class="page-arrow"><img src="assets/arrow-blue.svg" alt=""></div>
     </div>
   </div>
 </section>
@@ -2670,17 +2695,29 @@
     btn.addEventListener('click', () => setLang(btn.dataset.lang));
   });
 
-  // Nav dropdowns — open on hover, close on leave
+  // Nav dropdowns — open on hover, forgiving close on leave
   document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
     let timer;
-    item.addEventListener('mouseenter', () => {
+    const open = () => {
       clearTimeout(timer);
-      document.querySelectorAll('.nav-item.is-open').forEach(o => { if (o !== item) o.classList.remove('is-open'); });
+      document.querySelectorAll('.nav-item.is-open').forEach(o => {
+        if (o !== item) o.classList.remove('is-open');
+      });
       item.classList.add('is-open');
-    });
-    item.addEventListener('mouseleave', () => {
-      timer = setTimeout(() => item.classList.remove('is-open'), 120);
-    });
+    };
+    const scheduleClose = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => item.classList.remove('is-open'), 260);
+    };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', scheduleClose);
+    // Keep the panel open while the mouse is over it, even if it briefly
+    // exits the nav-item's visual box during travel
+    const dd = item.querySelector('.nav-dropdown');
+    if (dd) {
+      dd.addEventListener('mouseenter', open);
+      dd.addEventListener('mouseleave', scheduleClose);
+    }
   });
 
   // Search suggestions
