@@ -1160,44 +1160,33 @@
   }
   .page-arr:hover { background: var(--surface-alt); }
 
-  /* ============ Services 2/4/4/2 tile grid ============ */
+  /* ============ Services · 6 cols × 2 rows · 12 equal boxes ============ */
   .svc-tile-grid-2 {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    grid-auto-flow: column;
-    gap: 12px;
-    min-height: 320px;
+    gap: 14px;
   }
   .svc-tile-2 {
     background: var(--surface);
     border: 2px solid var(--navy);
-    padding: 16px 18px;
+    padding: 20px 18px;
     display: flex; flex-direction: column; gap: 10px;
+    align-items: flex-start;
     justify-content: space-between;
-    min-height: 140px;
+    min-height: 150px;
     text-decoration: none; color: inherit;
     cursor: pointer;
     transition: transform 240ms var(--ease), box-shadow 240ms var(--ease);
   }
   .svc-tile-2:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0 var(--navy); }
-  .svc-tile-2 > img { width: 30px; height: 30px; align-self: flex-start; }
+  .svc-tile-2 > img { width: 34px; height: 34px; }
   .svc-t2-title {
     font-family: var(--font-brand); font-size: 14px; font-weight: 700;
     letter-spacing: -0.01em; line-height: 1.2;
     color: var(--navy);
   }
-  .svc-t2-sub {
-    font-size: 12px; font-weight: 500; line-height: 1.4;
-    color: var(--ink-soft); margin-top: 3px;
-  }
-  .svc-tile-tall-2 { grid-row: span 2; padding: 22px; }
-  .svc-tile-tall-2 > img { width: 52px; height: 52px; }
-  .svc-tile-wide-2 {
-    grid-column: span 2;
-    flex-direction: row; align-items: center; gap: 20px; padding: 20px;
-  }
-  .svc-tile-wide-2 > img { width: 48px; height: 48px; align-self: center; }
+  .svc-t2-sub { display: none; }   /* uniform 12-box layout — no sub text on any tile */
 
   /* ============ News grid ============ */
   .news-grid-2 {
@@ -1241,8 +1230,6 @@
     .book-grid-2 { grid-template-columns: repeat(3, 1fr); }
     .book-grid-2 .book-card-2:nth-child(n+4) { display: none; }
     .svc-tile-grid-2 { grid-template-columns: repeat(4, 1fr); grid-auto-flow: row; }
-    .svc-tile-tall-2 { grid-row: auto; }
-    .svc-tile-wide-2 { grid-column: span 2; }
     .news-grid-2 { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
@@ -1250,7 +1237,6 @@
     .book-grid-2 .book-card-2:nth-child(n+3) { display: none; }
     .svc-tile-grid-2 { grid-template-columns: repeat(2, 1fr); }
     .svc-tile-2 { min-height: 110px; padding: 12px 14px; }
-    .svc-tile-wide-2 { grid-column: span 2; }
     .section-inner-2 { padding: 0 20px; }
   }
 
@@ -1334,7 +1320,7 @@
       <button class="s-go">Search</button>
     </div>
     <button class="pill pill-ghost h-mya">My Account</button>
-    <button class="pill pill-primary h-card">Get a Card ✿</button>
+    <button class="pill pill-primary h-card">Get a Card</button>
   </header>
 
   <!-- Row 3 · Notice -->
@@ -1383,14 +1369,14 @@
       </div>
       <div class="collage-card collage-b">
         <img src="assets/branch-2.png" alt="Library branch">
-        <div class="cap">the Arvada branch</div>
+        <div class="cap">the Cedar Hill branch</div>
       </div>
       <div class="collage-card collage-c">
         <div class="collage-c-tag">This week at JCL</div>
-        <div class="collage-c-title">Author James McBride, in conversation</div>
+        <div class="collage-c-title">Author Lena Ortiz, in conversation</div>
         <div class="collage-c-stats">
           <div>When<strong>Thu 7pm</strong></div>
-          <div>Where<strong>Lakewood</strong></div>
+          <div>Where<strong>Arnold</strong></div>
           <div>Cost<strong>Free</strong></div>
         </div>
       </div>
@@ -1615,7 +1601,7 @@
             <span class="tag">Kids · Ages 0–3</span>
             <h4>Baby Bounce &amp; Rhyme</h4>
             <p>Sing, bounce, and giggle with babies and their grown-ups. New songs weekly.</p>
-            <div class="agenda-meta"><span>Arvada</span> · <span class="free">Free · Drop-in</span> <button class="save">Save +</button></div>
+            <div class="agenda-meta"><span>Cedar Hill</span> · <span class="free">Free · Drop-in</span> <button class="save">Save +</button></div>
           </div>
         </div>
 
@@ -1625,7 +1611,7 @@
             <span class="tag">Adults</span>
             <h4>Conversation Circle for English Learners</h4>
             <p>Practice speaking English in a friendly, small-group setting. All levels welcome.</p>
-            <div class="agenda-meta"><span>Lakewood</span> · <span class="free">Free</span> <button class="save">Save +</button></div>
+            <div class="agenda-meta"><span>Arnold</span> · <span class="free">Free</span> <button class="save">Save +</button></div>
           </div>
         </div>
 
@@ -1635,7 +1621,7 @@
             <span class="tag">Teens · Grades 6–12</span>
             <h4>Homework Café with tutors on-hand</h4>
             <p>Free tutoring in math, science, and writing. Snacks provided.</p>
-            <div class="agenda-meta"><span>Columbine</span> · <span class="free">Free</span> <button class="save">Save +</button></div>
+            <div class="agenda-meta"><span>Northwest</span> · <span class="free">Free</span> <button class="save">Save +</button></div>
           </div>
         </div>
 
@@ -1645,12 +1631,12 @@
             <span class="tag">Adults · Author talk</span>
             <h4>Anne Hillerman on writing the Southwest</h4>
             <p>A conversation about the Leaphorn &amp; Chee series, followed by a signing.</p>
-            <div class="agenda-meta"><span>Golden</span> · <span class="free">Free · RSVP</span> <button class="save">Save +</button></div>
+            <div class="agenda-meta"><span>High Ridge</span> · <span class="free">Free · RSVP</span> <button class="save">Save +</button></div>
           </div>
         </div>
 
         <div style="text-align: center; padding-top: 8px;">
-          <button class="pill pill-ghost">See all 47 events this week →</button>
+          <button class="pill pill-ghost">See all 47 events this week</button>
         </div>
       </div>
     </div>
@@ -1688,7 +1674,7 @@
       <div class="perk"><span class="icon">✎</span> Learn a language</div>
       <div class="perk"><span class="icon">◐</span> 3D printer &amp; tools</div>
     </div>
-    <button class="pill pill-primary">Apply for a card →</button>
+    <button class="pill pill-primary">Apply for a card</button>
     <button class="pill pill-ghost" style="margin-left: 10px;">How it works</button>
   </div>
 </section>
@@ -1699,8 +1685,8 @@
     <div class="account-copy">
       <span class="eyebrow">◐ My account</span>
       <h2>Everything you've<br><span class="swash">borrowed</span>, waiting,<br>and wondering about.</h2>
-      <p>Renew items, place holds, pay any small fines, and see a private history of every title you've ever read here. Your privacy is protected by Colorado law.</p>
-      <button class="pill pill-primary pill-orange">Sign in with card number →</button>
+      <p>Renew items, place holds, pay any small fines, and see a private history of every title you've ever read here. Your privacy is protected by Missouri law.</p>
+      <button class="pill pill-primary pill-orange">Sign in with card number</button>
     </div>
 
     <div class="dashboard">
@@ -1722,7 +1708,7 @@
       <div class="dash-list">
         <div class="dash-row">
           <div class="cov"><img src="assets/book-1.png" alt=""></div>
-          <div class="info"><h5>The Heaven &amp; Earth Grocery Store</h5><small>James McBride · Lakewood branch</small></div>
+          <div class="info"><h5>The Silent Season</h5><small>Lena Ortiz · Arnold branch</small></div>
           <div class="due soon">Due Fri</div>
         </div>
         <div class="dash-row">
@@ -1748,18 +1734,16 @@
       <p>All twelve services grouped by how you'll use them.</p>
     </div>
     <div class="svc-tile-grid-2">
-      <a class="svc-tile-2 svc-tile-tall-2">
+      <a class="svc-tile-2">
         <img src="assets/service-8.svg" alt="">
         <div>
           <div class="svc-t2-title">Mobile App</div>
-          <div class="svc-t2-sub">Read, reserve, renew on your phone</div>
         </div>
       </a>
-      <a class="svc-tile-2 svc-tile-tall-2">
+      <a class="svc-tile-2">
         <img src="assets/service-11.svg" alt="">
         <div>
           <div class="svc-t2-title">Meeting Rooms</div>
-          <div class="svc-t2-sub">Study, meet, collaborate — free</div>
         </div>
       </a>
       <a class="svc-tile-2"><img src="assets/service-3.svg" alt=""><span class="svc-t2-title">Book Bundles</span></a>
@@ -1770,18 +1754,16 @@
       <a class="svc-tile-2"><img src="assets/service-10.svg" alt=""><span class="svc-t2-title">Computers &amp; Printing</span></a>
       <a class="svc-tile-2"><img src="assets/service-5.svg" alt=""><span class="svc-t2-title">Print Anywhere</span></a>
       <a class="svc-tile-2"><img src="assets/service-2.svg" alt=""><span class="svc-t2-title">Smart Lockers</span></a>
-      <a class="svc-tile-2 svc-tile-wide-2">
+      <a class="svc-tile-2">
         <img src="assets/service-1.svg" alt="">
         <div>
           <div class="svc-t2-title">Notary &amp; Passports</div>
-          <div class="svc-t2-sub">Documents &amp; certifications</div>
         </div>
       </a>
-      <a class="svc-tile-2 svc-tile-wide-2">
+      <a class="svc-tile-2">
         <img src="assets/service-6.svg" alt="">
         <div>
           <div class="svc-t2-title">Accessibility</div>
-          <div class="svc-t2-sub">Assistive tech &amp; large-print</div>
         </div>
       </a>
     </div>
@@ -1831,26 +1813,26 @@
     <div class="story-grid">
       <div class="story-card">
         <div class="quote-mark">"</div>
-        <p>The librarian at Arvada helped me file my first tax return in this country. Then she signed my daughter up for storytime. That was six years ago and we still come every Saturday.</p>
+        <p>The librarian at Cedar Hill helped me file my first tax return in this country. Then she signed my daughter up for storytime. That was six years ago and we still come every Saturday.</p>
         <div class="who">
           <div class="av">P</div>
-          <div><strong>Paula V.</strong><small>Arvada · library member since 2020</small></div>
+          <div><strong>Paula V.</strong><small>Cedar Hill · library member since 2020</small></div>
         </div>
       </div>
       <div class="story-card">
         <div class="quote-mark">"</div>
-        <p>I used the 3D printer at Golden to prototype a part for my grandson's wheelchair. Then a teen volunteer taught me how to design the next version. Where else does that happen?</p>
+        <p>I used the 3D printer at High Ridge to prototype a part for my grandson's wheelchair. Then a teen volunteer taught me how to design the next version. Where else does that happen?</p>
         <div class="who">
           <div class="av">R</div>
-          <div><strong>Ron H.</strong><small>Golden · retired engineer</small></div>
+          <div><strong>Ron H.</strong><small>High Ridge · retired engineer</small></div>
         </div>
       </div>
       <div class="story-card">
         <div class="quote-mark">"</div>
-        <p>My study group meets in the Columbine branch every Sunday. We got through nursing school in these rooms. I don't know if we would have without a quiet, free place to be.</p>
+        <p>My study group meets in the Northwest branch every Sunday. We got through nursing school in these rooms. I don't know if we would have without a quiet, free place to be.</p>
         <div class="who">
           <div class="av">A</div>
-          <div><strong>Alicia M.</strong><small>Littleton · RN, class of 2025</small></div>
+          <div><strong>Alicia M.</strong><small>Barnhart · RN, class of 2025</small></div>
         </div>
       </div>
     </div>
@@ -1864,32 +1846,32 @@
     <div class="b-card">
       <div class="b-img"><img src="assets/branch-1.png" alt=""></div>
       <div class="b-body">
-        <h4>Lakewood Central</h4>
-        <div class="b-addr">10200 W 20th Ave · Lakewood</div>
+        <h4>Arnold Central</h4>
+        <div class="b-addr">1702 Jeffco Blvd · Arnold</div>
         <span class="b-hours">Open · until 9 PM</span>
       </div>
     </div>
     <div class="b-card">
       <div class="b-img"><img src="assets/branch-2.png" alt=""></div>
       <div class="b-body">
-        <h4>Arvada</h4>
-        <div class="b-addr">7525 W 57th Ave · Arvada</div>
+        <h4>Cedar Hill</h4>
+        <div class="b-addr">6780 Parker Dr · Cedar Hill</div>
         <span class="b-hours">Open · until 8 PM</span>
       </div>
     </div>
     <div class="b-card">
       <div class="b-img"><img src="assets/branch-3.png" alt=""></div>
       <div class="b-body">
-        <h4>Golden</h4>
-        <div class="b-addr">1019 10th Street · Golden</div>
+        <h4>High Ridge</h4>
+        <div class="b-addr">5680 S Lakeshore Dr · High Ridge</div>
         <span class="b-hours">Open · until 6 PM</span>
       </div>
     </div>
     <div class="b-card">
       <div class="b-img"><img src="assets/branch-4.png" alt=""></div>
       <div class="b-body">
-        <h4>Columbine</h4>
-        <div class="b-addr">7706 W Bowles Ave · Littleton</div>
+        <h4>Northwest</h4>
+        <div class="b-addr">7479 Metropolitan Blvd · Barnhart</div>
         <span class="b-hours closed">Closed · reopens 9 AM</span>
       </div>
     </div>
@@ -1902,7 +1884,7 @@
     <span class="eyebrow">Support your library</span>
     <h2>Because a library <span class="swash">changed you</span>, too.</h2>
     <p>Every gift funds programs, expands our collection, and keeps our doors open for the neighbor who needs us next. 100% of donations stay in Jeffco.</p>
-    <button class="pill pill-cream">Donate to the Foundation →</button>
+    <button class="pill pill-cream">Donate to the Foundation</button>
   </div>
 </section>
 
@@ -1911,7 +1893,7 @@
   <div class="foot-grid">
     <div class="foot-brand">
       <h3>Your library, <span class="swash">your commons</span>.</h3>
-      <p>Seven branches serving Jefferson County, Colorado since 1953. Free for anyone who lives, works, or attends school here.</p>
+      <p>Seven branches serving Jefferson County, Missouri since 1953. Free for anyone who lives, works, or attends school here.</p>
     </div>
     <div class="foot-col">
       <h4>Discover</h4>

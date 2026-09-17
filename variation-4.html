@@ -187,7 +187,16 @@
     transition: transform 200ms var(--ease);
   }
   .brand:hover { transform: translateY(-1px); }
+  .brand { flex-direction: column; align-items: flex-start; gap: 2px; }
   .brand img { height: 52px; }
+  .brand small {
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    padding-left: 2px;
+  }
   .top-actions { display: flex; gap: 8px; align-items: center; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
@@ -1163,6 +1172,7 @@
   <div class="top-inner">
     <a class="brand" href="#">
       <img src="assets/logo-image.png" alt="Jefferson County Library">
+      <small>Jefferson County · Missouri</small>
     </a>
 
     <nav class="top-nav">
@@ -1194,7 +1204,7 @@
           <div class="mega-grid">
             <a class="mega-item"><img src="assets/service-3.svg" alt=""><span class="body"><span class="t">About Genealogy</span><span class="s">Start your family history</span></span></a>
             <a class="mega-item"><img src="assets/service-1.svg" alt=""><span class="body"><span class="t">Databases</span><span class="s">Ancestry &amp; FamilySearch</span></span></a>
-            <a class="mega-item"><img src="assets/service-9.svg" alt=""><span class="body"><span class="t">Newspaper Archives</span><span class="s">Historical Colorado papers</span></span></a>
+            <a class="mega-item"><img src="assets/service-9.svg" alt=""><span class="body"><span class="t">Newspaper Archives</span><span class="s">Historical Missouri papers</span></span></a>
             <a class="mega-item"><img src="assets/service-10.svg" alt=""><span class="body"><span class="t">Local History</span><span class="s">140 years of records</span></span></a>
             <a class="mega-item"><img src="assets/service-11.svg" alt=""><span class="body"><span class="t">Classes &amp; Workshops</span><span class="s">Learn the tools</span></span></a>
             <a class="mega-item"><img src="assets/service-12.svg" alt=""><span class="body"><span class="t">Genealogy Podcast</span><span class="s">Weekly episodes</span></span></a>
@@ -1299,7 +1309,7 @@
       <div class="hero-hints">
         <span class="lbl">Try:</span>
         <a class="hero-hint">Toddler storytime</a>
-        <a class="hero-hint">Colorado history</a>
+        <a class="hero-hint">Missouri history</a>
         <a class="hero-hint">Learn Spanish</a>
         <a class="hero-hint">Genealogy</a>
       </div>
@@ -1441,8 +1451,8 @@
           <div class="b-book-cover"><img src="assets/book-1.png" alt=""></div>
           <div class="b-book-body">
             <div class="kicker">Book of the week</div>
-            <h3>The Heaven &amp; Earth Grocery Store</h3>
-            <div class="author">by James McBride · 12 available</div>
+            <h3>The Silent Season</h3>
+            <div class="author">by Lena Ortiz · 12 available</div>
           </div>
         </a>
 
@@ -1650,35 +1660,35 @@
   // Events widget — click a day, see that day's events in the list.
   (function () {
     const eventsByDay = {
-      1:  [{ t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Arvada Branch', tg:'Kids',   c:'ev-tag-navy' }],
-      3:  [{ t:'6:00',  ap:'PM', ti:'ESL Conversation Circle', lo:'Lakewood Branch', tg:'Adults', c:'ev-tag-red' }],
-      5:  [{ t:'4:00',  ap:'PM', ti:'Résumé Rescue',    lo:'Wheat Ridge Branch', tg:'Career', c:'ev-tag-orange' }],
+      1:  [{ t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Cedar Hill Branch', tg:'Kids',   c:'ev-tag-navy' }],
+      3:  [{ t:'6:00',  ap:'PM', ti:'ESL Conversation Circle', lo:'Arnold Branch', tg:'Adults', c:'ev-tag-red' }],
+      5:  [{ t:'4:00',  ap:'PM', ti:'Résumé Rescue',    lo:'Imperial Branch', tg:'Career', c:'ev-tag-orange' }],
       15: [
-        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Arvada Branch',       tg:'Kids',   c:'ev-tag-navy' },
-        { t:'3:00',  ap:'PM', ti:'Résumé Rescue',        lo:'Wheat Ridge Branch',  tg:'Career', c:'ev-tag-orange' },
+        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Cedar Hill Branch',       tg:'Kids',   c:'ev-tag-navy' },
+        { t:'3:00',  ap:'PM', ti:'Résumé Rescue',        lo:'Imperial Branch',  tg:'Career', c:'ev-tag-orange' },
       ],
       16: [
-        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme',    lo:'Arvada Branch',    tg:'Kids',   c:'ev-tag-navy' },
-        { t:'6:30',  ap:'PM', ti:'McBride Book Discussion', lo:'Lakewood Branch',  tg:'Adults', c:'ev-tag-red' },
+        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme',    lo:'Cedar Hill Branch',    tg:'Kids',   c:'ev-tag-navy' },
+        { t:'6:30',  ap:'PM', ti:'Silent Season Book Club',  lo:'Arnold Branch',  tg:'Adults', c:'ev-tag-red' },
       ],
       17: [
-        { t:'4:00', ap:'PM', ti:'Homework Café with tutors',           lo:'Columbine Branch',   tg:'Teens',  c:'ev-tag-navy' },
-        { t:'6:00', ap:'PM', ti:'Résumé Rescue drop-in',                lo:'Wheat Ridge Branch', tg:'Career', c:'ev-tag-orange' },
-        { t:'7:00', ap:'PM', ti:'Anne Hillerman on the Southwest',      lo:'Lakewood Branch',    tg:'Author', c:'ev-tag-red' },
+        { t:'4:00', ap:'PM', ti:'Homework Café with tutors',           lo:'Northwest Branch',   tg:'Teens',  c:'ev-tag-navy' },
+        { t:'6:00', ap:'PM', ti:'Résumé Rescue drop-in',                lo:'Imperial Branch', tg:'Career', c:'ev-tag-orange' },
+        { t:'7:00', ap:'PM', ti:'Anne Hillerman on the Southwest',      lo:'Arnold Branch',    tg:'Author', c:'ev-tag-red' },
       ],
-      18: [{ t:'6:00', ap:'PM', ti:'Teen Coding Lab with Raspberry Pi', lo:'Golden Branch', tg:'Teens', c:'ev-tag-navy' }],
+      18: [{ t:'6:00', ap:'PM', ti:'Teen Coding Lab with Raspberry Pi', lo:'High Ridge Branch', tg:'Teens', c:'ev-tag-navy' }],
       19: [
-        { t:'10:30', ap:'AM', ti:'Bilingual Storytime',     lo:'Arvada Branch',   tg:'Kids',   c:'ev-tag-navy' },
-        { t:'5:30',  ap:'PM', ti:'Yoga at the Library',     lo:'Lakewood Branch', tg:'Adults', c:'ev-tag-red' },
+        { t:'10:30', ap:'AM', ti:'Bilingual Storytime',     lo:'Cedar Hill Branch',   tg:'Kids',   c:'ev-tag-navy' },
+        { t:'5:30',  ap:'PM', ti:'Yoga at the Library',     lo:'Arnold Branch', tg:'Adults', c:'ev-tag-red' },
       ],
       21: [
-        { t:'10:00', ap:'AM', ti:'Storytime for preschoolers', lo:'Arvada Branch',   tg:'Kids',    c:'ev-tag-navy' },
-        { t:'1:00',  ap:'PM', ti:'Genealogy Open Lab',         lo:'Columbine Branch', tg:'All Ages', c:'ev-tag-orange' },
+        { t:'10:00', ap:'AM', ti:'Storytime for preschoolers', lo:'Cedar Hill Branch',   tg:'Kids',    c:'ev-tag-navy' },
+        { t:'1:00',  ap:'PM', ti:'Genealogy Open Lab',         lo:'Northwest Branch', tg:'All Ages', c:'ev-tag-orange' },
       ],
-      23: [{ t:'3:00', ap:'PM', ti:'Résumé Rescue drop-in', lo:'Wheat Ridge Branch', tg:'Career', c:'ev-tag-orange' }],
+      23: [{ t:'3:00', ap:'PM', ti:'Résumé Rescue drop-in', lo:'Imperial Branch', tg:'Career', c:'ev-tag-orange' }],
       26: [
         { t:'10:00', ap:'AM', ti:'Family Storytime',       lo:'All Branches',   tg:'Family', c:'ev-tag-navy' },
-        { t:'2:00',  ap:'PM', ti:'Kids Movie Matinee',     lo:'Golden Branch',  tg:'Kids',   c:'ev-tag-red' },
+        { t:'2:00',  ap:'PM', ti:'Kids Movie Matinee',     lo:'High Ridge Branch',  tg:'Kids',   c:'ev-tag-red' },
       ],
       29: [{ t:'6:30', ap:'PM', ti:'Nature Explorers: Backyard Birds', lo:'Arnold Branch', tg:'Family', c:'ev-tag-navy' }],
     };
