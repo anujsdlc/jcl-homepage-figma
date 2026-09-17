@@ -448,6 +448,20 @@
     transform: translateY(0);
     pointer-events: auto;
   }
+  /* Services dropdown: same 2/4/4/2 tile grid as the section */
+  .nav-dropdown-services {
+    display: block;
+  }
+  .nav-dropdown-services .nav-dropdown-heading {
+    padding-top: 0;
+    margin-bottom: 12px;
+  }
+  .nav-svc-grid { min-height: 220px; }
+  .nav-svc-grid .svc-tile { min-height: 90px; padding: 12px 14px; border-radius: 12px; gap: 6px; }
+  .nav-svc-grid .svc-tile > img { width: 22px; height: 22px; }
+  .nav-svc-grid .svc-tile-title { font-size: 13px; }
+  .nav-svc-grid .svc-tile-sub { font-size: 11px; margin-top: 2px; }
+  .nav-svc-grid .svc-tile-wide > img { width: 26px; height: 26px; }
   .nav-dropdown-heading {
     grid-column: 1 / -1;
     font-family: 'Arimo', sans-serif;
@@ -1368,201 +1382,72 @@
      ========================================================= */
   .services-section { background: var(--surface-alt); }
 
-  /* Mixed grid — Apple App Library style: 4 same-size outer cards,
-     different internal densities (1 / 4 / 3 / 2 services) */
-  .svc-mix-grid {
+  /* Mixed-size tile grid: 2/4/4/2 layout across 8 columns × 2 rows.
+     No outer container "squares" — the individual tiles are the shapes. */
+  .svc-tile-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-auto-flow: column;
+    gap: 10px;
+    min-height: 300px;
   }
-  .svc-cell {
+  .svc-tile {
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 20px;
-    min-height: 340px;
-    display: flex; flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
-    overflow: hidden;
-  }
-  .svc-cell:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(5,36,96,0.08); border-color: var(--line-strong); }
-
-  /* --- Card 1 · Featured (single flagship service) --- */
-  .svc-featured {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    color: #fff;
-    border-color: var(--navy-dark);
-    padding: 24px;
-    justify-content: space-between;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .svc-featured::before {
-    content: '';
-    position: absolute; top: -60px; right: -60px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(255,107,53,0.35) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .svc-featured-top {
-    display: flex; justify-content: space-between; align-items: start;
-    position: relative; z-index: 1;
-  }
-  .svc-featured-tag {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--orange);
-    padding: 4px 10px;
-    background: rgba(255,107,53,0.14);
-    border: 1px solid rgba(255,107,53,0.35);
-    border-radius: 999px;
-  }
-  .svc-featured-icon {
-    width: 52px; height: 52px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .svc-featured-icon img { width: 100%; height: 100%; filter: brightness(0) invert(1); }
-  .svc-featured-body { position: relative; z-index: 1; }
-  .svc-featured-body h3 {
-    font-family: var(--font-brand);
-    font-size: 26px; font-weight: 700;
-    letter-spacing: -0.02em; line-height: 1.05;
-    margin-bottom: 10px;
-  }
-  .svc-featured-body p {
-    font-size: 13px; line-height: 1.5;
-    color: rgba(255,255,255,0.78);
-    margin-bottom: 16px;
-  }
-  .svc-featured-cta {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--font-brand);
-    font-size: 13px; font-weight: 700;
-    color: var(--orange);
-    transition: gap var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-featured:hover .svc-featured-cta { gap: 10px; }
-
-  /* --- Card 2 · Quad (2×2 mini services) --- */
-  .svc-quad {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 8px;
-    padding: 8px;
-    background: var(--surface-alt);
-  }
-  .svc-mini {
-    background: #fff;
     border-radius: 14px;
-    padding: 14px;
-    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 16px 18px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 140px;
     text-decoration: none;
     color: inherit;
     cursor: pointer;
-    transition: background var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+    transition: background var(--dur-fast) var(--ease-smooth),
+                border-color var(--dur-fast) var(--ease-smooth),
+                transform var(--dur-fast) var(--ease-smooth);
   }
-  .svc-mini:hover { background: var(--navy); }
-  .svc-mini img {
-    width: 32px; height: 32px;
+  .svc-tile:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    transform: translateY(-2px);
+  }
+  .svc-tile > img {
+    width: 30px; height: 30px;
     align-self: flex-start;
     transition: filter var(--dur-fast) var(--ease-smooth);
   }
-  .svc-mini:hover img { filter: brightness(0) invert(1); }
-  .svc-mini span {
-    font-size: 13px; font-weight: 600;
+  .svc-tile:hover > img { filter: brightness(0) invert(1); }
+  .svc-tile-title {
+    font-size: 14px; font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.2;
     color: var(--navy);
     transition: color var(--dur-fast) var(--ease-smooth);
   }
-  .svc-mini:hover span { color: #fff; }
-
-  /* --- Card 3 · Triple (1 col × 3 rows) --- */
-  .svc-triple {
-    padding: 10px;
-    background: var(--surface-alt);
-    gap: 8px;
-  }
-  .svc-triple .svc-row {
-    flex: 1;
-    background: #fff;
-    border-radius: 14px;
-    padding: 0 18px;
-    display: flex; align-items: center; gap: 12px;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    transition: background var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-triple .svc-row:hover { background: var(--navy); }
-  .svc-row-icon {
-    width: 28px; height: 28px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: filter var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-row-icon img { width: 100%; height: 100%; }
-  .svc-triple .svc-row:hover .svc-row-icon { filter: brightness(0) invert(1); }
-  .svc-row-label {
-    flex: 1;
-    font-size: 14px; font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--navy);
-    transition: color var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-triple .svc-row:hover .svc-row-label { color: #fff; }
-  .svc-row-arrow {
-    font-family: var(--font-brand);
-    font-size: 14px; font-weight: 700;
-    color: var(--ink-soft);
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-triple .svc-row:hover .svc-row-arrow { opacity: 1; transform: translateX(0); color: #fff; }
-
-  /* --- Card 4 · Double (1 col × 2 rows, larger tiles) --- */
-  .svc-double {
-    padding: 10px;
-    background: var(--surface-alt);
-    gap: 8px;
-  }
-  .svc-tall {
-    flex: 1;
-    background: #fff;
-    border-radius: 14px;
-    padding: 18px;
-    display: flex; align-items: center; gap: 16px;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    transition: background var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-tall:hover { background: var(--navy); }
-  .svc-tall-icon {
-    width: 40px; height: 40px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: filter var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-tall-icon img { width: 100%; height: 100%; }
-  .svc-tall:hover .svc-tall-icon { filter: brightness(0) invert(1); }
-  .svc-tall-title {
-    font-size: 15px; font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--navy);
-    transition: color var(--dur-fast) var(--ease-smooth);
-  }
-  .svc-tall:hover .svc-tall-title { color: #fff; }
-  .svc-tall-sub {
+  .svc-tile:hover .svc-tile-title { color: #fff; }
+  .svc-tile-sub {
     font-size: 12px; font-weight: 500;
+    line-height: 1.4;
     color: var(--ink-soft);
-    margin-top: 2px;
+    margin-top: 3px;
     transition: color var(--dur-fast) var(--ease-smooth);
   }
-  .svc-tall:hover .svc-tall-sub { color: rgba(255,255,255,0.75); }
+  .svc-tile:hover .svc-tile-sub { color: rgba(255,255,255,0.75); }
+
+  /* Zone A: tall tiles (col 1–2), span 2 rows */
+  .svc-tile-tall { grid-row: span 2; }
+  /* Zone D: wide tiles (col 7–8), span 2 cols */
+  .svc-tile-wide { grid-column: span 2; }
+  .svc-tile-tall,
+  .svc-tile-wide {
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 140px;
+  }
+  .svc-tile-wide { flex-direction: row; align-items: center; gap: 16px; }
+  .svc-tile-wide > img { width: 34px; height: 34px; align-self: center; }
 
   /* =========================================================
      Featured spotlights
@@ -1911,7 +1796,9 @@
     .book-grid { grid-template-columns: repeat(3, 1fr); }
     .branch-grid { grid-template-columns: repeat(2, 1fr); }
     .events-grid { grid-template-columns: repeat(2, 1fr); }
-    .svc-mix-grid { grid-template-columns: repeat(2, 1fr); }
+    .svc-tile-grid { grid-template-columns: repeat(4, 1fr); grid-auto-flow: row; }
+    .svc-tile-tall { grid-row: auto; }
+    .svc-tile-wide { grid-column: span 2; }
     .explore-inner { grid-template-columns: 1fr; }
     .footer-links-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   }
@@ -1933,8 +1820,10 @@
     .section { padding: 80px 20px; }
     .hero { padding: 80px 20px 60px; }
     .book-grid { grid-template-columns: repeat(2, 1fr); }
-    .branch-grid, .events-grid, .svc-mix-grid { grid-template-columns: 1fr; }
-    .svc-cell { min-height: 280px; }
+    .branch-grid, .events-grid { grid-template-columns: 1fr; }
+    .svc-tile-grid { grid-template-columns: repeat(2, 1fr); }
+    .svc-tile { min-height: 110px; padding: 12px 14px; }
+    .svc-tile-wide { grid-column: span 2; flex-direction: row; }
     .footer-strip-inner { flex-direction: column; align-items: flex-start; }
     .footer-links-inner { grid-template-columns: 1fr; }
     .footer-links { padding: 32px 20px 24px; }
@@ -1962,92 +1851,73 @@
   <div class="nav-primary">
   <div class="nav-item has-dropdown">
     <span data-en="Services" data-es="Servicios">Services</span> <span class="caret"></span>
-    <div class="nav-dropdown">
+    <div class="nav-dropdown nav-dropdown-services">
       <div class="nav-dropdown-heading" data-en="Library Services · All 12" data-es="Servicios de la Biblioteca · Todos">Library Services · All 12</div>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-1.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</span>
-          <span class="nd-sub" data-en="Reserve, renew, read on your phone" data-es="Reserva, renueva y lee">Reserve, renew, read on your phone</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-2.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Accessibility" data-es="Accesibilidad">Accessibility</span>
-          <span class="nd-sub" data-en="Assistive tech &amp; large-print" data-es="Tecnología asistiva">Assistive tech &amp; large-print</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-3.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
-          <span class="nd-sub" data-en="Curated picks by our staff" data-es="Selecciones del personal">Curated picks by our staff</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-phone.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
-          <span class="nd-sub" data-en="Telescopes, ukuleles, tools" data-es="Telescopios, ukeleles, herramientas">Telescopes, ukuleles, tools</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-4.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
-          <span class="nd-sub" data-en="Pickup 24/7 at any branch" data-es="Recoge 24/7 en cualquier sede">Pickup 24/7 at any branch</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-5.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
-          <span class="nd-sub" data-en="Books delivered to your door" data-es="Libros a tu puerta">Books delivered to your door</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-6.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
-          <span class="nd-sub" data-en="Borrow internet for weeks" data-es="Presta internet por semanas">Borrow internet for weeks</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-7.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
-          <span class="nd-sub" data-en="Public computers, WiFi, print" data-es="Computadoras públicas, imprimir">Public computers, WiFi, print</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-8.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</span>
-          <span class="nd-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-9.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
-          <span class="nd-sub" data-en="Can't find a title? Ask us" data-es="¿No lo encuentras? Pregúntanos">Can't find a title? Ask us</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-10.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</span>
-          <span class="nd-sub" data-en="Send jobs from home, pick up here" data-es="Envía desde casa, recoge aquí">Send jobs from home, pick up here</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-11.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Meeting Rooms" data-es="Salas de Reuniones">Meeting Rooms</span>
-          <span class="nd-sub" data-en="Study, meet, collaborate" data-es="Estudia, reúnete, colabora">Study, meet, collaborate</span>
-        </span>
-      </a>
+      <div class="svc-tile-grid nav-svc-grid">
+        <a class="svc-tile svc-tile-tall">
+          <img src="assets/service-1.svg" alt="">
+          <div>
+            <div class="svc-tile-title" data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</div>
+            <div class="svc-tile-sub" data-en="Read, reserve, renew" data-es="Lee, reserva, renueva">Read, reserve, renew</div>
+          </div>
+        </a>
+        <a class="svc-tile svc-tile-tall">
+          <img src="assets/service-11.svg" alt="">
+          <div>
+            <div class="svc-tile-title" data-en="Meeting Rooms" data-es="Salas de Reuniones">Meeting Rooms</div>
+            <div class="svc-tile-sub" data-en="Free to book" data-es="Reserva gratis">Free to book</div>
+          </div>
+        </a>
+
+        <a class="svc-tile">
+          <img src="assets/service-3.svg" alt="">
+          <span class="svc-tile-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
+        </a>
+        <a class="svc-tile">
+          <img src="assets/service-phone.svg" alt="">
+          <span class="svc-tile-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
+        </a>
+        <a class="svc-tile">
+          <img src="assets/service-4.svg" alt="">
+          <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
+        </a>
+        <a class="svc-tile">
+          <img src="assets/service-6.svg" alt="">
+          <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
+        </a>
+
+        <a class="svc-tile">
+          <img src="assets/service-5.svg" alt="">
+          <span class="svc-tile-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
+        </a>
+        <a class="svc-tile">
+          <img src="assets/service-7.svg" alt="">
+          <span class="svc-tile-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
+        </a>
+        <a class="svc-tile">
+          <img src="assets/service-8.svg" alt="">
+          <span class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</span>
+        </a>
+        <a class="svc-tile">
+          <img src="assets/service-9.svg" alt="">
+          <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
+        </a>
+
+        <a class="svc-tile svc-tile-wide">
+          <img src="assets/service-10.svg" alt="">
+          <div>
+            <div class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</div>
+            <div class="svc-tile-sub" data-en="Send from home, pick up here" data-es="Envía desde casa, recoge aquí">Send from home, pick up here</div>
+          </div>
+        </a>
+        <a class="svc-tile svc-tile-wide">
+          <img src="assets/service-2.svg" alt="">
+          <div>
+            <div class="svc-tile-title" data-en="Accessibility" data-es="Accesibilidad">Accessibility</div>
+            <div class="svc-tile-sub" data-en="Assistive tech &amp; large-print" data-es="Tecnología asistiva">Assistive tech &amp; large-print</div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
   <div class="nav-item has-dropdown">
@@ -2678,76 +2548,74 @@
       <h2 data-en="Library Services" data-es="Servicios de la Biblioteca">Library Services</h2>
       <p class="section-sub" data-en="Helpful services designed to make your library experience easier." data-es="Servicios útiles diseñados para hacer tu experiencia en la biblioteca más fácil.">Helpful services designed to make your library experience easier.</p>
     </div>
-    <div class="svc-mix-grid">
-      <!-- Card 1 · Featured: a single hero service -->
-      <a class="svc-cell svc-featured">
-        <div class="svc-featured-top">
-          <span class="svc-featured-tag" data-en="Flagship" data-es="Destacado">Flagship</span>
-          <div class="svc-featured-icon"><img src="assets/service-1.svg" alt=""></div>
+    <div class="svc-tile-grid">
+      <!-- Zone A · pair-h (tall tiles, spans 2 rows each) -->
+      <a class="svc-tile svc-tile-tall">
+        <img src="assets/service-1.svg" alt="">
+        <div>
+          <div class="svc-tile-title" data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</div>
+          <div class="svc-tile-sub" data-en="Read, reserve, renew on your phone" data-es="Lee, reserva y renueva en tu móvil">Read, reserve, renew on your phone</div>
         </div>
-        <div class="svc-featured-body">
-          <h3 data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</h3>
-          <p data-en="Reserve books, renew loans, read eBooks, and take your card everywhere — all from your phone." data-es="Reserva libros, renueva préstamos y lee eBooks — todo desde tu teléfono.">Reserve books, renew loans, read eBooks, and take your card everywhere — all from your phone.</p>
-          <span class="svc-featured-cta" data-en="Download →" data-es="Descargar →">Download →</span>
+      </a>
+      <a class="svc-tile svc-tile-tall">
+        <img src="assets/service-11.svg" alt="">
+        <div>
+          <div class="svc-tile-title" data-en="Meeting Rooms" data-es="Salas de Reuniones">Meeting Rooms</div>
+          <div class="svc-tile-sub" data-en="Study, meet, collaborate — free" data-es="Estudia y colabora, gratis">Study, meet, collaborate — free</div>
         </div>
       </a>
 
-      <!-- Card 2 · Quad: 2×2 grid of mini services -->
-      <div class="svc-cell svc-quad">
-        <a class="svc-mini">
-          <img src="assets/service-3.svg" alt="">
-          <span data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
-        </a>
-        <a class="svc-mini">
-          <img src="assets/service-phone.svg" alt="">
-          <span data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
-        </a>
-        <a class="svc-mini">
-          <img src="assets/service-4.svg" alt="">
-          <span data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
-        </a>
-        <a class="svc-mini">
-          <img src="assets/service-6.svg" alt="">
-          <span data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
-        </a>
-      </div>
+      <!-- Zone B · 2×2 quad (col 3-4, rows 1-2) -->
+      <a class="svc-tile">
+        <img src="assets/service-3.svg" alt="">
+        <span class="svc-tile-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
+      </a>
+      <a class="svc-tile">
+        <img src="assets/service-phone.svg" alt="">
+        <span class="svc-tile-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
+      </a>
+      <a class="svc-tile">
+        <img src="assets/service-4.svg" alt="">
+        <span class="svc-tile-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
+      </a>
+      <a class="svc-tile">
+        <img src="assets/service-6.svg" alt="">
+        <span class="svc-tile-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
+      </a>
 
-      <!-- Card 3 · Triple: 1 column × 3 rows -->
-      <div class="svc-cell svc-triple">
-        <a class="svc-row">
-          <span class="svc-row-icon"><img src="assets/service-11.svg" alt=""></span>
-          <span class="svc-row-label" data-en="Meeting Rooms" data-es="Salas de Reuniones">Meeting Rooms</span>
-          <span class="svc-row-arrow">→</span>
-        </a>
-        <a class="svc-row">
-          <span class="svc-row-icon"><img src="assets/service-7.svg" alt=""></span>
-          <span class="svc-row-label" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
-          <span class="svc-row-arrow">→</span>
-        </a>
-        <a class="svc-row">
-          <span class="svc-row-icon"><img src="assets/service-5.svg" alt=""></span>
-          <span class="svc-row-label" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
-          <span class="svc-row-arrow">→</span>
-        </a>
-      </div>
+      <!-- Zone C · 2×2 quad (col 5-6, rows 1-2) -->
+      <a class="svc-tile">
+        <img src="assets/service-5.svg" alt="">
+        <span class="svc-tile-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
+      </a>
+      <a class="svc-tile">
+        <img src="assets/service-7.svg" alt="">
+        <span class="svc-tile-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
+      </a>
+      <a class="svc-tile">
+        <img src="assets/service-8.svg" alt="">
+        <span class="svc-tile-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</span>
+      </a>
+      <a class="svc-tile">
+        <img src="assets/service-9.svg" alt="">
+        <span class="svc-tile-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
+      </a>
 
-      <!-- Card 4 · Double: 1 column × 2 rows, taller tiles -->
-      <div class="svc-cell svc-double">
-        <a class="svc-tall">
-          <span class="svc-tall-icon"><img src="assets/service-8.svg" alt=""></span>
-          <div>
-            <div class="svc-tall-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</div>
-            <div class="svc-tall-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</div>
-          </div>
-        </a>
-        <a class="svc-tall">
-          <span class="svc-tall-icon"><img src="assets/service-9.svg" alt=""></span>
-          <div>
-            <div class="svc-tall-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</div>
-            <div class="svc-tall-sub" data-en="Can't find a title? Ask us" data-es="¿No encuentras un título?">Can't find a title? Ask us</div>
-          </div>
-        </a>
-      </div>
+      <!-- Zone D · pair-v (wide tiles, span 2 cols each) -->
+      <a class="svc-tile svc-tile-wide">
+        <img src="assets/service-10.svg" alt="">
+        <div>
+          <div class="svc-tile-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</div>
+          <div class="svc-tile-sub" data-en="Send jobs from home, pick up here" data-es="Envía desde casa, recoge aquí">Send jobs from home, pick up here</div>
+        </div>
+      </a>
+      <a class="svc-tile svc-tile-wide">
+        <img src="assets/service-2.svg" alt="">
+        <div>
+          <div class="svc-tile-title" data-en="Accessibility" data-es="Accesibilidad">Accessibility</div>
+          <div class="svc-tile-sub" data-en="Assistive tech &amp; large-print" data-es="Tecnología asistiva">Assistive tech &amp; large-print</div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
