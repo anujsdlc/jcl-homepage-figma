@@ -397,7 +397,7 @@
     font-size: 13px; font-weight: 600;
     color: var(--ink-muted);
     cursor: pointer;
-    position: relative;
+    position: static; /* dropdown anchors to .main-nav, not the item */
     transition: color var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth);
   }
   .nav-item:hover,
@@ -413,50 +413,59 @@
   .nav-item.is-open .caret { transform: rotate(225deg) translateY(0); }
 
   /* Nav dropdowns */
+  /* Mega-menu — anchored to main-nav so it never clips */
   .nav-dropdown {
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translate(-50%, -8px);
-    min-width: 640px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 1200px;
     background: #fff;
     box-shadow: 0 24px 60px rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.05);
-    border-top: 1px solid var(--line);
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
     opacity: 0;
     pointer-events: none;
+    transform: translateY(-8px);
     transition: opacity var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
-    z-index: 40;
-    padding: 24px;
+    z-index: 45;
+    padding: 24px 28px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px 20px;
     text-align: left;
   }
   .nav-item.is-open .nav-dropdown {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translateY(0);
     pointer-events: auto;
   }
   .nav-dropdown-heading {
     grid-column: 1 / -1;
     font-family: 'Arimo', sans-serif;
     font-size: 11px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
+    letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--ink-soft);
-    padding: 8px 12px 4px;
+    padding: 4px 14px 12px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 8px;
   }
   .nav-drop-item {
-    display: flex; align-items: center; gap: 14px;
+    display: flex; align-items: flex-start; gap: 14px;
     padding: 12px 14px;
     font-size: 14px; font-weight: 500;
     color: var(--ink);
     cursor: pointer;
-    transition: background var(--dur-fast) var(--ease-smooth), padding-left var(--dur-fast) var(--ease-smooth);
+    border-radius: 8px;
+    transition: background var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
   }
-  .nav-drop-item:hover { background: var(--surface-alt); padding-left: 20px; }
+  .nav-drop-item:hover { background: var(--surface-alt); transform: translateX(2px); }
   .nav-drop-item .nd-icon {
     width: 32px; height: 32px;
     background: var(--surface-alt);
+    border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     transition: background var(--dur-fast) var(--ease-smooth);
@@ -467,9 +476,9 @@
     transition: filter var(--dur-fast) var(--ease-smooth);
   }
   .nav-drop-item:hover .nd-icon img { filter: brightness(0) invert(1); }
-  .nav-drop-item .nd-body { display: flex; flex-direction: column; gap: 2px; }
-  .nav-drop-item .nd-title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
-  .nav-drop-item .nd-sub { font-size: 12px; color: var(--ink-soft); font-weight: 400; }
+  .nav-drop-item .nd-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .nav-drop-item .nd-title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: var(--navy); }
+  .nav-drop-item .nd-sub { font-size: 12px; color: var(--ink-soft); font-weight: 400; line-height: 1.4; }
 
   /* =========================================================
      Hero — Apple-scale headline + preview cards
@@ -681,27 +690,60 @@
   /* =========================================================
      Section shell
      ========================================================= */
-  .section { padding: 120px 40px; }
+  .section { padding: 72px 40px; }
   .section-inner { max-width: 1360px; margin: 0 auto; }
-  .section-head { text-align: center; margin-bottom: 72px; }
+  /* Left-aligned, single-line section headers (Netflix/Apple style rails) */
+  .section-head {
+    text-align: left;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .section-head > .section-eyebrow,
+  .section-head > h2,
+  .section-head > .section-sub { width: 100%; }
   .section-eyebrow {
-    font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 16px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    line-height: 1;
   }
   .section h2 {
     font-family: var(--font-brand);
     font-weight: 700;
-    font-size: clamp(36px, 4.4vw, 56px);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 16px;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0;
+    color: var(--navy);
   }
   .section-sub {
-    font-size: 20px; color: var(--ink-muted); max-width: 640px;
-    margin: 0 auto;
+    font-size: 14px;
+    color: var(--ink-muted);
+    max-width: none;
+    margin: 6px 0 0;
     line-height: 1.5;
   }
+  /* Optional right-aligned action inside .section-head — Netflix-style "See all →" */
+  .section-head .section-link {
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    padding: 6px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    transition: all var(--dur-fast) var(--ease-smooth);
+    width: auto;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .section-head .section-link:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
 
   /* =========================================================
      Books
@@ -954,9 +996,7 @@
      Cells surface event names inline as color-coded pills.
      ========================================================= */
   .events-cal-section { background: var(--surface-alt); }
-  .events-cal-section .section-head { margin-bottom: 20px; }
-  .events-cal-section .section-head h2 { font-size: clamp(30px, 3.4vw, 44px); margin-bottom: 6px; }
-  .events-cal-section .section-sub { font-size: 14px; }
+  .events-cal-section .section-head { margin-bottom: 16px; padding-bottom: 12px; }
 
   .cal-shell {
     display: grid;
