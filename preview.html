@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JCL Redesign — Three Directions</title>
+<title>JCL Redesign — Four Directions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -234,8 +234,8 @@
 <body>
 <div class="wrap">
   <div class="top">
-    <div class="eyebrow">§ Redesign · Three directions · Sept 2026</div>
-    <h1>Jefferson County<br>Library, <span class="accent">three ways</span>.</h1>
+    <div class="eyebrow">§ Redesign · Four directions · Sept 2026</div>
+    <h1>Jefferson County<br>Library, <span class="accent">four ways</span>.</h1>
     <p class="lede">
       A design study responding to <a href="https://www.jeffcolib.org/" target="_blank">jeffcolib.org</a> — three totally different layout languages, each addressing the same core problems: burying the search, hiding the library card, and no clear "my account" affordance. Open any variation to see it live.
     </p>
@@ -243,7 +243,7 @@
 
   <div class="brand-lock">
     <div>
-      <h3>One brand system, <span class="accent">three expressions</span>.</h3>
+      <h3>One brand system, <span class="accent">four expressions</span>.</h3>
       <p>All variations share the JCL palette (navy, red, orange, lilac, ink) and typography (Arimo + Comfortaa). What changes between them is composition, spacing, radius, shadow, and hierarchy — never the tokens.</p>
     </div>
     <div class="brand-swatches">
@@ -296,17 +296,33 @@
     </a>
 
     <a class="card v-bento" href="variation-3.html">
-      <div class="card-tag">Variation 03 · Bento</div>
+      <div class="card-tag">Variation 03 · Bento (signed-in)</div>
       <h2>The <span class="accent">Bento</span></h2>
-      <p>Apple-style, generous whitespace, every section a rounded card. Bento-style grids with varied sizes, huge minimal typography, shelf-photo hero background. Uses all 9 book covers.</p>
+      <p>Apple-style, generous whitespace, every section a rounded card. Right rail shows a signed-in account panel with holds, due dates, and a personal dashboard.</p>
       <ul>
         <li>Sticky glass nav with backdrop blur</li>
         <li>Hero with shelf-photo background + gradient wash</li>
+        <li>Right rail: signed-in "Your library" dashboard</li>
         <li>Bento grids: featured spotlights + services + books</li>
-        <li>Big rounded cards with soft shadow lifts</li>
       </ul>
       <div class="card-foot">
         <span class="card-meta">Inspired by Apple.com</span>
+        <span class="card-open">Open →</span>
+      </div>
+    </a>
+
+    <a class="card v-bento" href="variation-4.html">
+      <div class="card-tag">Variation 04 · Bento (public)</div>
+      <h2>The <span class="accent">Bento</span> · public</h2>
+      <p>Same Bento layout, but the right rail is public-facing: live branch status, today's activity, annual impact stats, and quick contact links — for visitors who aren't logged in.</p>
+      <ul>
+        <li>Same Bento shell as v3, no account panel</li>
+        <li>Right rail: "Open now" + Today at JCL stats</li>
+        <li>Annual impact numbers (1.4M items, 312K cardholders)</li>
+        <li>Contact / branch / newsletter / careers links</li>
+      </ul>
+      <div class="card-foot">
+        <span class="card-meta">Public-view of the Bento shell</span>
         <span class="card-open">Open →</span>
       </div>
     </a>
