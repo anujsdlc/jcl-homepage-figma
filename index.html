@@ -1907,7 +1907,10 @@
     filter: brightness(0) invert(1);           /* white icon on navy strip */
     transition: filter var(--dur-fast) var(--ease-smooth);
   }
-  .social-icon:hover img { filter: none; }     /* natural (dark) icon on white hover chip */
+  /* On hover: chip is white, so force icon to solid dark for contrast.
+     brightness(0) drops every pixel to pure black — interpolates cleanly
+     from the default brightness(0) invert(1) so the icon never blanks out. */
+  .social-icon:hover img { filter: brightness(0); }
 
   /* =========================================================
      Responsive
