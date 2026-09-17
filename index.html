@@ -1791,133 +1791,116 @@
   .news-card:hover .news-link { gap: 14px; }
 
   /* =========================================================
-     Newsletter signup
+     Compact footer — 4-column link grid + bottom brand strip
      ========================================================= */
-  .newsletter {
-    background: #fff;
-    padding: 100px 40px;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .newsletter-inner {
-    max-width: 1360px; margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .newsletter h2 {
-    font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: clamp(36px, 4vw, 52px);
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    margin: 16px 0;
-  }
-  .newsletter .lede {
-    font-size: 18px;
-    color: var(--ink-muted);
-    line-height: 1.5;
-    max-width: 480px;
-  }
-  .newsletter-form {
-    display: flex;
-    background: var(--surface-alt);
-    padding: 8px;
-  }
-  .newsletter-form input {
-    flex: 1;
-    background: transparent;
-    border: none; outline: none;
-    padding: 20px 24px;
-    font-family: 'Arimo', sans-serif;
-    font-size: 16px;
-    color: var(--ink);
-  }
-  .newsletter-form input::placeholder { color: var(--ink-soft); }
-  .newsletter-form button {
-    padding: 0 32px;
-    background: var(--navy);
-    color: #fff;
-    font-family: 'Arimo', sans-serif;
-    font-size: 15px; font-weight: 600;
-    letter-spacing: -0.01em;
-    cursor: pointer;
-    transition: background var(--dur-fast) var(--ease-smooth);
-  }
-  .newsletter-form button:hover { background: var(--navy-dark); }
-  .newsletter-note {
-    margin-top: 16px;
-    font-size: 13px;
-    color: var(--ink-soft);
-  }
-
-  /* =========================================================
-     Footer
-     ========================================================= */
-  .footer-hero {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    padding: 80px 40px 60px;
-    color: #fff;
-  }
-  .footer-hero-inner {
-    max-width: 1360px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 40px;
-  }
-  .footer-logo img {
-    height: 64px;
-    filter: brightness(0) invert(1);
-  }
-  .footer-socials { display: flex; align-items: center; gap: 10px; }
-  .badge-pill {
-    width: 48px; height: 48px;
-    background: url('assets/program-badge.png') center/cover;
-    border: 1px solid rgba(255,255,255,0.25);
-    transition: transform var(--dur-fast) var(--ease-smooth);
-  }
-  .badge-pill:hover { transform: translateY(-2px); }
-  .social-icon {
-    width: 48px; height: 48px;
-    background: rgba(255,255,255,0.1);
-    display: flex; align-items: center; justify-content: center;
-    transition: background var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
-  }
-  .social-icon:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
-  .social-icon img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
-
   .footer-links {
-    padding: 72px 40px;
+    padding: 48px 40px 40px;
     background: #fff;
+    border-top: 1px solid var(--line);
   }
   .footer-links-inner {
     max-width: 1360px; margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 48px;
+    gap: 32px;
   }
   .footer-col h4 {
-    font-size: 14px; font-weight: 700; letter-spacing: -0.01em;
-    color: var(--ink);
-    margin-bottom: 20px;
+    font-size: 13px; font-weight: 700; letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-bottom: 12px;
   }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col h4.footer-col-sub { margin-top: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
   .footer-col li {
-    font-size: 14px; color: var(--ink-soft);
+    font-size: 13px; color: var(--ink-soft);
     cursor: pointer;
     transition: color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
   }
-  .footer-col li:hover { color: var(--ink); transform: translateX(2px); }
+  .footer-col li:hover { color: var(--red); transform: translateX(2px); }
+  .footer-col-signup p {
+    font-size: 12px; color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 12px;
+    max-width: 260px;
+  }
+  .footer-signup {
+    display: flex;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 3px;
+    background: #fff;
+    max-width: 320px;
+    transition: border-color var(--dur-fast) var(--ease-smooth);
+  }
+  .footer-signup:focus-within { border-color: var(--navy); }
+  .footer-signup input {
+    flex: 1; min-width: 0;
+    background: transparent; border: none; outline: none;
+    padding: 8px 12px;
+    font-family: 'Arimo', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .footer-signup input::placeholder { color: var(--ink-soft); }
+  .footer-signup button {
+    padding: 8px 16px;
+    background: var(--navy); color: #fff;
+    font-family: 'Arimo', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.01em;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth);
+    white-space: nowrap;
+  }
+  .footer-signup button:hover { background: var(--red); }
 
-  .footer-banner {
+  /* Bottom brand strip */
+  .footer-strip {
     background: var(--surface-alt);
-    padding: 32px 40px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 500;
+    padding: 20px 40px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-strip-inner {
+    max-width: 1360px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-strip-brand {
+    display: flex; align-items: center;
+    gap: 16px;
+  }
+  .footer-strip-brand img { height: 40px; }
+  .footer-strip-brand span {
+    font-size: 13px;
     color: var(--ink-muted);
     letter-spacing: -0.01em;
   }
+  .footer-strip-links {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .badge-pill {
+    width: 36px; height: 36px;
+    background: url('assets/program-badge.png') center/cover;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: transform var(--dur-fast) var(--ease-smooth);
+    cursor: pointer;
+  }
+  .badge-pill:hover { transform: translateY(-2px); }
+  .social-icon {
+    width: 36px; height: 36px;
+    background: #fff;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: all var(--dur-fast) var(--ease-smooth);
+    cursor: pointer;
+  }
+  .social-icon:hover { background: var(--navy); border-color: var(--navy); transform: translateY(-2px); }
+  .social-icon img { width: 16px; height: 16px; transition: filter var(--dur-fast) var(--ease-smooth); }
+  .social-icon:hover img { filter: brightness(0) invert(1); }
 
   /* =========================================================
      Responsive
@@ -1930,7 +1913,7 @@
     .events-grid { grid-template-columns: repeat(2, 1fr); }
     .svc-mix-grid { grid-template-columns: repeat(2, 1fr); }
     .explore-inner { grid-template-columns: 1fr; }
-    .footer-links-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .footer-links-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   }
   @media (max-width: 720px) {
     .notice-bar { padding: 0 16px; height: 32px; font-size: 11px; }
@@ -1952,8 +1935,10 @@
     .book-grid { grid-template-columns: repeat(2, 1fr); }
     .branch-grid, .events-grid, .svc-mix-grid { grid-template-columns: 1fr; }
     .svc-cell { min-height: 280px; }
-    .footer-hero-inner { flex-direction: column; align-items: flex-start; }
+    .footer-strip-inner { flex-direction: column; align-items: flex-start; }
     .footer-links-inner { grid-template-columns: 1fr; }
+    .footer-links { padding: 32px 20px 24px; }
+    .footer-strip { padding: 16px 20px; }
   }
 
   /* Reduced motion */
@@ -2768,52 +2753,11 @@
 </section>
 
 <!-- ================= Newsletter ================= -->
-<section class="newsletter">
-  <div class="newsletter-inner">
-    <div>
-      <div class="section-eyebrow" data-en="Stay Connected" data-es="Mantente Conectado">Stay Connected</div>
-      <h2 data-en="Never Miss a Story" data-es="Nunca Te Pierdas una Historia">Never Miss a Story</h2>
-      <p class="lede" data-en="Get updates on new arrivals, events, and community stories delivered to your inbox." data-es="Recibe actualizaciones sobre nuevas adquisiciones, eventos e historias de la comunidad en tu bandeja de entrada.">Get updates on new arrivals, events, and community stories delivered to your inbox.</p>
-    </div>
-    <div>
-      <form class="newsletter-form" onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
-        <input type="email" required data-placeholder-en="Enter your email" data-placeholder-es="Ingresa tu correo" placeholder="Enter your email">
-        <button type="submit" data-en="Subscribe" data-es="Suscribirse">Subscribe</button>
-      </form>
-      <p class="newsletter-note" data-en="No spam. Unsubscribe anytime." data-es="Sin spam. Cancela cuando quieras.">No spam. Unsubscribe anytime.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= Footer hero ================= -->
-<div class="footer-hero">
-  <div class="footer-hero-inner">
-    <div class="footer-logo">
-      <img src="assets/logo-image.png" alt="Jefferson County Library">
-    </div>
-    <div class="footer-socials">
-      <div class="badge-pill"></div>
-      <div class="social-icon"><img src="assets/link.svg" alt="Link"></div>
-      <div class="social-icon"><img src="assets/facebook.svg" alt="Facebook"></div>
-      <div class="social-icon"><img src="assets/instagram.svg" alt="Instagram"></div>
-      <div class="social-icon"><img src="assets/youtube.svg" alt="YouTube"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ================= Footer link columns ================= -->
+<!-- ================= Compact footer ================= -->
 <div class="footer-links">
   <div class="footer-links-inner">
     <div class="footer-col">
-      <h4>Work with JCL</h4>
-      <ul>
-        <li>Contact Us</li>
-        <li>Employment</li>
-        <li>Bid Opportunities</li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Use JCL</h4>
+      <h4 data-en="Use JCL" data-es="Usa JCL">Use JCL</h4>
       <ul>
         <li>Library Services</li>
         <li>Get a Library Card</li>
@@ -2823,7 +2767,7 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Partner with JCL</h4>
+      <h4 data-en="Partner with JCL" data-es="Colabora con JCL">Partner with JCL</h4>
       <ul>
         <li>Become a Friend</li>
         <li>Library Foundation</li>
@@ -2832,17 +2776,44 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Board of Trustees</h4>
+      <h4 data-en="Board of Trustees" data-es="Junta Directiva">Board of Trustees</h4>
       <ul>
         <li>JCL Board</li>
       </ul>
+
+      <h4 class="footer-col-sub" data-en="Work with JCL" data-es="Trabaja con JCL">Work with JCL</h4>
+      <ul>
+        <li>Contact Us</li>
+        <li>Employment</li>
+        <li>Bid Opportunities</li>
+      </ul>
+    </div>
+    <div class="footer-col footer-col-signup">
+      <h4 data-en="Never Miss a Story" data-es="Nunca Te Lo Pierdas">Never Miss a Story</h4>
+      <p data-en="New arrivals, events, and community stories in your inbox." data-es="Nuevas adquisiciones, eventos e historias en tu correo.">New arrivals, events, and community stories in your inbox.</p>
+      <form class="footer-signup" onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
+        <input type="email" required data-placeholder-en="Enter your email" data-placeholder-es="Ingresa tu correo" placeholder="Enter your email">
+        <button type="submit" data-en="Subscribe" data-es="Suscribirse">Subscribe</button>
+      </form>
     </div>
   </div>
 </div>
 
-<!-- ================= Footer banner ================= -->
-<div class="footer-banner">
-  Jefferson County Library — your place to learn, connect, grow, and achieve.
+<!-- ================= Footer bottom strip ================= -->
+<div class="footer-strip">
+  <div class="footer-strip-inner">
+    <div class="footer-strip-brand">
+      <img src="assets/logo-image.png" alt="Jefferson County Library">
+      <span data-en="Your place to learn, connect, grow, and achieve." data-es="Tu lugar para aprender, conectar y crecer.">Your place to learn, connect, grow, and achieve.</span>
+    </div>
+    <div class="footer-strip-links">
+      <div class="badge-pill" title="Program badge"></div>
+      <a class="social-icon" title="Website"><img src="assets/link.svg" alt="Link"></a>
+      <a class="social-icon" title="Facebook"><img src="assets/facebook.svg" alt="Facebook"></a>
+      <a class="social-icon" title="Instagram"><img src="assets/instagram.svg" alt="Instagram"></a>
+      <a class="social-icon" title="YouTube"><img src="assets/youtube.svg" alt="YouTube"></a>
+    </div>
+  </div>
 </div>
 
 <script>
