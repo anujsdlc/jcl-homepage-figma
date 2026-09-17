@@ -1366,71 +1366,203 @@
   /* =========================================================
      Services grid — bento card style
      ========================================================= */
-  .services-section { background: #fff; }
-  .service-grid {
+  .services-section { background: var(--surface-alt); }
+
+  /* Mixed grid — Apple App Library style: 4 same-size outer cards,
+     different internal densities (1 / 4 / 3 / 2 services) */
+  .svc-mix-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    gap: 16px;
   }
-  .service-card {
-    position: relative;
+  .svc-cell {
     background: #fff;
-    padding: 32px 28px;
-    height: 220px;
-    text-align: left;
-    cursor: pointer;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    min-height: 340px;
+    display: flex; flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
     overflow: hidden;
-    border-right: 1px solid var(--line);
-    border-top: 1px solid var(--line);
-    margin-top: -1px;
-    transition: background var(--dur) var(--ease);
   }
-  .service-card:nth-child(4n) { border-right: none; }
-  .service-card::before {
-    content: '';
-    position: absolute; inset: 0;
+  .svc-cell:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(5,36,96,0.08); border-color: var(--line-strong); }
+
+  /* --- Card 1 · Featured (single flagship service) --- */
+  .svc-featured {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    opacity: 0;
-    transition: opacity var(--dur) var(--ease);
-    z-index: 0;
+    color: #fff;
+    border-color: var(--navy-dark);
+    padding: 24px;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
   }
-  .service-card > * { position: relative; z-index: 1; }
-  .service-card:hover::before { opacity: 1; }
-  .service-card .service-name {
-    font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
-    line-height: 1.25;
-    color: var(--ink);
-    max-width: 60%;
-    transition: color var(--dur) var(--ease);
+  .svc-featured::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(255,107,53,0.35) 0%, transparent 60%);
+    pointer-events: none;
   }
-  .service-card:hover .service-name { color: #fff; }
-  .service-icon {
-    position: absolute;
-    left: 28px; bottom: 28px;
-    width: 44px; height: 44px;
+  .svc-featured-top {
+    display: flex; justify-content: space-between; align-items: start;
+    position: relative; z-index: 1;
+  }
+  .svc-featured-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--orange);
+    padding: 4px 10px;
+    background: rgba(255,107,53,0.14);
+    border: 1px solid rgba(255,107,53,0.35);
+    border-radius: 999px;
+  }
+  .svc-featured-icon {
+    width: 52px; height: 52px;
     display: flex; align-items: center; justify-content: center;
-    transition: transform var(--dur) var(--ease), filter var(--dur) var(--ease);
   }
-  .service-icon img { width: 100%; height: 100%; }
-  .service-card:hover .service-icon {
-    transform: scale(1.08) rotate(-4deg);
-    filter: brightness(0) invert(1);
+  .svc-featured-icon img { width: 100%; height: 100%; filter: brightness(0) invert(1); }
+  .svc-featured-body { position: relative; z-index: 1; }
+  .svc-featured-body h3 {
+    font-family: var(--font-brand);
+    font-size: 26px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin-bottom: 10px;
   }
-  .service-arrow {
-    position: absolute;
-    right: 24px; bottom: 24px;
-    width: 40px; height: 40px;
+  .svc-featured-body p {
+    font-size: 13px; line-height: 1.5;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 16px;
+  }
+  .svc-featured-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 700;
+    color: var(--orange);
+    transition: gap var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-featured:hover .svc-featured-cta { gap: 10px; }
+
+  /* --- Card 2 · Quad (2×2 mini services) --- */
+  .svc-quad {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+    background: var(--surface-alt);
+  }
+  .svc-mini {
     background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-mini:hover { background: var(--navy); }
+  .svc-mini img {
+    width: 32px; height: 32px;
+    align-self: flex-start;
+    transition: filter var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-mini:hover img { filter: brightness(0) invert(1); }
+  .svc-mini span {
+    font-size: 13px; font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--navy);
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-mini:hover span { color: #fff; }
+
+  /* --- Card 3 · Triple (1 col × 3 rows) --- */
+  .svc-triple {
+    padding: 10px;
+    background: var(--surface-alt);
+    gap: 8px;
+  }
+  .svc-triple .svc-row {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    padding: 0 18px;
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-triple .svc-row:hover { background: var(--navy); }
+  .svc-row-icon {
+    width: 28px; height: 28px;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+    flex-shrink: 0;
+    transition: filter var(--dur-fast) var(--ease-smooth);
   }
-  .service-arrow img { width: 18px; height: 18px; }
-  .service-card:hover .service-arrow {
-    transform: translateX(4px);
+  .svc-row-icon img { width: 100%; height: 100%; }
+  .svc-triple .svc-row:hover .svc-row-icon { filter: brightness(0) invert(1); }
+  .svc-row-label {
+    flex: 1;
+    font-size: 14px; font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    transition: color var(--dur-fast) var(--ease-smooth);
   }
+  .svc-triple .svc-row:hover .svc-row-label { color: #fff; }
+  .svc-row-arrow {
+    font-family: var(--font-brand);
+    font-size: 14px; font-weight: 700;
+    color: var(--ink-soft);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-triple .svc-row:hover .svc-row-arrow { opacity: 1; transform: translateX(0); color: #fff; }
+
+  /* --- Card 4 · Double (1 col × 2 rows, larger tiles) --- */
+  .svc-double {
+    padding: 10px;
+    background: var(--surface-alt);
+    gap: 8px;
+  }
+  .svc-tall {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    display: flex; align-items: center; gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-tall:hover { background: var(--navy); }
+  .svc-tall-icon {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: filter var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-tall-icon img { width: 100%; height: 100%; }
+  .svc-tall:hover .svc-tall-icon { filter: brightness(0) invert(1); }
+  .svc-tall-title {
+    font-size: 15px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-tall:hover .svc-tall-title { color: #fff; }
+  .svc-tall-sub {
+    font-size: 12px; font-weight: 500;
+    color: var(--ink-soft);
+    margin-top: 2px;
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+  .svc-tall:hover .svc-tall-sub { color: rgba(255,255,255,0.75); }
 
   /* =========================================================
      Featured spotlights
@@ -1796,7 +1928,7 @@
     .book-grid { grid-template-columns: repeat(3, 1fr); }
     .branch-grid { grid-template-columns: repeat(2, 1fr); }
     .events-grid { grid-template-columns: repeat(2, 1fr); }
-    .service-grid { grid-template-columns: repeat(2, 1fr); }
+    .svc-mix-grid { grid-template-columns: repeat(2, 1fr); }
     .explore-inner { grid-template-columns: 1fr; }
     .footer-links-inner { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   }
@@ -1818,7 +1950,8 @@
     .section { padding: 80px 20px; }
     .hero { padding: 80px 20px 60px; }
     .book-grid { grid-template-columns: repeat(2, 1fr); }
-    .branch-grid, .events-grid, .service-grid { grid-template-columns: 1fr; }
+    .branch-grid, .events-grid, .svc-mix-grid { grid-template-columns: 1fr; }
+    .svc-cell { min-height: 280px; }
     .footer-hero-inner { flex-direction: column; align-items: flex-start; }
     .footer-links-inner { grid-template-columns: 1fr; }
   }
@@ -1845,26 +1978,61 @@
   <div class="nav-item has-dropdown">
     <span data-en="Services" data-es="Servicios">Services</span> <span class="caret"></span>
     <div class="nav-dropdown">
-      <div class="nav-dropdown-heading" data-en="Library Services" data-es="Servicios de la Biblioteca">Library Services</div>
+      <div class="nav-dropdown-heading" data-en="Library Services · All 12" data-es="Servicios de la Biblioteca · Todos">Library Services · All 12</div>
       <a class="nav-drop-item">
         <span class="nd-icon"><img src="assets/service-1.svg" alt=""></span>
         <span class="nd-body">
-          <span class="nd-title" data-en="Get a Library Card" data-es="Obtener Tarjeta">Get a Library Card</span>
-          <span class="nd-sub" data-en="Free for county residents" data-es="Gratis para residentes">Free for county residents</span>
+          <span class="nd-title" data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</span>
+          <span class="nd-sub" data-en="Reserve, renew, read on your phone" data-es="Reserva, renueva y lee">Reserve, renew, read on your phone</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-2.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Accessibility" data-es="Accesibilidad">Accessibility</span>
+          <span class="nd-sub" data-en="Assistive tech &amp; large-print" data-es="Tecnología asistiva">Assistive tech &amp; large-print</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-3.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
+          <span class="nd-sub" data-en="Curated picks by our staff" data-es="Selecciones del personal">Curated picks by our staff</span>
         </span>
       </a>
       <a class="nav-drop-item">
         <span class="nd-icon"><img src="assets/service-phone.svg" alt=""></span>
         <span class="nd-body">
-          <span class="nd-title" data-en="Hours &amp; Locations" data-es="Horarios y Ubicaciones">Hours &amp; Locations</span>
-          <span class="nd-sub" data-en="Find your nearest branch" data-es="Encuentra tu sucursal">Find your nearest branch</span>
+          <span class="nd-title" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
+          <span class="nd-sub" data-en="Telescopes, ukuleles, tools" data-es="Telescopios, ukeleles, herramientas">Telescopes, ukuleles, tools</span>
         </span>
       </a>
       <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-11.svg" alt=""></span>
+        <span class="nd-icon"><img src="assets/service-4.svg" alt=""></span>
         <span class="nd-body">
-          <span class="nd-title" data-en="Reserve a Meeting Room" data-es="Reserva Sala de Reuniones">Reserve a Meeting Room</span>
-          <span class="nd-sub" data-en="Study, meet, collaborate" data-es="Estudia, reúnete, colabora">Study, meet, collaborate</span>
+          <span class="nd-title" data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
+          <span class="nd-sub" data-en="Pickup 24/7 at any branch" data-es="Recoge 24/7 en cualquier sede">Pickup 24/7 at any branch</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-5.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
+          <span class="nd-sub" data-en="Books delivered to your door" data-es="Libros a tu puerta">Books delivered to your door</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-6.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
+          <span class="nd-sub" data-en="Borrow internet for weeks" data-es="Presta internet por semanas">Borrow internet for weeks</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-7.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
+          <span class="nd-sub" data-en="Public computers, WiFi, print" data-es="Computadoras públicas, imprimir">Public computers, WiFi, print</span>
         </span>
       </a>
       <a class="nav-drop-item">
@@ -1875,31 +2043,24 @@
         </span>
       </a>
       <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-7.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
-          <span class="nd-sub" data-en="Public computers, WiFi, print" data-es="Computadoras públicas, WiFi, imprimir">Public computers, WiFi, print</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-3.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
-          <span class="nd-sub" data-en="Curated picks by our staff" data-es="Selecciones de nuestro personal">Curated picks by our staff</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
-        <span class="nd-icon"><img src="assets/service-5.svg" alt=""></span>
-        <span class="nd-body">
-          <span class="nd-title" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
-          <span class="nd-sub" data-en="Books delivered to your door" data-es="Libros entregados a tu puerta">Books delivered to your door</span>
-        </span>
-      </a>
-      <a class="nav-drop-item">
         <span class="nd-icon"><img src="assets/service-9.svg" alt=""></span>
         <span class="nd-body">
           <span class="nd-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</span>
-          <span class="nd-sub" data-en="Can't find a title? Ask us" data-es="¿No encuentras un título?">Can't find a title? Ask us</span>
+          <span class="nd-sub" data-en="Can't find a title? Ask us" data-es="¿No lo encuentras? Pregúntanos">Can't find a title? Ask us</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-10.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Print Anywhere" data-es="Imprime en Cualquier Lugar">Print Anywhere</span>
+          <span class="nd-sub" data-en="Send jobs from home, pick up here" data-es="Envía desde casa, recoge aquí">Send jobs from home, pick up here</span>
+        </span>
+      </a>
+      <a class="nav-drop-item">
+        <span class="nd-icon"><img src="assets/service-11.svg" alt=""></span>
+        <span class="nd-body">
+          <span class="nd-title" data-en="Meeting Rooms" data-es="Salas de Reuniones">Meeting Rooms</span>
+          <span class="nd-sub" data-en="Study, meet, collaborate" data-es="Estudia, reúnete, colabora">Study, meet, collaborate</span>
         </span>
       </a>
     </div>
@@ -2532,66 +2693,75 @@
       <h2 data-en="Library Services" data-es="Servicios de la Biblioteca">Library Services</h2>
       <p class="section-sub" data-en="Helpful services designed to make your library experience easier." data-es="Servicios útiles diseñados para hacer tu experiencia en la biblioteca más fácil.">Helpful services designed to make your library experience easier.</p>
     </div>
-    <div class="service-grid">
-      <div class="service-card">
-        <div class="service-name">Mobile App</div>
-        <div class="service-icon"><img src="assets/service-1.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+    <div class="svc-mix-grid">
+      <!-- Card 1 · Featured: a single hero service -->
+      <a class="svc-cell svc-featured">
+        <div class="svc-featured-top">
+          <span class="svc-featured-tag" data-en="Flagship" data-es="Destacado">Flagship</span>
+          <div class="svc-featured-icon"><img src="assets/service-1.svg" alt=""></div>
+        </div>
+        <div class="svc-featured-body">
+          <h3 data-en="Mobile App" data-es="Aplicación Móvil">Mobile App</h3>
+          <p data-en="Reserve books, renew loans, read eBooks, and take your card everywhere — all from your phone." data-es="Reserva libros, renueva préstamos y lee eBooks — todo desde tu teléfono.">Reserve books, renew loans, read eBooks, and take your card everywhere — all from your phone.</p>
+          <span class="svc-featured-cta" data-en="Download →" data-es="Descargar →">Download →</span>
+        </div>
+      </a>
+
+      <!-- Card 2 · Quad: 2×2 grid of mini services -->
+      <div class="svc-cell svc-quad">
+        <a class="svc-mini">
+          <img src="assets/service-3.svg" alt="">
+          <span data-en="Book Bundles" data-es="Paquetes de Libros">Book Bundles</span>
+        </a>
+        <a class="svc-mini">
+          <img src="assets/service-phone.svg" alt="">
+          <span data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</span>
+        </a>
+        <a class="svc-mini">
+          <img src="assets/service-4.svg" alt="">
+          <span data-en="Smart Lockers" data-es="Casilleros Inteligentes">Smart Lockers</span>
+        </a>
+        <a class="svc-mini">
+          <img src="assets/service-6.svg" alt="">
+          <span data-en="WiFi Hotspots" data-es="Puntos WiFi">WiFi Hotspots</span>
+        </a>
       </div>
-      <div class="service-card">
-        <div class="service-name">Accessibility</div>
-        <div class="service-icon"><img src="assets/service-2.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+
+      <!-- Card 3 · Triple: 1 column × 3 rows -->
+      <div class="svc-cell svc-triple">
+        <a class="svc-row">
+          <span class="svc-row-icon"><img src="assets/service-11.svg" alt=""></span>
+          <span class="svc-row-label" data-en="Meeting Rooms" data-es="Salas de Reuniones">Meeting Rooms</span>
+          <span class="svc-row-arrow">→</span>
+        </a>
+        <a class="svc-row">
+          <span class="svc-row-icon"><img src="assets/service-7.svg" alt=""></span>
+          <span class="svc-row-label" data-en="Computers &amp; Printing" data-es="Computadoras e Impresión">Computers &amp; Printing</span>
+          <span class="svc-row-arrow">→</span>
+        </a>
+        <a class="svc-row">
+          <span class="svc-row-icon"><img src="assets/service-5.svg" alt=""></span>
+          <span class="svc-row-label" data-en="Homebound Delivery" data-es="Entrega a Domicilio">Homebound Delivery</span>
+          <span class="svc-row-arrow">→</span>
+        </a>
       </div>
-      <div class="service-card">
-        <div class="service-name">Book Bundles</div>
-        <div class="service-icon"><img src="assets/service-3.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Library of Things</div>
-        <div class="service-icon"><img src="assets/service-phone.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Smart Lockers</div>
-        <div class="service-icon"><img src="assets/service-4.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Homebound Delivery</div>
-        <div class="service-icon"><img src="assets/service-5.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">WiFi Hotspots</div>
-        <div class="service-icon"><img src="assets/service-6.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Computers &amp; Printing</div>
-        <div class="service-icon"><img src="assets/service-7.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Notary &amp; Passports</div>
-        <div class="service-icon"><img src="assets/service-8.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Request a Book</div>
-        <div class="service-icon"><img src="assets/service-9.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Print Anywhere</div>
-        <div class="service-icon"><img src="assets/service-10.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
-      </div>
-      <div class="service-card">
-        <div class="service-name">Meeting Rooms</div>
-        <div class="service-icon"><img src="assets/service-11.svg" alt=""></div>
-        <div class="service-arrow"><img src="assets/arrow-service.svg" alt=""></div>
+
+      <!-- Card 4 · Double: 1 column × 2 rows, taller tiles -->
+      <div class="svc-cell svc-double">
+        <a class="svc-tall">
+          <span class="svc-tall-icon"><img src="assets/service-8.svg" alt=""></span>
+          <div>
+            <div class="svc-tall-title" data-en="Notary &amp; Passports" data-es="Notario y Pasaportes">Notary &amp; Passports</div>
+            <div class="svc-tall-sub" data-en="Documents &amp; certifications" data-es="Documentos y certificaciones">Documents &amp; certifications</div>
+          </div>
+        </a>
+        <a class="svc-tall">
+          <span class="svc-tall-icon"><img src="assets/service-9.svg" alt=""></span>
+          <div>
+            <div class="svc-tall-title" data-en="Request a Book" data-es="Solicita un Libro">Request a Book</div>
+            <div class="svc-tall-sub" data-en="Can't find a title? Ask us" data-es="¿No encuentras un título?">Can't find a title? Ask us</div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
