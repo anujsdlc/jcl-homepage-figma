@@ -444,6 +444,114 @@
     transform: translateY(0);
     pointer-events: auto;
   }
+  /* Locations mega dropdown — horizontal row of 4 branch cards */
+  .nav-dropdown-locations {
+    display: block;
+  }
+  .nav-dropdown-locations .nav-dropdown-heading {
+    padding-top: 0;
+    margin-bottom: 12px;
+  }
+  .loc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .loc-card {
+    display: flex; flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease-smooth),
+                transform var(--dur-fast) var(--ease-smooth),
+                box-shadow var(--dur-fast) var(--ease-smooth);
+  }
+  .loc-card:hover {
+    border-color: var(--navy);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(5,36,96,0.08);
+  }
+  .loc-thumb {
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .loc-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.35) 100%);
+  }
+  .loc-body {
+    padding: 12px 14px 4px;
+    flex: 1;
+  }
+  .loc-name {
+    font-family: var(--font-brand);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .loc-addr {
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .loc-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+  }
+  .loc-status::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
+  }
+  .loc-cta {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+  }
+  .loc-card:hover .loc-cta { background: var(--navy); color: #fff; border-top-color: var(--navy); }
+  .loc-arrow {
+    width: 20px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform var(--dur-fast) var(--ease-smooth);
+  }
+  .loc-arrow img { width: 100%; height: 100%; transition: filter var(--dur-fast) var(--ease-smooth); }
+  .loc-card:hover .loc-cta .loc-arrow {
+    transform: translateX(4px) translateY(-2px);
+  }
+  .loc-card:hover .loc-arrow img { filter: brightness(0) invert(1); }
+  .loc-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .loc-foot-link {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    color: var(--navy);
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+  .loc-foot-link:hover { color: var(--red); }
+
   /* Services dropdown: same 2/4/4/2 tile grid as the section */
   .nav-dropdown-services {
     display: block;
@@ -2035,6 +2143,67 @@
     </div>
   </div>
   <div class="nav-item"><span data-en="Community Resources" data-es="Recursos Comunitarios">Community Resources</span></div>
+
+  <div class="nav-item has-dropdown">
+    <span data-en="Locations" data-es="Ubicaciones">Locations</span> <span class="caret"></span>
+    <div class="nav-dropdown nav-dropdown-locations">
+      <div class="nav-dropdown-heading" data-en="Our Branches · 4 nearby" data-es="Nuestras Sucursales · 4 cerca">Our Branches · 4 nearby</div>
+      <div class="loc-grid">
+        <a class="loc-card">
+          <div class="loc-thumb" style="background-image:url('assets/branch-1.png')"></div>
+          <div class="loc-body">
+            <div class="loc-name" data-en="Arnold Branch" data-es="Sucursal Arnold">Arnold Branch</div>
+            <div class="loc-addr">1702 Jeffco Blvd, Arnold, MO 63010</div>
+            <div class="loc-status" data-en="Open until 8:00 PM" data-es="Abierto hasta 8:00 PM">Open until 8:00 PM</div>
+          </div>
+          <div class="loc-cta">
+            <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+            <span class="loc-arrow"><img src="assets/vector-arrow.svg" alt=""></span>
+          </div>
+        </a>
+        <a class="loc-card">
+          <div class="loc-thumb" style="background-image:url('assets/branch-2.png')"></div>
+          <div class="loc-body">
+            <div class="loc-name" data-en="Cedar Hill Satellite" data-es="Sucursal Cedar Hill">Cedar Hill Satellite</div>
+            <div class="loc-addr">6780 Parker Dr, Cedar Hill, MO 63016</div>
+            <div class="loc-status" data-en="Open until 8:00 PM" data-es="Abierto hasta 8:00 PM">Open until 8:00 PM</div>
+          </div>
+          <div class="loc-cta">
+            <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+            <span class="loc-arrow"><img src="assets/vector-arrow.svg" alt=""></span>
+          </div>
+        </a>
+        <a class="loc-card">
+          <div class="loc-thumb" style="background-image:url('assets/branch-3.png')"></div>
+          <div class="loc-body">
+            <div class="loc-name" data-en="Northwest Branch" data-es="Sucursal Noroeste">Northwest Branch</div>
+            <div class="loc-addr">5680 S Lakeshore Dr, High Ridge, MO</div>
+            <div class="loc-status" data-en="Open until 8:00 PM" data-es="Abierto hasta 8:00 PM">Open until 8:00 PM</div>
+          </div>
+          <div class="loc-cta">
+            <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+            <span class="loc-arrow"><img src="assets/vector-arrow.svg" alt=""></span>
+          </div>
+        </a>
+        <a class="loc-card">
+          <div class="loc-thumb" style="background-image:url('assets/branch-4.png')"></div>
+          <div class="loc-body">
+            <div class="loc-name" data-en="Windsor Branch" data-es="Sucursal Windsor">Windsor Branch</div>
+            <div class="loc-addr">7479 Metropolitan Blvd, Barnhart, MO</div>
+            <div class="loc-status" data-en="Open until 8:00 PM" data-es="Abierto hasta 8:00 PM">Open until 8:00 PM</div>
+          </div>
+          <div class="loc-cta">
+            <span data-en="Get Directions" data-es="Cómo Llegar">Get Directions</span>
+            <span class="loc-arrow"><img src="assets/vector-arrow.svg" alt=""></span>
+          </div>
+        </a>
+      </div>
+      <div class="loc-foot">
+        <span data-en="Seven branches across Jefferson County" data-es="Siete sucursales en el condado de Jefferson">Seven branches across Jefferson County</span>
+        <a class="loc-foot-link" data-en="View all locations →" data-es="Ver todas las ubicaciones →">View all locations →</a>
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- Right: top links + language (kept in place, same line as menu) -->
