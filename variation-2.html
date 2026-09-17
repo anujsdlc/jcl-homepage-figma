@@ -60,67 +60,127 @@
     pointer-events: none;
   }
 
-  /* ============ Notice bar ============ */
+  /* ============ Sticky top stack: menu → search → notice ============ */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: var(--surface);
+    border-bottom: 3px solid var(--navy);
+  }
+
+  /* Row 1 · Menu */
+  .menu-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    height: 48px;
+  }
+  .menu-primary {
+    display: flex; align-items: stretch; gap: 4px;
+    font-family: var(--font-brand); font-weight: 700; font-size: 14px;
+  }
+  .menu-primary a {
+    display: inline-flex; align-items: center;
+    padding: 0 14px;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    transition: color 200ms var(--ease-smooth), background 200ms var(--ease-smooth);
+  }
+  .menu-primary a:hover { color: var(--red); background: var(--surface-warm); }
+  .menu-utility {
+    display: flex; align-items: center; gap: 18px;
+    font-family: var(--font-brand); font-weight: 600; font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  .menu-utility a { transition: color 200ms; }
+  .menu-utility a:hover { color: var(--red); }
+  .lang-pill {
+    display: inline-flex; align-items: stretch;
+    border: 2px solid var(--navy);
+    background: var(--surface);
+    padding: 2px;
+    margin-left: 4px;
+    font-family: var(--font-brand); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .lang-pill span {
+    padding: 2px 8px;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all 200ms;
+  }
+  .lang-pill span.on { background: var(--navy); color: var(--surface); }
+
+  /* Row 2 · Brand + Search + CTAs */
+  .search-row {
+    display: flex; align-items: stretch;
+    padding: 12px 32px;
+    gap: 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    height: 84px;
+  }
+  .brand-tile {
+    background: var(--navy);
+    padding: 0 22px;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--navy);
+    flex-shrink: 0;
+    transition: transform 200ms var(--ease);
+  }
+  .brand-tile:hover { transform: translateY(-1px); }
+  .brand-tile img { height: 40px; filter: brightness(0) invert(1); }
+  .search-wrap {
+    flex: 1;
+    display: flex; align-items: center;
+    background: var(--surface);
+    border: 2px solid var(--navy);
+    padding: 0 4px 0 20px;
+    gap: 12px;
+    box-shadow: 4px 4px 0 var(--navy);
+    transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+  }
+  .search-wrap:focus-within {
+    transform: translate(-2px,-2px);
+    box-shadow: 6px 6px 0 var(--red);
+    border-color: var(--red);
+  }
+  .search-wrap .s-ico { flex-shrink: 0; color: var(--ink-soft); }
+  .search-wrap input {
+    flex: 1; min-width: 0;
+    border: none; outline: none; background: transparent;
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 500;
+    color: var(--ink);
+  }
+  .search-wrap input::placeholder { color: var(--ink-soft); }
+  .search-wrap .s-go {
+    background: var(--red); color: var(--surface);
+    padding: 0 24px;
+    align-self: stretch;
+    font-family: var(--font-brand); font-weight: 700; font-size: 13px;
+    letter-spacing: 0.02em;
+    cursor: pointer; border: none;
+    margin: 2px 2px 2px 0;
+    transition: background 200ms;
+  }
+  .search-wrap .s-go:hover { background: #a51e28; }
+  .h-card, .h-mya { align-self: stretch; height: auto; padding: 0 22px; border-radius: 0; }
+
+  /* Row 3 · Notice */
   .notice {
     background: var(--navy);
     color: var(--surface);
-    padding: 12px 32px;
+    padding: 10px 32px;
     font-size: 13px;
     font-weight: 500;
-    display: flex; justify-content: space-between; align-items: center;
-    position: relative; z-index: 10;
+    display: flex; justify-content: center; align-items: center;
+    text-align: center;
   }
-  .notice-left { display: flex; align-items: center; gap: 10px; }
-  .notice-left::before { content: '✿'; font-size: 16px; color: var(--orange); }
-  .notice a { text-decoration: underline; text-underline-offset: 3px; opacity: 0.9; color: var(--lilac); font-weight: 600; }
-  .notice-right { display: flex; gap: 18px; font-size: 12px; opacity: 0.85; }
+  .notice::before { content: '✿ '; color: var(--orange); margin-right: 6px; }
+  .notice a { text-decoration: underline; text-underline-offset: 3px; color: var(--lilac); font-weight: 600; margin-left: 6px; }
 
-  /* ============ Header ============ */
-  header {
-    padding: 20px 32px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 28px;
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(245,245,247,0.94);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--line);
-  }
-  .brand {
-    display: flex; align-items: center; gap: 14px;
-  }
-  .brand-blob {
-    width: 52px; height: 52px;
-    background: var(--red);
-    color: var(--surface);
-    border-radius: 40% 60% 55% 45% / 55% 45% 55% 45%;
-    display: grid; place-items: center;
-    font-family: var(--font-brand);
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1;
-    animation: morph 8s ease-in-out infinite;
-    box-shadow: 0 4px 14px rgba(218,44,56,0.28);
-  }
-  @keyframes morph {
-    0%, 100% { border-radius: 40% 60% 55% 45% / 55% 45% 55% 45%; }
-    50% { border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; }
-  }
-  .brand-txt {
-    font-family: var(--font-brand);
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--navy);
-  }
-  .brand-txt small { display: block; font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-top: 6px; }
-
-  nav.main { display: flex; gap: 20px; justify-content: center; font-size: 15px; font-weight: 600; font-family: var(--font-brand); }
-  nav.main a { padding: 8px 14px; border-radius: 20px; transition: all 240ms var(--ease-smooth); color: var(--ink); }
-  nav.main a:hover { background: var(--surface); color: var(--red); box-shadow: var(--shadow); }
-
-  .head-actions { display: flex; align-items: center; gap: 10px; }
   .pill {
     padding: 10px 18px;
     border-radius: 999px;
@@ -1208,12 +1268,24 @@
     .program-grid { grid-template-columns: 1fr 1fr; }
     .story-grid { grid-template-columns: 1fr; }
     .b-grid { grid-template-columns: 1fr 1fr; }
-    nav.main { display: none; }
+    .menu-utility a { display: none; }
+    .menu-utility .lang-pill { display: inline-flex; }
+    .menu-primary a { padding: 0 10px; font-size: 13px; }
+    .search-row { flex-wrap: wrap; height: auto; padding: 12px 20px; gap: 10px; }
+    .brand-tile img { height: 32px; }
+    .h-mya, .h-card { padding: 0 14px; font-size: 12px; }
   }
   @media (max-width: 640px) {
-    header { grid-template-columns: auto auto; padding: 14px 20px; }
-    .notice { padding: 10px 16px; font-size: 12px; }
-    .notice-right { display: none; }
+    .menu-row { display: none; }
+    .search-row { padding: 10px 16px; }
+    .brand-tile { padding: 0 14px; }
+    .brand-tile img { height: 28px; }
+    .search-wrap { padding: 0 4px 0 12px; }
+    .search-wrap input { font-size: 14px; }
+    .search-wrap .s-go { padding: 0 14px; font-size: 12px; }
+    .h-mya { display: none; }
+    .h-card { padding: 0 12px; font-size: 11px; }
+    .notice { padding: 8px 16px; font-size: 11px; }
     .hero { padding: 30px 20px 60px; }
     .hero h1 { font-size: 40px; }
     .search-bar { padding: 4px 4px 4px 16px; }
@@ -1225,43 +1297,55 @@
     .program-grid { grid-template-columns: 1fr; }
     .b-grid { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
-    .head-actions .pill-ghost { display: none; }
   }
 </style>
 </head>
 <body>
 
 <!-- Notice -->
-<div class="notice">
-  <div class="notice-left">
-    <span>All seven branches open regular hours today · <a href="#">Fall Reading Challenge starts Sunday</a></span>
-  </div>
-  <div class="notice-right">
-    <a href="#">Español</a>
-    <a href="#">Contact</a>
-    <a href="#">Accessibility</a>
+<!-- Sticky top stack: menu row → search row → notice row -->
+<div class="topbar">
+  <!-- Row 1 · Menu -->
+  <nav class="menu-row">
+    <div class="menu-primary">
+      <a href="#">Services</a>
+      <a href="#">Genealogy</a>
+      <a href="#">Support Your Library</a>
+      <a href="#">My Account</a>
+      <a href="#">Community Resources</a>
+      <a href="#">Locations</a>
+    </div>
+    <div class="menu-utility">
+      <a href="#">Explore Catalog</a>
+      <a href="#">Digital Library</a>
+      <a href="#">About Us</a>
+      <a href="#">Contact Us</a>
+      <div class="lang-pill">
+        <span class="on">EN</span>
+        <span>ES</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Row 2 · Brand + Search + CTAs -->
+  <header class="search-row">
+    <a class="brand-tile" href="#">
+      <img src="assets/logo-mark.png" alt="Jefferson County Library">
+    </a>
+    <div class="search-wrap">
+      <svg class="s-ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input type="text" placeholder="Search books, events, resources, or ask us anything…">
+      <button class="s-go">Search</button>
+    </div>
+    <button class="pill pill-ghost h-mya">My Account</button>
+    <button class="pill pill-primary h-card">Get a Card ✿</button>
+  </header>
+
+  <!-- Row 3 · Notice -->
+  <div class="notice">
+    <span>Notice: Updated hours at JCL-Cedar Hill · Effective October 1, 2026 · <a href="#">Fall Reading Challenge starts Sunday</a></span>
   </div>
 </div>
-
-<!-- Header -->
-<header>
-  <a class="brand" href="#">
-    <span class="brand-blob">J</span>
-    <span class="brand-txt">Jefferson County<small>Public Library · Colorado</small></span>
-  </a>
-  <nav class="main">
-    <a href="#">Services</a>
-    <a href="#">Genealogy</a>
-    <a href="#">Support Your Library</a>
-    <a href="#">My Account</a>
-    <a href="#">Community Resources</a>
-    <a href="#">Locations</a>
-  </nav>
-  <div class="head-actions">
-    <button class="pill pill-ghost">My Account</button>
-    <button class="pill pill-primary">Get a Card ✿</button>
-  </div>
-</header>
 
 <!-- HERO -->
 <section class="hero">
