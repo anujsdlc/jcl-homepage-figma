@@ -624,76 +624,205 @@
     border-radius: 999px;
   }
 
-  /* Featured event — 3 cols x 1 row */
+  /* Events — full-width interactive widget: list left + mini calendar right */
   .b-event {
-    grid-column: span 3;
+    grid-column: span 6;
     padding: 24px 28px;
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    color: #fff;
-    display: flex; flex-direction: column;
-    justify-content: space-between;
-    gap: 16px;
-    position: relative;
-    overflow: hidden;
+    background: var(--surface);
+    color: var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 28px;
+    min-height: 340px;
   }
-  .b-event::before {
-    content: '';
-    position: absolute; top: -80px; right: -80px;
-    width: 240px; height: 240px;
-    background: radial-gradient(circle, rgba(255,107,53,0.4), transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .b-event .kicker {
+  .ev-list-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .ev-list-side .kicker {
     font-family: var(--font-brand);
     font-size: 10px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--orange);
-    position: relative;
+    color: var(--ink-soft);
   }
-  .b-event .date {
-    display: flex; align-items: baseline; gap: 8px;
-    margin: 6px 0 4px;
-    position: relative;
+  .ev-day-hdr {
+    display: flex; align-items: center; gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
   }
-  .b-event .date .d {
+  .ev-day-hdr .d {
     font-family: var(--font-brand);
     font-weight: 300;
-    font-size: 38px;
+    font-size: 40px;
     line-height: 1;
     letter-spacing: -0.025em;
+    color: var(--navy);
   }
-  .b-event .date .m {
+  .ev-day-hdr .day-name {
     font-family: var(--font-brand);
-    font-size: 12px; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: rgba(255,255,255,0.65);
+    font-size: 15px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
   }
-  .b-event h3 {
+  .ev-day-hdr .day-meta {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 600;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  #ev-list-rows {
+    display: flex; flex-direction: column; gap: 8px;
+    overflow-y: auto;
+    max-height: 240px;
+    padding-right: 4px;
+  }
+  #ev-list-rows::-webkit-scrollbar { width: 4px; }
+  #ev-list-rows::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 2px; }
+  .ev-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface-alt);
+    border-radius: 12px;
+    align-items: center;
+    transition: background 200ms var(--ease);
+    cursor: pointer;
+  }
+  .ev-row:hover { background: var(--surface-warm); box-shadow: 0 4px 12px rgba(10,10,10,0.06); }
+  .ev-row .time {
+    text-align: center;
     font-family: var(--font-brand);
     font-weight: 700;
-    font-size: 20px;
+    font-size: 15px;
+    color: var(--navy);
+    line-height: 1;
     letter-spacing: -0.01em;
-    line-height: 1.15;
-    position: relative;
   }
-  .b-event .meta {
-    display: flex; justify-content: space-between; align-items: center;
+  .ev-row .time small {
+    display: block;
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-    padding-top: 14px;
-    border-top: 1px solid rgba(255,255,255,0.14);
-    position: relative;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-top: 3px;
+  }
+  .ev-row .title {
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .ev-row .loc {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 500;
+    color: var(--ink-soft);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+  .ev-row .tag {
+    padding: 3px 8px;
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 999px;
+  }
+  .ev-tag-navy { background: rgba(5,36,96,0.10); color: var(--navy); }
+  .ev-tag-red { background: rgba(218,44,56,0.10); color: var(--red); }
+  .ev-tag-orange { background: rgba(255,107,53,0.14); color: var(--orange); }
+  .ev-empty {
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13px;
+    background: var(--surface-alt);
+    border-radius: 12px;
   }
 
-  /* Services teaser — 3 cols x 1 row · all 12 services as app tiles */
+  /* Mini calendar (right side) */
+  .ev-cal-side {
+    background: var(--surface-alt);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex; flex-direction: column;
+    gap: 10px;
+  }
+  .ev-cal-hdr {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .ev-cal-hdr .m {
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .ev-cal-nav { display: flex; gap: 2px; }
+  .ev-cal-nav button {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    font-family: var(--font-brand);
+    font-size: 13px; font-weight: 700;
+    color: var(--navy);
+    background: transparent;
+    transition: background 200ms;
+    cursor: pointer;
+  }
+  .ev-cal-nav button:hover { background: var(--surface); }
+  .ev-cal-dow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    padding: 4px 0;
+  }
+  .ev-cal-dow span {
+    text-align: center;
+    font-family: var(--font-brand);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  .ev-cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 200ms var(--ease);
+    position: relative;
+  }
+  .cal-day > span {
+    font-family: var(--font-brand);
+    font-size: 11px; font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .cal-day.mute { opacity: 0.28; cursor: default; }
+  .cal-day.mute > span { color: var(--ink-soft); }
+  .cal-day:hover:not(.mute):not(.selected) { background: var(--surface); }
+  .cal-day .dot {
+    position: absolute;
+    bottom: 4px;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+  .cal-day.selected { background: var(--navy); }
+  .cal-day.selected > span { color: #fff; }
+  .cal-day.selected .dot { background: var(--orange); }
+
+  /* Services — 3 cols x 2 rows · all 12 services as app tiles */
   .b-svc {
     grid-column: span 3;
-    padding: 22px 24px;
+    grid-row: span 2;
+    padding: 24px 26px;
     display: flex; flex-direction: column;
     gap: 14px;
+    justify-content: space-between;
   }
   .b-svc .kicker {
     font-family: var(--font-brand);
@@ -1194,6 +1323,74 @@
       </div>
       <div class="discover">
 
+        <!-- Events — calendar + interactive list -->
+        <div class="b-card b-event">
+          <div class="ev-list-side">
+            <div class="kicker">Events</div>
+            <div class="ev-day-hdr">
+              <span class="d" id="ev-day-num">17</span>
+              <div>
+                <div class="day-name" id="ev-day-name">Thursday, September 17</div>
+                <div class="day-meta"><span id="ev-day-count">3</span> events</div>
+              </div>
+            </div>
+            <div id="ev-list-rows">
+              <!-- populated by JS -->
+            </div>
+          </div>
+          <div class="ev-cal-side">
+            <div class="ev-cal-hdr">
+              <span class="m">September 2026</span>
+              <div class="ev-cal-nav">
+                <button aria-label="Previous month">‹</button>
+                <button aria-label="Next month">›</button>
+              </div>
+            </div>
+            <div class="ev-cal-dow"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+            <div class="ev-cal-days">
+              <div class="cal-day mute"><span>30</span></div>
+              <div class="cal-day mute"><span>31</span></div>
+              <div class="cal-day" data-day="1"><span>1</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="2"><span>2</span></div>
+              <div class="cal-day" data-day="3"><span>3</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="4"><span>4</span></div>
+              <div class="cal-day" data-day="5"><span>5</span><i class="dot"></i></div>
+
+              <div class="cal-day" data-day="6"><span>6</span></div>
+              <div class="cal-day" data-day="7"><span>7</span></div>
+              <div class="cal-day" data-day="8"><span>8</span></div>
+              <div class="cal-day" data-day="9"><span>9</span></div>
+              <div class="cal-day" data-day="10"><span>10</span></div>
+              <div class="cal-day" data-day="11"><span>11</span></div>
+              <div class="cal-day" data-day="12"><span>12</span></div>
+
+              <div class="cal-day" data-day="13"><span>13</span></div>
+              <div class="cal-day" data-day="14"><span>14</span></div>
+              <div class="cal-day" data-day="15"><span>15</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="16"><span>16</span><i class="dot"></i></div>
+              <div class="cal-day selected" data-day="17"><span>17</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="18"><span>18</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="19"><span>19</span><i class="dot"></i></div>
+
+              <div class="cal-day" data-day="20"><span>20</span></div>
+              <div class="cal-day" data-day="21"><span>21</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="22"><span>22</span></div>
+              <div class="cal-day" data-day="23"><span>23</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="24"><span>24</span></div>
+              <div class="cal-day" data-day="25"><span>25</span></div>
+              <div class="cal-day" data-day="26"><span>26</span><i class="dot"></i></div>
+
+              <div class="cal-day" data-day="27"><span>27</span></div>
+              <div class="cal-day" data-day="28"><span>28</span></div>
+              <div class="cal-day" data-day="29"><span>29</span><i class="dot"></i></div>
+              <div class="cal-day" data-day="30"><span>30</span></div>
+              <div class="cal-day mute"><span>1</span></div>
+              <div class="cal-day mute"><span>2</span></div>
+              <div class="cal-day mute"><span>3</span></div>
+            </div>
+          </div>
+        </div>
+
         <!-- Book of the week — big -->
         <a class="b-card b-book">
           <div class="b-book-cover"><img src="assets/book-1.png" alt=""></div>
@@ -1208,14 +1405,6 @@
               <span>Book · eBook · Audio</span>
             </div>
           </div>
-        </a>
-
-        <!-- Featured event — 3 col -->
-        <a class="b-card b-event">
-          <div class="kicker">Tonight</div>
-          <div class="date"><span class="d">17</span><span class="m">Thu · 7 PM</span></div>
-          <h3>Anne Hillerman on the American Southwest</h3>
-          <div class="meta"><span>Lakewood Branch</span><span>Free · RSVP</span></div>
         </a>
 
         <!-- Services — all 12 as app icons + names -->
@@ -1349,6 +1538,79 @@
     item.addEventListener('mouseenter', open);
     item.addEventListener('mouseleave', scheduleClose);
   });
+
+  // Events widget — click a day, see that day's events in the list.
+  (function () {
+    const eventsByDay = {
+      1:  [{ t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Arvada Branch', tg:'Kids',   c:'ev-tag-navy' }],
+      3:  [{ t:'6:00',  ap:'PM', ti:'ESL Conversation Circle', lo:'Lakewood Branch', tg:'Adults', c:'ev-tag-red' }],
+      5:  [{ t:'4:00',  ap:'PM', ti:'Résumé Rescue',    lo:'Wheat Ridge Branch', tg:'Career', c:'ev-tag-orange' }],
+      15: [
+        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme', lo:'Arvada Branch',       tg:'Kids',   c:'ev-tag-navy' },
+        { t:'3:00',  ap:'PM', ti:'Résumé Rescue',        lo:'Wheat Ridge Branch',  tg:'Career', c:'ev-tag-orange' },
+      ],
+      16: [
+        { t:'10:30', ap:'AM', ti:'Baby Bounce & Rhyme',    lo:'Arvada Branch',    tg:'Kids',   c:'ev-tag-navy' },
+        { t:'6:30',  ap:'PM', ti:'McBride Book Discussion', lo:'Lakewood Branch',  tg:'Adults', c:'ev-tag-red' },
+      ],
+      17: [
+        { t:'4:00', ap:'PM', ti:'Homework Café with tutors',           lo:'Columbine Branch',   tg:'Teens',  c:'ev-tag-navy' },
+        { t:'6:00', ap:'PM', ti:'Résumé Rescue drop-in',                lo:'Wheat Ridge Branch', tg:'Career', c:'ev-tag-orange' },
+        { t:'7:00', ap:'PM', ti:'Anne Hillerman on the Southwest',      lo:'Lakewood Branch',    tg:'Author', c:'ev-tag-red' },
+      ],
+      18: [{ t:'6:00', ap:'PM', ti:'Teen Coding Lab with Raspberry Pi', lo:'Golden Branch', tg:'Teens', c:'ev-tag-navy' }],
+      19: [
+        { t:'10:30', ap:'AM', ti:'Bilingual Storytime',     lo:'Arvada Branch',   tg:'Kids',   c:'ev-tag-navy' },
+        { t:'5:30',  ap:'PM', ti:'Yoga at the Library',     lo:'Lakewood Branch', tg:'Adults', c:'ev-tag-red' },
+      ],
+      21: [
+        { t:'10:00', ap:'AM', ti:'Storytime for preschoolers', lo:'Arvada Branch',   tg:'Kids',    c:'ev-tag-navy' },
+        { t:'1:00',  ap:'PM', ti:'Genealogy Open Lab',         lo:'Columbine Branch', tg:'All Ages', c:'ev-tag-orange' },
+      ],
+      23: [{ t:'3:00', ap:'PM', ti:'Résumé Rescue drop-in', lo:'Wheat Ridge Branch', tg:'Career', c:'ev-tag-orange' }],
+      26: [
+        { t:'10:00', ap:'AM', ti:'Family Storytime',       lo:'All Branches',   tg:'Family', c:'ev-tag-navy' },
+        { t:'2:00',  ap:'PM', ti:'Kids Movie Matinee',     lo:'Golden Branch',  tg:'Kids',   c:'ev-tag-red' },
+      ],
+      29: [{ t:'6:30', ap:'PM', ti:'Nature Explorers: Backyard Birds', lo:'Arnold Branch', tg:'Family', c:'ev-tag-navy' }],
+    };
+    const dayName = (d) => new Date(2026, 8, d).toLocaleDateString('en-US', { weekday: 'long' });
+    const rows   = document.getElementById('ev-list-rows');
+    const dayNum = document.getElementById('ev-day-num');
+    const dayNm  = document.getElementById('ev-day-name');
+    const dayCt  = document.getElementById('ev-day-count');
+
+    const render = (day) => {
+      const items = eventsByDay[day] || [];
+      dayNum.textContent = day;
+      dayNm.textContent  = `${dayName(day)}, September ${day}`;
+      dayCt.textContent  = items.length;
+      if (items.length === 0) {
+        rows.innerHTML = `<div class="ev-empty">Nothing scheduled today. Try a highlighted day.</div>`;
+        return;
+      }
+      rows.innerHTML = items.map(e => `
+        <div class="ev-row">
+          <div class="time">${e.t}<small>${e.ap}</small></div>
+          <div>
+            <div class="title">${e.ti}</div>
+            <div class="loc">${e.lo}</div>
+          </div>
+          <span class="tag ${e.c}">${e.tg}</span>
+        </div>`).join('');
+    };
+
+    document.querySelectorAll('.cal-day').forEach(el => {
+      if (el.classList.contains('mute')) return;
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
+        el.classList.add('selected');
+        render(parseInt(el.dataset.day, 10));
+      });
+    });
+
+    render(17); // default: Today
+  })();
 </script>
 
 </body>
