@@ -1955,6 +1955,36 @@
     .footer-strip { padding: 16px 20px; }
   }
 
+  /* ============ MOBILE BOTTOM BAR — Apple-inspired original ============ */
+  .m-bb-0 {
+    display: none;
+    position: fixed; left: 0; right: 0; bottom: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(160%) blur(18px);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .m-bb-0 a {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    padding: 6px 4px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .m-bb-0 a .ic { font-size: 20px; line-height: 1; color: var(--navy); }
+  .m-bb-0 a.on { color: var(--red); }
+  .m-bb-0 a.on .ic { color: var(--red); }
+  @media (max-width: 720px) {
+    .m-bb-0 { display: grid; }
+    body { padding-bottom: 76px; }
+  }
+
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -2935,5 +2965,13 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { searchInput.blur(); closeSearch(); } });
 
 </script>
+
+<!-- Mobile bottom bar -->
+<nav class="m-bb-0" aria-label="Quick actions">
+  <a href="#" class="on"><span class="ic">⌕</span>Search</a>
+  <a href="#"><span class="ic">◐</span>Card</a>
+  <a href="#"><span class="ic">☼</span>Events</a>
+  <a href="#"><span class="ic">☰</span>Menu</a>
+</nav>
 </body>
 </html>
