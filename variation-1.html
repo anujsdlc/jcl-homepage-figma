@@ -1109,6 +1109,36 @@
     .svc-tile-grid-1 { grid-template-columns: repeat(2, 1fr); }
     .svc-t1 { min-height: 110px; padding: 12px 14px; }
   }
+
+  /* ============ MOBILE BOTTOM BAR — Stacks / editorial ============ */
+  .m-bb {
+    display: none;
+    position: fixed; left: 0; right: 0; bottom: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-top: 2px solid var(--ink);
+    box-shadow: 0 -6px 0 rgba(0,0,0,0.04);
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .m-bb a {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    padding: 6px 4px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: 0; background: none; cursor: pointer;
+  }
+  .m-bb a .ic { font-size: 20px; line-height: 1; color: var(--ink); }
+  .m-bb a.on { color: var(--red); }
+  .m-bb a.on .ic { color: var(--red); }
+  @media (max-width: 720px) {
+    .m-bb { display: grid; }
+    body { padding-bottom: 76px; }
+  }
 </style>
 </head>
 <body>
@@ -1708,6 +1738,14 @@
     });
   });
 </script>
+
+<!-- Mobile bottom bar -->
+<nav class="m-bb" aria-label="Quick actions">
+  <a href="#" class="on"><span class="ic">⌕</span>Search</a>
+  <a href="#"><span class="ic">◐</span>Card</a>
+  <a href="#"><span class="ic">☼</span>Events</a>
+  <a href="#"><span class="ic">☰</span>Menu</a>
+</nav>
 
 </body>
 </html>

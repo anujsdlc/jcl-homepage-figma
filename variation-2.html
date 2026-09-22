@@ -1314,13 +1314,46 @@
     .hero h1 { font-size: 40px; }
     .search-bar { padding: 4px 4px 4px 16px; }
     .search-bar input { font-size: 15px; padding: 12px 0; }
-    .quick-actions { grid-template-columns: 1fr; padding: 20px 20px 40px; }
+    .quick-actions { display: none; }
     .cal-section, .card-sect, .account-sect, .programs, .stories, .branches { padding: 60px 20px; }
     .cal-header { grid-template-columns: 1fr; }
     .dash-stats { grid-template-columns: 1fr 1fr; }
     .program-grid { grid-template-columns: 1fr; }
     .b-grid { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ============ MOBILE BOTTOM BAR — Commons / warm ============ */
+  .m-bb-2 {
+    display: none;
+    position: fixed; left: 12px; right: 12px; bottom: 12px;
+    z-index: 100;
+    background: var(--surface);
+    border: 2px solid var(--navy);
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(5,36,96,0.18), 0 3px 0 var(--navy);
+    padding: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+  .m-bb-2 a {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    padding: 8px 4px;
+    color: var(--navy);
+    text-decoration: none;
+    font-family: var(--font-brand);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.02em;
+    border-radius: 14px;
+    transition: background 200ms;
+  }
+  .m-bb-2 a .ic { font-size: 20px; line-height: 1; }
+  .m-bb-2 a.on { background: var(--orange); color: #fff; }
+  .m-bb-2 a:active { background: rgba(255,107,53,0.15); }
+  @media (max-width: 720px) {
+    .m-bb-2 { display: grid; }
+    body { padding-bottom: 96px; }
   }
 </style>
 </head>
@@ -2081,5 +2114,13 @@
     });
   });
 </script>
+
+<!-- Mobile bottom bar -->
+<nav class="m-bb-2" aria-label="Quick actions">
+  <a href="#" class="on"><span class="ic">⌕</span>Search</a>
+  <a href="#"><span class="ic">✿</span>Card</a>
+  <a href="#"><span class="ic">☼</span>Events</a>
+  <a href="#"><span class="ic">☰</span>Menu</a>
+</nav>
 </body>
 </html>
