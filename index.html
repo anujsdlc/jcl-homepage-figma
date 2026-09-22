@@ -87,7 +87,7 @@
   .site-topbar {
     position: sticky; top: 0;
     z-index: 60;
-    background: #fff;
+    background: var(--surface);
     border-bottom: 1px solid var(--line);
   }
 
@@ -136,7 +136,7 @@
   .top-signup .lbl .glyph { margin-right: 8px; }
   .top-signup form {
     display: flex; align-items: stretch;
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--navy);
     border-radius: 999px;
     overflow: hidden;
@@ -175,7 +175,7 @@
   .top-links span:hover { color: var(--ink); }
   .lang-toggle {
     display: inline-flex; align-items: center;
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--line-strong);
     height: 30px;
     padding: 0 6px 0 10px;
@@ -226,7 +226,7 @@
   .header {
     display: flex;
     height: 68px;
-    background: #fff;
+    background: var(--surface);
     border-top: 1px solid var(--line);
     align-items: stretch;
     padding: 0;
@@ -248,12 +248,12 @@
     flex: 1;
     display: flex; align-items: center; gap: 12px;
     padding: 0 24px;
-    background: #fff;
+    background: var(--surface);
     border-right: 1px solid var(--line);
     transition: background var(--dur-fast) var(--ease);
   }
   .search-bar:hover { background: var(--surface-alt); }
-  .search-bar.is-open { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .search-bar.is-open { background: var(--surface); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
   .search-bar .search-ico { width: 28px; height: 28px; opacity: 0.65; }
   .search-bar input {
     flex: 1; border: none; background: transparent; outline: none;
@@ -267,7 +267,7 @@
     top: 100%;
     left: -1px;
     right: -1px;
-    background: #fff;
+    background: var(--surface);
     box-shadow: 0 24px 60px rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.06);
     border-top: 1px solid var(--line);
     z-index: 60;
@@ -408,7 +408,7 @@
   .btn-ghost:hover { background: var(--surface-alt); }
   .btn-primary { background: var(--navy); color: #fff; }
   .btn-primary:hover { background: var(--navy-dark); transform: translateY(-1px); box-shadow: var(--shadow-hover); }
-  .btn-outline { border: 1px solid var(--line-strong); color: var(--ink); background: #fff; }
+  .btn-outline { border: 1px solid var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
   .btn-lg { padding: 0 32px; height: 56px; font-size: 16px; }
 
@@ -420,7 +420,7 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    background: #fff;
+    background: var(--surface);
     position: relative;
     z-index: 40;
     height: 44px;
@@ -476,7 +476,7 @@
     left: 0;
     right: 0;
     width: 100%;
-    background: #fff;
+    background: var(--surface);
     box-shadow: 0 24px 60px rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.05);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
@@ -519,7 +519,7 @@
   }
   .loc-card {
     display: flex; flex-direction: column;
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--line);
     text-decoration: none;
     color: inherit;
@@ -711,7 +711,7 @@
   .hero-cta-row { display: flex; gap: 12px; align-items: center; }
 
   .hero-preview {
-    background: #fff;
+    background: var(--surface);
     box-shadow: var(--shadow-lg);
     overflow: hidden;
     display: flex; flex-direction: column;
@@ -731,7 +731,7 @@
   .view-all-row {
     display: flex; align-items: center; justify-content: center; gap: 14px;
     padding: 22px 24px;
-    background: #fff;
+    background: var(--surface);
     border-top: 1px solid var(--line);
     font-family: var(--font-brand);
     font-weight: 400;
@@ -819,7 +819,7 @@
      ========================================================= */
   .explore-strip {
     padding: 20px 40px;
-    background: #fff;
+    background: var(--surface);
   }
   .explore-inner {
     max-width: 1360px; margin: 0 auto;
@@ -920,14 +920,14 @@
   /* =========================================================
      Books
      ========================================================= */
-  .books-section { background: #fff; }
+  .books-section { background: var(--surface); }
   .book-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 24px;
   }
   .book-card {
-    background: #fff;
+    background: var(--surface);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
@@ -965,7 +965,7 @@
   .page-btn.active { background: var(--navy); color: #fff; }
   .page-arrow {
     width: 32px; height: 32px;
-    background: #fff;
+    background: var(--surface);
     display: flex; align-items: center; justify-content: center;
     border: 1px solid var(--line);
     border-radius: 50%;
@@ -1010,7 +1010,7 @@
   .branch-card {
     position: relative;
     overflow: hidden;
-    background: #fff;
+    background: var(--surface);
     transition: transform var(--dur) var(--ease), z-index 0s var(--dur);
     cursor: pointer;
   }
@@ -1111,7 +1111,7 @@
   /* =========================================================
      Upcoming events (legacy card grid — kept for fallbacks)
      ========================================================= */
-  .events-section { background: #fff; }
+  .events-section { background: var(--surface); }
   .events-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1122,7 +1122,7 @@
   }
   .events-grid > * + * { border-left: 1px solid var(--line); }
   .u-card {
-    background: #fff;
+    background: var(--surface);
     padding: 40px 32px 32px;
     display: flex; flex-direction: column;
     position: relative;
@@ -1174,7 +1174,7 @@
     transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
   .u-card.view-all:hover {
-    background: #fff; border-color: transparent;
+    background: var(--surface); border-color: transparent;
     box-shadow: var(--shadow-hover);
   }
   .u-card.view-all .txt {
@@ -1200,7 +1200,7 @@
      Fits within calc(100vh - 110px sticky header) on desktop.
      Cells surface event names inline as color-coded pills.
      ========================================================= */
-  .events-cal-section { background: #fff; }
+  .events-cal-section { background: var(--surface); }
 
   .cal-shell {
     display: grid;
@@ -1210,7 +1210,7 @@
     margin-top: 4px;
   }
   .cal-pane, .agenda-pane {
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--line);
     padding: 18px 20px;
     box-shadow: var(--shadow-sm);
@@ -1240,7 +1240,7 @@
     width: 30px; height: 30px;
     border: 1px solid var(--line-strong);
     display: grid; place-items: center;
-    background: #fff;
+    background: var(--surface);
     font-size: 14px;
     font-weight: 700;
     color: var(--navy);
@@ -1277,7 +1277,7 @@
     overflow: hidden;
   }
   .cal-day:hover:not(.cal-mute):not(.cal-today) {
-    background: #fff;
+    background: var(--surface);
     box-shadow: 0 2px 10px rgba(5,36,96,0.10);
     transform: translateY(-1px);
     z-index: 2;
@@ -1426,7 +1426,7 @@
     flex-shrink: 0;
   }
   .agenda-row:hover {
-    background: #fff;
+    background: var(--surface);
     border-color: var(--line-strong);
     transform: translateX(2px);
     box-shadow: 0 4px 14px rgba(5,36,96,0.08);
@@ -1442,7 +1442,7 @@
   .agenda-time {
     text-align: center;
     padding: 7px 4px;
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--line);
     display: flex; flex-direction: column;
     align-items: center;
@@ -1549,9 +1549,104 @@
   }
 
   /* =========================================================
+     Service color-nav — one visual variation of a service bar
+     ========================================================= */
+  .svc-nav {
+    background: var(--surface-alt);
+    padding: 56px 32px 64px;
+  }
+  .svc-nav-inner { max-width: 1240px; margin: 0 auto; }
+  .svc-nav-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .svc-nav-head .eyebrow {
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 8px;
+  }
+  .svc-nav-head h2 {
+    font-family: var(--font-brand);
+    font-weight: 300;
+    font-size: clamp(28px, 3.4vw, 44px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--navy);
+  }
+  .svc-nav-head h2 strong { font-weight: 700; color: var(--red); }
+  .svc-nav-head p {
+    font-family: var(--font-display);
+    font-size: 14px; color: var(--ink-soft);
+    max-width: 320px;
+  }
+  .svc-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .svc-nav-tile {
+    aspect-ratio: 1 / 1;
+    padding: 18px;
+    border-radius: 16px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 220ms var(--ease-smooth),
+                box-shadow 220ms var(--ease-smooth);
+    position: relative; overflow: hidden;
+  }
+  .svc-nav-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(5,36,96,0.22);
+  }
+  .svc-nav-tile .glyph {
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.18);
+    font-size: 20px;
+    line-height: 1;
+    color: #fff;
+    backdrop-filter: blur(4px);
+  }
+  .svc-nav-tile .glyph img { width: 22px; height: 22px; filter: brightness(0) invert(1); }
+  .svc-nav-tile .lbl {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .svc-nav-tile .sub {
+    font-family: var(--font-display);
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+  .svc-nav-tile.c1 { background: linear-gradient(135deg, #052460 0%, #0a3a8e 100%); }
+  .svc-nav-tile.c2 { background: linear-gradient(135deg, #da2c38 0%, #b21f2a 100%); }
+  .svc-nav-tile.c3 { background: linear-gradient(135deg, #ff6b35 0%, #e5551f 100%); }
+  .svc-nav-tile.c4 { background: linear-gradient(135deg, #c8b8db 0%, #a58ebe 100%); color: var(--navy); }
+  .svc-nav-tile.c4 .glyph { background: rgba(5,36,96,0.12); color: var(--navy); }
+  .svc-nav-tile.c4 .glyph img { filter: none; }
+  .svc-nav-tile.c5 { background: linear-gradient(135deg, #0a0a0a 0%, #2c2c2c 100%); }
+  .svc-nav-tile.c6 { background: linear-gradient(135deg, #052460 0%, #da2c38 100%); }
+  @media (max-width: 1100px) {
+    .svc-nav-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .svc-nav { padding: 40px 20px; }
+    .svc-nav-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* =========================================================
      Services grid — bento card style
      ========================================================= */
-  .services-section { background: #fff; }
+  .services-section { background: var(--surface); }
 
   /* Mixed-size tile grid: 2/4/4/2 layout across 8 columns × 2 rows.
      No outer container "squares" — the individual tiles are the shapes. */
@@ -1564,7 +1659,7 @@
     min-height: 300px;
   }
   .svc-tile {
-    background: #fff;
+    background: var(--surface);
     border: 1px solid var(--line);
     padding: 16px 18px;
     display: flex; flex-direction: column;
@@ -1622,7 +1717,7 @@
   /* =========================================================
      Featured spotlights
      ========================================================= */
-  .spotlights-section { background: #fff; }
+  .spotlights-section { background: var(--surface); }
   .spot-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
@@ -1727,7 +1822,7 @@
   /* =========================================================
      Digital library section
      ========================================================= */
-  .digital-section { background: #fff; }
+  .digital-section { background: var(--surface); }
   .digital-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1785,14 +1880,14 @@
   /* =========================================================
      News & Stories
      ========================================================= */
-  .news-section { background: #fff; }
+  .news-section { background: var(--surface); }
   .news-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
   .news-card {
-    background: #fff;
+    background: var(--surface);
     overflow: hidden;
     cursor: pointer;
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
@@ -1850,7 +1945,7 @@
      ========================================================= */
   .footer-links {
     padding: 48px 40px 40px;
-    background: #fff;
+    background: var(--surface);
     border-top: 1px solid var(--line);
   }
   .footer-links-inner {
@@ -1883,7 +1978,7 @@
     border: 1px solid var(--line-strong);
     border-radius: 999px;
     padding: 3px;
-    background: #fff;
+    background: var(--surface);
     max-width: 320px;
     transition: border-color var(--dur-fast) var(--ease-smooth);
   }
@@ -1961,7 +2056,7 @@
     transition: all var(--dur-fast) var(--ease-smooth);
     cursor: pointer;
   }
-  .social-icon:hover { background: #fff; border-color: #fff; transform: translateY(-2px); }
+  .social-icon:hover { background: var(--surface); border-color: #fff; transform: translateY(-2px); }
   .social-icon img {
     width: 16px; height: 16px;
     filter: brightness(0) invert(1);           /* white icon on navy strip */
@@ -2054,9 +2149,54 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* ============ Dark theme tokens ============ */
+  [data-theme="dark"] {
+    --ink: #f0f0f5;
+    --ink-muted: #b0b0b8;
+    --ink-soft: #8a8a92;
+    --surface: #0e1220;
+    --surface-alt: #1a1d2e;
+    --surface-warm: #171827;
+    --line: rgba(255,255,255,0.08);
+    --line-strong: rgba(255,255,255,0.16);
+  }
+  [data-theme="dark"] body {
+    background: var(--surface);
+    color: var(--ink);
+  }
+  [data-theme="dark"] img.logo-invert,
+  [data-theme="dark"] .foot-brand img,
+  [data-theme="dark"] .brand img { filter: brightness(0) invert(1); }
+
+  .theme-toggle {
+    position: fixed; top: 12px; right: 12px;
+    z-index: 200;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,0,0,0.08);
+    color: #0a0a0a;
+    cursor: pointer;
+    display: grid; place-items: center;
+    font-size: 18px; line-height: 1;
+    transition: transform 200ms ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .theme-toggle:hover { transform: rotate(20deg); }
+  [data-theme="dark"] .theme-toggle {
+    background: rgba(30,32,50,0.85);
+    color: #fff;
+    border-color: rgba(255,255,255,0.14);
+  }
 </style>
 </head>
 <body>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
 <!-- ================= Sticky top stack (nav → search → notice) ================= -->
 <div class="site-topbar" id="siteTopbar">
@@ -2482,6 +2622,63 @@
       </div>
       <a class="view-all-row"><span data-en="View all Events" data-es="Ver todos los eventos">View all Events</span> <img src="assets/arrow-blue.svg" alt=""></a>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Service color nav (one look) ================= -->
+<section class="svc-nav">
+  <div class="svc-nav-inner">
+    <div class="svc-nav-head">
+      <div>
+        <div class="eyebrow" data-en="One visual variation" data-es="Una variación visual">One visual variation</div>
+        <h2 data-en="A colorful <strong>front door</strong>." data-es="Una <strong>entrada</strong> con color.">A colorful <strong>front door</strong>.</h2>
+      </div>
+      <p data-en="Six of our most-used services, as bold tiles. Tap any one to jump straight in." data-es="Seis de nuestros servicios más usados, en fichas de color. Toca una para empezar.">Six of our most-used services, as bold tiles. Tap any one to jump straight in.</p>
+    </div>
+    <div class="svc-nav-grid">
+      <a class="svc-nav-tile c1">
+        <span class="glyph"><img src="assets/service-8.svg" alt=""></span>
+        <div>
+          <div class="lbl" data-en="Mobile App" data-es="Aplicación">Mobile App</div>
+          <div class="sub" data-en="Read on your phone" data-es="Lee en tu móvil">Read on your phone</div>
+        </div>
+      </a>
+      <a class="svc-nav-tile c2">
+        <span class="glyph"><img src="assets/service-11.svg" alt=""></span>
+        <div>
+          <div class="lbl" data-en="Meeting Rooms" data-es="Salas">Meeting Rooms</div>
+          <div class="sub" data-en="Study, meet, collab" data-es="Estudia y colabora">Study, meet, collab</div>
+        </div>
+      </a>
+      <a class="svc-nav-tile c3">
+        <span class="glyph"><img src="assets/service-3.svg" alt=""></span>
+        <div>
+          <div class="lbl" data-en="Book Bundles" data-es="Paquetes">Book Bundles</div>
+          <div class="sub" data-en="A stack, curated" data-es="Una selección lista">A stack, curated</div>
+        </div>
+      </a>
+      <a class="svc-nav-tile c4">
+        <span class="glyph"><img src="assets/service-12.svg" alt=""></span>
+        <div>
+          <div class="lbl" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</div>
+          <div class="sub" data-en="Borrow gear, tools" data-es="Presta herramientas">Borrow gear, tools</div>
+        </div>
+      </a>
+      <a class="svc-nav-tile c5">
+        <span class="glyph"><img src="assets/service-9.svg" alt=""></span>
+        <div>
+          <div class="lbl" data-en="Request a Book" data-es="Pedir un libro">Request a Book</div>
+          <div class="sub" data-en="Suggest a title" data-es="Sugerir un título">Suggest a title</div>
+        </div>
+      </a>
+      <a class="svc-nav-tile c6">
+        <span class="glyph"><img src="assets/service-4.svg" alt=""></span>
+        <div>
+          <div class="lbl" data-en="Genealogy" data-es="Genealogía">Genealogy</div>
+          <div class="sub" data-en="Roots &amp; records" data-es="Raíces y archivos">Roots &amp; records</div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -3047,5 +3244,25 @@
   <a href="#"><span class="ic">☼</span>Events</a>
   <a href="#"><span class="ic">☰</span>Menu</a>
 </nav>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var stored = localStorage.getItem('jcl-theme');
+  var initial = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.setAttribute('data-theme', initial);
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀' : '☾';
+    btn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('jcl-theme', next);
+      btn.textContent = next === 'dark' ? '☀' : '☾';
+    });
+  });
+})();
+</script>
 </body>
 </html>

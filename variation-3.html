@@ -90,7 +90,7 @@
   .b-signup .lbl .glyph { margin-right: 8px; color: var(--red); }
   .b-signup form {
     display: flex; align-items: stretch;
-    background: #fff;
+    background: var(--surface);
     border-radius: 999px;
     overflow: hidden;
     max-width: 460px; width: 100%;
@@ -518,7 +518,7 @@
   .hero-search:focus-within {
     transform: translateY(-1px);
     box-shadow: 0 24px 70px rgba(5,36,96,0.18);
-    background: #fff;
+    background: var(--surface);
   }
   .hero-search .s-ico { margin-left: 18px; color: var(--ink-soft); flex-shrink: 0; }
   .hero-search input {
@@ -1192,7 +1192,7 @@
   .b-news-signup input::placeholder { color: rgba(255,255,255,0.55); }
   .b-news-signup button {
     padding: 0 18px; height: 34px;
-    background: #fff; color: var(--red);
+    background: var(--surface); color: var(--red);
     border-radius: 999px;
     font-family: var(--font-brand);
     font-weight: 700; font-size: 12px;
@@ -1301,9 +1301,54 @@
     .m-bb-3 { display: grid; }
     body { padding-bottom: 96px; }
   }
+
+  /* ============ Dark theme tokens ============ */
+  [data-theme="dark"] {
+    --ink: #f0f0f5;
+    --ink-muted: #b0b0b8;
+    --ink-soft: #8a8a92;
+    --surface: #0e1220;
+    --surface-alt: #1a1d2e;
+    --surface-warm: #171827;
+    --line: rgba(255,255,255,0.08);
+    --line-strong: rgba(255,255,255,0.16);
+  }
+  [data-theme="dark"] body {
+    background: var(--surface);
+    color: var(--ink);
+  }
+  [data-theme="dark"] img.logo-invert,
+  [data-theme="dark"] .foot-brand img,
+  [data-theme="dark"] .brand img { filter: brightness(0) invert(1); }
+
+  .theme-toggle {
+    position: fixed; top: 12px; right: 12px;
+    z-index: 200;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,0,0,0.08);
+    color: #0a0a0a;
+    cursor: pointer;
+    display: grid; place-items: center;
+    font-size: 18px; line-height: 1;
+    transition: transform 200ms ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .theme-toggle:hover { transform: rotate(20deg); }
+  [data-theme="dark"] .theme-toggle {
+    background: rgba(30,32,50,0.85);
+    color: #fff;
+    border-color: rgba(255,255,255,0.14);
+  }
 </style>
 </head>
 <body>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
 <!-- Notice bar -->
 <div class="b-notice">
@@ -1911,5 +1956,25 @@
   <a href="#"><span class="ic">☰</span>Menu</a>
 </nav>
 
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var stored = localStorage.getItem('jcl-theme');
+  var initial = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.setAttribute('data-theme', initial);
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.textContent = root.getAttribute('data-theme') === 'dark' ? '☀' : '☾';
+    btn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('jcl-theme', next);
+      btn.textContent = next === 'dark' ? '☀' : '☾';
+    });
+  });
+})();
+</script>
 </body>
 </html>
