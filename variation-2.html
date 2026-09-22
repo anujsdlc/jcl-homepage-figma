@@ -102,7 +102,7 @@
     background: var(--surface);
     padding: 2px;
     margin-left: 4px;
-    font-family: var(--font-brand); font-weight: 700; font-size: 11px;
+    font-family: var(--font-brand); font-weight: 700; font-size: 12px;
     letter-spacing: 0.08em;
   }
   .lang-pill span {
@@ -176,14 +176,67 @@
   .notice {
     background: var(--navy);
     color: var(--surface);
-    padding: 10px 32px;
+    padding: 12px 32px;
     font-size: 13px;
     font-weight: 500;
     display: flex; justify-content: center; align-items: center;
+    gap: 20px; flex-wrap: wrap;
     text-align: center;
   }
-  .notice::before { content: '✿ '; color: var(--orange); margin-right: 6px; }
-  .notice a { text-decoration: underline; text-underline-offset: 3px; color: var(--lilac); font-weight: 600; margin-left: 6px; }
+  .notice .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34,197,94,0.22);
+    flex-shrink: 0;
+    animation: notice-pulse-2 2.4s ease-in-out infinite;
+  }
+  @keyframes notice-pulse-2 {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.22); }
+    50% { box-shadow: 0 0 0 7px rgba(34,197,94,0.08); }
+  }
+  .notice .sep { opacity: 0.35; }
+  .notice b { font-weight: 700; color: var(--orange); }
+  .notice a { text-decoration: underline; text-underline-offset: 3px; color: var(--lilac); font-weight: 600; }
+
+  /* Top newsletter strip */
+  .top-signup-2 {
+    background: var(--lilac);
+    color: var(--navy);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 18px; flex-wrap: wrap;
+  }
+  .top-signup-2 .lbl {
+    font-family: var(--font-brand);
+    font-weight: 700; font-size: 14px;
+    color: var(--navy);
+  }
+  .top-signup-2 .lbl .glyph { margin-right: 8px; color: var(--red); }
+  .top-signup-2 form {
+    display: flex; align-items: stretch;
+    background: #fff;
+    border: 2px solid var(--navy);
+    border-radius: 999px;
+    overflow: hidden;
+    max-width: 460px; width: 100%;
+    box-shadow: 3px 3px 0 var(--navy);
+  }
+  .top-signup-2 form input {
+    flex: 1; border: 0; outline: none;
+    padding: 8px 18px;
+    font-family: var(--font-display); font-size: 13px;
+    background: transparent; color: var(--ink); min-width: 0;
+  }
+  .top-signup-2 form button {
+    border: 0; cursor: pointer;
+    background: var(--orange); color: #fff;
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0 20px;
+  }
+  .top-signup-2 form button:hover { background: var(--red); }
+  @media (max-width: 720px) { .top-signup-2 { padding: 12px 16px; } .top-signup-2 .lbl { font-size: 12px; text-align: center; } }
 
   /* Button system — consistent heights across variation-2
      Large (pill + header CTAs): 44px · Medium (toggle, save, search go): 36px · Small (page/nav): 32px */
@@ -331,7 +384,7 @@
     margin-top: 18px;
     align-items: center;
   }
-  .search-chips .lbl { font-family: var(--font-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .search-chips .lbl { font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
   .chip {
     padding: 6px 14px;
     background: var(--surface);
@@ -369,9 +422,9 @@
   .collage-b .cap { font-family: var(--font-brand); font-size: 14px; font-weight: 700; color: var(--navy); text-align: center; padding: 8px 0 4px; letter-spacing: 0.02em; }
 
   .collage-c { bottom: 4%; left: 18%; width: 62%; transform: rotate(-2deg); background: var(--surface); padding: 20px; }
-  .collage-c-tag { font-family: var(--font-brand); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); }
+  .collage-c-tag { font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); }
   .collage-c-title { font-family: var(--font-brand); font-size: 20px; font-weight: 500; line-height: 1.2; margin: 6px 0 10px; color: var(--navy); }
-  .collage-c-stats { display: flex; gap: 20px; padding-top: 10px; border-top: 1px dashed var(--line); font-family: var(--font-brand); font-size: 11px; font-weight: 600; }
+  .collage-c-stats { display: flex; gap: 20px; padding-top: 10px; border-top: 1px dashed var(--line); font-family: var(--font-brand); font-size: 12px; font-weight: 600; }
   .collage-c-stats strong { display: block; font-family: var(--font-brand); font-size: 18px; font-weight: 700; color: var(--red); margin-top: 2px; }
 
   .sticker {
@@ -449,7 +502,7 @@
     color: var(--surface);
     padding: 6px 14px;
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -525,7 +578,7 @@
   .mv-dow {
     text-align: center;
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -566,7 +619,7 @@
   .cal-legend {
     display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px;
     padding-top: 20px; border-top: 1px dashed var(--line);
-    font-family: var(--font-brand); font-size: 11px; font-weight: 700;
+    font-family: var(--font-brand); font-size: 12px; font-weight: 700;
     color: var(--navy);
   }
   .cal-legend div { display: flex; align-items: center; gap: 6px; }
@@ -605,13 +658,13 @@
   }
   .agenda-item.hi .agenda-time { background: var(--surface); color: var(--navy); }
   .agenda-time .h { font-family: var(--font-brand); font-size: 20px; font-weight: 700; line-height: 1; }
-  .agenda-time .m { font-family: var(--font-brand); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; margin-top: 4px; }
+  .agenda-time .m { font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; margin-top: 4px; }
   .agenda-body .tag {
     display: inline-block;
     background: var(--navy); color: var(--surface);
     padding: 3px 10px;
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -634,7 +687,7 @@
     padding: 0 14px;
     display: inline-flex; align-items: center; justify-content: center;
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
   }
   .agenda-item.hi .agenda-meta .save { background: var(--surface); color: var(--navy); }
@@ -686,7 +739,7 @@
     border-radius: 50%;
     opacity: 0.55;
   }
-  .card-flat .cf-top { display: flex; justify-content: space-between; align-items: flex-start; z-index: 1; font-family: var(--font-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+  .card-flat .cf-top { display: flex; justify-content: space-between; align-items: flex-start; z-index: 1; font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; }
   .card-flat .cf-top .brand-blob { width: 40px; height: 40px; background: var(--surface); color: var(--red); font-size: 20px; }
   .card-flat .cf-name { font-family: var(--font-brand); font-size: 26px; font-weight: 500; z-index: 1; line-height: 1; }
   .card-flat .cf-num { font-family: var(--font-brand); font-size: 15px; font-weight: 600; letter-spacing: 0.16em; z-index: 1; }
@@ -708,7 +761,7 @@
     display: inline-block;
     background: var(--surface); border: 2px solid var(--navy);
     padding: 6px 14px; 
-    font-family: var(--font-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
     margin-bottom: 16px;
     box-shadow: 3px 3px 0 var(--navy);
     color: var(--navy);
@@ -775,7 +828,7 @@
     display: inline-block;
     background: var(--orange); color: var(--ink);
     padding: 6px 14px; 
-    font-family: var(--font-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
     margin-bottom: 16px;
   }
   .account-copy h2 {
@@ -803,7 +856,7 @@
     display: grid; place-items: center;
     font-family: var(--font-brand); font-size: 20px; font-weight: 700;
   }
-  .dash-user .who { font-family: var(--font-brand); font-size: 11px; font-weight: 700; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
+  .dash-user .who { font-family: var(--font-brand); font-size: 12px; font-weight: 700; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
   .dash-user .who strong { display: block; font-family: var(--font-brand); font-size: 20px; color: var(--navy); font-weight: 700; text-transform: none; letter-spacing: -0.01em; margin-top: 2px; }
   .dash-note { font-family: var(--font-brand); font-size: 14px; font-weight: 700; color: var(--red); }
 
@@ -821,7 +874,7 @@
   .dash-stat.ok { background: var(--lilac); }
   .dash-stat .n { font-family: var(--font-brand); font-size: 30px; font-weight: 700; line-height: 1; color: var(--navy); }
   .dash-stat.warn .n { color: var(--surface); }
-  .dash-stat .l { font-family: var(--font-brand); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; color: var(--navy); }
+  .dash-stat .l { font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; color: var(--navy); }
   .dash-stat.warn .l { color: var(--surface); }
 
   .dash-list { display: flex; flex-direction: column; gap: 10px; }
@@ -839,8 +892,8 @@
   }
   .dash-row .cov img { width: 100%; height: 100%; object-fit: cover; }
   .dash-row .info h5 { font-family: var(--font-brand); font-size: 15px; font-weight: 700; line-height: 1.2; color: var(--navy); }
-  .dash-row .info small { font-family: var(--font-brand); font-size: 11px; font-weight: 500; color: var(--ink-soft); }
-  .dash-row .due { font-family: var(--font-brand); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; background: var(--lilac); color: var(--navy); }
+  .dash-row .info small { font-family: var(--font-brand); font-size: 12px; font-weight: 500; color: var(--ink-soft); }
+  .dash-row .due { font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; background: var(--lilac); color: var(--navy); }
   .dash-row .due.soon { background: var(--orange); color: var(--surface); }
   .dash-row .due.late { background: var(--red); color: var(--surface); }
 
@@ -882,7 +935,7 @@
   .prog.p4 { background: var(--navy); color: var(--surface); border-color: var(--ink); }
   .prog.p5 { background: var(--surface); color: var(--ink); }
   .prog.p6 { background: var(--lilac); color: var(--navy); }
-  .prog-tag { font-family: var(--font-brand); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; margin-bottom: 12px; }
+  .prog-tag { font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; margin-bottom: 12px; }
   .prog h3 { font-family: var(--font-brand); font-size: 26px; font-weight: 500; line-height: 1.15; margin-bottom: 12px; letter-spacing: -0.01em; }
   .prog p { font-size: 14px; opacity: 0.9; line-height: 1.5; }
   .prog-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1.5px dashed currentColor; opacity: 0.8; font-family: var(--font-brand); font-size: 12px; font-weight: 700; }
@@ -941,7 +994,7 @@
   .b-card .b-body { padding: 18px; }
   .b-card h4 { font-family: var(--font-brand); font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--navy); }
   .b-card .b-addr { font-family: var(--font-display); font-size: 13px; color: var(--ink-muted); margin-bottom: 10px; }
-  .b-card .b-hours { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-brand); font-size: 11px; font-weight: 700; padding: 4px 10px; background: var(--lilac); color: var(--navy); }
+  .b-card .b-hours { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-brand); font-size: 12px; font-weight: 700; padding: 4px 10px; background: var(--lilac); color: var(--navy); }
   .b-card .b-hours::before { content: ''; width: 8px; height: 8px; background: var(--navy); border-radius: 50%; }
   .b-card .b-hours.closed { background: color-mix(in srgb, var(--red) 20%, var(--surface)); color: var(--red); }
   .b-card .b-hours.closed::before { background: var(--red); }
@@ -965,7 +1018,7 @@
     display: inline-block;
     background: var(--ink); color: var(--surface);
     padding: 6px 16px; 
-    font-family: var(--font-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
     margin-bottom: 20px;
   }
   .cta-inner h2 {
@@ -992,7 +1045,7 @@
   .foot-brand h3 { font-family: var(--font-brand); font-size: 30px; font-weight: 500; margin-bottom: 12px; letter-spacing: -0.01em; }
   .foot-brand h3 .swash { color: var(--orange); font-weight: 700; }
   .foot-brand p { font-family: var(--font-display); font-size: 14px; opacity: 0.75; max-width: 320px; line-height: 1.6; }
-  .foot-col h4 { font-family: var(--font-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+  .foot-col h4 { font-family: var(--font-brand); font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
   .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .foot-col a { font-size: 14px; opacity: 0.85; transition: opacity 200ms; }
   .foot-col a:hover { opacity: 1; color: var(--orange); }
@@ -1104,7 +1157,7 @@
   .spot-body { padding: 18px 20px; }
   .spot-tag {
     display: inline-block;
-    font-family: var(--font-brand); font-size: 10px; font-weight: 700;
+    font-family: var(--font-brand); font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     padding: 3px 10px;
     background: var(--red); color: var(--surface);
@@ -1177,7 +1230,7 @@
   .shelf-cat-2 .book-card-2 { border-width: 1.5px; }
   .shelf-cat-2 .book-info-2 { padding: 10px 12px; }
   .shelf-cat-2 .book-info-2 .title { font-size: 12px; line-height: 1.2; }
-  .shelf-cat-2 .book-info-2 .author { font-size: 10px; }
+  .shelf-cat-2 .book-info-2 .author { font-size: 12px; }
   /* Inline pagination on section head */
   .page-strip {
     display: flex; align-items: center; gap: 4px;
@@ -1247,14 +1300,14 @@
   .news-body-2 { padding: 18px 20px; }
   .news-meta-2 {
     display: flex; align-items: center; gap: 12px;
-    font-family: var(--font-brand); font-size: 11px; font-weight: 600;
+    font-family: var(--font-brand); font-size: 12px; font-weight: 600;
     color: var(--ink-soft);
     margin-bottom: 8px;
   }
   .news-tag-2 {
     padding: 3px 10px;
     background: var(--orange); color: var(--surface);
-    font-weight: 700; font-size: 10px; letter-spacing: 0.12em;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.12em;
     text-transform: uppercase;
   }
   .news-body-2 h3 {
@@ -1308,8 +1361,8 @@
     .search-wrap input { font-size: 14px; }
     .search-wrap .s-go { padding: 0 14px; font-size: 12px; }
     .h-mya { display: none; }
-    .h-card { padding: 0 12px; font-size: 11px; }
-    .notice { padding: 8px 16px; font-size: 11px; }
+    .h-card { padding: 0 12px; font-size: 12px; }
+    .notice { padding: 8px 16px; font-size: 12px; }
     .hero { padding: 30px 20px 60px; }
     .hero h1 { font-size: 40px; }
     .search-bar { padding: 4px 4px 4px 16px; }
@@ -1343,7 +1396,7 @@
     color: var(--navy);
     text-decoration: none;
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.02em;
     border-radius: 14px;
     transition: background 200ms;
@@ -1400,8 +1453,21 @@
 
   <!-- Row 3 · Notice -->
   <div class="notice">
-    <span>Notice: Updated hours at JCL-Cedar Hill · Effective October 1, 2026 · <a href="#">Fall Reading Challenge starts Sunday</a></span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>All 7 branches open until 9 PM</span>
+    <span class="sep">·</span>
+    <span><b>12 free programs</b> on today's schedule</span>
+    <span class="sep">·</span>
+    <span><a href="#">Fall Reading Challenge starts Sunday</a></span>
   </div>
+</div>
+<!-- Top newsletter strip -->
+<div class="top-signup-2">
+  <div class="lbl"><span class="glyph">✉</span>Get the weekly digest — new titles, programs, and story hours in your inbox.</div>
+  <form onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
+    <input type="email" placeholder="you@email.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
 </div>
 
 <!-- HERO -->
@@ -1844,53 +1910,6 @@
     </div>
     <button class="pill pill-primary">Apply for a card</button>
     <button class="pill pill-ghost" style="margin-left: 10px;">How it works</button>
-  </div>
-</section>
-
-<!-- Account section -->
-<section class="account-sect">
-  <div class="account-inner">
-    <div class="account-copy">
-      <span class="eyebrow">◐ My account</span>
-      <h2>Everything you've<br><span class="swash">borrowed</span>, waiting,<br>and wondering about.</h2>
-      <p>Renew items, place holds, pay any small fines, and see a private history of every title you've ever read here. Your privacy is protected by Missouri law.</p>
-      <button class="pill pill-primary pill-orange">Sign in with card number</button>
-    </div>
-
-    <div class="dashboard">
-      <div class="dash-top">
-        <div class="dash-user">
-          <div class="av">M</div>
-          <div class="who">Welcome back<strong>Maya R.</strong></div>
-        </div>
-        <div class="dash-note">3 items due soon!</div>
-      </div>
-
-      <div class="dash-stats">
-        <div class="dash-stat ok"><div class="n">7</div><div class="l">Checked out</div></div>
-        <div class="dash-stat"><div class="n">2</div><div class="l">Ready for pickup</div></div>
-        <div class="dash-stat warn"><div class="n">3</div><div class="l">Due in 3 days</div></div>
-        <div class="dash-stat"><div class="n">$0</div><div class="l">Fines</div></div>
-      </div>
-
-      <div class="dash-list">
-        <div class="dash-row">
-          <div class="cov"><img src="assets/book-1.png" alt=""></div>
-          <div class="info"><h5>The Silent Season</h5><small>Lena Ortiz · Arnold branch</small></div>
-          <div class="due soon">Due Fri</div>
-        </div>
-        <div class="dash-row">
-          <div class="cov"><img src="assets/book-2.png" alt=""></div>
-          <div class="info"><h5>Wandering Stars</h5><small>Tommy Orange · eBook</small></div>
-          <div class="due">Due Sep 28</div>
-        </div>
-        <div class="dash-row">
-          <div class="cov"><img src="assets/book-3.png" alt=""></div>
-          <div class="info"><h5>The Bee Sting</h5><small>Paul Murray · Audiobook</small></div>
-          <div class="due soon">Due Sat</div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 

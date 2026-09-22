@@ -43,7 +43,7 @@
   }
   .eyebrow {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -138,7 +138,7 @@
   .card:hover { border-color: var(--ink); transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--ink); }
   .card-tag {
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -176,7 +176,7 @@
   }
   .card-open {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 700;
@@ -203,7 +203,7 @@
 
   .card-meta {
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--ink-soft);
     letter-spacing: 0.12em;
@@ -220,7 +220,7 @@
   .note ul { list-style: none; padding: 0; }
   .note ul li { padding: 10px 0; font-family: var(--font-display); font-size: 14px; color: var(--ink-muted); border-bottom: 1px dashed var(--line); line-height: 1.55; }
   .note ul li strong { color: var(--navy); font-weight: 700; display: block; margin-bottom: 3px; font-family: var(--font-brand); font-size: 15px; }
-  .note h4 { font-family: var(--font-brand); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; font-weight: 700; }
+  .note h4 { font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; font-weight: 700; }
 
   @media (max-width: 800px) {
     .grid { grid-template-columns: 1fr; }
@@ -287,7 +287,7 @@
         <li>Blob-shaped brand mark that morphs</li>
         <li>Full month calendar as the centerpiece</li>
         <li>Chunky borders + hard-drop shadows</li>
-        <li>Warm illustrated dashboard for account</li>
+        <li>Warm library-services grid + book shelves</li>
       </ul>
       <div class="card-foot">
         <span class="card-meta">Inspired by Anythink, Nashville PL</span>
@@ -296,13 +296,13 @@
     </a>
 
     <a class="card v-bento" href="variation-3.html">
-      <div class="card-tag">Variation 03 · Bento (signed-in)</div>
+      <div class="card-tag">Variation 03 · Bento (events)</div>
       <h2>The <span class="accent">Bento</span></h2>
-      <p>Apple-style, generous whitespace, every section a rounded card. Right rail shows a signed-in account panel with holds, due dates, and a personal dashboard.</p>
+      <p>Apple-style, generous whitespace, every section a rounded card. Right rail spotlights what's happening today — live open status, today's programs, and how to get in touch.</p>
       <ul>
         <li>Sticky glass nav with backdrop blur</li>
         <li>Hero with shelf-photo background + gradient wash</li>
-        <li>Right rail: signed-in "Your library" dashboard</li>
+        <li>Right rail: today's four programs with time + branch</li>
         <li>Bento grids: featured spotlights + services + books</li>
       </ul>
       <div class="card-foot">
@@ -312,12 +312,12 @@
     </a>
 
     <a class="card v-bento" href="variation-4.html">
-      <div class="card-tag">Variation 04 · Bento (public)</div>
-      <h2>The <span class="accent">Bento</span> · public</h2>
-      <p>Same Bento layout, but the right rail is public-facing: live branch status, today's activity, annual impact stats, and quick contact links — for visitors who aren't logged in.</p>
+      <div class="card-tag">Variation 04 · Bento (stats)</div>
+      <h2>The <span class="accent">Bento</span> · stats</h2>
+      <p>Same Bento shell, but the right rail is a public data snapshot: live branch status, today's activity numbers, annual impact stats, and quick contact links.</p>
       <ul>
-        <li>Same Bento shell as v3, no account panel</li>
-        <li>Right rail: "Open now" + Today at JCL stats</li>
+        <li>Same Bento shell as v3</li>
+        <li>Right rail: Today at JCL — events, rooms, hotspots</li>
         <li>Annual impact numbers (1.4M items, 312K cardholders)</li>
         <li>Contact / branch / newsletter / careers links</li>
       </ul>
@@ -353,7 +353,7 @@
         <ul>
           <li><strong>Search is small &amp; buried</strong>Catalog search sits in a corner; site search is separate — confusing for anyone who just wants "a book about X."</li>
           <li><strong>"Get a library card" is hidden</strong>Buried in the services menu — the single highest-value CTA for a public library is invisible above the fold.</li>
-          <li><strong>No obvious "My Account"</strong>Sign-in is small text; there's no dashboard showing holds, due dates, or fines at a glance.</li>
+          <li><strong>Sign-in is buried</strong>Sign-in is a tiny link in the corner — most visitors never find it, and there's no obvious path to the external account system.</li>
           <li><strong>Event calendar behind clicks</strong>Homepage teases a few events but the calendar itself lives on a separate page with dated filtering UI.</li>
           <li><strong>Weak mobile</strong>Desktop layout collapses awkwardly; the search box shrinks and CTAs stack in the wrong order.</li>
           <li><strong>No sense of "today"</strong>Static content — no acknowledgement of open branches, live event count, or personalization for signed-in users.</li>
@@ -364,7 +364,7 @@
         <ul>
           <li><strong>Search is the hero</strong>All three make search the single largest interactive element on the page, with scope tabs (Catalog / Events / Research / Website).</li>
           <li><strong>Card CTA is a persistent action</strong>Card button lives in the header on every variation and gets a dedicated hero-level section further down.</li>
-          <li><strong>Account gets its own dashboard</strong>Signed-in users see their due dates, holds, and reading history right on the homepage — no clicks to check.</li>
+          <li><strong>Sign-in CTA is unmissable</strong>A prominent, persistent "My Account" chip in the header takes people straight to the external account system on one tap.</li>
           <li><strong>Live event calendar on the homepage</strong>Full month view (v2), sticky mini-calendar (v1), and week-strip with counts (v3). Not a teaser — the real thing.</li>
           <li><strong>Mobile-first responsive</strong>All variations tested at 640px and below; nothing critical hides on small screens.</li>
           <li><strong>Real-time signals</strong>"Open until 9 PM," "7 events today," "3 items due Friday" — the site knows what day it is and what's on right now.</li>

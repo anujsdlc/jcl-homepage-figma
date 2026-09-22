@@ -53,19 +53,69 @@
     background: var(--ink);
     color: var(--surface);
     font-family: var(--font-brand);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 10px 32px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 14px 32px;
     display: flex; justify-content: space-between; align-items: center;
+    gap: 24px;
     position: relative; z-index: 5;
     font-weight: 500;
   }
-  .strip-marquee { display: flex; gap: 32px; overflow: hidden; }
-  .strip-marquee span::before { content: '§ '; color: var(--orange); }
-  .strip-right { display: flex; gap: 20px; }
+  .strip-marquee { display: flex; gap: 24px; overflow: hidden; align-items: center; }
+  .strip-marquee .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34,197,94,0.22);
+    flex-shrink: 0;
+    animation: strip-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes strip-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.22); }
+    50% { box-shadow: 0 0 0 7px rgba(34,197,94,0.08); }
+  }
+  .strip-marquee .sep { opacity: 0.35; }
+  .strip-marquee b { font-weight: 700; color: var(--orange); }
+  .strip-right { display: flex; gap: 20px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
   .strip-right a { opacity: 0.7; transition: opacity 200ms; }
   .strip-right a:hover { opacity: 1; }
+
+  /* Top newsletter strip */
+  .top-signup-1 {
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 32px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .top-signup-1 .lbl {
+    font-family: var(--font-brand);
+    font-weight: 700; font-size: 13px;
+    color: var(--navy);
+  }
+  .top-signup-1 .lbl .glyph { margin-right: 8px; color: var(--red); }
+  .top-signup-1 form {
+    display: flex; align-items: stretch;
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    max-width: 460px; width: 100%;
+  }
+  .top-signup-1 form input {
+    flex: 1; border: 0; outline: none;
+    padding: 8px 14px;
+    font-family: var(--font-display); font-size: 13px;
+    background: transparent; color: var(--ink); min-width: 0;
+  }
+  .top-signup-1 form button {
+    border: 0; cursor: pointer;
+    background: var(--ink); color: #fff;
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 0 18px;
+  }
+  .top-signup-1 form button:hover { background: var(--red); }
+  @media (max-width: 720px) { .top-signup-1 { padding: 10px 16px; } .top-signup-1 .lbl { font-size: 12px; text-align: center; } }
 
   /* ============ Header ============ */
   .site-header {
@@ -95,7 +145,7 @@
   }
   .brand-mark img { height: 28px; filter: brightness(0) invert(1); }
   .brand-name { display: flex; flex-direction: column; line-height: 1.05; }
-  .brand-name small { font-family: var(--font-display); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-top: 4px; font-weight: 600; }
+  .brand-name small { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-top: 4px; font-weight: 600; }
 
   .primary-nav {
     display: flex; gap: 28px; justify-content: center;
@@ -162,7 +212,7 @@
   }
   .hero-eyebrow {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--red);
@@ -219,7 +269,7 @@
   }
   .search-scope button {
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     padding: 12px 14px;
@@ -257,7 +307,7 @@
     color: var(--surface);
     padding: 12px 22px;
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 700;
@@ -272,7 +322,7 @@
     border-top: 1px dashed var(--line);
     align-items: center;
   }
-  .search-suggest strong { font-family: var(--font-brand); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; color: var(--ink); font-weight: 700; }
+  .search-suggest strong { font-family: var(--font-brand); text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; color: var(--ink); font-weight: 700; }
   .search-suggest a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; transition: text-decoration-color 200ms; font-weight: 500; }
   .search-suggest a:hover { text-decoration-color: var(--red); color: var(--red); }
 
@@ -298,7 +348,7 @@
   .plate-header { position: relative; z-index: 2; }
   .plate-header .cat {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--orange);
@@ -328,7 +378,7 @@
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.2);
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.65);
@@ -338,7 +388,7 @@
   .plate-corner {
     position: absolute; top: 24px; right: 24px;
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.2em;
     color: rgba(255,255,255,0.4);
     writing-mode: vertical-rl;
@@ -389,7 +439,7 @@
   }
   .pillar-body .lnk {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 700;
@@ -413,7 +463,7 @@
   }
   .sect-eyebrow {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--red);
@@ -480,7 +530,7 @@
     color: rgba(255,255,255,0.5);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 700;
   }
   .cal-grid .day {
@@ -516,7 +566,7 @@
     border-top: 1px solid rgba(255,255,255,0.2);
     display: flex; justify-content: space-between; align-items: center;
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: 500;
@@ -550,7 +600,7 @@
   }
   .event-date .m {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--red);
@@ -559,7 +609,7 @@
   }
   .event-content .tag {
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-soft);
@@ -578,7 +628,7 @@
   .event-content p { font-size: 14px; color: var(--ink-muted); max-width: 520px; line-height: 1.55; }
   .event-meta {
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-soft);
@@ -593,6 +643,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
+  }
+  .split.split-solo {
+    grid-template-columns: 1fr;
     background: var(--surface-warm);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
@@ -650,10 +703,10 @@
     background: radial-gradient(circle, var(--orange) 0%, transparent 60%);
     opacity: 0.5;
   }
-  .card-preview .cp-top { display: flex; justify-content: space-between; font-family: var(--font-brand); font-size: 10px; letter-spacing: 0.2em; opacity: 0.75; z-index: 1; font-weight: 600; }
+  .card-preview .cp-top { display: flex; justify-content: space-between; font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.2em; opacity: 0.75; z-index: 1; font-weight: 600; }
   .card-preview .cp-center { font-family: var(--font-brand); font-size: 26px; z-index: 1; font-weight: 300; }
   .card-preview .cp-bottom { font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.14em; z-index: 1; font-weight: 500; }
-  .card-preview .cp-bottom small { opacity: 0.6; font-size: 9px; display: block; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; }
+  .card-preview .cp-bottom small { opacity: 0.6; font-size: 12px; display: block; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; }
 
   .account-panel {
     background: var(--surface);
@@ -678,7 +731,7 @@
     font-weight: 700;
     font-size: 18px;
   }
-  .account-panel .ap-hd .who { font-family: var(--font-brand); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+  .account-panel .ap-hd .who { font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
   .account-panel .ap-hd .who strong { display: block; font-family: var(--font-brand); font-size: 18px; color: var(--navy); font-weight: 700; text-transform: none; letter-spacing: -0.01em; margin-top: 4px; }
   .ap-rows { display: flex; flex-direction: column; gap: 4px; }
   .ap-row {
@@ -698,7 +751,7 @@
     color: var(--surface);
     padding: 12px;
     font-family: var(--font-brand);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 700;
@@ -748,7 +801,7 @@
     gap: 16px;
   }
   .shelf-cat .book h4 { font-size: 13px; line-height: 1.2; }
-  .shelf-cat .book .author { font-size: 11px; }
+  .shelf-cat .book .author { font-size: 12px; }
   .shelf-cat .book .avail { display: none; }
   .book {
     display: flex; flex-direction: column;
@@ -771,16 +824,16 @@
     background: var(--red);
     color: var(--surface);
     font-family: var(--font-brand);
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     padding: 4px 8px;
     font-weight: 700;
   }
-  .book .cat { font-family: var(--font-brand); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; font-weight: 600; }
+  .book .cat { font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; font-weight: 600; }
   .book h4 { font-family: var(--font-brand); font-size: 16px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; color: var(--navy); }
   .book .author { font-family: var(--font-display); font-size: 13px; color: var(--ink-soft); }
-  .book .avail { font-family: var(--font-brand); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px; font-weight: 600; }
+  .book .avail { font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px; font-weight: 600; }
   .book .avail.now { color: var(--navy); }
   .book .avail.wait { color: var(--red); }
 
@@ -811,7 +864,7 @@
   .branch .status {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: var(--font-brand);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 700;
@@ -856,7 +909,7 @@
     margin-bottom: -12px;
     font-weight: 700;
   }
-  .story-cite { font-family: var(--font-brand); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+  .story-cite { font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
   .story-cite strong { display: block; font-family: var(--font-brand); font-size: 18px; color: var(--navy); font-weight: 700; text-transform: none; letter-spacing: -0.01em; margin-bottom: 4px; }
 
   /* ============ Explore by + Impact strip ============ */
@@ -908,7 +961,7 @@
   }
   .impact-cell .l {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-soft);
     margin-top: 12px;
@@ -935,7 +988,7 @@
   .spot-1-body { padding: 22px 24px; }
   .spot-1-tag {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--red);
     margin-bottom: 8px;
@@ -1008,7 +1061,7 @@
   .news-1-meta {
     display: flex; align-items: center; gap: 12px;
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink-soft);
     margin-bottom: 10px;
     letter-spacing: 0.02em;
@@ -1016,7 +1069,7 @@
   .news-1-tag {
     padding: 3px 10px;
     background: var(--ink); color: var(--surface);
-    font-weight: 700; font-size: 10px;
+    font-weight: 700; font-size: 12px;
     letter-spacing: 0.14em; text-transform: uppercase;
   }
   .news-1-body h3 {
@@ -1053,7 +1106,7 @@
   }
   .foot-brand h3 .accent { color: var(--orange); font-weight: 700; }
   .foot-brand p { font-family: var(--font-display); font-size: 14px; opacity: 0.7; max-width: 340px; line-height: 1.6; }
-  .foot-col h4 { font-family: var(--font-brand); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; font-weight: 700; }
+  .foot-col h4 { font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; font-weight: 700; }
   .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .foot-col a { font-size: 14px; opacity: 0.8; transition: opacity 200ms; }
   .foot-col a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
@@ -1061,7 +1114,7 @@
     max-width: 1440px; margin: 0 auto;
     padding-top: 24px;
     display: flex; justify-content: space-between;
-    font-family: var(--font-brand); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.5; font-weight: 500;
+    font-family: var(--font-brand); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.5; font-weight: 500;
   }
 
   /* ============ Responsive ============ */
@@ -1101,7 +1154,7 @@
     .foot-grid { grid-template-columns: 1fr 1fr; }
     .header-actions .btn-ghost { display: none; }
     .site-header { padding: 16px 20px; gap: 16px; grid-template-columns: auto auto; }
-    .strip { padding: 8px 20px; font-size: 10px; }
+    .strip { padding: 8px 20px; font-size: 12px; }
     .strip-marquee span:nth-child(n+2) { display: none; }
     .impact-row { grid-template-columns: 1fr; }
     .impact-cell:nth-child(even) { border-left: none; }
@@ -1128,7 +1181,7 @@
     color: var(--ink-muted);
     text-decoration: none;
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.06em; text-transform: uppercase;
     border: 0; background: none; cursor: pointer;
   }
@@ -1146,7 +1199,11 @@
 <!-- Notice strip -->
 <div class="strip">
   <div class="strip-marquee">
-    <span>All branches open regular hours today</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>All 7 branches open until 9 PM</span>
+    <span class="sep">·</span>
+    <span><b>12 free programs</b> on today's schedule</span>
+    <span class="sep">·</span>
     <span>New: Book-a-Librarian appointments</span>
   </div>
   <div class="strip-right">
@@ -1154,6 +1211,14 @@
     <a href="#">Accessibility</a>
     <a href="#">Text size ⓐ</a>
   </div>
+</div>
+<!-- Top newsletter strip -->
+<div class="top-signup-1">
+  <div class="lbl"><span class="glyph">✉</span>Get the weekly digest — new titles, programs, and story hours in your inbox.</div>
+  <form onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
+    <input type="email" placeholder="you@email.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
 </div>
 
 <!-- Header -->
@@ -1382,8 +1447,8 @@
   </div>
 </section>
 
-<!-- Library card + account split -->
-<section class="split">
+<!-- Library card -->
+<section class="split split-solo">
   <div class="split-block">
     <div class="sect-eyebrow">§ 003 — Membership</div>
     <h2>Yours, <span class="accent">free</span>,<br>in three minutes.</h2>
@@ -1402,29 +1467,6 @@
     </div>
     <button class="btn btn-primary">Apply for a card</button>
     <button class="btn btn-ghost" style="margin-left: 12px;">What can I use my card for?</button>
-  </div>
-
-  <div class="split-block">
-    <div class="sect-eyebrow">§ 004 — My Account</div>
-    <h2>Everything<br>you're <span class="accent">reading</span>.</h2>
-    <p>
-      Sign in with your card number to renew items, place holds, pay fines,
-      and see every title you've ever borrowed. Your reading history is private
-      by default.
-    </p>
-    <div class="account-panel">
-      <div class="ap-hd">
-        <div class="avatar">M</div>
-        <div class="who">Signed in as<strong>Maya R.</strong></div>
-      </div>
-      <div class="ap-rows">
-        <div class="ap-row"><span class="lbl">Checked out</span><span class="val">7 items</span></div>
-        <div class="ap-row"><span class="lbl">Holds ready for pickup</span><span class="val">2 items</span></div>
-        <div class="ap-row"><span class="lbl">Due in the next 3 days</span><span class="val warn">3 items</span></div>
-        <div class="ap-row"><span class="lbl">Fines &amp; fees</span><span class="val">$0.00</span></div>
-      </div>
-      <button class="ap-btn">Go to my account</button>
-    </div>
   </div>
 </section>
 

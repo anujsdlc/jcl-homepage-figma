@@ -92,24 +92,84 @@
   }
 
   .notice-bar {
-    background: var(--surface-alt);
-    height: 36px;
-    padding: 0 32px;
+    background: var(--navy);
+    color: #fff;
+    min-height: 44px;
+    padding: 10px 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
+    gap: 24px;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.01em;
-    border-top: 1px solid var(--line);
   }
-  .notice-text {
-    color: var(--orange);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 12px;
+  .notice-bar .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34,197,94,0.22);
+    flex-shrink: 0;
+    animation: notice-pulse 2.4s ease-in-out infinite;
   }
-  .notice-text b { font-weight: 700; }
+  @keyframes notice-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.22); }
+    50% { box-shadow: 0 0 0 7px rgba(34,197,94,0.08); }
+  }
+  .notice-text { color: #fff; font-size: 13px; letter-spacing: 0.01em; }
+  .notice-text b { font-weight: 700; color: var(--orange); }
+  .notice-sep { opacity: 0.35; }
+
+  /* Top newsletter strip */
+  .top-signup {
+    background: var(--lilac);
+    color: var(--navy);
+    padding: 12px 32px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 18px; flex-wrap: wrap;
+  }
+  .top-signup .lbl {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .top-signup .lbl .glyph { margin-right: 8px; }
+  .top-signup form {
+    display: flex; align-items: stretch;
+    background: #fff;
+    border: 1px solid var(--navy);
+    border-radius: 999px;
+    overflow: hidden;
+    max-width: 460px; width: 100%;
+    box-shadow: 0 2px 0 rgba(5,36,96,0.12);
+  }
+  .top-signup form input {
+    flex: 1; border: 0; outline: none;
+    padding: 8px 16px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    background: transparent;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .top-signup form button {
+    border: 0; cursor: pointer;
+    background: var(--navy); color: #fff;
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0 20px;
+    transition: background 200ms;
+  }
+  .top-signup form button:hover { background: var(--red); }
+  .top-signup .fine {
+    font-family: var(--font-display);
+    font-size: 12px; color: rgba(5,36,96,0.7);
+  }
+  @media (max-width: 720px) {
+    .top-signup { padding: 10px 16px; gap: 10px; }
+    .top-signup .fine { display: none; }
+  }
   .top-links { display: flex; gap: 28px; color: var(--ink-soft); align-items: center; }
   .top-links span { transition: color var(--dur-fast) var(--ease-smooth); cursor: pointer; }
   .top-links span:hover { color: var(--ink); }
@@ -152,7 +212,7 @@
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 30px; padding: 0 10px; height: 100%;
     font-family: 'Arimo', sans-serif;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
     color: var(--ink-soft);
     cursor: pointer;
     transition: color var(--dur) var(--ease);
@@ -228,7 +288,7 @@
   .suggest-col + .suggest-col { border-left: 1px solid var(--line); }
   .suggest-heading {
     font-family: 'Arimo', sans-serif;
-    font-size: 11px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-soft);
     margin-bottom: 12px;
@@ -497,14 +557,14 @@
     margin-bottom: 4px;
   }
   .loc-addr {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--ink-soft);
     line-height: 1.4;
     margin-bottom: 8px;
   }
   .loc-status {
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 10px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--navy);
     letter-spacing: 0.02em;
   }
@@ -519,7 +579,7 @@
     padding: 10px 14px;
     border-top: 1px solid var(--line);
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     color: var(--ink);
     letter-spacing: 0.02em;
     transition: background var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
@@ -564,7 +624,7 @@
   .nav-svc-grid .svc-tile { min-height: 90px; padding: 12px 14px; gap: 6px; }
   .nav-svc-grid .svc-tile > img { width: 22px; height: 22px; }
   .nav-svc-grid .svc-tile-title { font-size: 13px; }
-  .nav-svc-grid .svc-tile-sub { font-size: 11px; margin-top: 2px; }
+  .nav-svc-grid .svc-tile-sub { font-size: 12px; margin-top: 2px; }
   /* Bigger icons on the tall + wide flagship tiles inside the mega menu too */
   .nav-svc-grid .svc-tile-tall { padding: 14px 16px; }
   .nav-svc-grid .svc-tile-tall > img { width: 36px; height: 36px; }
@@ -573,7 +633,7 @@
   .nav-dropdown-heading {
     grid-column: 1 / -1;
     font-family: 'Arimo', sans-serif;
-    font-size: 11px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--ink-soft);
     padding: 4px 14px 12px;
@@ -983,7 +1043,7 @@
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    font-size: 11px; font-weight: 600; color: var(--ink);
+    font-size: 12px; font-weight: 600; color: var(--ink);
     z-index: 2;
   }
   .branch-status::before {
@@ -1001,7 +1061,7 @@
     padding: 5px 10px;
     background: rgba(255,255,255,0.92);
     color: var(--ink);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -1171,7 +1231,7 @@
     line-height: 1;
   }
   .cal-month-sub {
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink-soft);
     letter-spacing: 0.02em;
   }
@@ -1199,7 +1259,7 @@
   .cal-dow {
     text-align: left;
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-soft);
@@ -1235,7 +1295,7 @@
   /* Event pill inside a day cell */
   .ev-pill {
     font-family: var(--font-display);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.15;
     padding: 2px 5px;
@@ -1253,7 +1313,7 @@
   .ev-pill.ev-ink { background: rgba(10,10,10,0.08); color: var(--ink); border-left-color: var(--ink); }
   .ev-more {
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     color: var(--ink-soft);
     padding: 0 4px;
     letter-spacing: 0.02em;
@@ -1288,7 +1348,7 @@
     margin-top: 12px;
     padding-top: 10px;
     border-top: 1px dashed var(--line);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink-muted);
   }
   .cal-legend .lg { display: flex; align-items: center; gap: 6px; }
@@ -1308,7 +1368,7 @@
     text-underline-offset: 3px;
     text-decoration-color: rgba(5,36,96,0.3);
     transition: text-decoration-color var(--dur-fast);
-    font-size: 11px;
+    font-size: 12px;
   }
   .cal-legend-link:hover { text-decoration-color: var(--red); color: var(--red); }
 
@@ -1401,7 +1461,7 @@
   .agenda-row.featured .agenda-time .ah { color: #fff; }
   .agenda-time .ap {
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.12em;
     color: var(--ink-soft);
     margin-top: 3px;
@@ -1411,7 +1471,7 @@
   .agenda-tag {
     display: inline-block;
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 2px 6px;
@@ -1430,7 +1490,7 @@
     margin-bottom: 2px;
   }
   .agenda-meta {
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink-soft);
     display: flex; align-items: center; gap: 5px;
     flex-wrap: wrap;
@@ -1478,7 +1538,7 @@
     .cal-pane, .agenda-pane { padding: 14px; }
     .cal-month-name { font-size: 18px; }
     .cal-day { padding: 3px; min-height: 54px; }
-    .cal-day .dn { font-size: 11px; }
+    .cal-day .dn { font-size: 12px; }
     .ev-pill { font-size: 8px; padding: 1px 3px; }
     .ev-more { font-size: 8px; }
     .cal-grid { gap: 3px; }
@@ -1600,7 +1660,7 @@
     display: inline-block; align-self: flex-start;
     padding: 6px 12px;
     background: rgba(255,255,255,0.16);
-    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
     text-transform: uppercase;
     margin-bottom: 24px;
   }
@@ -1928,8 +1988,8 @@
     .footer-links-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   }
   @media (max-width: 720px) {
-    .notice-bar { padding: 0 16px; height: 32px; font-size: 11px; }
-    .notice-text { font-size: 11px; }
+    .notice-bar { padding: 0 16px; height: 32px; font-size: 12px; }
+    .notice-text { font-size: 12px; }
     .top-links > span { display: none; }
     .header { padding: 0; height: 60px; }
     .brand { width: 100px; }
@@ -1974,7 +2034,7 @@
     color: var(--ink-soft);
     text-decoration: none;
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.02em;
   }
   .m-bb-0 a .ic { font-size: 20px; line-height: 1; color: var(--navy); }
@@ -2340,7 +2400,21 @@
 </header>
 <!-- ================= Notice bar ================= -->
 <div class="notice-bar" id="noticeBar">
-  <div class="notice-text"><span data-en="Notice:" data-es="Aviso:">Notice:</span> <b data-en="Updated hours at JCL-Cedar Hill · Effective October 1, 2026" data-es="Horario actualizado en JCL-Cedar Hill · Vigente 1 de octubre, 2026">Updated hours at JCL-Cedar Hill · Effective October 1, 2026</b></div>
+  <span class="dot" aria-hidden="true"></span>
+  <span class="notice-text" data-en="All 7 branches open today until 9 PM" data-es="Las 7 sucursales están abiertas hoy hasta las 9 PM">All 7 branches open today until 9 PM</span>
+  <span class="notice-sep">·</span>
+  <span class="notice-text"><b data-en="12 free programs on the schedule" data-es="12 programas gratuitos programados">12 free programs on the schedule</b></span>
+  <span class="notice-sep">·</span>
+  <span class="notice-text" data-en="Updated hours at Cedar Hill · Oct 1" data-es="Horario actualizado en Cedar Hill · 1 de octubre">Updated hours at Cedar Hill · Oct 1</span>
+</div>
+<!-- ================= Top newsletter strip ================= -->
+<div class="top-signup">
+  <div class="lbl"><span class="glyph">✉</span><span data-en="Get the weekly digest — new titles, programs, and story hours in your inbox." data-es="Recibe el resumen semanal — nuevos títulos, programas y horas de cuentos en tu correo.">Get the weekly digest — new titles, programs, and story hours in your inbox.</span></div>
+  <form onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
+    <input type="email" placeholder="you@email.com" required>
+    <button type="submit" data-en="Subscribe" data-es="Suscribirse">Subscribe</button>
+  </form>
+  <div class="fine" data-en="Free · Unsubscribe anytime" data-es="Gratis · Cancela cuando quieras">Free · Unsubscribe anytime</div>
 </div>
 </div>
 

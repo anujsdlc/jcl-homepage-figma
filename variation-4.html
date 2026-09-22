@@ -52,6 +52,70 @@
   button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
   ::selection { background: var(--navy); color: #fff; }
 
+  /* ============ Notice + newsletter strips ============ */
+  .b-notice {
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 32px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+    font-family: var(--font-display);
+    font-size: 13px;
+  }
+  .b-notice .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34,197,94,0.22);
+    flex-shrink: 0;
+    animation: bn-pulse-4 2.4s ease-in-out infinite;
+  }
+  @keyframes bn-pulse-4 {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.22); }
+    50% { box-shadow: 0 0 0 7px rgba(34,197,94,0.08); }
+  }
+  .b-notice .sep { opacity: 0.35; }
+  .b-notice b { font-weight: 700; color: var(--orange); }
+  .b-signup {
+    background: var(--lilac);
+    color: var(--navy);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 18px; flex-wrap: wrap;
+  }
+  .b-signup .lbl {
+    font-family: var(--font-brand);
+    font-weight: 700; font-size: 14px;
+    color: var(--navy);
+  }
+  .b-signup .lbl .glyph { margin-right: 8px; color: var(--red); }
+  .b-signup form {
+    display: flex; align-items: stretch;
+    background: #fff;
+    border-radius: 999px;
+    overflow: hidden;
+    max-width: 460px; width: 100%;
+    box-shadow: 0 4px 12px rgba(5,36,96,0.12);
+  }
+  .b-signup form input {
+    flex: 1; border: 0; outline: none;
+    padding: 10px 18px;
+    font-family: var(--font-display); font-size: 13px;
+    background: transparent; color: var(--ink); min-width: 0;
+  }
+  .b-signup form button {
+    border: 0; cursor: pointer;
+    background: var(--navy); color: #fff;
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0 20px;
+  }
+  .b-signup form button:hover { background: var(--red); }
+  @media (max-width: 720px) {
+    .b-notice, .b-signup { padding: 10px 16px; gap: 10px; }
+    .b-signup .lbl { font-size: 12px; text-align: center; }
+  }
+
   /* ============ Top nav (slim) ============ */
   .top {
     position: sticky; top: 0; z-index: 40;
@@ -120,7 +184,7 @@
   .nav-item.is-open .mega { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .mega-hd {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--ink-soft);
     padding-bottom: 12px;
@@ -178,7 +242,7 @@
     letter-spacing: -0.01em;
   }
   .mega-loc .a {
-    font-size: 11px; color: var(--ink-soft);
+    font-size: 12px; color: var(--ink-soft);
     margin-top: 2px;
     line-height: 1.4;
   }
@@ -191,7 +255,7 @@
   .brand img { height: 52px; }
   .brand small {
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.22em;
     color: var(--ink-soft);
     text-transform: uppercase;
@@ -236,7 +300,7 @@
   }
   .rail-title {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-soft);
     padding: 0 12px 8px;
@@ -262,7 +326,7 @@
     background: var(--surface-alt);
     color: var(--ink-soft);
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.06em;
     border-radius: 999px;
   }
@@ -293,7 +357,7 @@
   }
   .rail-open .who {
     font-family: var(--font-display);
-    font-size: 11px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--ink-soft);
     letter-spacing: 0;
   }
@@ -347,7 +411,7 @@
   .rail-cta:hover { transform: translateY(-2px); }
   .rail-cta .k {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--orange);
     margin-bottom: 4px;
@@ -381,7 +445,7 @@
     backdrop-filter: blur(12px);
     border-radius: 999px;
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--navy);
     margin-bottom: 16px;
@@ -453,7 +517,7 @@
     flex-wrap: wrap;
     gap: 6px;
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink-soft);
   }
   .hero-hints .lbl { margin-right: 4px; }
@@ -610,7 +674,7 @@
   }
   .b-book-body .kicker {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--orange);
   }
@@ -644,7 +708,7 @@
   .ev-list-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
   .ev-list-side .kicker {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-soft);
   }
@@ -669,7 +733,7 @@
   }
   .ev-day-hdr .day-meta {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink-soft);
     margin-top: 4px;
     letter-spacing: 0.02em;
@@ -706,7 +770,7 @@
   .ev-row .time small {
     display: block;
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.12em;
     color: var(--ink-soft);
     margin-top: 3px;
@@ -720,7 +784,7 @@
   }
   .ev-row .loc {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     color: var(--ink-soft);
     margin-top: 2px;
     letter-spacing: 0.02em;
@@ -728,7 +792,7 @@
   .ev-row .tag {
     padding: 3px 8px;
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.12em; text-transform: uppercase;
     border-radius: 999px;
   }
@@ -782,7 +846,7 @@
   .ev-cal-dow span {
     text-align: center;
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.06em;
     color: var(--ink-soft);
   }
@@ -802,7 +866,7 @@
   }
   .cal-day > span {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink);
     letter-spacing: -0.01em;
     line-height: 1;
@@ -832,7 +896,7 @@
   }
   .b-svc .kicker {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-soft);
   }
@@ -870,7 +934,7 @@
   .app-icon img { width: 34px; height: 34px; }
   .app span {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--ink);
     line-height: 1.2;
     letter-spacing: -0.01em;
@@ -941,7 +1005,7 @@
   }
   .shelf-book .t {
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--ink);
     line-height: 1.25;
@@ -952,7 +1016,7 @@
   }
   .shelf-book .a {
     font-family: var(--font-display);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--ink-soft);
     line-height: 1.3;
   }
@@ -992,7 +1056,7 @@
   }
   .br-card .kicker {
     font-family: var(--font-brand);
-    font-size: 9px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: rgba(255,255,255,0.7);
     margin-bottom: 4px;
@@ -1007,7 +1071,7 @@
   .br-card .status {
     display: inline-flex; align-items: center; gap: 6px;
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.08em;
     color: rgba(255,255,255,0.9);
   }
@@ -1028,7 +1092,7 @@
   }
   .b-news .kicker {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--red);
   }
@@ -1066,7 +1130,7 @@
   }
   .b-news-signup .kicker {
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: rgba(255,255,255,0.8);
     position: relative;
@@ -1124,7 +1188,7 @@
   .foot-btm {
     display: flex; justify-content: space-between; align-items: center;
     font-family: var(--font-brand);
-    font-size: 11px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     letter-spacing: 0.06em;
     color: var(--ink-soft);
     flex-wrap: wrap;
@@ -1195,7 +1259,7 @@
     color: var(--ink-soft);
     text-decoration: none;
     font-family: var(--font-brand);
-    font-size: 10px; font-weight: 700;
+    font-size: 12px; font-weight: 700;
     letter-spacing: 0.02em;
     border-radius: 14px;
     transition: all 200ms var(--ease);
@@ -1212,6 +1276,24 @@
 </style>
 </head>
 <body>
+
+<!-- Notice bar -->
+<div class="b-notice">
+  <span class="dot" aria-hidden="true"></span>
+  <span>All 7 branches open until 9 PM</span>
+  <span class="sep">·</span>
+  <span><b>12 free programs</b> on today's schedule</span>
+  <span class="sep">·</span>
+  <span>Updated hours at Cedar Hill · Oct 1</span>
+</div>
+<!-- Top newsletter strip -->
+<div class="b-signup">
+  <div class="lbl"><span class="glyph">✉</span>Get the weekly digest — new titles, programs, and story hours in your inbox.</div>
+  <form onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓'">
+    <input type="email" placeholder="you@email.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
 
 <!-- Slim top nav with mega menus -->
 <header class="top">
