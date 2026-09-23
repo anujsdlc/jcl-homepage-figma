@@ -170,6 +170,103 @@
     .top-signup { padding: 10px 16px; gap: 10px; }
     .top-signup .fine { display: none; }
   }
+  /* On desktop, hide the top strip — subscribe lives at bottom right */
+  @media (min-width: 721px) {
+    .top-signup { display: none; }
+  }
+
+  /* ============ Desktop bottom subscribe widget ============ */
+  .btm-signup {
+    position: fixed;
+    right: 20px; bottom: 20px;
+    z-index: 90;
+    max-width: 380px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 20px 20px;
+    box-shadow: 0 20px 44px rgba(5,36,96,0.18),
+                0 4px 12px rgba(5,36,96,0.08);
+    transform: translateY(24px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 400ms cubic-bezier(0.22,1,0.36,1),
+                opacity 400ms;
+  }
+  .btm-signup.is-shown {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .btm-signup.is-hidden { display: none; }
+  .btm-signup .close {
+    position: absolute; top: 10px; right: 10px;
+    width: 28px; height: 28px;
+    display: grid; place-items: center;
+    background: transparent;
+    border: 0; cursor: pointer;
+    color: var(--ink-soft);
+    font-size: 18px; line-height: 1;
+    border-radius: 50%;
+    transition: background 160ms, color 160ms;
+  }
+  .btm-signup .close:hover { background: var(--surface-alt); color: var(--ink); }
+  .btm-signup .kicker {
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+  .btm-signup h3 {
+    font-family: var(--font-brand);
+    font-size: 18px; font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .btm-signup p {
+    font-family: var(--font-display);
+    font-size: 13px; line-height: 1.4;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .btm-signup form {
+    display: flex; align-items: stretch;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .btm-signup form input {
+    flex: 1; border: 0; outline: none;
+    padding: 10px 16px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    background: transparent;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .btm-signup form button {
+    border: 0; cursor: pointer;
+    background: var(--navy); color: #fff;
+    font-family: var(--font-brand);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0 18px;
+    transition: background 200ms;
+  }
+  .btm-signup form button:hover { background: var(--red); }
+  .btm-signup .fine {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 12px; color: var(--ink-soft);
+    margin-top: 8px;
+  }
+  @media (max-width: 720px) {
+    .btm-signup { display: none; }
+  }
   .top-links { display: flex; gap: 28px; color: var(--ink-soft); align-items: center; }
   .top-links span { transition: color var(--dur-fast) var(--ease-smooth); cursor: pointer; }
   .top-links span:hover { color: var(--ink); }
@@ -2150,16 +2247,18 @@
     }
   }
 
-  /* ============ Dark theme tokens ============ */
+  /* ============ Dark theme tokens (Facebook-style neutrals) ============ */
   [data-theme="dark"] {
-    --ink: #f0f0f5;
-    --ink-muted: #b0b0b8;
-    --ink-soft: #8a8a92;
-    --surface: #0e1220;
-    --surface-alt: #1a1d2e;
-    --surface-warm: #171827;
-    --line: rgba(255,255,255,0.08);
+    --ink: #E4E6EB;
+    --ink-muted: #B0B3B8;
+    --ink-soft: #8A8D91;
+    --surface: #18191A;
+    --surface-alt: #242526;
+    --surface-warm: #1E1F20;
+    --line: rgba(255,255,255,0.10);
     --line-strong: rgba(255,255,255,0.16);
+    --navy-dark: #0a3a8e;
+    color-scheme: dark;
   }
   [data-theme="dark"] body {
     background: var(--surface);
@@ -2168,6 +2267,93 @@
   [data-theme="dark"] img.logo-invert,
   [data-theme="dark"] .foot-brand img,
   [data-theme="dark"] .brand img { filter: brightness(0) invert(1); }
+
+  /* Section-level dark overrides */
+  [data-theme="dark"] .site-topbar,
+  [data-theme="dark"] .main-nav,
+  [data-theme="dark"] .header,
+  [data-theme="dark"] .services-section,
+  [data-theme="dark"] .books-section,
+  [data-theme="dark"] .events-section,
+  [data-theme="dark"] .branches-section,
+  [data-theme="dark"] .impact-strip,
+  [data-theme="dark"] .newsletter-section,
+  [data-theme="dark"] .footer-links,
+  [data-theme="dark"] .hero {
+    background: var(--surface);
+    color: var(--ink);
+  }
+  [data-theme="dark"] .notice-bar { background: #101828; }
+  [data-theme="dark"] .top-signup,
+  [data-theme="dark"] .top-signup .lbl { background: #242847; color: var(--ink); }
+  [data-theme="dark"] .top-signup .fine { color: rgba(228,230,235,0.65); }
+  [data-theme="dark"] .top-signup form { background: #1a1d2e; border-color: rgba(255,255,255,0.18); }
+  [data-theme="dark"] .top-signup form input { color: var(--ink); }
+  [data-theme="dark"] .top-signup form input::placeholder { color: #8A8D91; }
+
+  /* Cards / tiles / surfaces */
+  [data-theme="dark"] .svc-tile,
+  [data-theme="dark"] .book-card,
+  [data-theme="dark"] .branch-card,
+  [data-theme="dark"] .event-card,
+  [data-theme="dark"] .spotlight-card,
+  [data-theme="dark"] .hero-preview,
+  [data-theme="dark"] .footer-strip {
+    background: var(--surface-alt);
+    border-color: var(--line);
+    color: var(--ink);
+  }
+  [data-theme="dark"] .svc-tile:hover,
+  [data-theme="dark"] .svc-tile:hover .svc-tile-title,
+  [data-theme="dark"] .svc-tile:hover .svc-tile-sub { color: #fff; }
+  [data-theme="dark"] .svc-tile-title { color: var(--ink); }
+  [data-theme="dark"] .svc-tile-sub { color: var(--ink-muted); }
+
+  /* Bento / calendar */
+  [data-theme="dark"] .cal-shell,
+  [data-theme="dark"] .cal-body,
+  [data-theme="dark"] .cal-day,
+  [data-theme="dark"] .cal-hd { background: var(--surface-alt); color: var(--ink); border-color: var(--line); }
+  [data-theme="dark"] .cal-day .dn { color: var(--ink); }
+  [data-theme="dark"] .cal-day:hover { background: #303233; }
+  [data-theme="dark"] .cal-day.on { background: var(--red); color: #fff; }
+
+  /* Header CTAs & buttons */
+  [data-theme="dark"] .btn-outline { background: transparent; color: var(--ink); border-color: rgba(255,255,255,0.24); }
+  [data-theme="dark"] .btn-outline:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.4); }
+  [data-theme="dark"] .btn-ghost { color: var(--ink); }
+  [data-theme="dark"] .header-cell.get-card,
+  [data-theme="dark"] .header-cell.my-account { background: var(--navy); color: #fff; }
+
+  /* Search + inputs */
+  [data-theme="dark"] .search-bar { background: var(--surface-alt); border-color: var(--line-strong); color: var(--ink); }
+  [data-theme="dark"] .search-bar input { color: var(--ink); background: transparent; }
+  [data-theme="dark"] .search-bar input::placeholder { color: var(--ink-soft); }
+
+  /* Bottom subscribe */
+  [data-theme="dark"] .btm-signup { background: var(--surface-alt); border-color: var(--line); box-shadow: 0 20px 44px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.35); }
+  [data-theme="dark"] .btm-signup h3 { color: var(--ink); }
+  [data-theme="dark"] .btm-signup p,
+  [data-theme="dark"] .btm-signup .fine { color: var(--ink-muted); }
+  [data-theme="dark"] .btm-signup form { background: var(--surface-warm); border-color: rgba(255,255,255,0.18); }
+  [data-theme="dark"] .btm-signup form input { color: var(--ink); }
+  [data-theme="dark"] .btm-signup form input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .btm-signup .close:hover { background: rgba(255,255,255,0.08); color: var(--ink); }
+
+  /* Bottom mobile bar */
+  [data-theme="dark"] .m-bb-0 { background: rgba(24,25,26,0.92); border-top-color: rgba(255,255,255,0.08); }
+  [data-theme="dark"] .m-bb-0 a { color: var(--ink-muted); }
+  [data-theme="dark"] .m-bb-0 a .ic { color: var(--ink); }
+  [data-theme="dark"] .m-bb-0 a.on,
+  [data-theme="dark"] .m-bb-0 a.on .ic { color: var(--orange); }
+
+  /* Text/misc adjustments */
+  [data-theme="dark"] .section-eyebrow { color: var(--orange); }
+  [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4 { color: var(--ink); }
+  [data-theme="dark"] .lede, [data-theme="dark"] .section-sub, [data-theme="dark"] p { color: var(--ink-muted); }
+  [data-theme="dark"] a { color: inherit; }
+  [data-theme="dark"] .footer-links a { color: var(--ink-muted); }
+  [data-theme="dark"] .footer-links a:hover { color: var(--ink); }
 
   .theme-toggle {
     position: fixed; top: 12px; right: 12px;
@@ -2197,6 +2383,19 @@
 
 <!-- Theme toggle -->
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
+
+<!-- Desktop bottom subscribe widget -->
+<aside class="btm-signup" id="btmSignup" aria-label="Subscribe to updates">
+  <button class="close" id="btmSignupClose" aria-label="Dismiss">×</button>
+  <div class="kicker" data-en="Weekly digest" data-es="Resumen semanal">Weekly digest</div>
+  <h3 data-en="Never miss what's new." data-es="No te pierdas nada nuevo.">Never miss what's new.</h3>
+  <p data-en="New titles, story hours, and free programs — one short email each Friday." data-es="Títulos nuevos, cuentos y programas gratuitos — un correo corto cada viernes.">New titles, story hours, and free programs — one short email each Friday.</p>
+  <form onsubmit="event.preventDefault();this.reset();this.querySelector('button').textContent='Subscribed ✓';setTimeout(function(){document.getElementById('btmSignup').classList.add('is-hidden');localStorage.setItem('jcl-nl-dismissed','1');},1200)">
+    <input type="email" placeholder="you@email.com" required>
+    <button type="submit" data-en="Subscribe" data-es="Suscribirse">Subscribe</button>
+  </form>
+  <small class="fine" data-en="Free · Unsubscribe anytime" data-es="Gratis · Cancela cuando quieras">Free · Unsubscribe anytime</small>
+</aside>
 
 <!-- ================= Sticky top stack (nav → search → notice) ================= -->
 <div class="site-topbar" id="siteTopbar">
@@ -2622,63 +2821,6 @@
       </div>
       <a class="view-all-row"><span data-en="View all Events" data-es="Ver todos los eventos">View all Events</span> <img src="assets/arrow-blue.svg" alt=""></a>
     </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= Service color nav (one look) ================= -->
-<section class="svc-nav">
-  <div class="svc-nav-inner">
-    <div class="svc-nav-head">
-      <div>
-        <div class="eyebrow" data-en="One visual variation" data-es="Una variación visual">One visual variation</div>
-        <h2 data-en="A colorful <strong>front door</strong>." data-es="Una <strong>entrada</strong> con color.">A colorful <strong>front door</strong>.</h2>
-      </div>
-      <p data-en="Six of our most-used services, as bold tiles. Tap any one to jump straight in." data-es="Seis de nuestros servicios más usados, en fichas de color. Toca una para empezar.">Six of our most-used services, as bold tiles. Tap any one to jump straight in.</p>
-    </div>
-    <div class="svc-nav-grid">
-      <a class="svc-nav-tile c1">
-        <span class="glyph"><img src="assets/service-8.svg" alt=""></span>
-        <div>
-          <div class="lbl" data-en="Mobile App" data-es="Aplicación">Mobile App</div>
-          <div class="sub" data-en="Read on your phone" data-es="Lee en tu móvil">Read on your phone</div>
-        </div>
-      </a>
-      <a class="svc-nav-tile c2">
-        <span class="glyph"><img src="assets/service-11.svg" alt=""></span>
-        <div>
-          <div class="lbl" data-en="Meeting Rooms" data-es="Salas">Meeting Rooms</div>
-          <div class="sub" data-en="Study, meet, collab" data-es="Estudia y colabora">Study, meet, collab</div>
-        </div>
-      </a>
-      <a class="svc-nav-tile c3">
-        <span class="glyph"><img src="assets/service-3.svg" alt=""></span>
-        <div>
-          <div class="lbl" data-en="Book Bundles" data-es="Paquetes">Book Bundles</div>
-          <div class="sub" data-en="A stack, curated" data-es="Una selección lista">A stack, curated</div>
-        </div>
-      </a>
-      <a class="svc-nav-tile c4">
-        <span class="glyph"><img src="assets/service-12.svg" alt=""></span>
-        <div>
-          <div class="lbl" data-en="Library of Things" data-es="Biblioteca de Cosas">Library of Things</div>
-          <div class="sub" data-en="Borrow gear, tools" data-es="Presta herramientas">Borrow gear, tools</div>
-        </div>
-      </a>
-      <a class="svc-nav-tile c5">
-        <span class="glyph"><img src="assets/service-9.svg" alt=""></span>
-        <div>
-          <div class="lbl" data-en="Request a Book" data-es="Pedir un libro">Request a Book</div>
-          <div class="sub" data-en="Suggest a title" data-es="Sugerir un título">Suggest a title</div>
-        </div>
-      </a>
-      <a class="svc-nav-tile c6">
-        <span class="glyph"><img src="assets/service-4.svg" alt=""></span>
-        <div>
-          <div class="lbl" data-en="Genealogy" data-es="Genealogía">Genealogy</div>
-          <div class="sub" data-en="Roots &amp; records" data-es="Raíces y archivos">Roots &amp; records</div>
-        </div>
-      </a>
     </div>
   </div>
 </section>
@@ -3261,6 +3403,25 @@
       localStorage.setItem('jcl-theme', next);
       btn.textContent = next === 'dark' ? '☀' : '☾';
     });
+  });
+
+  // Bottom subscribe widget: slide in after 3s, remember dismissal
+  document.addEventListener('DOMContentLoaded', function(){
+    var card = document.getElementById('btmSignup');
+    if (!card) return;
+    if (localStorage.getItem('jcl-nl-dismissed') === '1') {
+      card.classList.add('is-hidden');
+      return;
+    }
+    setTimeout(function(){ card.classList.add('is-shown'); }, 2600);
+    var closeBtn = document.getElementById('btmSignupClose');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function(){
+        card.classList.remove('is-shown');
+        setTimeout(function(){ card.classList.add('is-hidden'); }, 400);
+        localStorage.setItem('jcl-nl-dismissed', '1');
+      });
+    }
   });
 })();
 </script>
