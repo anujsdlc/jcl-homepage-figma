@@ -2621,6 +2621,36 @@
   [data-theme="dark"] .spot-card h3,
   [data-theme="dark"] .spot-tag { color: var(--ink); }
 
+
+  /* ============ index dark — round 3: chips + weekly digest ============ */
+
+  /* Branch chips overlay (Adults / Kids-Teens) — light bg + dark ink was invisible in dark mode.
+     Make them dark chips with white text so they read on the photo. */
+  [data-theme="dark"] .branch-chips-overlay .chip {
+    background: rgba(0,0,0,0.72);
+    color: #fff;
+  }
+  [data-theme="dark"] .branch-status {
+    background: rgba(0,0,0,0.72);
+    color: #fff;
+  }
+
+  /* Generic chip / tag */
+  [data-theme="dark"] .chip { background: var(--surface-alt); color: var(--ink); }
+
+  /* Weekly digest — no red in dark mode */
+  [data-theme="dark"] .btm-signup .kicker { color: var(--orange); }
+  [data-theme="dark"] .btm-signup h3 { color: var(--ink); }
+  [data-theme="dark"] .btm-signup form { background: var(--surface-warm); border-color: rgba(255,255,255,0.18); }
+  [data-theme="dark"] .btm-signup form input { color: var(--ink); background: transparent; }
+  [data-theme="dark"] .btm-signup form input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .btm-signup form button { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+  [data-theme="dark"] .btm-signup form button:hover { background: rgba(255,255,255,0.08); border-color: var(--ink); }
+
+  [data-theme="dark"] .top-signup .lbl .glyph { color: var(--orange); }
+  [data-theme="dark"] .top-signup form button { background: var(--ink); color: var(--surface); }
+  [data-theme="dark"] .top-signup form button:hover { background: var(--ink-muted); }
+
 </style>
 </head>
 <body>
