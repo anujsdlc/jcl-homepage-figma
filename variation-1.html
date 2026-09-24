@@ -1269,6 +1269,122 @@
   [data-theme="dark"] .m-bb a { color: var(--ink-muted); }
   [data-theme="dark"] .m-bb a .ic { color: var(--ink); }
 
+
+  /* ============ Dark mode — icon + text contrast fixes ============ */
+  [data-theme="dark"] .svc-tile img,
+  [data-theme="dark"] .svc-tile-2 img,
+  [data-theme="dark"] .svc-t1 img,
+  [data-theme="dark"] .nav-svc-grid img,
+  [data-theme="dark"] .nav-drop-item img,
+  [data-theme="dark"] .mega-item img,
+  [data-theme="dark"] .qa-glyph img,
+  [data-theme="dark"] .qa-card img,
+  [data-theme="dark"] .b-svc img,
+  [data-theme="dark"] .b-branch img,
+  [data-theme="dark"] .b-news img,
+  [data-theme="dark"] .angle-icon img,
+  [data-theme="dark"] .loc-arrow img,
+  [data-theme="dark"] .arr img,
+  [data-theme="dark"] .perk .icon,
+  [data-theme="dark"] .service-icon img,
+  [data-theme="dark"] .hero-preview img[src*="service"],
+  [data-theme="dark"] img[src*="vector-arrow"],
+  [data-theme="dark"] img[src*="service-"] {
+    filter: brightness(0) invert(0.88);
+  }
+  [data-theme="dark"] .svc-tile:hover img,
+  [data-theme="dark"] .qa-card:hover img,
+  [data-theme="dark"] .mega-item:hover img { filter: brightness(0) invert(1); }
+
+  /* Blue-text-on-dark → light */
+  [data-theme="dark"] .event-title,
+  [data-theme="dark"] .event-info,
+  [data-theme="dark"] .event-info .event-title,
+  [data-theme="dark"] .event-info .event-loc,
+  [data-theme="dark"] .event-info .event-time,
+  [data-theme="dark"] .event-row:hover .event-direction,
+  [data-theme="dark"] .svc-tile-title,
+  [data-theme="dark"] .svc-tile-sub,
+  [data-theme="dark"] .nav-drop-item .nd-title,
+  [data-theme="dark"] .mega-item .t,
+  [data-theme="dark"] .qa-title,
+  [data-theme="dark"] .qa-card .qa-title,
+  [data-theme="dark"] .qa-card h3,
+  [data-theme="dark"] .b-book h3,
+  [data-theme="dark"] .b-book .title,
+  [data-theme="dark"] .b-event h3,
+  [data-theme="dark"] .b-shelf h3,
+  [data-theme="dark"] .b-svc h3,
+  [data-theme="dark"] .b-branch h3,
+  [data-theme="dark"] .b-news h3,
+  [data-theme="dark"] .newsletter-card h3,
+  [data-theme="dark"] .book-info-2 .title,
+  [data-theme="dark"] .book-info-2 .author,
+  [data-theme="dark"] .book h4,
+  [data-theme="dark"] .book .author,
+  [data-theme="dark"] .cal-day .dn,
+  [data-theme="dark"] .loc-title,
+  [data-theme="dark"] .loc-addr,
+  [data-theme="dark"] .loc-hours,
+  [data-theme="dark"] .cal-shell h3,
+  [data-theme="dark"] .cal-header h2,
+  [data-theme="dark"] .ev-day-num,
+  [data-theme="dark"] .rail-ev .ti,
+  [data-theme="dark"] .rail-stat .val,
+  [data-theme="dark"] .rail-open .who strong,
+  [data-theme="dark"] .rail-cta .t,
+  [data-theme="dark"] .impact-cell .n,
+  [data-theme="dark"] .impact-item .num,
+  [data-theme="dark"] .stat-card .num,
+  [data-theme="dark"] .b-hours,
+  [data-theme="dark"] .footer-links h4,
+  [data-theme="dark"] .footer-links a,
+  [data-theme="dark"] .foot-col h4,
+  [data-theme="dark"] .foot-col a,
+  [data-theme="dark"] .footer-copy,
+  [data-theme="dark"] a { color: var(--ink); }
+
+  [data-theme="dark"] .event-loc,
+  [data-theme="dark"] .event-info .event-loc,
+  [data-theme="dark"] .svc-tile-sub,
+  [data-theme="dark"] .mega-item .s,
+  [data-theme="dark"] .qa-card p,
+  [data-theme="dark"] .nd-title + .nd-sub,
+  [data-theme="dark"] .foot-col a,
+  [data-theme="dark"] .footer-links a,
+  [data-theme="dark"] .cal-hd .cal-h,
+  [data-theme="dark"] .ev-day-name,
+  [data-theme="dark"] .subline,
+  [data-theme="dark"] p { color: var(--ink-muted); }
+
+  /* Explicit navy-text overrides for any hero/section headings */
+  [data-theme="dark"] .hero h1,
+  [data-theme="dark"] .hero h2,
+  [data-theme="dark"] .brand-name,
+  [data-theme="dark"] .brand-name small,
+  [data-theme="dark"] .section-eyebrow,
+  [data-theme="dark"] .sect-title,
+  [data-theme="dark"] .sect-eyebrow,
+  [data-theme="dark"] .eyebrow,
+  [data-theme="dark"] .hero-eyebrow { color: var(--ink); }
+
+  /* Search bar / inputs — force dark surface */
+  [data-theme="dark"] .search-bar,
+  [data-theme="dark"] .search-wrap,
+  [data-theme="dark"] .search-input-row,
+  [data-theme="dark"] input[type="text"],
+  [data-theme="dark"] input[type="email"],
+  [data-theme="dark"] input[type="search"] { background: var(--surface-alt); color: var(--ink); border-color: var(--line-strong); }
+  [data-theme="dark"] .search-bar input,
+  [data-theme="dark"] .search-wrap input,
+  [data-theme="dark"] .search-input-row input { background: transparent; color: var(--ink); }
+  [data-theme="dark"] input::placeholder { color: var(--ink-soft); }
+
+  /* Icons that come as text glyphs (unicode) — inherit color */
+  [data-theme="dark"] .glyph,
+  [data-theme="dark"] .icon,
+  [data-theme="dark"] .ic { color: inherit; }
+
 </style>
 </head>
 <body>
