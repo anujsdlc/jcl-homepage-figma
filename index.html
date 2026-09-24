@@ -2595,6 +2595,32 @@
   [data-theme="dark"] .footer-links a { color: var(--ink-muted); }
   [data-theme="dark"] .footer-links a:hover { color: var(--ink); }
 
+
+  /* ============ index dark — round 2: logo + search + remaining blue ============ */
+  /* Force logo to render as white in dark mode across headers/footer */
+  [data-theme="dark"] .brand img,
+  [data-theme="dark"] .brand-tile img,
+  [data-theme="dark"] .footer-brand img,
+  [data-theme="dark"] .foot-brand img { filter: brightness(0) invert(1) !important; }
+
+  /* Search bar (header) in dark should remain visually contained inside its parent */
+  [data-theme="dark"] .search-bar { background: var(--surface-alt); border-right-color: var(--line); }
+  [data-theme="dark"] .search-bar .search-ico { filter: brightness(0) invert(0.85); opacity: 0.9; }
+
+  /* Any leftover navy text in hero / branches / newsletter card */
+  [data-theme="dark"] .hero-events-head .title { color: var(--ink); }
+  [data-theme="dark"] .newsletter-card h3,
+  [data-theme="dark"] .newsletter-card .h,
+  [data-theme="dark"] .loc-title,
+  [data-theme="dark"] .branch-name,
+  [data-theme="dark"] .book-info .title,
+  [data-theme="dark"] .book-info .author,
+  [data-theme="dark"] .u-card .txt,
+  [data-theme="dark"] .u-card:hover .txt,
+  [data-theme="dark"] .spot-body h3,
+  [data-theme="dark"] .spot-card h3,
+  [data-theme="dark"] .spot-tag { color: var(--ink); }
+
 </style>
 </head>
 <body>

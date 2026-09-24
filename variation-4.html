@@ -1340,7 +1340,8 @@
   [data-theme="dark"] p, [data-theme="dark"] .hero-sub { color: var(--ink-muted); }
   [data-theme="dark"] .hero-kicker { background: rgba(255,255,255,0.12); color: var(--ink); }
   [data-theme="dark"] .foot { background: #0f0f10; color: var(--ink); }
-  [data-theme="dark"] .brand img { filter: none; }
+  [data-theme="dark"] .brand img,
+  [data-theme="dark"] .foot-brand img { filter: brightness(0) invert(1); }
   [data-theme="dark"] .btn-fill { background: var(--red); color: #fff; }
   [data-theme="dark"] .m-bb-4 { background: rgba(24,25,26,0.9); border-color: rgba(255,255,255,0.14); }
   [data-theme="dark"] .m-bb-4 a { color: var(--ink-muted); }
@@ -1564,6 +1565,107 @@
   [data-theme="dark"] .footer-links h4 { color: var(--ink); }
   [data-theme="dark"] .footer-links a { color: var(--ink-muted); }
   [data-theme="dark"] .footer-links a:hover { color: var(--ink); }
+
+
+  /* ============ v4 dark mode — kill blue text in class-level CSS ============ */
+  [data-theme="dark"] .b-signup { background: #2a2a4a; color: var(--ink); }
+  [data-theme="dark"] .b-signup .lbl { color: var(--ink); }
+  [data-theme="dark"] .mega-item .t,
+  [data-theme="dark"] .mega-loc .n,
+  [data-theme="dark"] .qa-title,
+  [data-theme="dark"] .section-head h2,
+  [data-theme="dark"] .section-head h2 strong,
+  [data-theme="dark"] .qa-card h3,
+  [data-theme="dark"] .b-book h3,
+  [data-theme="dark"] .b-book .title,
+  [data-theme="dark"] .b-event h3,
+  [data-theme="dark"] .b-svc h3,
+  [data-theme="dark"] .b-shelf h3,
+  [data-theme="dark"] .b-branch h3,
+  [data-theme="dark"] .b-news h3,
+  [data-theme="dark"] .newsletter-card h3,
+  [data-theme="dark"] .book-info-2 .title,
+  [data-theme="dark"] .book-info-2 .author,
+  [data-theme="dark"] .rail-title,
+  [data-theme="dark"] .rail-ev .ti,
+  [data-theme="dark"] .rail-stat .val,
+  [data-theme="dark"] .rail-cta .t,
+  [data-theme="dark"] .rail-open .who strong,
+  [data-theme="dark"] .impact-stat .n,
+  [data-theme="dark"] .cal-day .dn,
+  [data-theme="dark"] .cal-hd h3,
+  [data-theme="dark"] .brand small,
+  [data-theme="dark"] .brand-name,
+  [data-theme="dark"] .hero h1,
+  [data-theme="dark"] .hero h2,
+  [data-theme="dark"] .hero .kicker,
+  [data-theme="dark"] .book-cover-2,
+  [data-theme="dark"] .newsletter-card .h,
+  [data-theme="dark"] .service-tile-title { color: var(--ink); }
+
+  [data-theme="dark"] .mega-item .s,
+  [data-theme="dark"] .mega-loc .a,
+  [data-theme="dark"] .qa-card p,
+  [data-theme="dark"] .b-branch p,
+  [data-theme="dark"] .rail-open .who,
+  [data-theme="dark"] .rail-stat .lbl,
+  [data-theme="dark"] .section-head p,
+  [data-theme="dark"] .hero p,
+  [data-theme="dark"] .hero-sub { color: var(--ink-muted); }
+
+  /* Tag/pill backgrounds — kill navy tint text */
+  [data-theme="dark"] .ev-tag-navy { background: rgba(255,255,255,0.10); color: var(--ink); }
+  [data-theme="dark"] .qa-a .qa-glyph,
+  [data-theme="dark"] .qa-d .qa-glyph { background: rgba(255,255,255,0.10); color: var(--ink); }
+  [data-theme="dark"] .qa-a .qa-glyph img,
+  [data-theme="dark"] .qa-d .qa-glyph img { filter: brightness(0) invert(0.88); }
+
+  /* Ghost buttons */
+  [data-theme="dark"] .btn-ghost { color: var(--ink); border-color: var(--line-strong); }
+  [data-theme="dark"] .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: var(--ink); }
+
+  /* Any leftover navy background chips → keep but ensure contrast */
+  [data-theme="dark"] .b-notice { background: linear-gradient(90deg,#05132e,var(--navy),#0a3a8e); }
+
+
+  /* ============ v4 dark — round 2: all remaining blue text + logo + search ============ */
+  [data-theme="dark"] .hero-kicker { background: rgba(255,255,255,0.10); color: var(--ink); }
+  [data-theme="dark"] .hero-hint { color: var(--ink); background: rgba(255,255,255,0.08); border-color: var(--line); }
+  [data-theme="dark"] .section-head h2 strong { color: var(--ink); }
+  [data-theme="dark"] .section-link { color: var(--ink); border-color: var(--line-strong); }
+  [data-theme="dark"] .section-link:hover { background: rgba(255,255,255,0.06); border-color: var(--ink); }
+  [data-theme="dark"] .qa-card:hover .qa-arr { color: var(--ink); }
+  [data-theme="dark"] .qa-arr { color: var(--ink-muted); }
+  [data-theme="dark"] .b-book-body h3 { color: var(--ink); }
+  [data-theme="dark"] .ev-day-hdr .d { color: var(--ink); }
+  [data-theme="dark"] .ev-row .time { color: var(--ink); }
+  [data-theme="dark"] .ev-cal-nav button { color: var(--ink); border-color: var(--line-strong); }
+  [data-theme="dark"] .ev-cal-nav button:hover { background: rgba(255,255,255,0.06); border-color: var(--ink); }
+  [data-theme="dark"] .b-shelf-hd h3 { color: var(--ink); }
+  [data-theme="dark"] .b-shelf-hd .more { color: var(--ink-muted); }
+  [data-theme="dark"] .b-shelf-hd .more:hover { color: var(--ink); }
+
+  /* HERO SEARCH — remove white pill in dark, use dark surface with same rounded shape */
+  [data-theme="dark"] .hero-search {
+    background: var(--surface-alt);
+    border-color: rgba(255,255,255,0.14);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.35);
+  }
+  [data-theme="dark"] .hero-search:focus-within { background: var(--surface-alt); }
+  [data-theme="dark"] .hero-search .s-ico { color: var(--ink-muted); }
+  [data-theme="dark"] .hero-search input { color: var(--ink); }
+  [data-theme="dark"] .hero-search input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .hero-search .s-go { background: var(--red); color: #fff; }
+
+  /* Top newsletter form and desktop bottom subscribe — ensure rounded pill is preserved */
+  [data-theme="dark"] .b-signup form { border-radius: 999px; overflow: hidden; }
+  [data-theme="dark"] .b-signup form input { color: var(--ink); background: transparent; }
+  [data-theme="dark"] .b-signup form input::placeholder { color: var(--ink-soft); }
+
+  /* Logo — white in dark mode across every position */
+  [data-theme="dark"] .brand img,
+  [data-theme="dark"] .foot-brand img,
+  [data-theme="dark"] .brand-tile img { filter: brightness(0) invert(1); }
 
 </style>
 </head>
