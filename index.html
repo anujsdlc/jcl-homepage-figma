@@ -2491,6 +2491,110 @@
   [data-theme="dark"] .icon,
   [data-theme="dark"] .ic { color: inherit; }
 
+
+  /* ============ Dark mode — text hierarchy + icon visibility ============ */
+
+  /* Text hierarchy (all text becomes greys — never colored):
+     Primary   → var(--ink)        #E4E6EB
+     Secondary → var(--ink-muted)  #B0B3B8
+     Tertiary  → var(--ink-soft)   #8A8D91  */
+
+  /* Nuclear: any element whose declared color was navy uses ink */
+  [data-theme="dark"] [style*="color: var(--navy)"] { color: var(--ink) !important; }
+  [data-theme="dark"] [style*="color:#052460"] { color: var(--ink) !important; }
+  [data-theme="dark"] [style*="color: #052460"] { color: var(--ink) !important; }
+
+  /* Icons — invert all monochrome dark-line SVGs including the search & mask icons */
+  [data-theme="dark"] .search-ico,
+  [data-theme="dark"] .search-bar img,
+  [data-theme="dark"] .search-wrap svg,
+  [data-theme="dark"] img[src*="search.svg"],
+  [data-theme="dark"] img[src*="vector-arrow"],
+  [data-theme="dark"] img[src*="service-"],
+  [data-theme="dark"] img[src*="facebook.svg"],
+  [data-theme="dark"] img[src*="instagram.svg"],
+  [data-theme="dark"] img[src*="youtube.svg"],
+  [data-theme="dark"] img[src*="link.svg"],
+  [data-theme="dark"] .socials img { filter: brightness(0) invert(0.88); }
+  [data-theme="dark"] .search-bar,
+  [data-theme="dark"] .search-wrap { color: var(--ink); }
+  [data-theme="dark"] .search-bar svg,
+  [data-theme="dark"] .search-wrap .s-ico { color: var(--ink-muted); stroke: var(--ink-muted); }
+
+  /* Language + theme toggle chip visibility */
+  [data-theme="dark"] .lang-toggle { background: var(--surface-alt); border-color: var(--line-strong); color: var(--ink); }
+  [data-theme="dark"] .lang-toggle::before { color: var(--ink-muted); }
+  [data-theme="dark"] .lang-switch { background: rgba(255,255,255,0.06); }
+  [data-theme="dark"] .lang-btn { color: var(--ink-muted); }
+  [data-theme="dark"] .lang-btn.active { color: #fff; }
+  [data-theme="dark"] .lang-pill { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+  [data-theme="dark"] .lang-pill span { color: var(--ink-muted); }
+  [data-theme="dark"] .lang-pill span.on { background: var(--surface-alt); color: var(--ink); }
+
+  /* Calendar in dark mode — grey hierarchy */
+  [data-theme="dark"] .cal-shell,
+  [data-theme="dark"] .cal-pane,
+  [data-theme="dark"] .agenda-pane { background: var(--surface-alt); border-color: var(--line); color: var(--ink); }
+  [data-theme="dark"] .cal-month-name { color: var(--ink); }
+  [data-theme="dark"] .cal-month-sub { color: var(--ink-muted); }
+  [data-theme="dark"] .cal-dow { color: var(--ink-soft); }
+  [data-theme="dark"] .cal-day { background: transparent; border-color: var(--line); }
+  [data-theme="dark"] .cal-day:hover:not(.cal-mute):not(.cal-today) { background: rgba(255,255,255,0.06); }
+  [data-theme="dark"] .cal-day .dn { color: var(--ink); }
+  [data-theme="dark"] .cal-day.cal-mute .dn { color: var(--ink-soft); }
+  [data-theme="dark"] .cal-nav-btn { background: var(--surface); border-color: var(--line-strong); color: var(--ink); }
+  [data-theme="dark"] .cal-nav-btn:hover { background: rgba(255,255,255,0.06); color: var(--ink); border-color: var(--ink); }
+  [data-theme="dark"] .ev-pill { background: rgba(255,255,255,0.08); color: var(--ink); border-left-color: var(--ink-muted); }
+  [data-theme="dark"] .ev-pill.ev-navy { background: rgba(255,255,255,0.10); color: var(--ink); border-left-color: var(--ink); }
+  [data-theme="dark"] .ev-pill.ev-red { background: rgba(255,120,130,0.16); color: #ffb0b6; border-left-color: #ff8b8b; }
+  [data-theme="dark"] .ev-pill.ev-orange { background: rgba(255,170,110,0.14); color: #ffcb9c; border-left-color: #ffa070; }
+  [data-theme="dark"] .ev-pill.ev-ink { background: rgba(255,255,255,0.08); color: var(--ink); border-left-color: var(--ink); }
+  [data-theme="dark"] .ev-more { color: var(--ink-soft); }
+  [data-theme="dark"] .cal-legend { color: var(--ink-muted); border-top-color: var(--line); }
+  [data-theme="dark"] .cal-legend-link { color: var(--ink-muted); }
+  [data-theme="dark"] .cal-legend-link:hover { color: var(--ink); }
+  [data-theme="dark"] .cal-day.cal-today { background: linear-gradient(135deg, #2d3966 0%, #1a2340 100%); box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+
+  /* Hero event preview list (index) */
+  [data-theme="dark"] .hero-preview { background: var(--surface-alt); border-color: var(--line); }
+  [data-theme="dark"] .hero-preview .event-title { color: var(--ink); }
+  [data-theme="dark"] .hero-preview .event-loc { color: var(--ink-muted); }
+  [data-theme="dark"] .hero-preview .event-time { color: var(--ink); }
+  [data-theme="dark"] .hero-preview .pill { background: rgba(255,255,255,0.08); color: var(--ink); border-color: var(--line); }
+  [data-theme="dark"] .hero-preview .event-direction { color: var(--ink-soft); }
+  [data-theme="dark"] .hero-preview .event-row:hover .event-direction { color: var(--ink); }
+  [data-theme="dark"] .hero-preview .angle-icon img { filter: brightness(0) invert(0.85); }
+
+  /* Explore-by section tiles */
+  [data-theme="dark"] .explore-strip { background: var(--surface); }
+  [data-theme="dark"] .explore-tile { color: #fff; }
+
+  /* Impact / stats */
+  [data-theme="dark"] .impact-strip { background: var(--surface-alt); border-top-color: var(--line); border-bottom-color: var(--line); }
+  [data-theme="dark"] .impact-item .num,
+  [data-theme="dark"] .impact-item .n,
+  [data-theme="dark"] .impact-cell .n { color: var(--ink); }
+  [data-theme="dark"] .impact-item .l,
+  [data-theme="dark"] .impact-cell .l { color: var(--ink-muted); }
+
+  /* Any remaining navy background chips in dark mode -> keep dark for accent, ensure text white */
+  [data-theme="dark"] .btn-primary,
+  [data-theme="dark"] .btn-fill,
+  [data-theme="dark"] .pill-primary,
+  [data-theme="dark"] .header-cell.get-card { background: var(--navy); color: #fff; }
+
+  /* Language + theme toggle chip in top links row (index) */
+  [data-theme="dark"] .top-links,
+  [data-theme="dark"] .top-links span { color: var(--ink-muted); }
+  [data-theme="dark"] .top-links span:hover { color: var(--ink); }
+
+  /* Footer strip in dark */
+  [data-theme="dark"] .footer-strip { background: var(--surface); color: var(--ink-muted); border-top-color: var(--line); }
+  [data-theme="dark"] .footer-links { background: var(--surface); color: var(--ink); border-top-color: var(--line); }
+  [data-theme="dark"] .footer-links h4 { color: var(--ink); }
+  [data-theme="dark"] .footer-links a { color: var(--ink-muted); }
+  [data-theme="dark"] .footer-links a:hover { color: var(--ink); }
+
 </style>
 </head>
 <body>
