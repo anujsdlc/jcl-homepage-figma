@@ -55,8 +55,9 @@
     font-family: var(--font-brand);
     font-size: 13px;
     letter-spacing: 0.06em;
-    padding: 14px 32px;
+    padding: 18px 32px;
     display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 3px solid var(--orange);
     gap: 24px;
     position: relative; z-index: 5;
     font-weight: 500;
@@ -1192,54 +1193,85 @@
     .m-bb { display: grid; }
     body { padding-bottom: 76px; }
   }
-
-  /* ============ Dark theme tokens ============ */
-  [data-theme="dark"] {
-    --ink: #f0f0f5;
-    --ink-muted: #b0b0b8;
-    --ink-soft: #8a8a92;
-    --surface: #0e1220;
-    --surface-alt: #1a1d2e;
-    --surface-warm: #171827;
-    --line: rgba(255,255,255,0.08);
-    --line-strong: rgba(255,255,255,0.16);
-  }
-  [data-theme="dark"] body {
-    background: var(--surface);
-    color: var(--ink);
-  }
-  [data-theme="dark"] img.logo-invert,
-  [data-theme="dark"] .foot-brand img,
-  [data-theme="dark"] .brand img { filter: brightness(0) invert(1); }
-
-  .theme-toggle {
-    position: fixed; top: 12px; right: 12px;
-    z-index: 200;
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0,0,0,0.08);
-    color: #0a0a0a;
+.theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 22px; min-width: 30px;
+    padding: 0 8px;
+    background: transparent;
+    border: 0;
+    color: inherit;
     cursor: pointer;
-    display: grid; place-items: center;
-    font-size: 18px; line-height: 1;
-    transition: transform 200ms ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: var(--font-brand);
+    font-size: 14px; line-height: 1;
+    opacity: 0.7;
+    transition: opacity 200ms;
   }
-  .theme-toggle:hover { transform: rotate(20deg); }
-  [data-theme="dark"] .theme-toggle {
-    background: rgba(30,32,50,0.85);
-    color: #fff;
-    border-color: rgba(255,255,255,0.14);
+  .theme-toggle:hover { opacity: 1; }
+  [data-theme="dark"] .theme-toggle { color: inherit; }
+
+  /* ============ Dark mode — professional overrides for v1 ============ */
+  [data-theme="dark"] {
+    --ink: #E4E6EB;
+    --ink-muted: #B0B3B8;
+    --ink-soft: #8A8D91;
+    --surface: #18191A;
+    --surface-alt: #242526;
+    --surface-warm: #1E1F20;
+    --line: rgba(255,255,255,0.10);
+    --line-strong: rgba(255,255,255,0.18);
+    color-scheme: dark;
   }
+  [data-theme="dark"] body { background: var(--surface); color: var(--ink); }
+  [data-theme="dark"] .site-header,
+  [data-theme="dark"] .search-wrap,
+  [data-theme="dark"] .search-input-row,
+  [data-theme="dark"] .top-signup-1,
+  [data-theme="dark"] .hero,
+  [data-theme="dark"] .sect,
+  [data-theme="dark"] .split,
+  [data-theme="dark"] .split.split-solo,
+  [data-theme="dark"] .services,
+  [data-theme="dark"] .events,
+  [data-theme="dark"] .branches,
+  [data-theme="dark"] .news,
+  [data-theme="dark"] .foot { background: var(--surface); color: var(--ink); }
+  [data-theme="dark"] .top-signup-1 form { background: var(--surface-alt); border-color: rgba(255,255,255,0.20); box-shadow: 3px 3px 0 rgba(255,255,255,0.14); }
+  [data-theme="dark"] .top-signup-1 form input { color: var(--ink); }
+  [data-theme="dark"] .top-signup-1 form input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .top-signup-1 .lbl { color: var(--ink); }
+  [data-theme="dark"] .search-input-row,
+  [data-theme="dark"] .search-scope,
+  [data-theme="dark"] .search-suggest { background: var(--surface-alt); color: var(--ink); border-color: var(--line); box-shadow: 4px 4px 0 rgba(255,255,255,0.06); }
+  [data-theme="dark"] .search-input-row input,
+  [data-theme="dark"] .search-scope button { color: var(--ink); background: transparent; }
+  [data-theme="dark"] .search-input-row input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .book,
+  [data-theme="dark"] .event-row,
+  [data-theme="dark"] .branch-tile,
+  [data-theme="dark"] .card-preview,
+  [data-theme="dark"] .cal-card,
+  [data-theme="dark"] .story,
+  [data-theme="dark"] .pillar,
+  [data-theme="dark"] .svc-t1,
+  [data-theme="dark"] .spot-hero,
+  [data-theme="dark"] .news-card-1 { background: var(--surface-alt); color: var(--ink); border-color: var(--line); }
+  [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5 { color: var(--ink); }
+  [data-theme="dark"] p, [data-theme="dark"] .lede { color: var(--ink-muted); }
+  [data-theme="dark"] .btn-ghost { color: var(--ink); border-color: var(--line-strong); }
+  [data-theme="dark"] .btn-ghost:hover { background: rgba(255,255,255,0.06); }
+  [data-theme="dark"] .btn-primary { background: var(--red); color: #fff; }
+  [data-theme="dark"] .btn-accent { background: var(--red); color: #fff; }
+  /* Notice strip already dark */
+  [data-theme="dark"] .strip { background: #0f0f10; border-bottom: 2px solid var(--orange); }
+  [data-theme="dark"] .brand img { filter: none; }  /* logo is already color, keep as-is on dark */
+  [data-theme="dark"] .theme-toggle { color: var(--ink); }
+  [data-theme="dark"] .m-bb { background: #1e1f20; border-top-color: rgba(255,255,255,0.08); }
+  [data-theme="dark"] .m-bb a { color: var(--ink-muted); }
+  [data-theme="dark"] .m-bb a .ic { color: var(--ink); }
+
 </style>
 </head>
 <body>
-
-<!-- Theme toggle -->
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
 <!-- Notice strip -->
 <div class="strip">
@@ -1255,6 +1287,7 @@
     <a href="#">Español</a>
     <a href="#">Accessibility</a>
     <a href="#">Text size ⓐ</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
   </div>
 </div>
 <!-- Top newsletter strip -->
@@ -1279,12 +1312,10 @@
     <a href="#">Services</a>
     <a href="#">Genealogy</a>
     <a href="#">Support</a>
-    <a href="#">My Account</a>
     <a href="#">Community</a>
     <a href="#">Locations</a>
   </nav>
   <div class="header-actions">
-    <button class="btn btn-ghost">Sign In</button>
     <button class="btn btn-accent">Get a Card</button>
   </div>
 </header>

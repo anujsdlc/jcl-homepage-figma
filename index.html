@@ -92,30 +92,32 @@
   }
 
   .notice-bar {
-    background: var(--navy);
+    background: linear-gradient(90deg, #05132e 0%, var(--navy) 55%, #0a3a8e 100%);
     color: #fff;
-    min-height: 44px;
-    padding: 10px 32px;
+    min-height: 56px;
+    padding: 16px 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 24px;
-    font-size: 13px;
+    gap: 28px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.01em;
+    border-bottom: 3px solid var(--orange);
+    position: relative;
   }
   .notice-bar .dot {
-    width: 8px; height: 8px; border-radius: 50%;
+    width: 10px; height: 10px; border-radius: 50%;
     background: #22c55e;
-    box-shadow: 0 0 0 4px rgba(34,197,94,0.22);
+    box-shadow: 0 0 0 5px rgba(34,197,94,0.24);
     flex-shrink: 0;
     animation: notice-pulse 2.4s ease-in-out infinite;
   }
   @keyframes notice-pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(34,197,94,0.22); }
-    50% { box-shadow: 0 0 0 7px rgba(34,197,94,0.08); }
+    0%, 100% { box-shadow: 0 0 0 5px rgba(34,197,94,0.24); }
+    50% { box-shadow: 0 0 0 9px rgba(34,197,94,0.06); }
   }
-  .notice-text { color: #fff; font-size: 13px; letter-spacing: 0.01em; }
+  .notice-text { color: #fff; font-size: 14px; letter-spacing: 0.01em; }
   .notice-text b { font-weight: 700; color: var(--orange); }
   .notice-sep { opacity: 0.35; }
 
@@ -2356,33 +2358,26 @@
   [data-theme="dark"] .footer-links a:hover { color: var(--ink); }
 
   .theme-toggle {
-    position: fixed; top: 12px; right: 12px;
-    z-index: 200;
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0,0,0,0.08);
-    color: #0a0a0a;
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 30px; min-width: 34px;
+    padding: 0 8px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
     cursor: pointer;
-    display: grid; place-items: center;
-    font-size: 18px; line-height: 1;
-    transition: transform 200ms ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-size: 15px; line-height: 1;
+    transition: color 200ms, background 200ms, border-color 200ms;
   }
-  .theme-toggle:hover { transform: rotate(20deg); }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink); }
   [data-theme="dark"] .theme-toggle {
-    background: rgba(30,32,50,0.85);
-    color: #fff;
+    background: var(--surface-alt);
+    color: var(--ink);
     border-color: rgba(255,255,255,0.14);
   }
+  [data-theme="dark"] .theme-toggle:hover { border-color: rgba(255,255,255,0.4); }
 </style>
 </head>
 <body>
-
-<!-- Theme toggle -->
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
 <!-- Desktop bottom subscribe widget -->
 <aside class="btm-signup" id="btmSignup" aria-label="Subscribe to updates">
@@ -2651,6 +2646,7 @@
         <button class="lang-btn" data-lang="es">ES</button>
       </div>
     </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
   </div>
 </nav>
 <!-- ================= Header ================= -->
@@ -2735,7 +2731,6 @@
   </div>
   <div class="search-backdrop" id="searchBackdrop"></div>
   <div class="header-cell get-card" data-en="Get Your Library Card" data-es="Obtén Tu Tarjeta">Get Your Library Card</div>
-  <div class="header-cell my-account" data-en="My Account" data-es="Mi Cuenta">My Account</div>
 </header>
 <!-- ================= Notice bar ================= -->
 <div class="notice-bar" id="noticeBar">

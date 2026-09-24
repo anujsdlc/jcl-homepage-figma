@@ -174,11 +174,12 @@
 
   /* Row 3 · Notice */
   .notice {
-    background: var(--navy);
-    color: var(--surface);
-    padding: 12px 32px;
-    font-size: 13px;
+    background: linear-gradient(90deg,#05132e 0%, var(--navy) 55%, #0a3a8e 100%);
+    color: #fff;
+    padding: 16px 32px;
+    font-size: 14px;
     font-weight: 500;
+    border-bottom: 3px solid var(--orange);
     display: flex; justify-content: center; align-items: center;
     gap: 20px; flex-wrap: wrap;
     text-align: center;
@@ -1408,54 +1409,86 @@
     .m-bb-2 { display: grid; }
     body { padding-bottom: 96px; }
   }
-
-  /* ============ Dark theme tokens ============ */
-  [data-theme="dark"] {
-    --ink: #f0f0f5;
-    --ink-muted: #b0b0b8;
-    --ink-soft: #8a8a92;
-    --surface: #0e1220;
-    --surface-alt: #1a1d2e;
-    --surface-warm: #171827;
-    --line: rgba(255,255,255,0.08);
-    --line-strong: rgba(255,255,255,0.16);
-  }
-  [data-theme="dark"] body {
-    background: var(--surface);
-    color: var(--ink);
-  }
-  [data-theme="dark"] img.logo-invert,
-  [data-theme="dark"] .foot-brand img,
-  [data-theme="dark"] .brand img { filter: brightness(0) invert(1); }
-
-  .theme-toggle {
-    position: fixed; top: 12px; right: 12px;
-    z-index: 200;
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0,0,0,0.08);
-    color: #0a0a0a;
+.theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 28px; min-width: 34px;
+    padding: 0 10px; margin-left: 4px;
+    background: var(--surface); color: var(--navy);
+    border: 2px solid var(--navy);
+    border-radius: 999px;
     cursor: pointer;
-    display: grid; place-items: center;
-    font-size: 18px; line-height: 1;
-    transition: transform 200ms ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: var(--font-brand);
+    font-size: 14px; font-weight: 700; line-height: 1;
+    transition: background 200ms, color 200ms;
   }
-  .theme-toggle:hover { transform: rotate(20deg); }
+  .theme-toggle:hover { background: var(--navy); color: #fff; }
   [data-theme="dark"] .theme-toggle {
-    background: rgba(30,32,50,0.85);
-    color: #fff;
-    border-color: rgba(255,255,255,0.14);
+    background: var(--surface-alt); color: var(--ink);
+    border-color: rgba(255,255,255,0.24);
   }
+
+  /* ============ Dark mode — professional overrides for v2 ============ */
+  [data-theme="dark"] {
+    --ink: #E4E6EB;
+    --ink-muted: #B0B3B8;
+    --ink-soft: #8A8D91;
+    --surface: #18191A;
+    --surface-alt: #242526;
+    --surface-warm: #1E1F20;
+    --line: rgba(255,255,255,0.10);
+    --line-strong: rgba(255,255,255,0.18);
+    color-scheme: dark;
+  }
+  [data-theme="dark"] body { background: var(--surface); color: var(--ink); }
+  [data-theme="dark"] .topbar,
+  [data-theme="dark"] .menu-row,
+  [data-theme="dark"] .search-row,
+  [data-theme="dark"] .top-signup-2,
+  [data-theme="dark"] .hero,
+  [data-theme="dark"] .cal-section,
+  [data-theme="dark"] .card-sect,
+  [data-theme="dark"] .programs,
+  [data-theme="dark"] .stories,
+  [data-theme="dark"] .branches,
+  [data-theme="dark"] .services-2,
+  [data-theme="dark"] .books-section-2,
+  [data-theme="dark"] .svc-section-2,
+  [data-theme="dark"] .section,
+  [data-theme="dark"] .foot,
+  [data-theme="dark"] .footer-2,
+  [data-theme="dark"] .impact-strip,
+  [data-theme="dark"] .explore-strip { background: var(--surface); color: var(--ink); }
+  [data-theme="dark"] .menu-row a { color: var(--ink-muted); }
+  [data-theme="dark"] .search-wrap { background: var(--surface-alt); border-color: var(--line-strong); }
+  [data-theme="dark"] .search-wrap input { color: var(--ink); background: transparent; }
+  [data-theme="dark"] .search-wrap input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .top-signup-2 { background: #2a2a4a; }
+  [data-theme="dark"] .top-signup-2 .lbl { color: var(--ink); }
+  [data-theme="dark"] .top-signup-2 form { background: var(--surface-alt); border-color: rgba(255,255,255,0.24); box-shadow: 3px 3px 0 rgba(255,255,255,0.14); }
+  [data-theme="dark"] .top-signup-2 form input { color: var(--ink); }
+  [data-theme="dark"] .top-signup-2 form input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .book-card-2,
+  [data-theme="dark"] .card-flat,
+  [data-theme="dark"] .prog-card,
+  [data-theme="dark"] .b-card,
+  [data-theme="dark"] .svc-tile-2,
+  [data-theme="dark"] .agenda-item,
+  [data-theme="dark"] .cal-day,
+  [data-theme="dark"] .story-card,
+  [data-theme="dark"] .stat-card,
+  [data-theme="dark"] .spot-card { background: var(--surface-alt); color: var(--ink); border-color: var(--line); }
+  [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5 { color: var(--ink); }
+  [data-theme="dark"] p, [data-theme="dark"] .subline { color: var(--ink-muted); }
+  [data-theme="dark"] .pill-ghost { color: var(--ink); border-color: var(--line-strong); background: transparent; }
+  [data-theme="dark"] .pill-ghost:hover { background: rgba(255,255,255,0.06); }
+  [data-theme="dark"] .notice { background: linear-gradient(90deg,#05132e,var(--navy),#0a3a8e); border-bottom: 3px solid var(--orange); }
+  [data-theme="dark"] .brand-tile img { filter: none; }
+  [data-theme="dark"] .m-bb-2 { background: var(--surface-alt); border-color: rgba(255,255,255,0.14); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+  [data-theme="dark"] .m-bb-2 a { color: var(--ink); }
+
 </style>
 </head>
 <body>
-
-<!-- Theme toggle -->
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
 <!-- Notice -->
 <!-- Sticky top stack: menu row → search row → notice row -->
@@ -1466,7 +1499,6 @@
       <a href="#">Services</a>
       <a href="#">Genealogy</a>
       <a href="#">Support Your Library</a>
-      <a href="#">My Account</a>
       <a href="#">Community Resources</a>
       <a href="#">Locations</a>
     </div>
@@ -1479,6 +1511,7 @@
         <span class="on">EN</span>
         <span>ES</span>
       </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
     </div>
   </nav>
 
@@ -1492,7 +1525,6 @@
       <input type="text" placeholder="Search books, events, resources, or ask us anything…">
       <button class="s-go">Search</button>
     </div>
-    <button class="pill pill-ghost h-mya">My Account</button>
     <button class="pill pill-primary h-card">Get a Card</button>
   </header>
 

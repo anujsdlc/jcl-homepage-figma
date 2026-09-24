@@ -54,13 +54,14 @@
 
   /* ============ Notice + newsletter strips ============ */
   .b-notice {
-    background: var(--navy);
+    background: linear-gradient(90deg,#05132e 0%, var(--navy) 55%, #0a3a8e 100%);
     color: #fff;
-    padding: 12px 32px;
+    padding: 16px 32px;
+    border-bottom: 3px solid var(--orange);
     display: flex; align-items: center; justify-content: center;
     gap: 20px; flex-wrap: wrap;
     font-family: var(--font-display);
-    font-size: 13px;
+    font-size: 14px;
   }
   .b-notice .dot {
     width: 8px; height: 8px; border-radius: 50%;
@@ -1273,54 +1274,80 @@
     .m-bb-4 { display: grid; }
     body { padding-bottom: 96px; }
   }
-
-  /* ============ Dark theme tokens ============ */
-  [data-theme="dark"] {
-    --ink: #f0f0f5;
-    --ink-muted: #b0b0b8;
-    --ink-soft: #8a8a92;
-    --surface: #0e1220;
-    --surface-alt: #1a1d2e;
-    --surface-warm: #171827;
-    --line: rgba(255,255,255,0.08);
-    --line-strong: rgba(255,255,255,0.16);
+.theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 16px; line-height: 1;
+    transition: background 200ms, border-color 200ms;
   }
-  [data-theme="dark"] body {
-    background: var(--surface);
+  .theme-toggle:hover { background: var(--surface-alt); border-color: var(--ink); }
+  [data-theme="dark"] .theme-toggle {
+    border-color: rgba(255,255,255,0.16);
     color: var(--ink);
   }
-  [data-theme="dark"] img.logo-invert,
-  [data-theme="dark"] .foot-brand img,
-  [data-theme="dark"] .brand img { filter: brightness(0) invert(1); }
+  [data-theme="dark"] .theme-toggle:hover { background: rgba(255,255,255,0.06); }
 
-  .theme-toggle {
-    position: fixed; top: 12px; right: 12px;
-    z-index: 200;
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0,0,0,0.08);
-    color: #0a0a0a;
-    cursor: pointer;
-    display: grid; place-items: center;
-    font-size: 18px; line-height: 1;
-    transition: transform 200ms ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  /* ============ Dark mode — professional overrides for v4 ============ */
+  [data-theme="dark"] {
+    --ink: #E4E6EB;
+    --ink-muted: #B0B3B8;
+    --ink-soft: #8A8D91;
+    --surface: #18191A;
+    --surface-alt: #242526;
+    --surface-warm: #1E1F20;
+    --line: rgba(255,255,255,0.10);
+    --line-strong: rgba(255,255,255,0.18);
+    color-scheme: dark;
   }
-  .theme-toggle:hover { transform: rotate(20deg); }
-  [data-theme="dark"] .theme-toggle {
-    background: rgba(30,32,50,0.85);
-    color: #fff;
-    border-color: rgba(255,255,255,0.14);
-  }
+  [data-theme="dark"] body { background: var(--surface); color: var(--ink); }
+  [data-theme="dark"] .top { background: rgba(24,25,26,0.85); border-bottom-color: var(--line); }
+  [data-theme="dark"] .b-signup { background: #2a2a4a; }
+  [data-theme="dark"] .b-signup .lbl { color: var(--ink); }
+  [data-theme="dark"] .b-signup form { background: var(--surface-alt); box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+  [data-theme="dark"] .b-signup form input { color: var(--ink); background: transparent; }
+  [data-theme="dark"] .b-signup form input::placeholder { color: var(--ink-soft); }
+  [data-theme="dark"] .mega { background: var(--surface-alt); color: var(--ink); border-color: var(--line); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+  [data-theme="dark"] .mega-hd { color: var(--ink); border-bottom-color: var(--line); }
+  [data-theme="dark"] .mega-item { color: var(--ink); }
+  [data-theme="dark"] .mega-item:hover { background: rgba(255,255,255,0.06); }
+  [data-theme="dark"] .mega-item .t { color: var(--ink); }
+  [data-theme="dark"] .mega-item .s { color: var(--ink-muted); }
+  [data-theme="dark"] .top-nav .nav-item > span { color: var(--ink); }
+  [data-theme="dark"] .rail-left, [data-theme="dark"] .rail-right { color: var(--ink); }
+  [data-theme="dark"] .rail-title { color: var(--ink-soft); }
+  [data-theme="dark"] .rail-link { color: var(--ink-muted); }
+  [data-theme="dark"] .rail-link:hover { background: rgba(255,255,255,0.06); color: var(--ink); }
+  [data-theme="dark"] .rail-stat:hover { background: rgba(255,255,255,0.06); }
+  [data-theme="dark"] .rail-stat .ti { color: var(--ink); }
+  [data-theme="dark"] .rail-open .who strong { color: var(--ink); }
+  [data-theme="dark"] .hero,
+  [data-theme="dark"] .qa-card,
+  [data-theme="dark"] .b-card,
+  [data-theme="dark"] .newsletter-card,
+  [data-theme="dark"] .b-event,
+  [data-theme="dark"] .b-book,
+  [data-theme="dark"] .b-shelf,
+  [data-theme="dark"] .b-branch,
+  [data-theme="dark"] .b-news,
+  [data-theme="dark"] .b-svc { background: var(--surface-alt); color: var(--ink); border-color: var(--line); }
+  [data-theme="dark"] .hero { background: linear-gradient(180deg, rgba(24,25,26,0.6), var(--surface-alt) 60%, var(--surface-alt)), url('assets/hero-bookshelf.png') center/cover; }
+  [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5 { color: var(--ink); }
+  [data-theme="dark"] p, [data-theme="dark"] .hero-sub { color: var(--ink-muted); }
+  [data-theme="dark"] .hero-kicker { background: rgba(255,255,255,0.12); color: var(--ink); }
+  [data-theme="dark"] .foot { background: #0f0f10; color: var(--ink); }
+  [data-theme="dark"] .brand img { filter: none; }
+  [data-theme="dark"] .btn-fill { background: var(--red); color: #fff; }
+  [data-theme="dark"] .m-bb-4 { background: rgba(24,25,26,0.9); border-color: rgba(255,255,255,0.14); }
+  [data-theme="dark"] .m-bb-4 a { color: var(--ink-muted); }
+
 </style>
 </head>
 <body>
-
-<!-- Theme toggle -->
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
 <!-- Notice bar -->
 <div class="b-notice">
@@ -1431,7 +1458,7 @@
     </nav>
 
     <div class="top-actions">
-      <button class="btn btn-ghost">Sign In</button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
       <button class="btn btn-fill">Get a Card</button>
     </div>
   </div>
@@ -1513,8 +1540,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
           </div>
           <div>
-            <div class="qa-title">My account</div>
-            <p>Renew items, place holds, pay fines, see history.</p>
+            <div class="qa-title">Download the app</div>
+            <p>Read, reserve, renew from your phone — iOS and Android.</p>
           </div>
         </a>
         <a class="qa-card qa-c">
