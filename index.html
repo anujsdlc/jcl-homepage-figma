@@ -2651,6 +2651,52 @@
   [data-theme="dark"] .top-signup form button { background: var(--ink); color: var(--surface); }
   [data-theme="dark"] .top-signup form button:hover { background: var(--ink-muted); }
 
+
+  /* ============ index dark — round 4: agenda pane grey hierarchy ============ */
+  [data-theme="dark"] .agenda-pane { color: var(--ink); }
+  [data-theme="dark"] .agenda-hd { border-bottom-color: var(--line); }
+  [data-theme="dark"] .agenda-day-num { color: var(--ink); }        /* was red — using primary grey here */
+  [data-theme="dark"] .agenda-day-label { color: var(--ink); }
+  [data-theme="dark"] .agenda-day-meta { color: var(--ink-muted); }
+
+  [data-theme="dark"] .agenda-row {
+    background: var(--surface-alt);
+    border-color: var(--line);
+    color: var(--ink);
+  }
+  [data-theme="dark"] .agenda-row:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: var(--line-strong);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  }
+  [data-theme="dark"] .agenda-row.featured {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.16);
+  }
+
+  [data-theme="dark"] .agenda-time {
+    background: var(--surface);
+    border-color: var(--line-strong);
+    color: var(--ink);
+  }
+  [data-theme="dark"] .agenda-time .ah { color: var(--ink); }
+  [data-theme="dark"] .agenda-time .ap { color: var(--ink-soft); }
+  [data-theme="dark"] .agenda-row.featured .agenda-time { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.16); color: var(--ink); }
+  [data-theme="dark"] .agenda-row.featured .agenda-time .ah { color: var(--ink); }
+  [data-theme="dark"] .agenda-row.featured .agenda-time .ap { color: var(--ink-muted); }
+
+  [data-theme="dark"] .agenda-tag.tag-navy   { background: rgba(255,255,255,0.10); color: var(--ink); }
+  [data-theme="dark"] .agenda-tag.tag-red    { background: rgba(255,255,255,0.08); color: var(--ink-muted); }
+  [data-theme="dark"] .agenda-tag.tag-orange { background: rgba(255,255,255,0.08); color: var(--ink-muted); }
+  [data-theme="dark"] .agenda-tag.tag-ink    { background: rgba(255,255,255,0.06); color: var(--ink-muted); }
+
+  [data-theme="dark"] .agenda-title { color: var(--ink); }
+  [data-theme="dark"] .agenda-meta { color: var(--ink-soft); }
+  [data-theme="dark"] .agenda-arrow { color: var(--ink-soft); }
+  [data-theme="dark"] .agenda-row:hover .agenda-arrow { color: var(--ink); }
+  [data-theme="dark"] .agenda-viewall { color: var(--ink); border-color: var(--line-strong); }
+  [data-theme="dark"] .agenda-viewall:hover { background: rgba(255,255,255,0.06); border-color: var(--ink); }
+
 </style>
 </head>
 <body>
