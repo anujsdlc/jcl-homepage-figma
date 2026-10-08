@@ -3,6 +3,22 @@
 Resume-from-cold brief. Read this and the three memory files in
 `~/.claude/projects/-Users-anuj-Desktop-JCL/memory/` before touching the code.
 
+## Quick resume checklist
+
+1. `git fetch && git status` — confirm clean, in sync with `origin/main`.
+2. Skim this file, then `MEMORY.md` + the three memory files for voice/token/rules.
+3. Open `preview.html` → links to all five pages (toggle dark mode top-right next to lang switch to verify theme polish is intact).
+4. Deploy flow at the bottom of this file is unchanged.
+
+## Session log (most recent first)
+
+- **2026-10-08** — Pull/sync check only, no code changes.
+- **2026-10-06** — Added `CONTEXT.md`, pull/sync check.
+- **2026-09-24** — Mobile right-side white-gap fix (`overflow-x: hidden` guard on every page). Dark-mode polish rounds 3 & 4: branch chips contrast on "Explore Our Libraries", killed red in weekly digest widget, agenda pane uses grey hierarchy.
+- **2026-09-23** — v4 (and v3/index) dark round 2: white logo in dark, killed remaining class-level navy text, fixed hero-search pill shape. Strict grey text hierarchy enforced across all pages in dark.
+- **2026-09-22** — Theme toggle moved inline next to language switch (no longer floating). My Account removed from every header/nav. Notice bar emphasised. Comprehensive dark overrides per variation. Mobile bottom bar added to every page.
+- **Earlier** — See git log; CONTEXT.md was seeded on 2026-10-06.
+
 ## What this is
 
 A static-HTML design study for Jefferson County Library (Missouri).
@@ -99,6 +115,51 @@ vercel deploy --prod --yes
 ```
 
 The alias `jcl-homepage-teal.vercel.app` automatically points to the latest prod deployment.
+
+## Command cheat-sheet
+
+```sh
+# where
+cd ~/Desktop/JCL
+
+# resume
+git fetch origin && git status
+git pull origin main                 # if behind
+open preview.html                    # or open index.html
+
+# dev loop
+# edit files directly; refresh browser (no build step)
+
+# ship
+git add -A
+git commit -m "..."                  # include Co-Authored-By tag
+git push origin main
+vercel deploy --prod --yes           # alias auto-points at latest prod
+
+# diagnostics
+grep -n "font-size: 1[01]px" *.html   # confirm 12px floor still holds
+grep -n "color: var(--navy)" *.html   # find any new navy-text usages before shipping dark
+```
+
+## Where things live
+
+```
+~/Desktop/JCL/
+├─ CONTEXT.md                  # this file
+├─ index.html                  # Original
+├─ variation-1.html            # The Stacks (editorial)
+├─ variation-2.html            # The Commons (warm)
+├─ variation-3.html            # Bento — events rail
+├─ variation-4.html            # Bento — stats rail
+├─ preview.html                # picker
+└─ assets/                     # logos, book covers, service icons, SVGs
+
+~/.claude/projects/-Users-anuj-Desktop-JCL/memory/
+├─ MEMORY.md                   # index of memories
+├─ feedback_design_tokens.md   # locked palette + fonts
+├─ feedback_v1_tone.md         # v1 copy voice is the reference
+└─ project_jcl_redesign.md     # project overview
+```
 
 ## Known not-done / scope boundaries
 
